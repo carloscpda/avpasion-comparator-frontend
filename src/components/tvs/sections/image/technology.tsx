@@ -22,7 +22,6 @@ const ImageTechnologySection = () => {
     specs.push({
       type: "row",
       label: "Tecnología de panel",
-
       value: {
         type: "text",
         value: image?.technology?.panel.type || "-",

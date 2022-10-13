@@ -38,6 +38,7 @@ import {
   IoSettingsOutline,
   IoWifiOutline,
 } from "react-icons/io5";
+import HybridTvSection from "../components/tvs/sections/connections/hybrid-tv";
 
 export default function TvPage({ data }: PageProps<Queries.TvPageQuery>) {
   const { strapiTv, allStrapiTv } = data;
@@ -85,20 +86,8 @@ export default function TvPage({ data }: PageProps<Queries.TvPageQuery>) {
             icon={IoWifiOutline}
             score={strapiTv?.connections?.score || 0}
           >
-            <Specs
-              title="Televisión híbrida"
-              specs={[
-                {
-                  label: "HbbTV",
-                  type: "row",
-                  value: {
-                    type: "bool",
-                    value: !!strapiTv?.connections?.hbbTV,
-                  },
-                },
-              ]}
-            />
             <DVBSection />
+            <HybridTvSection />
             <ConnectionsSection />
             <WirelessConnectionsSection />
             <ExtraFeaturesSection />
