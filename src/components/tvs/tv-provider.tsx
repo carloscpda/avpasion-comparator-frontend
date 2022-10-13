@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 
-const TvContext = React.createContext<Queries.TvPageQuery["strapiTv"] | null>(
-  null
-);
+type TvProviderData = { fullName: string } & Queries.TvPageQuery["strapiTv"];
+
+const TvContext = React.createContext<TvProviderData | null>(null);
 
 const TvProvider = ({
   children,
@@ -11,7 +11,13 @@ const TvProvider = ({
   children: React.ReactNode;
   value: Queries.TvPageQuery["strapiTv"];
 }) => {
-  return <TvContext.Provider value={value}>{children}</TvContext.Provider>;
+  const fullName = `${value?.general?.brand?.serie?.brand?.name} ${value?.name}`;
+
+  return (
+    <TvContext.Provider value={value ? { ...value, fullName } : null}>
+      {children}
+    </TvContext.Provider>
+  );
 };
 
 export const useTv = () => {

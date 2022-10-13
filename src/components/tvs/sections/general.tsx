@@ -1,10 +1,13 @@
 import {
   Box,
   Flex,
+  Grid,
+  GridItem,
   Heading,
   List,
   ListIcon,
   ListItem,
+  useBreakpoint,
   VStack,
 } from "@chakra-ui/react";
 import {
@@ -20,7 +23,10 @@ import Score from "../score";
 import { useTv } from "../tv-provider";
 
 const GeneralSection = () => {
-  const { design, name, general, image, sound, system, connections } = useTv();
+  const { design, fullName, general, image, sound, system, connections } =
+    useTv();
+
+  const bp = useBreakpoint();
 
   const { strapiScoreWeighting: scoreWeighting } =
     useStaticQuery<Queries.ScoreWeightingQuery>(graphql`
@@ -42,48 +48,80 @@ const GeneralSection = () => {
     (scoreWeighting?.design || 0) * (design?.score || 0) +
     (scoreWeighting?.system || 0) * (system?.score || 0);
 
-  const pic = design?.pictures?.[0]?.localFile
-    ? getImage(design.pictures[0].localFile)
-    : null;
+  const pic =
+    design?.pictures?.[0]?.localFile?.childImageSharp?.gatsbyImageData !== null
+      ? // @ts-ignore
+        getImage(design.pictures[0].localFile)
+      : null;
 
   return (
-    <Flex my="16" alignItems="flex-start" gap="8">
-      <Box
-        borderRadius="16"
-        border="1px"
-        borderColor="gray.100"
-        overflow="hidden"
+    <Grid
+      mb="16"
+      mt={[8, 16]}
+      gap="8"
+      gridTemplateColumns={["repeat(2, minmax(0, 1fr))"]}
+      gridTemplateRows={{ md: "auto 1fr" }}
+      gridRowGap={{ md: 0 }}
+    >
+      <GridItem
+        gridColumn={{ base: "1 / span 2", md: "2" }}
+        gridRow={{ md: "1" }}
       >
-        {!!image && <GatsbyImage image={pic} alt={name || ""} />}
-      </Box>
-      <Box>
-        <Heading mb="4">
-          {general?.brand?.serie?.brand?.name} {name}
-        </Heading>
-        <List>
-          <ListItem fontSize="xl">
-            <ListIcon as={IoCalendarClearOutline} />
-            {general?.releaseDate?.split("-")[0]}
-          </ListItem>
-          <ListItem fontSize="xl">
-            <ListIcon as={IoTvOutline} />
-            {image?.resolution?.resolution?.replace(":", " x ")} ·{" "}
-            {image?.resolution?.alternativeName}
-          </ListItem>
-          <ListItem fontSize="xl">
-            <ListIcon as={IoResize} />
-            {general?.screenSize} pulgadas
-          </ListItem>
-          <ListItem fontSize="xl">
-            <ListIcon as={IoCubeOutline} />
-            {image?.technology?.image?.name}
-          </ListItem>
-        </List>
-      </Box>
-      <VStack justifyContent="center" flex="1">
-        <Score value={score} size={160} />
-      </VStack>
-    </Flex>
+        <Heading mb="4">{fullName}</Heading>
+      </GridItem>
+      <GridItem
+        gridColumn={{ base: "1 / span 2", md: "1" }}
+        gridRow={{ md: "1 / span 2" }}
+      >
+        <Box
+          borderRadius="16"
+          border="2px"
+          borderColor="gray.100"
+          overflow="hidden"
+        >
+          {!!pic && <GatsbyImage image={pic} alt={fullName} />}
+        </Box>
+      </GridItem>
+      <GridItem gridColumn={{ md: "2" }}>
+        <Box>
+          <List>
+            {general?.releaseDate && (
+              <ListItem fontSize="xl">
+                <ListIcon as={IoCalendarClearOutline} />
+                {general.releaseDate.split("-")[0]}
+              </ListItem>
+            )}
+            {image?.resolution && (
+              <ListItem fontSize="xl">
+                <ListIcon as={IoTvOutline} />
+                {`${image.resolution.resolution?.replace(":", " x ")} · ${
+                  image.resolution.alternativeName
+                }`}
+              </ListItem>
+            )}
+            {general?.screenSize && (
+              <ListItem fontSize="xl">
+                <ListIcon as={IoResize} />
+                {`${general.screenSize} pumdadas`}
+              </ListItem>
+            )}
+            {image?.technology?.image?.name && (
+              <ListItem fontSize="xl">
+                <ListIcon as={IoCubeOutline} />
+                {image.technology.image.name}
+              </ListItem>
+            )}
+          </List>
+        </Box>
+      </GridItem>
+      <GridItem
+        justifySelf="flex-end"
+        gridColumn={{ md: "3" }}
+        gridRow={{ md: "1 / span 2" }}
+      >
+        <Score value={score} size={bp === "base" ? 100 : 160} />
+      </GridItem>
+    </Grid>
   );
 };
 

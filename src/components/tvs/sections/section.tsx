@@ -17,13 +17,7 @@ const Section = ({ title, score, children, id, icon }: SectionProps) => {
 
   return (
     <Box id={id} pt="20">
-      <Box
-        as="section"
-        border="1px"
-        borderColor="gray.100"
-        borderRadius="16"
-        overflow="hidden"
-      >
+      <Box as="section" borderRadius="16" overflow="hidden">
         <Box
           display="flex"
           p="4"
@@ -46,7 +40,7 @@ const Section = ({ title, score, children, id, icon }: SectionProps) => {
           </Box>
           <Score value={score} />
         </Box>
-        <Box p="4">{children}</Box>
+        <Box py="4">{children}</Box>
       </Box>
     </Box>
   );

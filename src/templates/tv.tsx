@@ -46,7 +46,13 @@ export default function TvPage({ data }: PageProps<Queries.TvPageQuery>) {
     <Layout>
       <TvProvider value={strapiTv}>
         <Navbar />
-        <Flex as="main" direction="column" maxW={{ xl: "1200px" }} m="0 auto">
+        <Flex
+          as="main"
+          direction="column"
+          maxW={{ lg: "62em" }}
+          my={0}
+          mx={[4, 8, 8, "auto"]}
+        >
           <GeneralSection />
           <SerieSection tvs={allStrapiTv} />
           <Section

@@ -46,10 +46,15 @@ const Specs = ({ title, specs }: SpecsProps) => {
 
   return (
     <TableContainer mb="8" whiteSpace="normal">
-      <Table variant="simple" size="sm" colorScheme="gray" width="xl">
+      <Table
+        variant="simple"
+        size="sm"
+        colorScheme="gray"
+        width={["100%", "xl"]}
+      >
         <Thead>
           <Tr>
-            <Th>
+            <Th paddingStart="0">
               <Text as="h3" size="sm">
                 {title.toUpperCase()}
               </Text>
@@ -60,8 +65,8 @@ const Specs = ({ title, specs }: SpecsProps) => {
         <Tbody>
           {specs.map((spec) => (
             <Tr>
-              <Td>{spec.label}</Td>
-              <Td isNumeric>
+              <Td paddingStart="0">{spec.label}</Td>
+              <Td paddingEnd="0" isNumeric>
                 {spec.type === "row" && <Value {...spec.value} />}
                 {spec.type === "list" && (
                   <List spacing="1">

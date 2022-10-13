@@ -6,6 +6,9 @@ module.exports = {
       processor: "@graphql-eslint/graphql",
       parser: "@typescript-eslint/parser",
       extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+      rules: {
+        "@typescript-eslint/ban-ts-comment": "false",
+      },
       env: {
         es6: true,
       },

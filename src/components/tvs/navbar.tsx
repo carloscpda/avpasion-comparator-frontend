@@ -4,10 +4,11 @@ import React from "react";
 import { useTv } from "./tv-provider";
 
 const Navbar = () => {
-  const { name } = useTv();
+  const { fullName } = useTv();
 
   return (
     <Flex
+      display={{ base: "none", md: "flex" }}
       position="sticky"
       top="0"
       borderBottom="1px"
@@ -22,7 +23,7 @@ const Navbar = () => {
       zIndex="2"
     >
       <Heading as="h1" size="md">
-        {name}
+        {fullName}
       </Heading>
       <HStack spacing="3">
         <Button size="sm" variant="link" onClick={() => navigate("#image")}>
