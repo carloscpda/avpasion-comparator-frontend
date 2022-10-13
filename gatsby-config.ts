@@ -1,5 +1,6 @@
 import type { GatsbyConfig } from "gatsby";
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
 });
@@ -7,8 +8,133 @@ require("dotenv").config({
 const strapiConfig = {
   apiURL: process.env.STRAPI_API_URL,
   accessToken: process.env.STRAPI_TOKEN,
-  collectionTypes: ["tv"],
-  singleTypes: [],
+  collectionTypes: [
+    {
+      singularName: "tv",
+      queryParams: {
+        populate: {
+          general: {
+            populate: {
+              brand: {
+                populate: {
+                  serie: {
+                    populate: {
+                      brand: "*",
+                    },
+                  },
+                },
+              },
+            },
+          },
+          image: {
+            populate: {
+              resolution: "*",
+              technology: {
+                populate: {
+                  image: "*",
+                  panel: "*",
+                  subpixel: "*",
+                  panelManufacturer: "*",
+                },
+              },
+              hdr: {
+                populate: {
+                  technologies: "*",
+                },
+              },
+              backlightAndContrast: {
+                pupulate: {
+                  backlightType: "*",
+                },
+              },
+              colorimetry: {
+                populate: {
+                  technologies: "*",
+                  colorDepth: "*",
+                },
+              },
+              crystal: "*",
+              processing: {
+                populate: {
+                  processor: "*",
+                },
+              },
+              responseTimes: {
+                populate: {
+                  gaming: "*",
+                },
+              },
+            },
+          },
+          sound: {
+            populate: {
+              speakers: "*",
+              subwoofers: "*",
+              technologies: "*",
+            },
+          },
+          connections: {
+            populate: {
+              dvb: "*",
+              cable: {
+                populate: {
+                  type: {
+                    populate: {
+                      connection: "*",
+                    },
+                  },
+                  connectionTechnologies: "*",
+                },
+              },
+              wireless: {
+                populate: {
+                  type: "*",
+                },
+              },
+              extraFeatures: "*",
+            },
+          },
+          design: {
+            populate: {
+              dimensionsWithStand: "*",
+              dimensionsWithoutStand: "*",
+              screenShape: "*",
+              colors: "*",
+              pictures: "*",
+              vesa: "*",
+            },
+          },
+          system: {
+            populate: {
+              operatingSystem: {
+                populate: {
+                  operatingSystem: "*",
+                },
+              },
+              voiceAssistants: "*",
+              hardware: {
+                populate: {
+                  soc: "*",
+                },
+              },
+              consumption: "*",
+            },
+          },
+          reviews: {
+            populate: {
+              reviews: "*",
+              comparatives: "*",
+            },
+          },
+        },
+      },
+    },
+  ],
+  singleTypes: [
+    {
+      singularName: "score-weighting",
+    },
+  ],
 };
 
 const config: GatsbyConfig = {
@@ -49,6 +175,21 @@ const config: GatsbyConfig = {
     {
       resolve: `gatsby-source-strapi`,
       options: strapiConfig,
+    },
+    {
+      resolve: "@chakra-ui/gatsby-plugin",
+      options: {
+        /**
+         * @property {boolean} [resetCSS=true]
+         * if false, this plugin will not use `<CSSReset />
+         */
+        resetCSS: true,
+        /**
+         * @property {boolean} [isUsingColorMode=true]
+         * if false, this plugin will not use <ColorModeProvider />
+         */
+        isUsingColorMode: true,
+      },
     },
   ],
 };
