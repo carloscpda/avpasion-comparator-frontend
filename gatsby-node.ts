@@ -46,9 +46,9 @@ exports.createPages = async ({
     if (tv.node.slug) {
       createPage({
         path: `/tv/${tv.node.slug}`,
-        component: tvComparatorTemplate,
+        component: tvTemplate,
         context: {
-          slugs: [tv.node.slug],
+          slug: tv.node.slug,
           serieId: tv.node.general?.brand?.serie?.id,
         },
       });
