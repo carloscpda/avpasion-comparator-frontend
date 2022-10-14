@@ -1,46 +1,56 @@
 import React from "react";
-import { useTv } from "../../tv-provider";
+import { useTvs } from "../../tvs-provider";
+import { buildTextValues } from "../specs/helpers";
 import Specs, { SpecsProps } from "../specs/specs";
 
 const ResponseTimesSection = () => {
-  const { image } = useTv();
+  const tvs = useTvs();
 
-  const specs: SpecsProps["specs"] = [];
+  const specs: SpecsProps["data"] = [];
 
-  if (image?.responseTimes?.inputLag60) {
-    specs.push({
-      type: "row",
-      label: "Input lag (60Hz)",
-      value: {
-        type: "text",
-        value: `${image?.responseTimes?.inputLag60} ms`,
-      },
-    });
-  }
+  specs.push({
+    type: "row",
+    label: "Input lag (60Hz)",
+    value: buildTextValues(tvs, ({ image }) => {
+      const inputLag60 = image?.responseTimes?.inputLag60;
+      return inputLag60 ? `${inputLag60} ms` : null;
+    }),
+  });
 
-  if (image?.responseTimes?.inputLag120) {
-    specs.push({
-      type: "row",
-      label: "Input lag (120Hz)",
-      value: {
-        type: "text",
-        value: `${image?.responseTimes?.inputLag120} ms`,
-      },
-    });
-  }
+  specs.push({
+    type: "row",
+    label: "Input lag (120Hz)",
+    value: buildTextValues(tvs, ({ image }) => {
+      const inputLag120 = image?.responseTimes?.inputLag120;
+      return inputLag120 ? `${inputLag120} ms` : null;
+    }),
+  });
 
-  if (image?.responseTimes?.gaming?.length) {
-    specs.push({
-      type: "list",
-      label: "Gaming",
-      value: image.responseTimes.gaming.map((tech) => ({
-        type: "text",
-        value: tech?.name || "",
-      })),
-    });
-  }
+  specs.push({
+    type: "row",
+    label: "Input lag (60Hz)",
+    value: buildTextValues(tvs, ({ image }) => {
+      const inputLag60 = image?.responseTimes?.inputLag60;
+      return inputLag60 ? `${inputLag60} ms` : null;
+    }),
+  });
 
-  return <Specs title="Tiempos de respuesta y gaming" specs={specs} />;
+  specs.push({
+    type: "list",
+    label: "Gaming",
+    value: tvs.reduce(
+      (acc, tv) => ({
+        ...acc,
+        [tv.slug as string]: tv?.image?.responseTimes?.gaming?.map((tech) => ({
+          type: "text",
+          value: tech?.name,
+        })),
+      }),
+      {}
+    ),
+  });
+
+  return <Specs title="Tiempos de respuesta y gaming" data={specs} />;
 };
 
 export default ResponseTimesSection;

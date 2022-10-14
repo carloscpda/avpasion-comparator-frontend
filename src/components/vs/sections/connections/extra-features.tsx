@@ -1,27 +1,28 @@
 import React from "react";
-import { useTv } from "../../tv-provider";
+import { useTvs } from "../../tvs-provider";
 import Specs, { SpecsProps } from "../specs/specs";
 
 const ExtraFeaturesSection = () => {
-  const { connections } = useTv();
+  const tvs = useTvs();
 
-  const specs: SpecsProps["specs"] = [];
+  const specs: SpecsProps["data"] = [];
 
-  if (connections?.extraFeatures) {
-    connections.extraFeatures.forEach((feature) =>
-      specs.push({
-        type: "row",
-        label: feature?.name || "",
-        value: {
+  specs.push({
+    type: "list",
+    label: "Funcionalidades",
+    value: tvs.reduce(
+      (acc, tv) => ({
+        ...acc,
+        [tv.slug as string]: tv.connections?.extraFeatures?.map((feature) => ({
           type: "text",
-          value: feature?.description || "",
-        },
-      })
-    );
+          value: feature?.name,
+        })),
+      }),
+      {}
+    ),
+  });
 
-    return <Specs title="Otras funcionalidades" specs={specs} />;
-  }
-  return null;
+  return <Specs title="Otras funcionalidades" data={specs} />;
 };
 
 export default ExtraFeaturesSection;

@@ -1,6 +1,6 @@
 import { Box, Heading, Wrap } from "@chakra-ui/react";
 import React from "react";
-import { useTv } from "../../tv-provider";
+import { useTvs } from "../../tvs-provider";
 import SerieTv from "./serie-tv";
 
 type SerieSectionProps = {

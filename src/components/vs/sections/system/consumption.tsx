@@ -1,64 +1,56 @@
 import React from "react";
-import { useTv } from "../../tv-provider";
+import { useTvs } from "../../tvs-provider";
+import { buildTextValues } from "../specs/helpers";
 import Specs, { SpecsProps } from "../specs/specs";
 
 const ConsumptionSection = () => {
-  const { system } = useTv();
+  const tvs = useTvs();
 
-  const specs: SpecsProps["specs"] = [];
+  const specs: SpecsProps["data"] = [];
 
-  if (system?.consumption?.energyEfficiency) {
-    specs.push({
-      type: "row",
-      label: "Eficiencia energética",
-      value: {
-        type: "energy-efficiency",
-        letter: system.consumption.energyEfficiency as
-          | "A"
-          | "B"
-          | "C"
-          | "D"
-          | "E"
-          | "F"
-          | "G",
-      },
-    });
-  }
+  specs.push({
+    type: "row",
+    label: "Eficiencia energética",
+    value: tvs.reduce(
+      (acc, tv) => ({
+        ...acc,
+        [tv.slug as string]: {
+          type: "energy-efficiency",
+          letter: tv.system?.consumption?.energyEfficiency,
+        },
+      }),
+      {}
+    ),
+  });
 
-  if (system?.consumption?.averageConsumption) {
-    specs.push({
-      type: "row",
-      label: "Consumo medio",
-      value: {
-        type: "text",
-        value: `${system.consumption.averageConsumption} W`,
-      },
-    });
-  }
+  specs.push({
+    type: "row",
+    label: "Consumo medio",
+    value: buildTextValues(tvs, (tv) => {
+      const averageConsumption = tv?.system?.consumption?.averageConsumption;
+      return averageConsumption ? `${averageConsumption} W` : null;
+    }),
+  });
 
-  if (system?.consumption?.consumption) {
-    specs.push({
-      type: "row",
-      label: "Consumo máximo",
-      value: {
-        type: "text",
-        value: `${system.consumption.consumption} W`,
-      },
-    });
-  }
+  specs.push({
+    type: "row",
+    label: "Consumo máximo",
+    value: buildTextValues(tvs, (tv) => {
+      const consumption = tv?.system?.consumption?.consumption;
+      return consumption ? `${consumption} W` : null;
+    }),
+  });
 
-  if (system?.consumption?.standbyConsumption) {
-    specs.push({
-      type: "row",
-      label: "Consumo stand-by",
-      value: {
-        type: "text",
-        value: `${system.consumption.standbyConsumption} W`,
-      },
-    });
-  }
+  specs.push({
+    type: "row",
+    label: "Consumo stand-by",
+    value: buildTextValues(tvs, (tv) => {
+      const standbyConsumption = tv?.system?.consumption?.standbyConsumption;
+      return standbyConsumption ? `${standbyConsumption} W` : null;
+    }),
+  });
 
-  return <Specs title="Consumo" specs={specs} />;
+  return <Specs title="Consumo" data={specs} />;
 };
 
 export default ConsumptionSection;

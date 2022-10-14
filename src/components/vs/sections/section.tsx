@@ -1,25 +1,31 @@
-import { Box, Heading, Icon } from "@chakra-ui/react";
+import { Box, Grid, GridItem, Heading, Icon } from "@chakra-ui/react";
 import React from "react";
 import { IconType } from "react-icons";
 import getColor from "../get-color";
 import Score from "../score";
+import { TV, useTvs } from "../tvs-provider";
 
 type SectionProps = {
   title: string;
   icon: IconType;
-  score?: number;
+  getScore: (tv: TV) => number;
   id?: string;
   children: React.ReactNode;
 };
 
-const Section = ({ title, score = 10, children, id, icon }: SectionProps) => {
-  const color = getColor(score);
+const Section = ({ title, getScore, children, id, icon }: SectionProps) => {
+  let color = "#000000";
+  const tvs = useTvs();
+
+  if (tvs.length === 1) {
+    color = getColor(getScore(tvs[0]));
+  }
 
   return (
     <Box id={id} pt="20">
       <Box as="section" borderRadius="16" overflow="hidden">
-        <Box
-          display="flex"
+        <Grid
+          gridTemplateColumns={`repeat(${tvs.length + 1}, 1fr)`}
           p="4"
           justifyContent="space-between"
           alignItems="flex-end"
@@ -27,7 +33,7 @@ const Section = ({ title, score = 10, children, id, icon }: SectionProps) => {
           borderBottom="2px"
           borderColor={color}
         >
-          <Box color={color} display="flex">
+          <GridItem color={color} display="flex">
             <Icon as={icon} fontSize="36" mr="2" />
             <Heading
               as="h2"
@@ -37,9 +43,13 @@ const Section = ({ title, score = 10, children, id, icon }: SectionProps) => {
             >
               {title.toUpperCase()}
             </Heading>
-          </Box>
-          {/* <Score value={score} /> */}
-        </Box>
+          </GridItem>
+          {tvs.map((tv) => (
+            <GridItem justifySelf="flex-end">
+              <Score value={getScore(tv)} />
+            </GridItem>
+          ))}
+        </Grid>
         <Box py="4">{children}</Box>
       </Box>
     </Box>

@@ -1,24 +1,28 @@
 import React from "react";
-import { useTv } from "../../tv-provider";
+import { useTvs } from "../../tvs-provider";
 import Specs, { SpecsProps } from "../specs/specs";
 
 const HDRSection = () => {
-  const { image } = useTv();
+  const tvs = useTvs();
 
-  const specs: SpecsProps["specs"] = [];
+  const specs: SpecsProps["data"] = [];
 
-  if (image?.hdr?.technologies?.length) {
-    specs.push({
-      type: "list",
-      label: "Tecnologías HDR",
-      value: image.hdr.technologies.map((tech) => ({
-        type: "text",
-        value: tech?.name || "-",
-      })),
-    });
-  }
+  specs.push({
+    type: "list",
+    label: "Tecnologías HDR",
+    value: tvs.reduce(
+      (acc, tv) => ({
+        ...acc,
+        [tv.slug as string]: tv?.image?.hdr?.technologies?.map((tech) => ({
+          type: "text",
+          value: tech?.name,
+        })),
+      }),
+      {}
+    ),
+  });
 
-  return <Specs title="HDR" specs={specs} />;
+  return <Specs title="HDR" data={specs} />;
 };
 
 export default HDRSection;

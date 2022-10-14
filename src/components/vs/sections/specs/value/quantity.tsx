@@ -1,14 +1,15 @@
 import { HStack, Text } from "@chakra-ui/react";
 import React from "react";
 
-export type CableConnectionProps = {
+export type QuantityValueProps = {
   name: string;
   quantity: number;
 };
 
-const CableConnection = ({ name, quantity }: CableConnectionProps) => {
+const QuantityValue = ({ name, quantity }: QuantityValueProps) => {
   return (
     <HStack
+      display="inline-flex"
       border="1px"
       borderColor="gray.200"
       borderRadius="10px"
@@ -21,4 +22,4 @@ const CableConnection = ({ name, quantity }: CableConnectionProps) => {
   );
 };
 
-export default CableConnection;
+export default QuantityValue;

@@ -46,15 +46,15 @@ exports.createPages = async ({
     if (tv.node.slug) {
       createPage({
         path: `/tv/${tv.node.slug}`,
-        component: tvTemplate,
+        component: tvComparatorTemplate,
         context: {
-          slug: tv.node.slug,
+          slugs: [tv.node.slug],
           serieId: tv.node.general?.brand?.serie?.id,
         },
       });
 
       tvs.forEach((vsTv) => {
-        if (vsTv.node.slug && tv.node.slug > vsTv.node.slug) {
+        if (vsTv.node.slug && (tv.node.slug as string) > vsTv.node.slug) {
           createPage({
             path: `/vs/${tv.node.slug}--vs--${vsTv.node.slug}`,
             component: tvComparatorTemplate,

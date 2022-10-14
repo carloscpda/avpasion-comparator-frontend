@@ -1,24 +1,23 @@
 import React from "react";
-import { useTv } from "../../tv-provider";
+import { useTvs } from "../../tvs-provider";
+import { buildTextValues } from "../specs/helpers";
 import Specs, { SpecsProps } from "../specs/specs";
 
 const ProcessingSection = () => {
-  const { image } = useTv();
+  const tvs = useTvs();
 
-  const specs: SpecsProps["specs"] = [];
+  const specs: SpecsProps["data"] = [];
 
-  if (image?.processing?.processor?.name) {
-    specs.push({
-      type: "row",
-      label: "Procesador",
-      value: {
-        type: "text",
-        value: image.processing.processor.name,
-      },
-    });
-  }
+  specs.push({
+    type: "row",
+    label: "Procesador",
+    value: buildTextValues(
+      tvs,
+      ({ image }) => image?.processing?.processor?.name
+    ),
+  });
 
-  return <Specs title="Procesado" specs={specs} />;
+  return <Specs title="Procesado" data={specs} />;
 };
 
 export default ProcessingSection;

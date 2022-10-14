@@ -1,5 +1,5 @@
 import React from "react";
-import { useTv } from "../../tv-provider";
+import { useTvs } from "../../tvs-provider";
 import Specs, { SpecsProps } from "../specs/specs";
 
 const labelMap = {
@@ -9,42 +9,62 @@ const labelMap = {
 };
 
 const DVBSection = () => {
-  const { connections } = useTv();
+  const tvs = useTvs();
 
-  if (connections?.dvb) {
-    const specs: SpecsProps["specs"] = (
-      connections.dvb as {
-        type: "terrestrial" | "satellite" | "cable";
-        name: string;
-      }[]
-    )
-      .reduce(
-        (acc, { type, name }) => {
-          const found = acc.find((i) => i.type === type);
-          if (!found) {
-            acc.push({ type, value: [name] });
-          } else {
-            found.value = [...found.value, name];
-          }
-          return acc;
-        },
-        [] as {
-          type: "terrestrial" | "satellite" | "cable";
-          value: string[];
-        }[]
-      )
-      .map((item) => ({
-        type: "list",
-        label: labelMap[item.type],
-        value: item.value.map((value) => ({
-          type: "text",
-          value,
-        })),
-      }));
+  const specs: SpecsProps["data"] = [];
 
-    return <Specs title="DVB" specs={specs} />;
-  }
-  return null;
+  specs.push({
+    type: "list",
+    label: "Terrestre",
+    value: tvs.reduce(
+      (acc, tv) => ({
+        ...acc,
+        [tv.slug as string]: tv.connections?.dvb
+          ?.filter((dvb) => dvb?.type === "terrestrial")
+          ?.map((tech) => ({
+            type: "text",
+            value: tech?.name,
+          })),
+      }),
+      {}
+    ),
+  });
+
+  specs.push({
+    type: "list",
+    label: "Satelital",
+    value: tvs.reduce(
+      (acc, tv) => ({
+        ...acc,
+        [tv.slug as string]: tv.connections?.dvb
+          ?.filter((dvb) => dvb?.type === "satellite")
+          ?.map((tech) => ({
+            type: "text",
+            value: tech?.name,
+          })),
+      }),
+      {}
+    ),
+  });
+
+  specs.push({
+    type: "list",
+    label: "Cable",
+    value: tvs.reduce(
+      (acc, tv) => ({
+        ...acc,
+        [tv.slug as string]: tv.connections?.dvb
+          ?.filter((dvb) => dvb?.type === "cable")
+          ?.map((tech) => ({
+            type: "text",
+            value: tech?.name,
+          })),
+      }),
+      {}
+    ),
+  });
+
+  return <Specs title="DVB" data={specs} withHead />;
 };
 
 export default DVBSection;

@@ -6,7 +6,7 @@ import { buildTextValues } from "../specs/helpers";
 const BacklightAndContrastSection = () => {
   const tvs = useTvs();
 
-  const specs: SpecsProps["specs"] = [];
+  const specs: SpecsProps["data"] = [];
 
   specs.push({
     type: "row",
@@ -32,7 +32,7 @@ const BacklightAndContrastSection = () => {
     }),
   });
 
-  return <Specs title="Iluminación y contraste" specs={specs} />;
+  return <Specs title="Iluminación y contraste" data={specs} />;
 };
 
 export default BacklightAndContrastSection;

@@ -1,57 +1,62 @@
 import React from "react";
-import { useTv } from "../../tv-provider";
+import { useTvs } from "../../tvs-provider";
+import { buildTextValues } from "../specs/helpers";
 import Specs, { SpecsProps } from "../specs/specs";
+import { SpecValueProps } from "../specs/value/value";
 
 const SpeakersSection = () => {
-  const { sound } = useTv();
+  const tvs = useTvs();
 
-  const specs: SpecsProps["specs"] = [];
+  const specs: SpecsProps["data"] = [];
 
-  if (sound?.speakers) {
-    specs.push({
-      type: "cable-connection",
-      label: "Altavoces",
-      value: sound.speakers.map((speaker) => ({
-        name: `${speaker?.power}W`,
-        quantity: speaker?.quantity || 1,
-      })),
-    });
-  }
+  specs.push({
+    type: "list",
+    label: "Altavoces",
+    value: tvs.reduce(
+      (acc, tv) => ({
+        ...acc,
+        [tv.slug as string]: (tv.sound?.speakers || [])?.map((speaker) => ({
+          type: "quantity",
+          name: `${speaker?.power}W`,
+          quantity: speaker?.quantity || 1,
+        })),
+      }),
+      {} as { [slug: string]: SpecValueProps[] }
+    ),
+  });
 
-  if (sound?.subwoofers) {
-    specs.push({
-      type: "cable-connection",
-      label: "Subwoofers",
-      value: sound.subwoofers.map((speaker) => ({
-        name: `${speaker?.power}W`,
-        quantity: speaker?.quantity || 1,
-      })),
-    });
-  }
+  specs.push({
+    type: "list",
+    label: "Subwoofers",
+    value: tvs.reduce(
+      (acc, tv) => ({
+        ...acc,
+        [tv.slug as string]: (tv.sound?.subwoofers || [])?.map((speaker) => ({
+          type: "quantity",
+          name: `${speaker?.power}W`,
+          quantity: speaker?.quantity || 1,
+        })),
+      }),
+      {} as { [slug: string]: SpecValueProps[] }
+    ),
+  });
 
-  if (sound?.power) {
-    specs.push({
-      type: "row",
-      label: "Potencia",
-      value: {
-        type: "text",
-        value: `${sound?.power}W`,
-      },
-    });
-  }
+  specs.push({
+    type: "row",
+    label: "Potencia",
+    value: buildTextValues(tvs, (tv) => {
+      const power = tv.sound?.power;
+      return power ? `${power}W` : null;
+    }),
+  });
 
-  if (sound?.outputChannels) {
-    specs.push({
-      type: "row",
-      label: "Canales de salida",
-      value: {
-        type: "text",
-        value: sound?.outputChannels,
-      },
-    });
-  }
+  specs.push({
+    type: "row",
+    label: "Canales de salida",
+    value: buildTextValues(tvs, (tv) => tv.sound?.outputChannels),
+  });
 
-  return <Specs title="Altavoces" specs={specs} />;
+  return <Specs title="Altavoces" data={specs} withHead />;
 };
 
 export default SpeakersSection;

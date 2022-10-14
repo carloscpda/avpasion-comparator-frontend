@@ -9,40 +9,36 @@ import {
   Td,
   Text,
 } from "@chakra-ui/react";
-import Value from "./value/value";
-import { TextValueProps } from "./value/text";
-import { BoolValueProps } from "./value/bool";
-import { ColorValueProps } from "./value/color";
-import { EnergyEfficiencyValueProps } from "./value/energy-efficiency";
+import SpecValue, { SpecValueProps } from "./value/value";
 import ListSpec from "./list";
-
-export type SpecValueProps =
-  | ({ type: "text" } & TextValueProps)
-  | ({ type: "bool" } & BoolValueProps)
-  | ({ type: "color" } & ColorValueProps)
-  | ({ type: "energy-efficiency" } & EnergyEfficiencyValueProps);
+import { useTvs } from "../../tvs-provider";
 
 export type RowSpec = {
   type: "row";
   label: string;
-  value: SpecValueProps[];
+  value: { [model: string]: SpecValueProps };
 };
 
 export type ListSpec = {
   type: "list";
   label: string;
-  value: SpecValueProps[][];
+  value: { [model: string]: SpecValueProps[] };
 };
 
 export type SpecsProps = {
   title: string;
-  specs: (RowSpec | ListSpec)[];
+  data: (RowSpec | ListSpec)[];
+  withHead?: boolean;
 };
 
-const Specs = ({ title, specs }: SpecsProps) => {
-  if (!specs.length) {
+const Specs = ({ title, data, withHead = false }: SpecsProps) => {
+  const tvs = useTvs();
+
+  if (!data.length) {
     return null;
   }
+
+  const columnsWidth = 100 / (tvs.length + 1);
 
   return (
     <TableContainer mb="8" whiteSpace="normal">
@@ -50,28 +46,28 @@ const Specs = ({ title, specs }: SpecsProps) => {
         <Thead>
           <Tr>
             <Th paddingStart="0">
-              <Text as="h3" size="sm">
-                {title.toUpperCase()}
+              <Text as="h3" size="sm" textTransform="uppercase">
+                {title}
               </Text>
             </Th>
-            <Th />
+            {tvs.map((tv) => (
+              <Th paddingEnd="0" isNumeric>
+                {withHead ? tv.general?.brand?.model : ""}
+              </Th>
+            ))}
           </Tr>
         </Thead>
         <Tbody>
-          {specs.map((spec) => (
+          {data.map((spec) => (
             <Tr>
               <Td paddingStart="0">{spec.label}</Td>
-              {spec.value.map((value) => (
-                <Td
-                  paddingEnd="0"
-                  isNumeric
-                  width={`${100 / (spec.value.length + 1)}%`}
-                >
+              {tvs.map((tv) => (
+                <Td paddingEnd="0" isNumeric width={`${columnsWidth}%`}>
                   {spec.type === "row" && (
-                    <Value {...(value as SpecValueProps)} />
+                    <SpecValue {...spec.value[tv.slug as string]} />
                   )}
                   {spec.type === "list" && (
-                    <ListSpec items={value as SpecValueProps[]} />
+                    <ListSpec items={spec.value[tv.slug as string]} />
                   )}
                 </Td>
               ))}

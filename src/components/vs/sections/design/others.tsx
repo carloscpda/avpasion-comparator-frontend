@@ -1,47 +1,45 @@
 import React from "react";
-import { useTv } from "../../tv-provider";
+import { useTvs } from "../../tvs-provider";
+import { buildTextValues } from "../specs/helpers";
 import Specs, { SpecsProps } from "../specs/specs";
 
 const OthersDesignSection = () => {
-  const { design } = useTv();
+  const tvs = useTvs();
 
-  const specs: SpecsProps["specs"] = [];
+  const specs: SpecsProps["data"] = [];
 
-  if (design?.screenShape?.name) {
-    specs.push({
-      type: "row",
-      label: "Forma de la pantalla",
-      value: {
-        type: "text",
-        value: design.screenShape.name,
-      },
-    });
-  }
+  specs.push({
+    type: "row",
+    label: "Forma de la pantalla",
+    value: buildTextValues(tvs, (tv) => tv?.design?.screenShape?.name),
+  });
 
-  if (design?.colors?.length) {
-    specs.push({
-      type: "list",
-      label: "Colores",
-      value: design?.colors?.map((color) => ({
-        type: "color",
-        name: color?.name || "",
-        hex: color?.hex || "",
-      })),
-    });
-  }
+  specs.push({
+    type: "list",
+    label: "Colores",
+    value: tvs.reduce(
+      (acc, tv) => ({
+        ...acc,
+        [tv.slug as string]: tv.design?.colors?.map((color) => ({
+          type: "color",
+          name: color?.name,
+          hex: color?.hex,
+        })),
+      }),
+      {}
+    ),
+  });
 
-  if (design?.vesa?.size) {
-    specs.push({
-      type: "row",
-      label: "VESA",
-      value: {
-        type: "text",
-        value: `${design.vesa.size.replace("x", " x ")} mm`,
-      },
-    });
-  }
+  specs.push({
+    type: "row",
+    label: "VESA",
+    value: buildTextValues(tvs, (tv) => {
+      const vesa = tv?.design?.vesa?.size;
+      return vesa ? `${vesa.replace("x", " x ")} mm` : null;
+    }),
+  });
 
-  return <Specs title="Otros" specs={specs} />;
+  return <Specs title="Otros" data={specs} />;
 };
 
 export default OthersDesignSection;

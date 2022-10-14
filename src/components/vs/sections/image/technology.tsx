@@ -6,7 +6,7 @@ import { buildTextValues } from "../specs/helpers";
 const ImageTechnologySection = () => {
   const tvs = useTvs();
 
-  const specs: SpecsProps["specs"] = [];
+  const specs: SpecsProps["data"] = [];
 
   specs.push({
     type: "row",
@@ -29,7 +29,7 @@ const ImageTechnologySection = () => {
     ),
   });
 
-  return <Specs title="Tecnología" specs={specs} />;
+  return <Specs title="Tecnología" data={specs} />;
 };
 
 export default ImageTechnologySection;

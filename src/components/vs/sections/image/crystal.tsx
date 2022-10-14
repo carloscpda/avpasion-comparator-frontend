@@ -1,51 +1,43 @@
 import React from "react";
-import { useTv } from "../../tv-provider";
+import { useTvs } from "../../tvs-provider";
+import { buildTextValues } from "../specs/helpers";
 import Specs, { SpecsProps } from "../specs/specs";
 
 const CrystalSection = () => {
-  const { image } = useTv();
+  const tvs = useTvs();
 
-  const specs: SpecsProps["specs"] = [];
+  const specs: SpecsProps["data"] = [];
 
-  if (image?.crystal?.horizontalVisionAngle) {
-    specs.push({
-      type: "row",
-      label: "Ángulo de visión horizontal",
-      value: {
-        type: "text",
-        value: `${image.crystal.horizontalVisionAngle}º`,
-      },
-    });
-  }
+  specs.push({
+    type: "row",
+    label: "Ángulo de visión horizontal",
+    value: buildTextValues(tvs, ({ image }) => {
+      const horizontalVisionAngle = image?.crystal?.horizontalVisionAngle;
+      return horizontalVisionAngle ? `${horizontalVisionAngle}º` : null;
+    }),
+  });
 
-  if (image?.crystal?.verticalVisionAngle) {
-    specs.push({
-      type: "row",
-      label: "Ángulo de visión vertical",
-      value: {
-        type: "text",
-        value: `${image.crystal.verticalVisionAngle}º`,
-      },
-    });
-  }
+  specs.push({
+    type: "row",
+    label: "Ángulo de visión vertical",
+    value: buildTextValues(tvs, ({ image }) => {
+      const verticalVisionAngle = image?.crystal?.verticalVisionAngle;
+      return verticalVisionAngle ? `${verticalVisionAngle}º` : null;
+    }),
+  });
 
-  if (image?.crystal?.antiReflectiveFilter) {
-    const value = {
-      normal: "Normal",
-      improved: "Mejorado",
-    }[image.crystal.antiReflectiveFilter];
+  specs.push({
+    type: "row",
+    label: "Filtro anti-reflejos",
+    value: buildTextValues(tvs, ({ image }) => {
+      return {
+        normal: "Normal",
+        improved: "Mejorado",
+      }[image?.crystal?.antiReflectiveFilter || ""];
+    }),
+  });
 
-    specs.push({
-      type: "row",
-      label: "Filtro anti-reflejos",
-      value: {
-        type: "text",
-        value: value || "-",
-      },
-    });
-  }
-
-  return <Specs title="Cristal" specs={specs} />;
+  return <Specs title="Cristal" data={specs} />;
 };
 
 export default CrystalSection;

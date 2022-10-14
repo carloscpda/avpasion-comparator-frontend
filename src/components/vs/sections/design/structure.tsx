@@ -1,81 +1,73 @@
 import React from "react";
-import { useTv } from "../../tv-provider";
+import { useTvs } from "../../tvs-provider";
+import { buildTextValues } from "../specs/helpers";
 import Specs, { SpecsProps } from "../specs/specs";
 
 type Props = {
   title: string;
-  dimensions?: {
-    width: number | null;
-    height: number | null;
-    depth: number | null;
-    weight: number | null;
-  } | null;
+  tag: "dimensionsWithStand" | "dimensionsWithoutStand";
+  withHead?: boolean;
 };
 
-const StructureSection = ({ dimensions, title }: Props) => {
-  const specs: SpecsProps["specs"] = [];
+const StructureSection = ({ tag, title, withHead }: Props) => {
+  const tvs = useTvs();
 
-  if (dimensions) {
-    const { weight, depth, height, width } = dimensions;
+  const specs: SpecsProps["data"] = [];
 
-    specs.push({
-      type: "row",
-      label: "Ancho",
-      value: {
-        type: "text",
-        value: `${width} cm`,
-      },
-    });
+  specs.push({
+    type: "row",
+    label: "Ancho",
+    value: buildTextValues(tvs, (tv) => {
+      const width = tv.design?.[tag]?.width;
+      return width ? `${width} cm` : null;
+    }),
+  });
 
-    specs.push({
-      type: "row",
-      label: "Altura",
-      value: {
-        type: "text",
-        value: `${height} cm`,
-      },
-    });
+  specs.push({
+    type: "row",
+    label: "Altura",
+    value: buildTextValues(tvs, (tv) => {
+      const height = tv.design?.[tag]?.height;
+      return height ? `${height} cm` : null;
+    }),
+  });
 
-    specs.push({
-      type: "row",
-      label: "Profundidad",
-      value: {
-        type: "text",
-        value: `${depth} cm`,
-      },
-    });
+  specs.push({
+    type: "row",
+    label: "Profundidad",
+    value: buildTextValues(tvs, (tv) => {
+      const depth = tv.design?.[tag]?.depth;
+      return depth ? `${depth} cm` : null;
+    }),
+  });
 
-    specs.push({
-      type: "row",
-      label: "Peso",
-      value: {
-        type: "text",
-        value: `${weight} Kg`,
-      },
-    });
-  }
+  specs.push({
+    type: "row",
+    label: "Peso",
+    value: buildTextValues(tvs, (tv) => {
+      const weight = tv.design?.[tag]?.weight;
+      return weight ? `${weight} Kg` : null;
+    }),
+  });
 
-  return <Specs title={title} specs={specs} />;
+  return <Specs title={title} data={specs} withHead={withHead} />;
 };
 
 export const StructureWithStandSection = () => {
-  const { design } = useTv();
-
   return (
     <StructureSection
       title="Dimensiones con peana"
-      dimensions={design?.dimensionsWithStand}
+      tag="dimensionsWithStand"
+      withHead
     />
   );
 };
 
 export const StructureWithoutStandSection = () => {
-  const { design } = useTv();
-
   return (
     <StructureSection
       title="Dimensiones sin peana"
-      dimensions={design?.dimensionsWithoutStand}
+      tag="dimensionsWithoutStand"
     />
   );
 };

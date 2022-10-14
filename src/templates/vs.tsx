@@ -61,23 +61,22 @@ export default function TvComparatorPage({
             id="image"
             title="Imagen"
             icon={IoImageOutline}
-            //score={strapiTv?.image?.score || 0}
+            getScore={(tv) => tv.image?.score || 0}
           >
             <ResolutionSection />
             <ImageTechnologySection />
             <BacklightAndContrastSection />
             <ColorimetrySection />
             <HDRSection />
-            {/* 
             <CrystalSection />
             <ProcessingSection />
-            <ResponseTimesSection /> */}
+            <ResponseTimesSection />
           </Section>
-          {/* <Section
+          <Section
             id="sound"
             title="Sonido"
             icon={IoMusicalNotesOutline}
-            score={strapiTv?.sound?.score || 0}
+            getScore={(tv) => tv.sound?.score || 0}
           >
             <SpeakersSection />
             <SoundTechnologiesSection />
@@ -86,7 +85,7 @@ export default function TvComparatorPage({
             id="connectivity"
             title="Conectividad"
             icon={IoWifiOutline}
-            score={strapiTv?.connections?.score || 0}
+            getScore={(tv) => tv.connections?.score || 0}
           >
             <DVBSection />
             <HybridTvSection />
@@ -98,7 +97,7 @@ export default function TvComparatorPage({
             id="design"
             title="Diseño"
             icon={IoColorPaletteOutline}
-            score={strapiTv?.design?.score || 0}
+            getScore={(tv) => tv.design?.score || 0}
           >
             <StructureWithStandSection />
             <StructureWithoutStandSection />
@@ -108,13 +107,13 @@ export default function TvComparatorPage({
             id="system"
             title="Sistema"
             icon={IoSettingsOutline}
-            score={strapiTv?.system?.score || 0}
+            getScore={(tv) => tv.system?.score || 0}
           >
             <OperatingSystemSection />
             <HardwareSection />
             <ConsumptionSection />
             <PowerSupplySection />
-          </Section> */}
+          </Section>
         </Flex>
       </TvProvider>
     </Layout>

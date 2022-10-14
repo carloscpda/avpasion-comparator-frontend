@@ -1,25 +1,28 @@
 import React from "react";
-import { useTv } from "../../tv-provider";
+import { useTvs } from "../../tvs-provider";
 import Specs, { SpecsProps } from "../specs/specs";
 
 const SoundTechnologiesSection = () => {
-  const { sound } = useTv();
+  const tvs = useTvs();
 
-  const specs: SpecsProps["specs"] = [];
+  const specs: SpecsProps["data"] = [];
 
-  if (sound?.technologies) {
-    specs.push({
-      label: "Tecnologías",
-      type: "list",
-      value: sound.technologies.map((tech) => ({
-        type: "text",
-        value: tech?.name || "",
-      })),
-    });
+  specs.push({
+    type: "list",
+    label: "Tecnologías",
+    value: tvs.reduce(
+      (acc, tv) => ({
+        ...acc,
+        [tv.slug as string]: tv.sound?.technologies?.map((tech) => ({
+          type: "text",
+          value: tech?.name,
+        })),
+      }),
+      {}
+    ),
+  });
 
-    return <Specs title="Tecnologías" specs={specs} />;
-  }
-  return null;
+  return <Specs title="Tecnologías" data={specs} />;
 };
 
 export default SoundTechnologiesSection;

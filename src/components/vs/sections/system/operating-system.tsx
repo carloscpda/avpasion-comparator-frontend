@@ -1,38 +1,39 @@
 import React from "react";
-import { useTv } from "../../tv-provider";
+import { useTvs } from "../../tvs-provider";
+import { buildTextValues } from "../specs/helpers";
 import Specs, { SpecsProps } from "../specs/specs";
 
 const OperatingSystemSection = () => {
-  const { system } = useTv();
+  const tvs = useTvs();
 
-  const specs: SpecsProps["specs"] = [];
+  const specs: SpecsProps["data"] = [];
 
-  if (
-    system?.operatingSystem?.version &&
-    system.operatingSystem.operatingSystem?.name
-  ) {
-    specs.push({
-      type: "row",
-      label: "Sistema Operativo",
-      value: {
-        type: "text",
-        value: `${system.operatingSystem.operatingSystem.name} ${system.operatingSystem.version}`,
-      },
-    });
-  }
+  specs.push({
+    type: "row",
+    label: "Sistema operativo",
+    value: buildTextValues(tvs, (tv) => {
+      const version = tv?.system?.operatingSystem?.version;
+      const name = tv?.system?.operatingSystem?.operatingSystem?.name;
+      return version && name ? `${name} ${version}` : null;
+    }),
+  });
 
-  if (system?.voiceAssistants?.length) {
-    specs.push({
-      type: "list",
-      label: "Asistentes de voz",
-      value: system.voiceAssistants.map((voice) => ({
-        type: "text",
-        value: voice?.name || "-",
-      })),
-    });
-  }
+  specs.push({
+    type: "list",
+    label: "Asistentes de voz",
+    value: tvs.reduce(
+      (acc, tv) => ({
+        ...acc,
+        [tv.slug as string]: tv.system?.voiceAssistants?.map((voice) => ({
+          type: "text",
+          value: voice?.name,
+        })),
+      }),
+      {}
+    ),
+  });
 
-  return <Specs title="Sistema Operativo" specs={specs} />;
+  return <Specs title="Sistema Operativo" data={specs} withHead />;
 };
 
 export default OperatingSystemSection;

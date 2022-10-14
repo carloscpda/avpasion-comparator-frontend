@@ -1,35 +1,32 @@
 import React from "react";
-import { useTv } from "../../tv-provider";
+import { useTvs } from "../../tvs-provider";
+import { buildTextValues } from "../specs/helpers";
 import Specs, { SpecsProps } from "../specs/specs";
 
 const PowerSupplySection = () => {
-  const { system } = useTv();
+  const tvs = useTvs();
 
-  const specs: SpecsProps["specs"] = [];
+  const specs: SpecsProps["data"] = [];
 
-  if (system?.powerSupply) {
-    specs.push({
-      type: "row",
-      label: "Alimentación",
-      value: {
-        type: "text",
-        value: `${system?.powerSupply} W`,
-      },
-    });
-  }
+  specs.push({
+    type: "row",
+    label: "Alimentación",
+    value: buildTextValues(tvs, (tv) => {
+      const powerSupply = tv.system?.powerSupply;
+      return powerSupply ? `${powerSupply} W` : null;
+    }),
+  });
 
-  if (system?.powerSupplyFrequency) {
-    specs.push({
-      type: "row",
-      label: "Frecuencia corriente",
-      value: {
-        type: "text",
-        value: `${system.powerSupplyFrequency} Hz`,
-      },
-    });
-  }
+  specs.push({
+    type: "row",
+    label: "Frecuencia corriente",
+    value: buildTextValues(tvs, (tv) => {
+      const powerSupplyFrequency = tv.system?.powerSupplyFrequency;
+      return powerSupplyFrequency ? `${powerSupplyFrequency} Hz` : null;
+    }),
+  });
 
-  return <Specs title="Alimentación" specs={specs} />;
+  return <Specs title="Alimentación" data={specs} />;
 };
 
 export default PowerSupplySection;

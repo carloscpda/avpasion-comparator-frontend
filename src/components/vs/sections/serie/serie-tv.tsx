@@ -1,7 +1,7 @@
 import { Text, WrapItem } from "@chakra-ui/react";
 import { navigate } from "gatsby";
 import React from "react";
-import { useTv } from "../../tv-provider";
+import { useTvs } from "../../tvs-provider";
 
 type SerieTvProps = {
   slug: string | null;

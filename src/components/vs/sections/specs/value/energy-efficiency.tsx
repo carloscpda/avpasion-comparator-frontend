@@ -22,10 +22,10 @@ const EnergyEfficiencyValue = ({ letter }: EnergyEfficiencyValueProps) => (
     borderRadius={2}
     background={EnergyEfficiencyMap[letter]}
     width="min-content"
-    color="white"
+    color={letter && "white"}
     display="inline"
   >
-    {letter}
+    {letter || "-"}
   </Box>
 );
 

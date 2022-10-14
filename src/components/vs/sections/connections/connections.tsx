@@ -1,30 +1,38 @@
 import React from "react";
-import { useTv } from "../../tv-provider";
-import Specs, { CableConnectionSpecProps, SpecsProps } from "../specs/specs";
+import { useTvs } from "../../tvs-provider";
+import Specs, { SpecsProps } from "../specs/specs";
 
 const ConnectionsSection = () => {
-  const { connections } = useTv();
+  const tvs = useTvs();
 
-  const specs: SpecsProps["specs"] =
-    connections?.cable
-      ?.map((connection) => ({
-        label: connection?.type?.connection?.name ?? "",
-        value: {
-          name: connection?.type?.name ?? "",
-          quantity: connection?.quantity ?? 1,
-        },
-      }))
-      .reduce((acc, { label, value }) => {
-        const found = acc.find((i) => i.label === label);
-        if (!found) {
-          acc.push({ label, value: [value], type: "cable-connection" });
-        } else {
-          found.value = [...found.value, value];
-        }
-        return acc;
-      }, [] as CableConnectionSpecProps[]) ?? [];
+  const specs: SpecsProps["data"] = [];
 
-  return <Specs title="Conexiones por cable" specs={specs} />;
+  const allConnections = tvs
+    .map((tv) => tv.connections?.cable?.map((c) => c?.type?.connection?.name))
+    .flat(1)
+    .filter((v, i, a) => a.indexOf(v) === i) as string[];
+
+  allConnections.forEach((conn) => {
+    specs.push({
+      type: "list",
+      label: conn,
+      value: tvs.reduce(
+        (acc, tv) => ({
+          ...acc,
+          [tv.slug as string]: tv.connections?.cable
+            ?.filter((c) => c?.type?.connection?.name === conn)
+            ?.map((c) => ({
+              type: "quantity",
+              name: c?.type?.name,
+              quantity: c?.quantity,
+            })),
+        }),
+        {}
+      ),
+    });
+  });
+
+  return <Specs title="Conexiones por cable" data={specs} />;
 };
 
 export default ConnectionsSection;

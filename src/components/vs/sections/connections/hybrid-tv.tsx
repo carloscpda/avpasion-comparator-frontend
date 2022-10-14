@@ -1,25 +1,20 @@
 import React from "react";
-import { useTv } from "../../tv-provider";
-import Specs from "../specs/specs";
+import { useTvs } from "../../tvs-provider";
+import { buildBoolValues } from "../specs/helpers";
+import Specs, { SpecsProps } from "../specs/specs";
 
 const HybridTvSection = () => {
-  const { connections } = useTv();
+  const tvs = useTvs();
 
-  return (
-    <Specs
-      title="Televisión híbrida"
-      specs={[
-        {
-          label: "HbbTV",
-          type: "row",
-          value: {
-            type: "bool",
-            value: !!connections?.hbbTV,
-          },
-        },
-      ]}
-    />
-  );
+  const specs: SpecsProps["data"] = [];
+
+  specs.push({
+    type: "row",
+    label: "HbbTV",
+    value: buildBoolValues(tvs, ({ connections }) => !!connections?.hbbTV),
+  });
+
+  return <Specs title="DVB" data={specs} />;
 };
 
 export default HybridTvSection;

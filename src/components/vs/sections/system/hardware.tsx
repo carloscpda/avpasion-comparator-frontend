@@ -1,46 +1,38 @@
 import React from "react";
-import { useTv } from "../../tv-provider";
+import { useTvs } from "../../tvs-provider";
+import { buildTextValues } from "../specs/helpers";
 import Specs, { SpecsProps } from "../specs/specs";
 
 const HardwareSection = () => {
-  const { system } = useTv();
+  const tvs = useTvs();
 
-  const specs: SpecsProps["specs"] = [];
+  const specs: SpecsProps["data"] = [];
 
-  if (system?.hardware?.rom) {
-    specs.push({
-      type: "row",
-      label: "ROM",
-      value: {
-        type: "text",
-        value: `${system.hardware.rom.toFixed(1)} Gb`,
-      },
-    });
-  }
+  specs.push({
+    type: "row",
+    label: "ROM",
+    value: buildTextValues(tvs, (tv) => {
+      const rom = tv?.system?.hardware?.rom;
+      return rom ? `${rom} Gb` : null;
+    }),
+  });
 
-  if (system?.hardware?.ram) {
-    specs.push({
-      type: "row",
-      label: "RAM",
-      value: {
-        type: "text",
-        value: `${system.hardware.ram.toFixed(1)} Gb`,
-      },
-    });
-  }
+  specs.push({
+    type: "row",
+    label: "RAM",
+    value: buildTextValues(tvs, (tv) => {
+      const ram = tv?.system?.hardware?.ram;
+      return ram ? `${ram} Gb` : null;
+    }),
+  });
 
-  if (system?.hardware?.soc?.name) {
-    specs.push({
-      type: "row",
-      label: "SoC",
-      value: {
-        type: "text",
-        value: system.hardware.soc.name,
-      },
-    });
-  }
+  specs.push({
+    type: "row",
+    label: "SoC",
+    value: buildTextValues(tvs, (tv) => tv?.system?.hardware?.soc?.name),
+  });
 
-  return <Specs title="Hardware" specs={specs} />;
+  return <Specs title="Hardware" data={specs} />;
 };
 
 export default HardwareSection;

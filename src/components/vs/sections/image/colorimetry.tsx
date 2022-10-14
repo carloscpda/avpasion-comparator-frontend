@@ -6,7 +6,7 @@ import Specs, { SpecsProps } from "../specs/specs";
 const ColorimetrySection = () => {
   const tvs = useTvs();
 
-  const specs: SpecsProps["specs"] = [];
+  const specs: SpecsProps["data"] = [];
 
   specs.push({
     type: "row",
@@ -47,15 +47,18 @@ const ColorimetrySection = () => {
   specs.push({
     type: "list",
     label: "Tecnologías",
-    value: tvs.map(({ image }) =>
-      (image?.colorimetry?.technologies || [])?.map((tech) => ({
-        type: "text",
-        value: tech?.name,
-      }))
+    value: tvs.reduce(
+      (acc, tv) => ({
+        ...acc,
+        [tv.slug as string]: tv.image?.colorimetry?.technologies?.map(
+          (tech) => ({ type: "text", value: tech?.name })
+        ),
+      }),
+      {}
     ),
   });
 
-  return <Specs title="Colorimetría" specs={specs} />;
+  return <Specs title="Colorimetría" data={specs} />;
 };
 
 export default ColorimetrySection;

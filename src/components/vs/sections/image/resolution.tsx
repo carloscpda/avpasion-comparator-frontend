@@ -6,7 +6,7 @@ import { buildTextValues } from "../specs/helpers";
 const ResolutionSection = () => {
   const tvs = useTvs();
 
-  const specs: SpecsProps["specs"] = [];
+  const specs: SpecsProps["data"] = [];
 
   specs.push({
     type: "row",
@@ -55,7 +55,7 @@ const ResolutionSection = () => {
     }),
   });
 
-  return <Specs title="Tamaño de pantalla" specs={specs} />;
+  return <Specs title="Tamaño de pantalla" data={specs} withHead />;
 };
 
 export default ResolutionSection;

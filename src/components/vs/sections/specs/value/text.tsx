@@ -1,6 +1,4 @@
 import React from "react";
-import { TV, TVs } from "../../../tvs-provider";
-import { SpecValueProps } from "../specs";
 
 export type TextValueProps = {
   value?: string | null;
