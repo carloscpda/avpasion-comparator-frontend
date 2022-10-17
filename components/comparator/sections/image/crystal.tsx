@@ -30,10 +30,13 @@ const CrystalSection = () => {
     type: "row",
     label: "Filtro anti-reflejos",
     value: buildTextValues(tvs, ({ image }) => {
-      return {
-        normal: "Normal",
-        improved: "Mejorado",
-      }[image?.crystal?.antiReflectiveFilter];
+      if (image?.crystal?.antiReflectiveFilter) {
+        return {
+          normal: "Normal",
+          improved: "Mejorado",
+        }[image.crystal.antiReflectiveFilter];
+      }
+      return "-";
     }),
   });
 

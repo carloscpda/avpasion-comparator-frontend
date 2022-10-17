@@ -29,7 +29,10 @@ const HardwareSection = () => {
   specs.push({
     type: "row",
     label: "SoC",
-    value: buildTextValues(tvs, (tv) => tv?.system?.hardware?.soc?.name),
+    value: buildTextValues(
+      tvs,
+      (tv) => tv?.system?.hardware?.soc?.data?.attributes?.name
+    ),
   });
 
   return <Specs title="Hardware" data={specs} />;
