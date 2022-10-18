@@ -1,11 +1,4 @@
-import {
-  Box,
-  Button,
-  Heading,
-  HStack,
-  IconButton,
-  VStack,
-} from "@chakra-ui/react";
+import { Box, Heading, HStack, Icon, VStack } from "@chakra-ui/react";
 import Main from "../components/layout/main";
 import Layout from "../components/layout/layout";
 import SummaryTitle from "../components/tv/summary/title";
@@ -19,13 +12,15 @@ import { TV } from "../models/tv";
 import { useRouter } from "next/router";
 import { useCallback } from "react";
 import NextLink from "next/link";
-import { MdCompare } from "react-icons/md";
-import { TbListDetails } from "react-icons/tb";
+import { IoIosArrowForward } from "react-icons/io";
 import getBrands from "../graphql/get-brands";
 import Filters from "../components/search/filters/filters";
 import { Brand } from "../models/brand";
 import getImageTechnologies from "../graphql/get-image-technologies";
 import { ImageTechnology } from "../models/image-technology";
+import SummaryPicture from "../components/tv/summary/picture";
+import TvSerie from "../components/tv/basics/serie";
+import TvEan from "../components/tv/basics/ean";
 
 const TVS_PER_PAGE = 12;
 
@@ -113,45 +108,42 @@ const IndexPage = ({
           </Box>
           <VStack flex="1">
             {tvs.map((tv) => (
-              <HStack
-                key={tv.slug}
-                borderBottom="1px"
-                width="100%"
-                borderColor="gray.100"
-                py={2}
-                px={4}
-                gap={2}
-              >
-                <Box>
-                  <SummaryScore tv={tv as TV} size={50} />
-                </Box>
-                <Box flex="1">
-                  <SummaryTitle tv={tv} size="md" captionSize="sm" />
-                </Box>
-                <Box flex="1">
-                  <SummaryData tv={tv as TV} size="sm" />
-                </Box>
-                <HStack justifyContent="center" alignItems="center">
-                  <NextLink href={`/tv/${tv.slug}`} passHref>
-                    <Button
-                      as="a"
-                      colorScheme="gray"
-                      leftIcon={<TbListDetails />}
-                    >
-                      Ver
-                    </Button>
-                  </NextLink>
-                  <NextLink href={`/tv/${tv.slug}`} passHref>
-                    <IconButton
-                      as="a"
-                      icon={<MdCompare />}
-                      aria-label="Comparar"
-                      colorScheme="red"
-                      backgroundColor="red.700"
+              <NextLink key={tv.slug} href={`/tv/${tv.slug}`} passHref>
+                <HStack
+                  width="100%"
+                  py={2}
+                  px={4}
+                  gap={2}
+                  borderWidth="1px"
+                  borderColor="white"
+                  cursor="pointer"
+                  borderRadius={16}
+                  transition="0.2s ease"
+                  _hover={{
+                    borderColor: "gray.200",
+                  }}
+                >
+                  <Box>
+                    <SummaryScore tv={tv as TV} size={50} />
+                  </Box>
+                  <SummaryPicture tv={tv as TV} width={20} height={20} />
+                  <Box flex="1">
+                    <SummaryTitle tv={tv} size="md" captionSize="sm" />
+                  </Box>
+                  <Box flex="1">
+                    <TvSerie
+                      value={
+                        tv.general?.brand?.serie?.data?.attributes?.name || ""
+                      }
                     />
-                  </NextLink>
+                    <TvEan value={tv.ean} />
+                  </Box>
+                  <Box flex="1">
+                    <SummaryData tv={tv as TV} size="sm" />
+                  </Box>
+                  <Icon as={IoIosArrowForward} />
                 </HStack>
-              </HStack>
+              </NextLink>
             ))}
           </VStack>
         </Box>

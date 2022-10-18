@@ -42,6 +42,7 @@ const searchTvs = async ({
               name
               slug
               score
+              ean
               general {
                 screenSize
                 releaseDate

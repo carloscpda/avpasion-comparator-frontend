@@ -11,6 +11,8 @@ import getTv from "../../graphql/get-tv";
 import { TV } from "../../models/tv";
 import getTvSeries from "../../graphql/get-tv-series";
 import { TVSeries } from "../../models/tv-serie";
+import { Box, Button } from "@chakra-ui/react";
+import Link from "next/link";
 
 export const getStaticPaths = async () => {
   const slugs = await getTvSlugs();
@@ -40,6 +42,13 @@ const TVPage = ({ tv, tvSeries }: { tv: TV; tvSeries: TVSeries }) => {
         <Main>
           <Summary />
           <SerieSection tvs={tvSeries} />
+          <Box alignSelf="flex-end" mt="8">
+            <Link href={`/vs?tv=${tv.slug}`} passHref>
+              <Button size="lg" as="a" background="black">
+                Comparar
+              </Button>
+            </Link>
+          </Box>
           <Comparator />
         </Main>
       </TvProvider>

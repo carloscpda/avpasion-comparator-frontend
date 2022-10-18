@@ -1,22 +1,28 @@
 import {
   Box,
+  Button,
   Heading,
   HStack,
-  IconButton,
   Input,
+  InputGroup,
+  InputLeftElement,
   VStack,
 } from "@chakra-ui/react";
+import { IoTvOutline } from "react-icons/io5";
 import Main from "../../components/layout/main";
 import Layout from "../../components/layout/layout";
-import SummaryTitle from "../../components/tv/summary/title";
 import { GetStaticProps } from "next";
-import { useRouter } from "next/router";
 import NextLink from "next/link";
-import { MdCompare } from "react-icons/md";
+import { IoArrowForwardOutline } from "react-icons/io5";
 import { FuzzySearch } from "../../models/fuzzy-search-tv";
 import getFuzzySearch from "../../graphql/get-fuzzy-search-tvs";
 import Fuse from "fuse.js";
 import { ChangeEventHandler, useMemo, useState } from "react";
+import { useRouter } from "next/router";
+import TvTitle from "../../components/tv/basics/title";
+import Score from "../../components/score";
+import TvEan from "../../components/tv/basics/ean";
+import TvSerie from "../../components/tv/basics/serie";
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const tvs = await getFuzzySearch();
@@ -29,11 +35,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 };
 
 const VsPage = ({ tvs }: { tvs: FuzzySearch[] }) => {
+  const router = useRouter();
   const [searched, search] = useState<Fuse.FuseResult<FuzzySearch>[]>([]);
 
   const fuse = useMemo(() => {
     return new Fuse<FuzzySearch>(tvs, {
-      keys: ["ean", "name", "brand", "serie", "model"],
+      keys: ["ean", "brand", "serie", "model"],
     });
   }, [tvs]);
 
@@ -44,32 +51,72 @@ const VsPage = ({ tvs }: { tvs: FuzzySearch[] }) => {
   return (
     <Layout>
       <Main>
-        <Heading hidden>TVs</Heading>
-        <Input name="search" onChange={handleSearch} />
-        <VStack flex="1">
-          {searched.map((tv) => (
-            <HStack
-              key={tv.slug}
-              borderBottom="1px"
-              width="100%"
-              borderColor="gray.100"
-              py={2}
-              px={4}
-              gap={2}
-            >
-              <Box flex="1">{tv.item.slug}</Box>
-              <NextLink href={`/tv/${tv.item.slug}`} passHref>
-                <IconButton
-                  as="a"
-                  icon={<MdCompare />}
-                  aria-label="Comparar"
-                  colorScheme="red"
-                  backgroundColor="red.700"
-                />
-              </NextLink>
-            </HStack>
-          ))}
-        </VStack>
+        <Heading hidden>Comparator</Heading>
+        <InputGroup mt="4" mb="8">
+          <InputLeftElement
+            pointerEvents="none"
+            fontSize="xl"
+            color="gray.500"
+            mt="1"
+          >
+            <IoTvOutline />
+          </InputLeftElement>
+          <Input
+            name="search"
+            onChange={handleSearch}
+            placeholder="Busca por modelo, serie, marca o EAN"
+            size="lg"
+            autoFocus
+          />
+        </InputGroup>
+        {!!searched.length && (
+          <VStack width="100%">
+            {searched.map((tv) => (
+              <HStack
+                key={tv.item.slug}
+                width="100%"
+                py={2}
+                px={4}
+                gap={2}
+                borderWidth="1px"
+                borderColor="white"
+                cursor="pointer"
+                borderRadius={16}
+                transition="0.2s ease"
+                _hover={{
+                  borderColor: "gray.200",
+                }}
+              >
+                <Score value={tv.item.score} size={50} />
+                <Box flex="1">
+                  <TvTitle
+                    brand={tv.item.brand}
+                    model={tv.item.model}
+                    size="md"
+                    captionSize="sm"
+                  />
+                </Box>
+                <Box flex="2">
+                  <TvSerie value={tv.item.serie} />
+                  <TvEan value={tv.item.ean} />
+                </Box>
+                <NextLink
+                  href={`/vs/${router.query.tv}--vs--${tv.item.slug}`}
+                  passHref
+                >
+                  <Button
+                    as="a"
+                    colorScheme="gray"
+                    rightIcon={<IoArrowForwardOutline />}
+                    size="sm"
+                  >
+                    Comparar
+                  </Button>
+                </NextLink>
+              </HStack>
+            ))}
+          </VStack>
+        )}
       </Main>
     </Layout>
   );

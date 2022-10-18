@@ -1,35 +1,33 @@
-import { Heading, Text, TypographyProps } from "@chakra-ui/react";
+import { As, TypographyProps } from "@chakra-ui/react";
 import React from "react";
 import { SearchTV } from "../../../models/search-tv";
 import { TV } from "../../../models/tv";
+import TvTitle from "../basics/title";
 
 type SummaryTitleProps = {
   tv: TV | SearchTV;
   size?: TypographyProps["fontSize"];
   captionSize?: TypographyProps["fontSize"];
+  as?: As;
 };
 
 const SummaryTitle = ({
   tv,
   size = "3xl",
   captionSize = "xl",
+  as = "h1",
 }: SummaryTitleProps) => {
   return (
-    <Heading fontSize={size}>
-      <Text
-        as="span"
-        display="block"
-        fontSize={captionSize}
-        fontWeight="semibold"
-        color="red.700"
-      >
-        {
-          tv.general?.brand?.serie?.data?.attributes?.brand?.data?.attributes
-            ?.name
-        }
-      </Text>
-      {tv.general?.brand?.model}
-    </Heading>
+    <TvTitle
+      as={as}
+      size={size}
+      captionSize={captionSize}
+      model={tv.general?.brand?.model || ""}
+      brand={
+        tv.general?.brand?.serie?.data?.attributes?.brand?.data?.attributes
+          ?.name || ""
+      }
+    />
   );
 };
 
