@@ -1,16 +1,14 @@
 import { Grid, GridItem } from "@chakra-ui/react";
 import Image from "next/image";
 import React, { Fragment } from "react";
-import { getFullName, getPicture, getScore } from "../../models/tv";
+import { getFullName, getPicture } from "../../models/tv";
 import Score from "../score";
-import { useScoreWeighting } from "../tv/score-weighting-provider";
 import SummaryData from "../tv/summary/data";
 import SummaryTitle from "../tv/summary/title";
 import { useTvs } from "../tv/tvs-provider";
 
 const ComparatorHero = () => {
   const { tvs } = useTvs();
-  const scoreWeighting = useScoreWeighting();
 
   return (
     <Grid
@@ -50,7 +48,7 @@ const ComparatorHero = () => {
               </GridItem>
             )}
             <GridItem gridRow={3} gridColumn={gridColumn}>
-              <Score value={getScore(tv, scoreWeighting)} size={70} />
+              <Score value={tv.score || 0} size={70} />
             </GridItem>
             <GridItem gridRow={4} gridColumn={gridColumn}>
               <SummaryData tv={tv} size="lg" />

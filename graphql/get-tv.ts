@@ -13,6 +13,7 @@ const getTv = async ({ slug }: { slug: string }) => {
               name
               ean
               slug
+              score
               general {
                 screenSize
                 releaseDate

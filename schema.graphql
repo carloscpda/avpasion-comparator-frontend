@@ -2753,6 +2753,7 @@ type Tv {
   publishedAt: DateTime
   reviews: ComponentSectionsReviews
   rrp: Float
+  score: Float
   slug: String!
   sound: ComponentSectionsSound
   system: ComponentSectionsSystem
@@ -2788,6 +2789,7 @@ input TvFiltersInput {
   publishedAt: DateTimeFilterInput
   reviews: ComponentSectionsReviewsFiltersInput
   rrp: FloatFilterInput
+  score: FloatFilterInput
   slug: StringFilterInput
   sound: ComponentSectionsSoundFiltersInput
   system: ComponentSectionsSystemFiltersInput
@@ -2804,6 +2806,7 @@ input TvInput {
   publishedAt: DateTime
   reviews: ComponentSectionsReviewsInput
   rrp: Float
+  score: Float
   slug: String
   sound: ComponentSectionsSoundInput
   system: ComponentSectionsSystemInput

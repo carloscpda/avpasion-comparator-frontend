@@ -6,9 +6,6 @@ import Main from "../../components/layout/main";
 import { GetStaticProps } from "next";
 import getTv from "../../graphql/get-tv";
 import { TV } from "../../models/tv";
-import getScoreWeighting from "../../graphql/get-score-weighting";
-import { ScoreWeighting } from "../../models/score-weighting";
-import ScoreWeightingProvider from "../../components/tv/score-weighting-provider";
 import ComparatorHero from "../../components/comparator/hero";
 
 export const getStaticPaths = async () => {
@@ -19,7 +16,6 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const scoreWeighting = await getScoreWeighting();
   const path = params?.vs;
   const [tv1Slug, tv2Slug] = (params?.vs as string).split("--vs--");
 
@@ -31,27 +27,19 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const tv2 = await getTv({ slug: tv2Slug });
 
   return {
-    props: { tvs: [tv1, tv2], scoreWeighting, tv2Slug, path },
+    props: { tvs: [tv1, tv2] },
   };
 };
 
-const TVPage = ({
-  tvs,
-  scoreWeighting,
-}: {
-  tvs: [TV, TV];
-  scoreWeighting: ScoreWeighting;
-}) => {
+const TVPage = ({ tvs }: { tvs: [TV, TV] }) => {
   return (
     <TvProvider value={tvs}>
       <Layout>
-        <ScoreWeightingProvider value={scoreWeighting}>
-          <Navbar />
-          <Main>
-            <ComparatorHero />
-            <Comparator />
-          </Main>
-        </ScoreWeightingProvider>
+        <Navbar />
+        <Main>
+          <ComparatorHero />
+          <Comparator />
+        </Main>
       </Layout>
     </TvProvider>
   );

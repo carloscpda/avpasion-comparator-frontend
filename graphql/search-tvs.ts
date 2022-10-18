@@ -24,6 +24,7 @@ const searchTvs = async ({
       ) {
         tvs(
           pagination: { page: $page, pageSize: $offset }
+          sort: "score:desc"
           filters: {
             and: {
               general: { brand: { serie: { brand: { id: { eq: $brand } } } } }
@@ -40,6 +41,7 @@ const searchTvs = async ({
             attributes {
               name
               slug
+              score
               general {
                 screenSize
                 releaseDate

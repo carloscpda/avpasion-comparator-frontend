@@ -16,8 +16,14 @@ export type Scalars = {
   Date: any;
   /** A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar. */
   DateTime: any;
+  /** A string used to identify an i18n locale */
+  I18NLocaleCode: any;
   /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
   JSON: any;
+  /** The `BigInt` scalar type represents non-fractional signed whole numeric values. */
+  Long: any;
+  /** A time string with format HH:mm:ss.SSS */
+  Time: any;
   /** The `Upload` scalar type represents a file upload. */
   Upload: any;
 };
@@ -61,6 +67,11 @@ export type BacklightTypeFiltersInput = {
 export type BacklightTypeInput = {
   description?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
+};
+
+export type BacklightTypeRelationResponseCollection = {
+  __typename?: 'BacklightTypeRelationResponseCollection';
+  data: Array<BacklightTypeEntity>;
 };
 
 export type BooleanFilterInput = {
@@ -135,6 +146,11 @@ export type BrandInput = {
   series?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
 };
 
+export type BrandRelationResponseCollection = {
+  __typename?: 'BrandRelationResponseCollection';
+  data: Array<BrandEntity>;
+};
+
 export type Color = {
   __typename?: 'Color';
   createdAt?: Maybe<Scalars['DateTime']>;
@@ -182,6 +198,11 @@ export type ColorDepthFiltersInput = {
 export type ColorDepthInput = {
   description?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
+};
+
+export type ColorDepthRelationResponseCollection = {
+  __typename?: 'ColorDepthRelationResponseCollection';
+  data: Array<ColorDepthEntity>;
 };
 
 export type ColorEntity = {
@@ -963,6 +984,11 @@ export type ConnectionInput = {
   name?: InputMaybe<Scalars['String']>;
 };
 
+export type ConnectionRelationResponseCollection = {
+  __typename?: 'ConnectionRelationResponseCollection';
+  data: Array<ConnectionEntity>;
+};
+
 export type ConnectionTechnology = {
   __typename?: 'ConnectionTechnology';
   createdAt?: Maybe<Scalars['DateTime']>;
@@ -1048,6 +1074,11 @@ export type ConnectionTypeFiltersInput = {
 export type ConnectionTypeInput = {
   connection?: InputMaybe<Scalars['ID']>;
   name?: InputMaybe<Scalars['String']>;
+};
+
+export type ConnectionTypeRelationResponseCollection = {
+  __typename?: 'ConnectionTypeRelationResponseCollection';
+  data: Array<ConnectionTypeEntity>;
 };
 
 export type DateFilterInput = {
@@ -1164,6 +1195,12 @@ export enum Enum_Dvb_Type {
   Satellite = 'satellite',
   Terrestrial = 'terrestrial'
 }
+
+export type Error = {
+  __typename?: 'Error';
+  code: Scalars['String'];
+  message?: Maybe<Scalars['String']>;
+};
 
 export type ExternalSite = {
   __typename?: 'ExternalSite';
@@ -1432,6 +1469,16 @@ export type I18NLocaleFiltersInput = {
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
+export type I18NLocaleInput = {
+  code?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+};
+
+export type I18NLocaleRelationResponseCollection = {
+  __typename?: 'I18NLocaleRelationResponseCollection';
+  data: Array<I18NLocaleEntity>;
+};
+
 export type IdFilterInput = {
   and?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
   between?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
@@ -1497,6 +1544,11 @@ export type ImageProcessorInput = {
   name?: InputMaybe<Scalars['String']>;
 };
 
+export type ImageProcessorRelationResponseCollection = {
+  __typename?: 'ImageProcessorRelationResponseCollection';
+  data: Array<ImageProcessorEntity>;
+};
+
 export type ImageTechnology = {
   __typename?: 'ImageTechnology';
   createdAt?: Maybe<Scalars['DateTime']>;
@@ -1536,6 +1588,11 @@ export type ImageTechnologyFiltersInput = {
 export type ImageTechnologyInput = {
   description?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
+};
+
+export type ImageTechnologyRelationResponseCollection = {
+  __typename?: 'ImageTechnologyRelationResponseCollection';
+  data: Array<ImageTechnologyEntity>;
 };
 
 export type IntFilterInput = {
@@ -1586,6 +1643,30 @@ export type JsonFilterInput = {
   startsWith?: InputMaybe<Scalars['JSON']>;
 };
 
+export type LongFilterInput = {
+  and?: InputMaybe<Array<InputMaybe<Scalars['Long']>>>;
+  between?: InputMaybe<Array<InputMaybe<Scalars['Long']>>>;
+  contains?: InputMaybe<Scalars['Long']>;
+  containsi?: InputMaybe<Scalars['Long']>;
+  endsWith?: InputMaybe<Scalars['Long']>;
+  eq?: InputMaybe<Scalars['Long']>;
+  eqi?: InputMaybe<Scalars['Long']>;
+  gt?: InputMaybe<Scalars['Long']>;
+  gte?: InputMaybe<Scalars['Long']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['Long']>>>;
+  lt?: InputMaybe<Scalars['Long']>;
+  lte?: InputMaybe<Scalars['Long']>;
+  ne?: InputMaybe<Scalars['Long']>;
+  not?: InputMaybe<LongFilterInput>;
+  notContains?: InputMaybe<Scalars['Long']>;
+  notContainsi?: InputMaybe<Scalars['Long']>;
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['Long']>>>;
+  notNull?: InputMaybe<Scalars['Boolean']>;
+  null?: InputMaybe<Scalars['Boolean']>;
+  or?: InputMaybe<Array<InputMaybe<Scalars['Long']>>>;
+  startsWith?: InputMaybe<Scalars['Long']>;
+};
+
 export type Marketplace = {
   __typename?: 'Marketplace';
   createdAt?: Maybe<Scalars['DateTime']>;
@@ -1624,6 +1705,11 @@ export type MarketplaceFiltersInput = {
 export type MarketplaceInput = {
   logo?: InputMaybe<Scalars['ID']>;
   name?: InputMaybe<Scalars['String']>;
+};
+
+export type MarketplaceRelationResponseCollection = {
+  __typename?: 'MarketplaceRelationResponseCollection';
+  data: Array<MarketplaceEntity>;
 };
 
 export type MarketplaceTv = {
@@ -1696,6 +1782,11 @@ export type MarketplaceTvInput = {
   reconditioned?: InputMaybe<Scalars['Boolean']>;
   tv?: InputMaybe<Scalars['ID']>;
   url?: InputMaybe<Scalars['String']>;
+};
+
+export type MarketplaceTvRelationResponseCollection = {
+  __typename?: 'MarketplaceTvRelationResponseCollection';
+  data: Array<MarketplaceTvEntity>;
 };
 
 export type Mutation = {
@@ -2533,6 +2624,11 @@ export type OperatingSystemInput = {
   name?: InputMaybe<Scalars['String']>;
 };
 
+export type OperatingSystemRelationResponseCollection = {
+  __typename?: 'OperatingSystemRelationResponseCollection';
+  data: Array<OperatingSystemEntity>;
+};
+
 export type OperatingSystemVersion = {
   __typename?: 'OperatingSystemVersion';
   createdAt?: Maybe<Scalars['DateTime']>;
@@ -2575,6 +2671,11 @@ export type OperatingSystemVersionInput = {
   operatingSystem?: InputMaybe<Scalars['ID']>;
   uid?: InputMaybe<Scalars['String']>;
   version?: InputMaybe<Scalars['String']>;
+};
+
+export type OperatingSystemVersionRelationResponseCollection = {
+  __typename?: 'OperatingSystemVersionRelationResponseCollection';
+  data: Array<OperatingSystemVersionEntity>;
 };
 
 export type Pagination = {
@@ -2630,6 +2731,11 @@ export type PanelManufacturerInput = {
   name?: InputMaybe<Scalars['String']>;
 };
 
+export type PanelManufacturerRelationResponseCollection = {
+  __typename?: 'PanelManufacturerRelationResponseCollection';
+  data: Array<PanelManufacturerEntity>;
+};
+
 export type PanelTechnology = {
   __typename?: 'PanelTechnology';
   createdAt?: Maybe<Scalars['DateTime']>;
@@ -2669,6 +2775,11 @@ export type PanelTechnologyFiltersInput = {
 export type PanelTechnologyInput = {
   description?: InputMaybe<Scalars['String']>;
   type?: InputMaybe<Scalars['String']>;
+};
+
+export type PanelTechnologyRelationResponseCollection = {
+  __typename?: 'PanelTechnologyRelationResponseCollection';
+  data: Array<PanelTechnologyEntity>;
 };
 
 export type Price = {
@@ -3291,12 +3402,36 @@ export type ScoreWeightingEntityResponse = {
   data?: Maybe<ScoreWeightingEntity>;
 };
 
+export type ScoreWeightingEntityResponseCollection = {
+  __typename?: 'ScoreWeightingEntityResponseCollection';
+  data: Array<ScoreWeightingEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type ScoreWeightingFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ScoreWeightingFiltersInput>>>;
+  connections?: InputMaybe<FloatFilterInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  design?: InputMaybe<FloatFilterInput>;
+  image?: InputMaybe<FloatFilterInput>;
+  not?: InputMaybe<ScoreWeightingFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ScoreWeightingFiltersInput>>>;
+  sound?: InputMaybe<FloatFilterInput>;
+  system?: InputMaybe<FloatFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
 export type ScoreWeightingInput = {
   connections?: InputMaybe<Scalars['Float']>;
   design?: InputMaybe<Scalars['Float']>;
   image?: InputMaybe<Scalars['Float']>;
   sound?: InputMaybe<Scalars['Float']>;
   system?: InputMaybe<Scalars['Float']>;
+};
+
+export type ScoreWeightingRelationResponseCollection = {
+  __typename?: 'ScoreWeightingRelationResponseCollection';
+  data: Array<ScoreWeightingEntity>;
 };
 
 export type ScreenResolution = {
@@ -3340,6 +3475,11 @@ export type ScreenResolutionInput = {
   resolution?: InputMaybe<Scalars['String']>;
 };
 
+export type ScreenResolutionRelationResponseCollection = {
+  __typename?: 'ScreenResolutionRelationResponseCollection';
+  data: Array<ScreenResolutionEntity>;
+};
+
 export type ScreenShape = {
   __typename?: 'ScreenShape';
   createdAt?: Maybe<Scalars['DateTime']>;
@@ -3378,6 +3518,11 @@ export type ScreenShapeInput = {
   name?: InputMaybe<Scalars['String']>;
 };
 
+export type ScreenShapeRelationResponseCollection = {
+  __typename?: 'ScreenShapeRelationResponseCollection';
+  data: Array<ScreenShapeEntity>;
+};
+
 export type SocModel = {
   __typename?: 'SocModel';
   createdAt?: Maybe<Scalars['DateTime']>;
@@ -3414,6 +3559,11 @@ export type SocModelFiltersInput = {
 
 export type SocModelInput = {
   name?: InputMaybe<Scalars['String']>;
+};
+
+export type SocModelRelationResponseCollection = {
+  __typename?: 'SocModelRelationResponseCollection';
+  data: Array<SocModelEntity>;
 };
 
 export type SoundTechnology = {
@@ -3527,6 +3677,35 @@ export type SubpixelTechnologyInput = {
   name?: InputMaybe<Scalars['String']>;
 };
 
+export type SubpixelTechnologyRelationResponseCollection = {
+  __typename?: 'SubpixelTechnologyRelationResponseCollection';
+  data: Array<SubpixelTechnologyEntity>;
+};
+
+export type TimeFilterInput = {
+  and?: InputMaybe<Array<InputMaybe<Scalars['Time']>>>;
+  between?: InputMaybe<Array<InputMaybe<Scalars['Time']>>>;
+  contains?: InputMaybe<Scalars['Time']>;
+  containsi?: InputMaybe<Scalars['Time']>;
+  endsWith?: InputMaybe<Scalars['Time']>;
+  eq?: InputMaybe<Scalars['Time']>;
+  eqi?: InputMaybe<Scalars['Time']>;
+  gt?: InputMaybe<Scalars['Time']>;
+  gte?: InputMaybe<Scalars['Time']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['Time']>>>;
+  lt?: InputMaybe<Scalars['Time']>;
+  lte?: InputMaybe<Scalars['Time']>;
+  ne?: InputMaybe<Scalars['Time']>;
+  not?: InputMaybe<TimeFilterInput>;
+  notContains?: InputMaybe<Scalars['Time']>;
+  notContainsi?: InputMaybe<Scalars['Time']>;
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['Time']>>>;
+  notNull?: InputMaybe<Scalars['Boolean']>;
+  null?: InputMaybe<Scalars['Boolean']>;
+  or?: InputMaybe<Array<InputMaybe<Scalars['Time']>>>;
+  startsWith?: InputMaybe<Scalars['Time']>;
+};
+
 export type Tv = {
   __typename?: 'Tv';
   connections?: Maybe<ComponentSectionsConnections>;
@@ -3539,6 +3718,7 @@ export type Tv = {
   publishedAt?: Maybe<Scalars['DateTime']>;
   reviews?: Maybe<ComponentSectionsReviews>;
   rrp?: Maybe<Scalars['Float']>;
+  score?: Maybe<Scalars['Float']>;
   slug: Scalars['String'];
   sound?: Maybe<ComponentSectionsSound>;
   system?: Maybe<ComponentSectionsSystem>;
@@ -3577,6 +3757,7 @@ export type TvFiltersInput = {
   publishedAt?: InputMaybe<DateTimeFilterInput>;
   reviews?: InputMaybe<ComponentSectionsReviewsFiltersInput>;
   rrp?: InputMaybe<FloatFilterInput>;
+  score?: InputMaybe<FloatFilterInput>;
   slug?: InputMaybe<StringFilterInput>;
   sound?: InputMaybe<ComponentSectionsSoundFiltersInput>;
   system?: InputMaybe<ComponentSectionsSystemFiltersInput>;
@@ -3593,9 +3774,15 @@ export type TvInput = {
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   reviews?: InputMaybe<ComponentSectionsReviewsInput>;
   rrp?: InputMaybe<Scalars['Float']>;
+  score?: InputMaybe<Scalars['Float']>;
   slug?: InputMaybe<Scalars['String']>;
   sound?: InputMaybe<ComponentSectionsSoundInput>;
   system?: InputMaybe<ComponentSectionsSystemInput>;
+};
+
+export type TvRelationResponseCollection = {
+  __typename?: 'TvRelationResponseCollection';
+  data: Array<TvEntity>;
 };
 
 export type TvSerie = {
@@ -3865,6 +4052,17 @@ export type UsersPermissionsPermissionEntity = {
   id?: Maybe<Scalars['ID']>;
 };
 
+export type UsersPermissionsPermissionEntityResponse = {
+  __typename?: 'UsersPermissionsPermissionEntityResponse';
+  data?: Maybe<UsersPermissionsPermissionEntity>;
+};
+
+export type UsersPermissionsPermissionEntityResponseCollection = {
+  __typename?: 'UsersPermissionsPermissionEntityResponseCollection';
+  data: Array<UsersPermissionsPermissionEntity>;
+  meta: ResponseCollectionMeta;
+};
+
 export type UsersPermissionsPermissionFiltersInput = {
   action?: InputMaybe<StringFilterInput>;
   and?: InputMaybe<Array<InputMaybe<UsersPermissionsPermissionFiltersInput>>>;
@@ -3874,6 +4072,11 @@ export type UsersPermissionsPermissionFiltersInput = {
   or?: InputMaybe<Array<InputMaybe<UsersPermissionsPermissionFiltersInput>>>;
   role?: InputMaybe<UsersPermissionsRoleFiltersInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type UsersPermissionsPermissionInput = {
+  action?: InputMaybe<Scalars['String']>;
+  role?: InputMaybe<Scalars['ID']>;
 };
 
 export type UsersPermissionsPermissionRelationResponseCollection = {
@@ -3949,6 +4152,11 @@ export type UsersPermissionsRoleInput = {
   permissions?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
   type?: InputMaybe<Scalars['String']>;
   users?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+};
+
+export type UsersPermissionsRoleRelationResponseCollection = {
+  __typename?: 'UsersPermissionsRoleRelationResponseCollection';
+  data: Array<UsersPermissionsRoleEntity>;
 };
 
 export type UsersPermissionsUpdateRolePayload = {
@@ -4056,6 +4264,11 @@ export type VesaSizeFiltersInput = {
 
 export type VesaSizeInput = {
   size?: InputMaybe<Scalars['String']>;
+};
+
+export type VesaSizeRelationResponseCollection = {
+  __typename?: 'VesaSizeRelationResponseCollection';
+  data: Array<VesaSizeEntity>;
 };
 
 export type VoiceAssistant = {
@@ -4195,6 +4408,11 @@ export type WirelessConnectionTypeInput = {
   technologies?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
 };
 
+export type WirelessConnectionTypeRelationResponseCollection = {
+  __typename?: 'WirelessConnectionTypeRelationResponseCollection';
+  data: Array<WirelessConnectionTypeEntity>;
+};
+
 export type GetBrandsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -4204,11 +4422,6 @@ export type GetImageTechnologiesQueryVariables = Exact<{ [key: string]: never; }
 
 
 export type GetImageTechnologiesQuery = { __typename?: 'Query', imageTechnologies?: { __typename?: 'ImageTechnologyEntityResponseCollection', data: Array<{ __typename?: 'ImageTechnologyEntity', id?: string | null, attributes?: { __typename?: 'ImageTechnology', name: string } | null }> } | null };
-
-export type GetScoreWeightingQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetScoreWeightingQuery = { __typename?: 'Query', scoreWeighting?: { __typename?: 'ScoreWeightingEntityResponse', data?: { __typename?: 'ScoreWeightingEntity', attributes?: { __typename?: 'ScoreWeighting', image: number, design: number, connections: number, sound: number, system: number } | null } | null } | null };
 
 export type GetTvSeriesQueryVariables = Exact<{
   serieId: Scalars['ID'];
@@ -4227,12 +4440,13 @@ export type GetTvQueryVariables = Exact<{
 }>;
 
 
-export type GetTvQuery = { __typename?: 'Query', tvs?: { __typename?: 'TvEntityResponseCollection', data: Array<{ __typename?: 'TvEntity', attributes?: { __typename?: 'Tv', name: string, ean: string, slug: string, general?: { __typename?: 'ComponentSectionsGeneral', screenSize: number, releaseDate: any, brand?: { __typename?: 'ComponentGeneralBrand', model: string, serie?: { __typename?: 'TvSerieEntityResponse', data?: { __typename?: 'TvSerieEntity', id?: string | null, attributes?: { __typename?: 'TvSerie', name: string, brand?: { __typename?: 'BrandEntityResponse', data?: { __typename?: 'BrandEntity', attributes?: { __typename?: 'Brand', name: string } | null } | null } | null } | null } | null } | null } | null } | null, image?: { __typename?: 'ComponentSectionsImage', score: number, resolution?: { __typename?: 'ScreenResolutionEntityResponse', data?: { __typename?: 'ScreenResolutionEntity', attributes?: { __typename?: 'ScreenResolution', resolution: string, alternativeName?: string | null } | null } | null } | null, technology?: { __typename?: 'ComponentImageTechnology', image?: { __typename?: 'ImageTechnologyEntityResponse', data?: { __typename?: 'ImageTechnologyEntity', attributes?: { __typename?: 'ImageTechnology', name: string } | null } | null } | null, panel?: { __typename?: 'PanelTechnologyEntityResponse', data?: { __typename?: 'PanelTechnologyEntity', attributes?: { __typename?: 'PanelTechnology', type: string } | null } | null } | null, panelManufacturer?: { __typename?: 'PanelManufacturerEntityResponse', data?: { __typename?: 'PanelManufacturerEntity', attributes?: { __typename?: 'PanelManufacturer', name: string } | null } | null } | null } | null, backlightAndContrast?: { __typename?: 'ComponentImageBacklightAndContrast', brightness?: number | null, contrast?: string | null } | null, colorimetry?: { __typename?: 'ComponentImageColorimetry', dciP3?: number | null, rec709?: number | null, rec2020?: number | null, sRGB?: number | null, colorDepth?: { __typename?: 'ColorDepthEntityResponse', data?: { __typename?: 'ColorDepthEntity', attributes?: { __typename?: 'ColorDepth', name: string } | null } | null } | null, technologies?: { __typename?: 'ColorimetryTechnologyRelationResponseCollection', data: Array<{ __typename?: 'ColorimetryTechnologyEntity', attributes?: { __typename?: 'ColorimetryTechnology', name: string } | null }> } | null } | null, hdr?: { __typename?: 'ComponentImageHdr', technologies?: { __typename?: 'HdrTechnologyRelationResponseCollection', data: Array<{ __typename?: 'HdrTechnologyEntity', attributes?: { __typename?: 'HdrTechnology', name: string } | null }> } | null } | null, crystal?: { __typename?: 'ComponentImageCrystal', horizontalVisionAngle?: number | null, verticalVisionAngle?: number | null, antiReflectiveFilter?: Enum_Componentimagecrystal_Antireflectivefilter | null } | null, processing?: { __typename?: 'ComponentImageProcessing', processor?: { __typename?: 'ImageProcessorEntityResponse', data?: { __typename?: 'ImageProcessorEntity', attributes?: { __typename?: 'ImageProcessor', name: string } | null } | null } | null } | null, responseTimes?: { __typename?: 'ComponentImageResponseTimes', inputLag60?: number | null, inputLag120?: number | null, gaming?: { __typename?: 'GamingTechnologyRelationResponseCollection', data: Array<{ __typename?: 'GamingTechnologyEntity', attributes?: { __typename?: 'GamingTechnology', name: string } | null }> } | null } | null } | null, sound?: { __typename?: 'ComponentSectionsSound', score: number, power?: number | null, outputChannels?: string | null, speakers?: Array<{ __typename?: 'ComponentSoundSpeaker', power: number, quantity: number } | null> | null, subwoofers?: Array<{ __typename?: 'ComponentSoundSpeaker', power: number, quantity: number } | null> | null, technologies?: { __typename?: 'SoundTechnologyRelationResponseCollection', data: Array<{ __typename?: 'SoundTechnologyEntity', attributes?: { __typename?: 'SoundTechnology', name: string } | null }> } | null } | null, connections?: { __typename?: 'ComponentSectionsConnections', score: number, hbbTV?: boolean | null, dvb?: { __typename?: 'DvbRelationResponseCollection', data: Array<{ __typename?: 'DvbEntity', attributes?: { __typename?: 'Dvb', name: string, type: Enum_Dvb_Type } | null }> } | null, cable?: Array<{ __typename?: 'ComponentConnectionConnection', quantity: number, type?: { __typename?: 'ConnectionTypeEntityResponse', data?: { __typename?: 'ConnectionTypeEntity', attributes?: { __typename?: 'ConnectionType', name: string, connection?: { __typename?: 'ConnectionEntityResponse', data?: { __typename?: 'ConnectionEntity', attributes?: { __typename?: 'Connection', name: string } | null } | null } | null } | null } | null } | null, connectionTechnologies?: { __typename?: 'ConnectionTechnologyRelationResponseCollection', data: Array<{ __typename?: 'ConnectionTechnologyEntity', attributes?: { __typename?: 'ConnectionTechnology', name: string } | null }> } | null } | null> | null, wireless?: { __typename?: 'WirelessConnectionTechnologyRelationResponseCollection', data: Array<{ __typename?: 'WirelessConnectionTechnologyEntity', attributes?: { __typename?: 'WirelessConnectionTechnology', name: string, type?: { __typename?: 'WirelessConnectionTypeEntityResponse', data?: { __typename?: 'WirelessConnectionTypeEntity', attributes?: { __typename?: 'WirelessConnectionType', name: string } | null } | null } | null } | null }> } | null, extraFeatures?: { __typename?: 'ExtraFeatureRelationResponseCollection', data: Array<{ __typename?: 'ExtraFeatureEntity', attributes?: { __typename?: 'ExtraFeature', name: string, description?: string | null } | null }> } | null } | null, design?: { __typename?: 'ComponentSectionsDesign', score: number, dimensionsWithStand?: { __typename?: 'ComponentDesignDimensions', width: number, height: number, depth: number, weight: number } | null, dimensionsWithoutStand?: { __typename?: 'ComponentDesignDimensions', width: number, height: number, depth: number, weight: number } | null, screenShape?: { __typename?: 'ScreenShapeEntityResponse', data?: { __typename?: 'ScreenShapeEntity', attributes?: { __typename?: 'ScreenShape', name: string } | null } | null } | null, colors?: { __typename?: 'ColorRelationResponseCollection', data: Array<{ __typename?: 'ColorEntity', attributes?: { __typename?: 'Color', name: string, hex: string } | null }> } | null, vesa?: { __typename?: 'VesaSizeEntityResponse', data?: { __typename?: 'VesaSizeEntity', attributes?: { __typename?: 'VesaSize', size: string } | null } | null } | null, pictures?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null }> } | null } | null, system?: { __typename?: 'ComponentSectionsSystem', score: number, powerSupply?: number | null, powerSupplyFrequency?: number | null, operatingSystem?: { __typename?: 'OperatingSystemVersionEntityResponse', data?: { __typename?: 'OperatingSystemVersionEntity', attributes?: { __typename?: 'OperatingSystemVersion', version: string, operatingSystem?: { __typename?: 'OperatingSystemEntityResponse', data?: { __typename?: 'OperatingSystemEntity', attributes?: { __typename?: 'OperatingSystem', name: string } | null } | null } | null } | null } | null } | null, voiceAssistants?: { __typename?: 'VoiceAssistantRelationResponseCollection', data: Array<{ __typename?: 'VoiceAssistantEntity', attributes?: { __typename?: 'VoiceAssistant', name: string } | null }> } | null, hardware?: { __typename?: 'ComponentSystemHardware', ram?: number | null, rom?: number | null, soc?: { __typename?: 'SocModelEntityResponse', data?: { __typename?: 'SocModelEntity', attributes?: { __typename?: 'SocModel', name?: string | null } | null } | null } | null } | null, consumption?: { __typename?: 'ComponentSystemConsumption', energyEfficiency?: Enum_Componentsystemconsumption_Energyefficiency | null, averageConsumption?: number | null, consumption?: number | null, standbyConsumption?: number | null } | null } | null, reviews?: { __typename?: 'ComponentSectionsReviews', reviews?: { __typename?: 'ExternalSiteRelationResponseCollection', data: Array<{ __typename?: 'ExternalSiteEntity', attributes?: { __typename?: 'ExternalSite', title?: string | null, url: string, video?: boolean | null, description?: string | null, image?: string | null, siteName?: string | null, slug?: string | null } | null }> } | null, comparatives?: { __typename?: 'ExternalSiteRelationResponseCollection', data: Array<{ __typename?: 'ExternalSiteEntity', attributes?: { __typename?: 'ExternalSite', title?: string | null, url: string, video?: boolean | null, description?: string | null, image?: string | null, siteName?: string | null, slug?: string | null } | null }> } | null } | null } | null }> } | null };
+export type GetTvQuery = { __typename?: 'Query', tvs?: { __typename?: 'TvEntityResponseCollection', data: Array<{ __typename?: 'TvEntity', attributes?: { __typename?: 'Tv', name: string, ean: string, slug: string, score?: number | null, general?: { __typename?: 'ComponentSectionsGeneral', screenSize: number, releaseDate: any, brand?: { __typename?: 'ComponentGeneralBrand', model: string, serie?: { __typename?: 'TvSerieEntityResponse', data?: { __typename?: 'TvSerieEntity', id?: string | null, attributes?: { __typename?: 'TvSerie', name: string, brand?: { __typename?: 'BrandEntityResponse', data?: { __typename?: 'BrandEntity', attributes?: { __typename?: 'Brand', name: string } | null } | null } | null } | null } | null } | null } | null } | null, image?: { __typename?: 'ComponentSectionsImage', score: number, resolution?: { __typename?: 'ScreenResolutionEntityResponse', data?: { __typename?: 'ScreenResolutionEntity', attributes?: { __typename?: 'ScreenResolution', resolution: string, alternativeName?: string | null } | null } | null } | null, technology?: { __typename?: 'ComponentImageTechnology', image?: { __typename?: 'ImageTechnologyEntityResponse', data?: { __typename?: 'ImageTechnologyEntity', attributes?: { __typename?: 'ImageTechnology', name: string } | null } | null } | null, panel?: { __typename?: 'PanelTechnologyEntityResponse', data?: { __typename?: 'PanelTechnologyEntity', attributes?: { __typename?: 'PanelTechnology', type: string } | null } | null } | null, panelManufacturer?: { __typename?: 'PanelManufacturerEntityResponse', data?: { __typename?: 'PanelManufacturerEntity', attributes?: { __typename?: 'PanelManufacturer', name: string } | null } | null } | null } | null, backlightAndContrast?: { __typename?: 'ComponentImageBacklightAndContrast', brightness?: number | null, contrast?: string | null } | null, colorimetry?: { __typename?: 'ComponentImageColorimetry', dciP3?: number | null, rec709?: number | null, rec2020?: number | null, sRGB?: number | null, colorDepth?: { __typename?: 'ColorDepthEntityResponse', data?: { __typename?: 'ColorDepthEntity', attributes?: { __typename?: 'ColorDepth', name: string } | null } | null } | null, technologies?: { __typename?: 'ColorimetryTechnologyRelationResponseCollection', data: Array<{ __typename?: 'ColorimetryTechnologyEntity', attributes?: { __typename?: 'ColorimetryTechnology', name: string } | null }> } | null } | null, hdr?: { __typename?: 'ComponentImageHdr', technologies?: { __typename?: 'HdrTechnologyRelationResponseCollection', data: Array<{ __typename?: 'HdrTechnologyEntity', attributes?: { __typename?: 'HdrTechnology', name: string } | null }> } | null } | null, crystal?: { __typename?: 'ComponentImageCrystal', horizontalVisionAngle?: number | null, verticalVisionAngle?: number | null, antiReflectiveFilter?: Enum_Componentimagecrystal_Antireflectivefilter | null } | null, processing?: { __typename?: 'ComponentImageProcessing', processor?: { __typename?: 'ImageProcessorEntityResponse', data?: { __typename?: 'ImageProcessorEntity', attributes?: { __typename?: 'ImageProcessor', name: string } | null } | null } | null } | null, responseTimes?: { __typename?: 'ComponentImageResponseTimes', inputLag60?: number | null, inputLag120?: number | null, gaming?: { __typename?: 'GamingTechnologyRelationResponseCollection', data: Array<{ __typename?: 'GamingTechnologyEntity', attributes?: { __typename?: 'GamingTechnology', name: string } | null }> } | null } | null } | null, sound?: { __typename?: 'ComponentSectionsSound', score: number, power?: number | null, outputChannels?: string | null, speakers?: Array<{ __typename?: 'ComponentSoundSpeaker', power: number, quantity: number } | null> | null, subwoofers?: Array<{ __typename?: 'ComponentSoundSpeaker', power: number, quantity: number } | null> | null, technologies?: { __typename?: 'SoundTechnologyRelationResponseCollection', data: Array<{ __typename?: 'SoundTechnologyEntity', attributes?: { __typename?: 'SoundTechnology', name: string } | null }> } | null } | null, connections?: { __typename?: 'ComponentSectionsConnections', score: number, hbbTV?: boolean | null, dvb?: { __typename?: 'DvbRelationResponseCollection', data: Array<{ __typename?: 'DvbEntity', attributes?: { __typename?: 'Dvb', name: string, type: Enum_Dvb_Type } | null }> } | null, cable?: Array<{ __typename?: 'ComponentConnectionConnection', quantity: number, type?: { __typename?: 'ConnectionTypeEntityResponse', data?: { __typename?: 'ConnectionTypeEntity', attributes?: { __typename?: 'ConnectionType', name: string, connection?: { __typename?: 'ConnectionEntityResponse', data?: { __typename?: 'ConnectionEntity', attributes?: { __typename?: 'Connection', name: string } | null } | null } | null } | null } | null } | null, connectionTechnologies?: { __typename?: 'ConnectionTechnologyRelationResponseCollection', data: Array<{ __typename?: 'ConnectionTechnologyEntity', attributes?: { __typename?: 'ConnectionTechnology', name: string } | null }> } | null } | null> | null, wireless?: { __typename?: 'WirelessConnectionTechnologyRelationResponseCollection', data: Array<{ __typename?: 'WirelessConnectionTechnologyEntity', attributes?: { __typename?: 'WirelessConnectionTechnology', name: string, type?: { __typename?: 'WirelessConnectionTypeEntityResponse', data?: { __typename?: 'WirelessConnectionTypeEntity', attributes?: { __typename?: 'WirelessConnectionType', name: string } | null } | null } | null } | null }> } | null, extraFeatures?: { __typename?: 'ExtraFeatureRelationResponseCollection', data: Array<{ __typename?: 'ExtraFeatureEntity', attributes?: { __typename?: 'ExtraFeature', name: string, description?: string | null } | null }> } | null } | null, design?: { __typename?: 'ComponentSectionsDesign', score: number, dimensionsWithStand?: { __typename?: 'ComponentDesignDimensions', width: number, height: number, depth: number, weight: number } | null, dimensionsWithoutStand?: { __typename?: 'ComponentDesignDimensions', width: number, height: number, depth: number, weight: number } | null, screenShape?: { __typename?: 'ScreenShapeEntityResponse', data?: { __typename?: 'ScreenShapeEntity', attributes?: { __typename?: 'ScreenShape', name: string } | null } | null } | null, colors?: { __typename?: 'ColorRelationResponseCollection', data: Array<{ __typename?: 'ColorEntity', attributes?: { __typename?: 'Color', name: string, hex: string } | null }> } | null, vesa?: { __typename?: 'VesaSizeEntityResponse', data?: { __typename?: 'VesaSizeEntity', attributes?: { __typename?: 'VesaSize', size: string } | null } | null } | null, pictures?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string } | null }> } | null } | null, system?: { __typename?: 'ComponentSectionsSystem', score: number, powerSupply?: number | null, powerSupplyFrequency?: number | null, operatingSystem?: { __typename?: 'OperatingSystemVersionEntityResponse', data?: { __typename?: 'OperatingSystemVersionEntity', attributes?: { __typename?: 'OperatingSystemVersion', version: string, operatingSystem?: { __typename?: 'OperatingSystemEntityResponse', data?: { __typename?: 'OperatingSystemEntity', attributes?: { __typename?: 'OperatingSystem', name: string } | null } | null } | null } | null } | null } | null, voiceAssistants?: { __typename?: 'VoiceAssistantRelationResponseCollection', data: Array<{ __typename?: 'VoiceAssistantEntity', attributes?: { __typename?: 'VoiceAssistant', name: string } | null }> } | null, hardware?: { __typename?: 'ComponentSystemHardware', ram?: number | null, rom?: number | null, soc?: { __typename?: 'SocModelEntityResponse', data?: { __typename?: 'SocModelEntity', attributes?: { __typename?: 'SocModel', name?: string | null } | null } | null } | null } | null, consumption?: { __typename?: 'ComponentSystemConsumption', energyEfficiency?: Enum_Componentsystemconsumption_Energyefficiency | null, averageConsumption?: number | null, consumption?: number | null, standbyConsumption?: number | null } | null } | null, reviews?: { __typename?: 'ComponentSectionsReviews', reviews?: { __typename?: 'ExternalSiteRelationResponseCollection', data: Array<{ __typename?: 'ExternalSiteEntity', attributes?: { __typename?: 'ExternalSite', title?: string | null, url: string, video?: boolean | null, description?: string | null, image?: string | null, siteName?: string | null, slug?: string | null } | null }> } | null, comparatives?: { __typename?: 'ExternalSiteRelationResponseCollection', data: Array<{ __typename?: 'ExternalSiteEntity', attributes?: { __typename?: 'ExternalSite', title?: string | null, url: string, video?: boolean | null, description?: string | null, image?: string | null, siteName?: string | null, slug?: string | null } | null }> } | null } | null } | null }> } | null };
 
 export type SearchTvsQueryVariables = Exact<{
   page: Scalars['Int'];
   offset: Scalars['Int'];
   brand?: InputMaybe<Scalars['ID']>;
+  imageTechnology?: InputMaybe<Scalars['ID']>;
 }>;
 
 
@@ -4241,8 +4455,7 @@ export type SearchTvsQuery = { __typename?: 'Query', tvs?: { __typename?: 'TvEnt
 
 export const GetBrandsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetBrands"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"brands"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetBrandsQuery, GetBrandsQueryVariables>;
 export const GetImageTechnologiesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetImageTechnologies"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"imageTechnologies"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetImageTechnologiesQuery, GetImageTechnologiesQueryVariables>;
-export const GetScoreWeightingDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetScoreWeighting"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scoreWeighting"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"design"}},{"kind":"Field","name":{"kind":"Name","value":"connections"}},{"kind":"Field","name":{"kind":"Name","value":"sound"}},{"kind":"Field","name":{"kind":"Name","value":"system"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetScoreWeightingQuery, GetScoreWeightingQueryVariables>;
 export const GetTvSeriesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetTvSeries"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"serieId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"tvs"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"general"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"brand"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"serie"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"serieId"}}}]}}]}}]}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"general"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"screenSize"}}]}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"resolution"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"alternativeName"}}]}}]}}]}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetTvSeriesQuery, GetTvSeriesQueryVariables>;
 export const GetTvSlugsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetTvSlugs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"tvs"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"-1"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetTvSlugsQuery, GetTvSlugsQueryVariables>;
-export const GetTvDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetTv"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"tvs"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"ean"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"general"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"screenSize"}},{"kind":"Field","name":{"kind":"Name","value":"releaseDate"}},{"kind":"Field","name":{"kind":"Name","value":"brand"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"model"}},{"kind":"Field","name":{"kind":"Name","value":"serie"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"brand"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"resolution"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"resolution"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeName"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"technology"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"panel"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"panelManufacturer"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"backlightAndContrast"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"brightness"}},{"kind":"Field","name":{"kind":"Name","value":"contrast"}}]}},{"kind":"Field","name":{"kind":"Name","value":"colorimetry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"dciP3"}},{"kind":"Field","name":{"kind":"Name","value":"rec709"}},{"kind":"Field","name":{"kind":"Name","value":"rec2020"}},{"kind":"Field","name":{"kind":"Name","value":"sRGB"}},{"kind":"Field","name":{"kind":"Name","value":"colorDepth"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"technologies"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"hdr"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"technologies"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"crystal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"horizontalVisionAngle"}},{"kind":"Field","name":{"kind":"Name","value":"verticalVisionAngle"}},{"kind":"Field","name":{"kind":"Name","value":"antiReflectiveFilter"}}]}},{"kind":"Field","name":{"kind":"Name","value":"processing"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"processor"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"responseTimes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"gaming"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"inputLag60"}},{"kind":"Field","name":{"kind":"Name","value":"inputLag120"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"sound"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"speakers"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"power"}},{"kind":"Field","name":{"kind":"Name","value":"quantity"}}]}},{"kind":"Field","name":{"kind":"Name","value":"subwoofers"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"power"}},{"kind":"Field","name":{"kind":"Name","value":"quantity"}}]}},{"kind":"Field","name":{"kind":"Name","value":"power"}},{"kind":"Field","name":{"kind":"Name","value":"outputChannels"}},{"kind":"Field","name":{"kind":"Name","value":"technologies"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"connections"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"dvb"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"hbbTV"}},{"kind":"Field","name":{"kind":"Name","value":"cable"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"quantity"}},{"kind":"Field","name":{"kind":"Name","value":"type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"connection"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"connectionTechnologies"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"wireless"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"extraFeatures"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"design"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"dimensionsWithStand"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"depth"}},{"kind":"Field","name":{"kind":"Name","value":"weight"}}]}},{"kind":"Field","name":{"kind":"Name","value":"dimensionsWithoutStand"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"depth"}},{"kind":"Field","name":{"kind":"Name","value":"weight"}}]}},{"kind":"Field","name":{"kind":"Name","value":"screenShape"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"colors"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"hex"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"vesa"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"size"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pictures"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"system"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"operatingSystem"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"operatingSystem"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"voiceAssistants"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"hardware"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ram"}},{"kind":"Field","name":{"kind":"Name","value":"rom"}},{"kind":"Field","name":{"kind":"Name","value":"soc"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"consumption"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"energyEfficiency"}},{"kind":"Field","name":{"kind":"Name","value":"averageConsumption"}},{"kind":"Field","name":{"kind":"Name","value":"consumption"}},{"kind":"Field","name":{"kind":"Name","value":"standbyConsumption"}}]}},{"kind":"Field","name":{"kind":"Name","value":"powerSupply"}},{"kind":"Field","name":{"kind":"Name","value":"powerSupplyFrequency"}}]}},{"kind":"Field","name":{"kind":"Name","value":"reviews"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reviews"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"video"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"siteName"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"comparatives"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"video"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"siteName"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}}]}}]}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetTvQuery, GetTvQueryVariables>;
-export const SearchTvsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SearchTvs"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"page"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"offset"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"brand"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"tvs"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"page"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"pageSize"},"value":{"kind":"Variable","name":{"kind":"Name","value":"offset"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"general"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"brand"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"serie"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"brand"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"brand"}}}]}}]}}]}}]}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"meta"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"pagination"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"pageCount"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"general"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"screenSize"}},{"kind":"Field","name":{"kind":"Name","value":"releaseDate"}},{"kind":"Field","name":{"kind":"Name","value":"brand"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"model"}},{"kind":"Field","name":{"kind":"Name","value":"serie"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"brand"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"resolution"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"resolution"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeName"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"technology"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"sound"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"score"}}]}},{"kind":"Field","name":{"kind":"Name","value":"connections"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"score"}}]}},{"kind":"Field","name":{"kind":"Name","value":"design"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"pictures"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"system"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"score"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<SearchTvsQuery, SearchTvsQueryVariables>;
+export const GetTvDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetTv"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"tvs"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"ean"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"general"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"screenSize"}},{"kind":"Field","name":{"kind":"Name","value":"releaseDate"}},{"kind":"Field","name":{"kind":"Name","value":"brand"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"model"}},{"kind":"Field","name":{"kind":"Name","value":"serie"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"brand"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"resolution"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"resolution"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeName"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"technology"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"panel"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"panelManufacturer"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"backlightAndContrast"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"brightness"}},{"kind":"Field","name":{"kind":"Name","value":"contrast"}}]}},{"kind":"Field","name":{"kind":"Name","value":"colorimetry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"dciP3"}},{"kind":"Field","name":{"kind":"Name","value":"rec709"}},{"kind":"Field","name":{"kind":"Name","value":"rec2020"}},{"kind":"Field","name":{"kind":"Name","value":"sRGB"}},{"kind":"Field","name":{"kind":"Name","value":"colorDepth"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"technologies"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"hdr"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"technologies"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"crystal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"horizontalVisionAngle"}},{"kind":"Field","name":{"kind":"Name","value":"verticalVisionAngle"}},{"kind":"Field","name":{"kind":"Name","value":"antiReflectiveFilter"}}]}},{"kind":"Field","name":{"kind":"Name","value":"processing"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"processor"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"responseTimes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"gaming"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"inputLag60"}},{"kind":"Field","name":{"kind":"Name","value":"inputLag120"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"sound"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"speakers"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"power"}},{"kind":"Field","name":{"kind":"Name","value":"quantity"}}]}},{"kind":"Field","name":{"kind":"Name","value":"subwoofers"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"power"}},{"kind":"Field","name":{"kind":"Name","value":"quantity"}}]}},{"kind":"Field","name":{"kind":"Name","value":"power"}},{"kind":"Field","name":{"kind":"Name","value":"outputChannels"}},{"kind":"Field","name":{"kind":"Name","value":"technologies"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"connections"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"dvb"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"hbbTV"}},{"kind":"Field","name":{"kind":"Name","value":"cable"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"quantity"}},{"kind":"Field","name":{"kind":"Name","value":"type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"connection"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"connectionTechnologies"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"wireless"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"extraFeatures"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"design"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"dimensionsWithStand"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"depth"}},{"kind":"Field","name":{"kind":"Name","value":"weight"}}]}},{"kind":"Field","name":{"kind":"Name","value":"dimensionsWithoutStand"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"height"}},{"kind":"Field","name":{"kind":"Name","value":"depth"}},{"kind":"Field","name":{"kind":"Name","value":"weight"}}]}},{"kind":"Field","name":{"kind":"Name","value":"screenShape"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"colors"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"hex"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"vesa"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"size"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pictures"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"system"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"operatingSystem"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"operatingSystem"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"voiceAssistants"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"hardware"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ram"}},{"kind":"Field","name":{"kind":"Name","value":"rom"}},{"kind":"Field","name":{"kind":"Name","value":"soc"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"consumption"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"energyEfficiency"}},{"kind":"Field","name":{"kind":"Name","value":"averageConsumption"}},{"kind":"Field","name":{"kind":"Name","value":"consumption"}},{"kind":"Field","name":{"kind":"Name","value":"standbyConsumption"}}]}},{"kind":"Field","name":{"kind":"Name","value":"powerSupply"}},{"kind":"Field","name":{"kind":"Name","value":"powerSupplyFrequency"}}]}},{"kind":"Field","name":{"kind":"Name","value":"reviews"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reviews"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"video"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"siteName"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"comparatives"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"video"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"siteName"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}}]}}]}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetTvQuery, GetTvQueryVariables>;
+export const SearchTvsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SearchTvs"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"page"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"offset"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"brand"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"imageTechnology"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"tvs"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"page"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"pageSize"},"value":{"kind":"Variable","name":{"kind":"Name","value":"offset"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"and"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"general"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"brand"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"serie"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"brand"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"brand"}}}]}}]}}]}}]}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"image"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"technology"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"image"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"imageTechnology"}}}]}}]}}]}}]}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"meta"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"pagination"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"pageCount"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"general"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"screenSize"}},{"kind":"Field","name":{"kind":"Name","value":"releaseDate"}},{"kind":"Field","name":{"kind":"Name","value":"brand"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"model"}},{"kind":"Field","name":{"kind":"Name","value":"serie"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"brand"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"resolution"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"resolution"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeName"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"technology"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"sound"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"score"}}]}},{"kind":"Field","name":{"kind":"Name","value":"connections"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"score"}}]}},{"kind":"Field","name":{"kind":"Name","value":"design"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"pictures"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"system"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"score"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<SearchTvsQuery, SearchTvsQueryVariables>;
