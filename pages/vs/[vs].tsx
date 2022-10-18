@@ -35,7 +35,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   };
 };
 
-const TVPage = ({
+const ComparatorPage = ({
   tvs,
   scoreWeighting,
 }: {
@@ -57,4 +57,4 @@ const TVPage = ({
   );
 };
 
-export default TVPage;
+export default ComparatorPage;
