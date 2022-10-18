@@ -60,7 +60,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   };
 };
 
-const SearchPage = ({
+const IndexPage = ({
   tvs,
   currentPage,
   numberOfPages,
@@ -165,4 +165,4 @@ const SearchPage = ({
   );
 };
 
-export default SearchPage;
+export default IndexPage;

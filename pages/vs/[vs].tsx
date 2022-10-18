@@ -31,7 +31,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   };
 };
 
-const TVPage = ({ tvs }: { tvs: [TV, TV] }) => {
+const ComparatorPage = ({ tvs }: { tvs: [TV, TV] }) => {
   return (
     <TvProvider value={tvs}>
       <Layout>
@@ -45,4 +45,4 @@ const TVPage = ({ tvs }: { tvs: [TV, TV] }) => {
   );
 };
 
-export default TVPage;
+export default ComparatorPage;
