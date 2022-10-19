@@ -96,6 +96,7 @@ const searchTvs = async ({
                   data {
                     attributes {
                       url
+                      alternativeText
                     }
                   }
                 }

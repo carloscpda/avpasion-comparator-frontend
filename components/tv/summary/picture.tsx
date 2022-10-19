@@ -1,7 +1,7 @@
-import { Box, LayoutProps } from "@chakra-ui/react";
-import Image from "next/image";
+import { LayoutProps } from "@chakra-ui/react";
 import React from "react";
 import { getFullName, getPicture, TV } from "../../../models/tv";
+import TvPicture from "../basics/picture";
 
 type SummaryPictureProps = {
   tv: TV;
@@ -13,16 +13,7 @@ const SummaryPicture = ({ tv, height, width }: SummaryPictureProps) => {
   const fullName = getFullName(tv);
   const pic = getPicture(tv);
 
-  return (
-    <Box position="relative" height={height} width={width}>
-      <Image
-        src={pic || "/tv-placeholder.png"}
-        alt={fullName}
-        layout="fill"
-        objectFit="contain"
-      />
-    </Box>
-  );
+  return <TvPicture src={pic} alt={fullName} height={height} width={width} />;
 };
 
 export default SummaryPicture;

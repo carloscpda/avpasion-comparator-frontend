@@ -246,6 +246,7 @@ const getTv = async ({ slug }: { slug: string }) => {
                   data {
                     attributes {
                       url
+                      alternativeText
                     }
                   }
                 }
