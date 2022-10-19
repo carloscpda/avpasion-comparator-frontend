@@ -70,7 +70,7 @@ const VsPage = ({ tvs }: { tvs: FuzzySearch[] }) => {
           <VStack width="100%">
             {searched.map((tv) => (
               <SearchRow
-                href={`/vs/${router.query.tv}--vs--${tv.item.slug}`}
+                href={`/vs/${router.query.tv}-vs-${tv.item.slug}`}
                 key={tv.item.slug}
               >
                 <Score value={tv.item.score} size={50} />

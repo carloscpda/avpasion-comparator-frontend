@@ -16,7 +16,7 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const [tv1Slug, tv2Slug] = (params?.vs as string).split("--vs--");
+  const [tv1Slug, tv2Slug] = (params?.vs as string).split("-vs-");
 
   if (tv1Slug === tv2Slug) {
     return { notFound: true };
