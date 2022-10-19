@@ -1,8 +1,6 @@
 import {
   Box,
-  Button,
   Heading,
-  HStack,
   Input,
   InputGroup,
   InputLeftElement,
@@ -12,8 +10,6 @@ import { IoTvOutline } from "react-icons/io5";
 import Main from "../../components/layout/main";
 import Layout from "../../components/layout/layout";
 import { GetStaticProps } from "next";
-import NextLink from "next/link";
-import { IoArrowForwardOutline } from "react-icons/io5";
 import { FuzzySearch } from "../../models/fuzzy-search-tv";
 import getFuzzySearch from "../../graphql/get-fuzzy-search-tvs";
 import Fuse from "fuse.js";
@@ -23,6 +19,7 @@ import TvTitle from "../../components/tv/basics/title";
 import Score from "../../components/score";
 import TvEan from "../../components/tv/basics/ean";
 import TvSerie from "../../components/tv/basics/serie";
+import SearchRow from "../../components/search/row";
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const tvs = await getFuzzySearch();
@@ -72,20 +69,9 @@ const VsPage = ({ tvs }: { tvs: FuzzySearch[] }) => {
         {!!searched.length && (
           <VStack width="100%">
             {searched.map((tv) => (
-              <HStack
+              <SearchRow
+                href={`/vs/${router.query.tv}--vs--${tv.item.slug}`}
                 key={tv.item.slug}
-                width="100%"
-                py={2}
-                px={4}
-                gap={2}
-                borderWidth="1px"
-                borderColor="white"
-                cursor="pointer"
-                borderRadius={16}
-                transition="0.2s ease"
-                _hover={{
-                  borderColor: "gray.200",
-                }}
               >
                 <Score value={tv.item.score} size={50} />
                 <Box flex="1">
@@ -100,20 +86,7 @@ const VsPage = ({ tvs }: { tvs: FuzzySearch[] }) => {
                   <TvSerie value={tv.item.serie} />
                   <TvEan value={tv.item.ean} />
                 </Box>
-                <NextLink
-                  href={`/vs/${router.query.tv}--vs--${tv.item.slug}`}
-                  passHref
-                >
-                  <Button
-                    as="a"
-                    colorScheme="gray"
-                    rightIcon={<IoArrowForwardOutline />}
-                    size="sm"
-                  >
-                    Comparar
-                  </Button>
-                </NextLink>
-              </HStack>
+              </SearchRow>
             ))}
           </VStack>
         )}

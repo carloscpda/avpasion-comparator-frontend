@@ -1,8 +1,7 @@
-import { Box, Heading, HStack, Icon, VStack } from "@chakra-ui/react";
+import { Box, Grid, Heading, HStack, Icon, VStack } from "@chakra-ui/react";
 import Main from "../components/layout/main";
 import Layout from "../components/layout/layout";
 import SummaryTitle from "../components/tv/summary/title";
-import SummaryData from "../components/tv/summary/data";
 import SummaryScore from "../components/tv/summary/score";
 import Paginator from "../components/search/paginator";
 import { GetServerSideProps } from "next";
@@ -11,8 +10,6 @@ import { SearchTV } from "../models/search-tv";
 import { TV } from "../models/tv";
 import { useRouter } from "next/router";
 import { useCallback } from "react";
-import NextLink from "next/link";
-import { IoIosArrowForward } from "react-icons/io";
 import getBrands from "../graphql/get-brands";
 import Filters from "../components/search/filters/filters";
 import { Brand } from "../models/brand";
@@ -21,6 +18,11 @@ import { ImageTechnology } from "../models/image-technology";
 import SummaryPicture from "../components/tv/summary/picture";
 import TvSerie from "../components/tv/basics/serie";
 import TvEan from "../components/tv/basics/ean";
+import TvReleaseDate from "../components/tv/basics/release-date";
+import TvResolution from "../components/tv/basics/resolution";
+import TvImageTechnology from "../components/tv/basics/image-technology";
+import TvScreenSize from "../components/tv/basics/screen-size";
+import SearchRow from "../components/search/row";
 
 const TVS_PER_PAGE = 12;
 
@@ -108,42 +110,46 @@ const IndexPage = ({
           </Box>
           <VStack flex="1">
             {tvs.map((tv) => (
-              <NextLink key={tv.slug} href={`/tv/${tv.slug}`} passHref>
-                <HStack
-                  width="100%"
-                  py={2}
-                  px={4}
-                  gap={2}
-                  borderWidth="1px"
-                  borderColor="white"
-                  cursor="pointer"
-                  borderRadius={16}
-                  transition="0.2s ease"
-                  _hover={{
-                    borderColor: "gray.200",
-                  }}
+              <SearchRow key={tv.slug} href={`/tv/${tv.slug}`}>
+                <Box>
+                  <SummaryScore tv={tv as TV} size={50} />
+                </Box>
+                <SummaryPicture tv={tv as TV} width={20} height={20} />
+                <VStack flex="1" alignItems="flex-start">
+                  <SummaryTitle tv={tv} size="md" captionSize="sm" />
+                </VStack>
+                <Grid
+                  flex="2"
+                  gridTemplateColumns="repeat(2, minmax(0, 1fr))"
+                  pl="2"
+                  borderLeft="2px"
+                  borderColor="gray.100"
                 >
-                  <Box>
-                    <SummaryScore tv={tv as TV} size={50} />
-                  </Box>
-                  <SummaryPicture tv={tv as TV} width={20} height={20} />
-                  <Box flex="1">
-                    <SummaryTitle tv={tv} size="md" captionSize="sm" />
-                  </Box>
-                  <Box flex="1">
-                    <TvSerie
-                      value={
-                        tv.general?.brand?.serie?.data?.attributes?.name || ""
-                      }
-                    />
-                    <TvEan value={tv.ean} />
-                  </Box>
-                  <Box flex="1">
-                    <SummaryData tv={tv as TV} size="sm" />
-                  </Box>
-                  <Icon as={IoIosArrowForward} />
-                </HStack>
-              </NextLink>
+                  <TvReleaseDate value={tv.general?.releaseDate} />
+                  <TvImageTechnology
+                    value={
+                      tv.image?.technology?.image?.data?.attributes?.name || ""
+                    }
+                  />
+                  <TvSerie
+                    value={
+                      tv.general?.brand?.serie?.data?.attributes?.name || ""
+                    }
+                  />
+                  <TvEan value={tv.ean} />
+                  <TvResolution
+                    value={{
+                      resolution:
+                        tv.image?.resolution?.data?.attributes?.resolution ||
+                        "",
+                      alternativeName:
+                        tv.image?.resolution?.data?.attributes
+                          ?.alternativeName || "",
+                    }}
+                  />
+                  <TvScreenSize value={tv.general?.screenSize || 0} />
+                </Grid>
+              </SearchRow>
             ))}
           </VStack>
         </Box>
