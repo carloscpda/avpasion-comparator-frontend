@@ -1,25 +1,21 @@
 import {
-  Box,
+  Grid,
   Heading,
   Input,
   InputGroup,
   InputLeftElement,
-  VStack,
 } from "@chakra-ui/react";
 import { IoTvOutline } from "react-icons/io5";
 import Main from "../../components/layout/main";
 import Layout from "../../components/layout/layout";
 import { GetStaticProps } from "next";
-import { FuzzySearch } from "../../models/fuzzy-search-tv";
+import { FuzzySearch, getPicture } from "../../models/fuzzy-search-tv";
 import getFuzzySearch from "../../graphql/get-fuzzy-search-tvs";
 import Fuse from "fuse.js";
 import { ChangeEventHandler, useMemo, useState } from "react";
 import { useRouter } from "next/router";
-import TvTitle from "../../components/tv/basics/title";
-import Score from "../../components/score";
-import TvEan from "../../components/tv/basics/ean";
-import TvSerie from "../../components/tv/basics/serie";
-import SearchRow from "../../components/search/row";
+import SearchItem from "../../components/search/item";
+import NextLink from "next/link";
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const tvs = await getFuzzySearch();
@@ -67,28 +63,30 @@ const VsPage = ({ tvs }: { tvs: FuzzySearch[] }) => {
           />
         </InputGroup>
         {!!searched.length && (
-          <VStack width="100%">
-            {searched.map((tv) => (
-              <SearchRow
-                href={`/vs/${router.query.tv}-vs-${tv.item.slug}`}
-                key={tv.item.slug}
+          <Grid
+            flex="1"
+            gridTemplateColumns="repeat(3, minmax(0, 1fr))"
+            rowGap={16}
+            columnGap={4}
+          >
+            {searched.map(({ item: tv }) => (
+              <NextLink
+                key={tv.slug}
+                href={`/vs/${router.query.tv}-vs-${tv.slug}`}
+                passHref
               >
-                <Score value={tv.item.score} size={50} />
-                <Box flex="1">
-                  <TvTitle
-                    brand={tv.item.brand}
-                    model={tv.item.model}
-                    size="md"
-                    captionSize="sm"
-                  />
-                </Box>
-                <Box flex="2">
-                  <TvSerie value={tv.item.serie} />
-                  <TvEan value={tv.item.ean} />
-                </Box>
-              </SearchRow>
+                <SearchItem
+                  score={tv.score || 0}
+                  brand={tv.brand}
+                  model={tv.model}
+                  ean={tv.ean}
+                  serie={tv.serie}
+                  fullName={`${tv.brand} ${tv.model}`}
+                  picture={getPicture(tv)}
+                />
+              </NextLink>
             ))}
-          </VStack>
+          </Grid>
         )}
       </Main>
     </Layout>

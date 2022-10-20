@@ -1,38 +1,30 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Grid,
-  Heading,
-  HStack,
-  Icon,
-  VStack,
-} from "@chakra-ui/react";
+import { Box, Button, Grid, Heading, HStack, Icon } from "@chakra-ui/react";
 import Main from "../components/layout/main";
 import Layout from "../components/layout/layout";
-import SummaryTitle from "../components/tv/summary/title";
-import SummaryScore from "../components/tv/summary/score";
 import Paginator from "../components/search/paginator";
 import { GetServerSideProps } from "next";
 import searchTvs from "../graphql/search-tvs";
 import { SearchTV } from "../models/search-tv";
-import { TV } from "../models/tv";
+import {
+  getBrand,
+  getFullName,
+  getImageTechnology,
+  getModel,
+  getPicture,
+  getReleaseDate,
+  getResolution,
+  getScreenSize,
+  getSerie,
+} from "../models/tv";
 import { useRouter } from "next/router";
 import { useCallback } from "react";
 import getBrands from "../graphql/get-brands";
-import Filters from "../components/search/filters/filters";
 import { Brand } from "../models/brand";
 import getImageTechnologies from "../graphql/get-image-technologies";
 import { ImageTechnology } from "../models/image-technology";
-import SummaryPicture from "../components/tv/summary/picture";
-import TvSerie from "../components/tv/basics/serie";
-import TvEan from "../components/tv/basics/ean";
-import TvReleaseDate from "../components/tv/basics/release-date";
-import TvResolution from "../components/tv/basics/resolution";
-import TvImageTechnology from "../components/tv/basics/image-technology";
-import TvScreenSize from "../components/tv/basics/screen-size";
-import SearchRow from "../components/search/row";
 import { IoTvOutline } from "react-icons/io5";
+import NextLink from "next/link";
+import SearchItem from "../components/search/item";
 
 const TVS_PER_PAGE = 12;
 
@@ -147,60 +139,33 @@ const IndexPage = ({
             columnGap={4}
           >
             {tvs.map((tv) => (
-              <SearchRow key={tv.slug} href={`/tv/${tv.slug}`}>
-                <SummaryPicture tv={tv as TV} width="100%" height={200} />
-                <Box
-                  borderWidth="1px"
-                  borderColor="gray.100"
-                  borderRadius={16}
-                  py="2"
-                  px="4"
-                  width="100%"
-                >
-                  <Flex justifyContent="space-between" alignItems="flex-start">
-                    <SummaryTitle tv={tv} size="md" captionSize="sm" />
-                    <SummaryScore tv={tv as TV} size={50} />
-                  </Flex>
-                  <Grid
-                    mt="2"
-                    gridTemplateColumns="repeat(2, minmax(0, 1fr))"
-                    borderColor="gray.100"
-                  >
-                    <TvReleaseDate value={tv.general?.releaseDate} />
-                    <TvImageTechnology
-                      value={
-                        tv.image?.technology?.image?.data?.attributes?.name ||
-                        ""
-                      }
-                    />
-                    <TvSerie
-                      value={
-                        tv.general?.brand?.serie?.data?.attributes?.name || ""
-                      }
-                    />
-                    <TvEan value={tv.ean} />
-                    <TvResolution
-                      value={{
-                        resolution:
-                          tv.image?.resolution?.data?.attributes?.resolution ||
-                          "",
-                        alternativeName:
-                          tv.image?.resolution?.data?.attributes
-                            ?.alternativeName || "",
-                      }}
-                    />
-                    <TvScreenSize value={tv.general?.screenSize || 0} />
-                  </Grid>
-                  <HStack mt="4" justifyContent="flex-end">
-                    <Button colorScheme="gray" color="red.700" size="xs">
+              <SearchItem
+                key={tv.slug}
+                fullName={getFullName(tv)}
+                picture={getPicture(tv)}
+                score={tv.score || 0}
+                brand={getBrand(tv)}
+                ean={tv.ean}
+                imageTechnology={getImageTechnology(tv)}
+                model={getModel(tv)}
+                releaseDate={getReleaseDate(tv)}
+                resolution={getResolution(tv)}
+                screenSize={getScreenSize(tv)}
+                serie={getSerie(tv)}
+              >
+                <HStack justifyContent="flex-end">
+                  <NextLink href={`/vs?tv=${tv.slug}`} passHref>
+                    <Button as="a" colorScheme="gray" color="red.700" size="xs">
                       Comparar
                     </Button>
+                  </NextLink>
+                  <NextLink href={`/tv/${tv.slug}`} passHref>
                     <Button colorScheme="gray" color="red.700" size="xs">
                       Ver ficha
                     </Button>
-                  </HStack>
-                </Box>
-              </SearchRow>
+                  </NextLink>
+                </HStack>
+              </SearchItem>
             ))}
           </Grid>
         </Box>

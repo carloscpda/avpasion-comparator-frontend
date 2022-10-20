@@ -31,6 +31,16 @@ const getFuzzySearch = async () => {
                   }
                 }
               }
+              design {
+                pictures {
+                  data {
+                    attributes {
+                      alternativeText
+                      url
+                    }
+                  }
+                }
+              }
             }
           }
         }
@@ -40,14 +50,17 @@ const getFuzzySearch = async () => {
 
   return (
     data.tvs?.data.map((tv) => ({
-      ean: tv.attributes?.ean as string,
-      slug: tv.attributes?.slug as string,
-      score: tv.attributes?.score as number,
-      brand: tv.attributes?.general?.brand?.serie?.data?.attributes?.brand?.data
-        ?.attributes?.name as string,
-      model: tv.attributes?.general?.brand?.model as string,
-      serie: tv.attributes?.general?.brand?.serie?.data?.attributes
-        ?.name as string,
+      ean: tv.attributes?.ean,
+      slug: tv.attributes?.slug,
+      score: tv.attributes?.score,
+      brand:
+        tv.attributes?.general?.brand?.serie?.data?.attributes?.brand?.data
+          ?.attributes?.name,
+      model: tv.attributes?.general?.brand?.model,
+      serie: tv.attributes?.general?.brand?.serie?.data?.attributes?.name,
+      pictures: tv.attributes?.design?.pictures?.data.map(
+        (pic) => pic.attributes
+      ),
     })) || []
   );
 };
