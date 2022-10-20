@@ -22,9 +22,9 @@ import getBrands from "../graphql/get-brands";
 import { Brand } from "../models/brand";
 import getImageTechnologies from "../graphql/get-image-technologies";
 import { ImageTechnology } from "../models/image-technology";
-import { IoTvOutline } from "react-icons/io5";
 import NextLink from "next/link";
 import SearchItem from "../components/search/item";
+import ScreenSizeFilter from "../components/search/filters/screen-size-filter";
 
 const TVS_PER_PAGE = 12;
 
@@ -35,6 +35,12 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const currentPage = parseInt(query?.page as string) || 1;
 
   const brand = query?.brand ? query.brand.toString() : undefined;
+  const sizeGreatherThan = query?.sizegt
+    ? parseFloat(query.sizegt as string)
+    : undefined;
+  const sizeLessThan = query?.sizelt
+    ? parseFloat(query.sizelt as string)
+    : undefined;
   const imageTechnology = query?.["image-technology"]
     ? query["image-technology"].toString()
     : undefined;
@@ -44,6 +50,8 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
     offset: TVS_PER_PAGE,
     brand,
     imageTechnology,
+    sizeGreatherThan,
+    sizeLessThan,
   });
 
   return {
@@ -90,28 +98,7 @@ const IndexPage = ({
     <Layout>
       <Main>
         <Heading color="red.700">Todos los modelos.</Heading>
-        <HStack mt="8" gap="2">
-          <Button colorScheme="gray" size="sm">
-            <Icon as={IoTvOutline} mr="1" fontSize="xs" />
-            {'Menos de 50"'}
-          </Button>
-          <Button colorScheme="gray" size="sm">
-            <Icon as={IoTvOutline} mr="1" fontSize="sm" />
-            {'De 50" a 59"'}
-          </Button>
-          <Button colorScheme="gray" size="sm">
-            <Icon as={IoTvOutline} mr="1" fontSize="md" />
-            {'De 60" a 69"'}
-          </Button>
-          <Button colorScheme="gray" size="sm">
-            <Icon as={IoTvOutline} mr="1" fontSize="lg" />
-            {'De 70" a 79"'}
-          </Button>
-          <Button colorScheme="gray" size="sm">
-            <Icon as={IoTvOutline} mr="1" fontSize="xl" />
-            {'Más de 79"'}
-          </Button>
-        </HStack>
+        <ScreenSizeFilter />
         <Box display="flex" gap={8} my="8">
           {/* <Box
             as="aside"

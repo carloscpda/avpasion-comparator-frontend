@@ -7,27 +7,45 @@ const searchTvs = async ({
   offset,
   brand,
   imageTechnology,
+  sizeGreatherThan,
+  sizeLessThan,
 }: {
   page: number;
   offset: number;
   brand?: string;
   imageTechnology?: string;
+  sizeGreatherThan?: number;
+  sizeLessThan?: number;
 }) => {
   const { data } = await apollo.query<SearchTvsQuery>({
-    variables: { page, offset, brand, imageTechnology },
+    variables: {
+      page,
+      offset,
+      brand,
+      imageTechnology,
+      sizeGreatherThan,
+      sizeLessThan,
+    },
     query: gql`
       query SearchTvs(
         $page: Int!
         $offset: Int!
         $brand: ID
         $imageTechnology: ID
+        $sizeGreatherThan: Float
+        $sizeLessThan: Float
       ) {
         tvs(
           pagination: { page: $page, pageSize: $offset }
           sort: "score:desc"
           filters: {
             and: {
-              general: { brand: { serie: { brand: { id: { eq: $brand } } } } }
+              general: {
+                and: {
+                  screenSize: { gt: $sizeGreatherThan, lt: $sizeLessThan }
+                  brand: { serie: { brand: { id: { eq: $brand } } } }
+                }
+              }
               image: { technology: { image: { id: { eq: $imageTechnology } } } }
             }
           }
