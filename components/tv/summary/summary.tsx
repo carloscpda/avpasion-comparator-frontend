@@ -30,14 +30,7 @@ const Summary = () => {
         gridColumn={{ base: "1 / span 2", md: "1" }}
         gridRow={{ md: "1 / span 2" }}
       >
-        <Box
-          borderRadius="16"
-          border="2px"
-          borderColor="gray.100"
-          overflow="hidden"
-        >
-          <SummaryPicture tv={tv} height="220" />
-        </Box>
+        <SummaryPicture tv={tv} height="220" />
       </GridItem>
       <GridItem gridColumn={{ md: "2" }}>
         <SummaryData tv={tv} />

@@ -1,6 +1,7 @@
-import { Box, Button, Flex, HStack } from "@chakra-ui/react";
+import { Box, Button, Flex, HStack, Icon, Link } from "@chakra-ui/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
 import React from "react";
 
 const Navbar = () => {
@@ -13,33 +14,47 @@ const Navbar = () => {
       w="100%"
       justify="space-between"
       align="center"
-      padding="4"
-      bg="gray.800"
-      color="white"
+      padding="1"
     >
-      <Box
-        cursor="pointer"
-        onClick={() => router.push("/")}
-        position="relative"
-        height={6}
-        width={8}
+      <Flex
+        width="100%"
+        maxW={{ lg: "75em" }}
+        mx={[4, 8, 8, "auto"]}
+        justifyContent="space-between"
       >
-        <Image
-          src="https://cdn.avpasion.com/wp-content/uploads/2021/06/logo_avp.png"
-          alt="logo"
-          layout="fill"
-          objectFit="contain"
-        />
-      </Box>
-      <HStack spacing="3">
-        <Button
-          size="sm"
-          variant="link"
-          onClick={() => router.push("https://www.avpasion.com/")}
+        <Box
+          cursor="pointer"
+          onClick={() => router.push("/")}
+          position="relative"
         >
-          Blog
-        </Button>
-      </HStack>
+          <Image
+            src="https://cdn.avpasion.com/wp-content/uploads/2021/06/logo_avp.png"
+            alt="logo"
+            height={40}
+            width={90}
+          />
+        </Box>
+        <HStack
+          gap="2"
+          fontWeight="bold"
+          textTransform="uppercase"
+          fontSize="xs"
+        >
+          <Link>Inicio</Link>
+          <Link>Video</Link>
+          <Link>Sonido</Link>
+          <Link>Review</Link>
+          <Link>Guias de compra</Link>
+          <Link>Ofertas</Link>
+          <Link>Foros</Link>
+          <Link>Youtube</Link>
+          <Link>Editorial</Link>
+          <Link>Cine</Link>
+        </HStack>
+        <HStack spacing="3">
+          <Icon as={HiOutlineMagnifyingGlass} />
+        </HStack>
+      </Flex>
     </Flex>
   );
 };

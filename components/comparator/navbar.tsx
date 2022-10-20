@@ -13,8 +13,6 @@ const Navbar = () => {
       display={{ base: "none", md: "flex" }}
       position="sticky"
       top="0"
-      borderBottom="1px"
-      borderColor="gray.100"
       w="100%"
       justify="space-between"
       align="center"
@@ -23,6 +21,10 @@ const Navbar = () => {
       backdropFilter="auto"
       backdropBlur="4px"
       zIndex="2"
+      width="100%"
+      maxW={{ lg: "75em" }}
+      mx={[4, 8, 8, "auto"]}
+      justifyContent="space-between"
     >
       <Heading as="h1" size="md">
         {title}
@@ -46,16 +48,6 @@ const Navbar = () => {
         </Button>
         <Button size="sm" variant="link" onClick={() => router.push("#system")}>
           Sistema
-        </Button>
-        <Button
-          size="sm"
-          variant="link"
-          colorScheme="red"
-          color="red.700"
-          borderRadius={0}
-          onClick={() => router.push("#buy")}
-        >
-          Comprar
         </Button>
       </HStack>
     </Flex>

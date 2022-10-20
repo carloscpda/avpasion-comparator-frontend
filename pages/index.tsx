@@ -1,4 +1,13 @@
-import { Box, Grid, Heading, HStack, Icon, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Grid,
+  Heading,
+  HStack,
+  Icon,
+  VStack,
+} from "@chakra-ui/react";
 import Main from "../components/layout/main";
 import Layout from "../components/layout/layout";
 import SummaryTitle from "../components/tv/summary/title";
@@ -23,6 +32,7 @@ import TvResolution from "../components/tv/basics/resolution";
 import TvImageTechnology from "../components/tv/basics/image-technology";
 import TvScreenSize from "../components/tv/basics/screen-size";
 import SearchRow from "../components/search/row";
+import { IoTvOutline } from "react-icons/io5";
 
 const TVS_PER_PAGE = 12;
 
@@ -87,9 +97,31 @@ const IndexPage = ({
   return (
     <Layout>
       <Main>
-        <Heading hidden>TVs</Heading>
+        <Heading color="red.700">Todos los modelos.</Heading>
+        <HStack mt="8" gap="2">
+          <Button colorScheme="gray" size="sm">
+            <Icon as={IoTvOutline} mr="1" fontSize="xs" />
+            {'Menos de 50"'}
+          </Button>
+          <Button colorScheme="gray" size="sm">
+            <Icon as={IoTvOutline} mr="1" fontSize="sm" />
+            {'De 50" a 59"'}
+          </Button>
+          <Button colorScheme="gray" size="sm">
+            <Icon as={IoTvOutline} mr="1" fontSize="md" />
+            {'De 60" a 69"'}
+          </Button>
+          <Button colorScheme="gray" size="sm">
+            <Icon as={IoTvOutline} mr="1" fontSize="lg" />
+            {'De 70" a 79"'}
+          </Button>
+          <Button colorScheme="gray" size="sm">
+            <Icon as={IoTvOutline} mr="1" fontSize="xl" />
+            {'Más de 79"'}
+          </Button>
+        </HStack>
         <Box display="flex" gap={8} my="8">
-          <Box
+          {/* <Box
             as="aside"
             backgroundColor="gray.100"
             borderRadius="16"
@@ -107,51 +139,70 @@ const IndexPage = ({
               imageTechnologies={imageTechnologies}
               currentImageTechnologies={imageTechnology}
             />
-          </Box>
-          <VStack flex="1">
+          </Box> */}
+          <Grid
+            flex="1"
+            gridTemplateColumns="repeat(3, minmax(0, 1fr))"
+            rowGap={16}
+            columnGap={4}
+          >
             {tvs.map((tv) => (
               <SearchRow key={tv.slug} href={`/tv/${tv.slug}`}>
-                <Box>
-                  <SummaryScore tv={tv as TV} size={50} />
-                </Box>
-                <SummaryPicture tv={tv as TV} width={20} height={20} />
-                <VStack flex="1" alignItems="flex-start">
-                  <SummaryTitle tv={tv} size="md" captionSize="sm" />
-                </VStack>
-                <Grid
-                  flex="2"
-                  gridTemplateColumns="repeat(2, minmax(0, 1fr))"
-                  pl="2"
-                  borderLeft="2px"
+                <SummaryPicture tv={tv as TV} width="100%" height={200} />
+                <Box
+                  borderWidth="1px"
                   borderColor="gray.100"
+                  borderRadius={16}
+                  py="2"
+                  px="4"
+                  width="100%"
                 >
-                  <TvReleaseDate value={tv.general?.releaseDate} />
-                  <TvImageTechnology
-                    value={
-                      tv.image?.technology?.image?.data?.attributes?.name || ""
-                    }
-                  />
-                  <TvSerie
-                    value={
-                      tv.general?.brand?.serie?.data?.attributes?.name || ""
-                    }
-                  />
-                  <TvEan value={tv.ean} />
-                  <TvResolution
-                    value={{
-                      resolution:
-                        tv.image?.resolution?.data?.attributes?.resolution ||
-                        "",
-                      alternativeName:
-                        tv.image?.resolution?.data?.attributes
-                          ?.alternativeName || "",
-                    }}
-                  />
-                  <TvScreenSize value={tv.general?.screenSize || 0} />
-                </Grid>
+                  <Flex justifyContent="space-between" alignItems="flex-start">
+                    <SummaryTitle tv={tv} size="md" captionSize="sm" />
+                    <SummaryScore tv={tv as TV} size={50} />
+                  </Flex>
+                  <Grid
+                    mt="2"
+                    gridTemplateColumns="repeat(2, minmax(0, 1fr))"
+                    borderColor="gray.100"
+                  >
+                    <TvReleaseDate value={tv.general?.releaseDate} />
+                    <TvImageTechnology
+                      value={
+                        tv.image?.technology?.image?.data?.attributes?.name ||
+                        ""
+                      }
+                    />
+                    <TvSerie
+                      value={
+                        tv.general?.brand?.serie?.data?.attributes?.name || ""
+                      }
+                    />
+                    <TvEan value={tv.ean} />
+                    <TvResolution
+                      value={{
+                        resolution:
+                          tv.image?.resolution?.data?.attributes?.resolution ||
+                          "",
+                        alternativeName:
+                          tv.image?.resolution?.data?.attributes
+                            ?.alternativeName || "",
+                      }}
+                    />
+                    <TvScreenSize value={tv.general?.screenSize || 0} />
+                  </Grid>
+                  <HStack mt="4" justifyContent="flex-end">
+                    <Button colorScheme="gray" color="red.700" size="xs">
+                      Comparar
+                    </Button>
+                    <Button colorScheme="gray" color="red.700" size="xs">
+                      Ver ficha
+                    </Button>
+                  </HStack>
+                </Box>
               </SearchRow>
             ))}
-          </VStack>
+          </Grid>
         </Box>
         <Paginator
           currentPage={currentPage}

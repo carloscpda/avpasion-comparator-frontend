@@ -10,7 +10,7 @@ const Main = ({ children }: MainProps) => {
     <Flex
       as="main"
       direction="column"
-      maxW={{ lg: "62em" }}
+      maxW={{ lg: "75em" }}
       my={8}
       mx={[4, 8, 8, "auto"]}
     >
