@@ -76,6 +76,8 @@ const VsPage = ({ tvs }: { tvs: FuzzySearch[] }) => {
                 passHref
               >
                 <SearchItem
+                  as="a"
+                  cursor={"pointer"}
                   score={tv.score || 0}
                   brand={tv.brand}
                   model={tv.model}

@@ -24,11 +24,11 @@ function ScreenSizeFilter() {
       router.query.sizelt = undefined;
     }
     router.query.page = "1";
-    router.push(router);
+    router.replace(router);
   };
 
   return (
-    <HStack mt="8" gap="2">
+    <HStack gap="2">
       <Button
         colorScheme="gray"
         size="sm"

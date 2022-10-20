@@ -20,14 +20,14 @@ function Filter<T extends { id: string; name: string }>({
   const handleChangeValue: ChangeEventHandler<HTMLSelectElement> = (event) => {
     router.query[queryParamName] = event.target.value;
     router.query.page = "1";
-    router.push(router);
+    router.replace(router);
   };
 
   return (
     <FormControl>
       <FormLabel
         textTransform="uppercase"
-        fontSize="sm"
+        fontSize="xs"
         color="red.700"
         fontWeight="bold"
       >
