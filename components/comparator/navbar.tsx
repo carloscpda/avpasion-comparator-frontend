@@ -1,4 +1,4 @@
-import { Flex, HStack, Button, Heading } from "@chakra-ui/react";
+import { Flex, HStack, Button, Heading, Link } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { getFullName } from "../../models/tv";
 import { useTvs } from "../tv/tvs-provider";
@@ -16,8 +16,8 @@ const Navbar = () => {
       w="100%"
       justify="space-between"
       align="center"
-      padding="4"
-      bg="whiteAlpha.700"
+      py="4"
+      bg="whiteAlpha.900"
       backdropFilter="auto"
       backdropBlur="4px"
       zIndex="2"
@@ -26,29 +26,31 @@ const Navbar = () => {
       mx={[4, 8, 8, "auto"]}
       justifyContent="space-between"
     >
-      <Heading as="h1" size="md">
+      <Heading
+        as="p"
+        size="md"
+        fontWeight="extrabold"
+        textTransform="uppercase"
+        color="red.700"
+      >
         {title}
       </Heading>
       <HStack spacing="3">
-        <Button size="sm" variant="link" onClick={() => router.push("#image")}>
+        <Link fontSize="sm" onClick={() => router.replace("#image")}>
           Imagen
-        </Button>
-        <Button size="sm" variant="link" onClick={() => router.push("#sound")}>
+        </Link>
+        <Link fontSize="sm" onClick={() => router.replace("#sound")}>
           Sonido
-        </Button>
-        <Button
-          size="sm"
-          variant="link"
-          onClick={() => router.push("#connectivity")}
-        >
+        </Link>
+        <Link fontSize="sm" onClick={() => router.replace("#connectivity")}>
           Conexión
-        </Button>
-        <Button size="sm" variant="link" onClick={() => router.push("#design")}>
+        </Link>
+        <Link fontSize="sm" onClick={() => router.replace("#design")}>
           Diseño
-        </Button>
-        <Button size="sm" variant="link" onClick={() => router.push("#system")}>
+        </Link>
+        <Link fontSize="sm" onClick={() => router.replace("#system")}>
           Sistema
-        </Button>
+        </Link>
       </HStack>
     </Flex>
   );

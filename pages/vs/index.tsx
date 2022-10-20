@@ -15,7 +15,6 @@ import Fuse from "fuse.js";
 import { ChangeEventHandler, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import SearchItem from "../../components/search/item";
-import NextLink from "next/link";
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const tvs = await getFuzzySearch();
@@ -70,23 +69,17 @@ const VsPage = ({ tvs }: { tvs: FuzzySearch[] }) => {
             columnGap={4}
           >
             {searched.map(({ item: tv }) => (
-              <NextLink
+              <SearchItem
                 key={tv.slug}
                 href={`/vs/${router.query.tv}-vs-${tv.slug}`}
-                passHref
-              >
-                <SearchItem
-                  as="a"
-                  cursor={"pointer"}
-                  score={tv.score || 0}
-                  brand={tv.brand}
-                  model={tv.model}
-                  ean={tv.ean}
-                  serie={tv.serie}
-                  fullName={`${tv.brand} ${tv.model}`}
-                  picture={getPicture(tv)}
-                />
-              </NextLink>
+                score={tv.score || 0}
+                brand={tv.brand}
+                model={tv.model}
+                ean={tv.ean}
+                serie={tv.serie}
+                fullName={`${tv.brand} ${tv.model}`}
+                picture={getPicture(tv)}
+              />
             ))}
           </Grid>
         )}

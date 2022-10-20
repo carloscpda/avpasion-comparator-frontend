@@ -1,16 +1,14 @@
 import {
-  As,
   Box,
   Flex,
-  forwardRef,
   Grid,
   HStack,
-  InteractivityProps,
   Tag,
   TagLabel,
   VStack,
 } from "@chakra-ui/react";
-import { MouseEventHandler, ReactNode } from "react";
+import NextLink from "next/link";
+import { ReactNode } from "react";
 import TvPicture from "../tv/basics/picture";
 import TvTitle from "../tv/basics/title";
 import Score from "../score";
@@ -22,10 +20,7 @@ import TvResolution from "../tv/basics/resolution";
 import TvScreenSize from "../tv/basics/screen-size";
 
 type SearchItemProps = {
-  as?: As;
-  cursor?: InteractivityProps["cursor"];
-  onClick?: MouseEventHandler<HTMLDivElement>;
-  href?: string;
+  href: string;
   picture: string;
   fullName: string;
   brand?: string;
@@ -43,38 +38,24 @@ type SearchItemProps = {
   children?: ReactNode;
 };
 
-const SearchItem = forwardRef<SearchItemProps, "a">(
-  (
-    {
-      as,
-      cursor,
-      onClick,
-      href,
-      picture,
-      fullName,
-      brand,
-      model,
-      score,
-      releaseDate,
-      imageTechnology,
-      serie,
-      ean,
-      resolution,
-      screenSize,
-      children,
-    },
-    ref
-  ) => {
-    return (
-      <VStack
-        width="100%"
-        position="relative"
-        as={as}
-        cursor={cursor}
-        ref={ref}
-        onClick={onClick}
-        href={href}
-      >
+const SearchItem = ({
+  href,
+  picture,
+  fullName,
+  brand,
+  model,
+  score,
+  releaseDate,
+  imageTechnology,
+  serie,
+  ean,
+  resolution,
+  screenSize,
+  children,
+}: SearchItemProps) => {
+  return (
+    <NextLink href={href} passHref>
+      <VStack width="100%" position="relative" as="a" cursor="pointer">
         <HStack
           mt="4"
           justifyContent="space-between"
@@ -115,8 +96,8 @@ const SearchItem = forwardRef<SearchItemProps, "a">(
           {children}
         </Box>
       </VStack>
-    );
-  }
-);
+    </NextLink>
+  );
+};
 
 export default SearchItem;

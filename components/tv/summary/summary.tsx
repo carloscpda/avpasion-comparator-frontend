@@ -13,9 +13,12 @@ const Summary = () => {
   return (
     <Grid
       mb="16"
-      mt={[8, 16]}
+      mt={8}
       gap="8"
-      gridTemplateColumns={["repeat(2, minmax(0, 1fr))"]}
+      gridTemplateColumns={[
+        "repeat(2, minmax(0, 1fr))",
+        "repeat(3, minmax(0, 1fr))",
+      ]}
       gridTemplateRows={{ md: "auto 1fr" }}
       gridRowGap={{ md: 0 }}
     >
@@ -36,7 +39,8 @@ const Summary = () => {
         <SummaryData tv={tv} />
       </GridItem>
       <GridItem
-        justifySelf="flex-end"
+        justifySelf="center"
+        alignSelf="center"
         gridColumn={{ md: "3" }}
         gridRow={{ md: "1 / span 2" }}
       >

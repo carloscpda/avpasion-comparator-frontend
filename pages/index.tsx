@@ -113,6 +113,7 @@ const IndexPage = ({
           {tvs.map((tv) => (
             <SearchItem
               key={tv.slug}
+              href={`/tv/${tv.slug}`}
               fullName={getFullName(tv)}
               picture={getPicture(tv)}
               score={tv.score || 0}
