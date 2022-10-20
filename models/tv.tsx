@@ -1,6 +1,5 @@
 import { GetTvQuery } from "../gql/graphql";
-import buildPicture from "../helpers/build-picture";
-import placeholderPic from "../public/tv-placeholder.png";
+import Picture from "./picture";
 
 export type TV = NonNullable<
   NonNullable<GetTvQuery["tvs"]>["data"][number]["attributes"]
@@ -54,25 +53,7 @@ export const getScreenSize = (tv: TV) => {
   return tv.general?.screenSize;
 };
 
-export const getFrontalPicture = (tv: TV) => {
-  const pictures = getPictures(tv);
-  const pic = pictures?.find((pic) =>
-    pic?.alternativeText?.includes("frontal")
-  );
-
-  return pic?.url ? buildPicture(pic.url) : null;
-};
-
 export const getPicture = (tv: TV) => {
-  const frontal = getFrontalPicture(tv);
-  if (frontal) {
-    return frontal;
-  }
-
   const pictures = getPictures(tv);
-  if (pictures?.[0]?.url) {
-    return buildPicture(pictures?.[0]?.url);
-  }
-
-  return placeholderPic as unknown as string;
+  return Picture.getPicture((pictures as Picture[]) || []);
 };
