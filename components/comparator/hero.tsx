@@ -28,8 +28,14 @@ const ComparatorHero = () => {
         };
         return (
           <Fragment key={tv.slug}>
-            <GridItem gridRow={1} gridColumn={gridColumn}>
+            <GridItem
+              gridRow={1}
+              gridColumn={gridColumn}
+              display="flex"
+              gap={4}
+            >
               <SummaryTitle tv={tv} size="2xl" captionSize="lg" />
+              <Score value={tv.score || 0} size={50} />
             </GridItem>
             {image && (
               <GridItem
@@ -48,9 +54,6 @@ const ComparatorHero = () => {
               </GridItem>
             )}
             <GridItem gridRow={3} gridColumn={gridColumn}>
-              <Score value={tv.score || 0} size={70} />
-            </GridItem>
-            <GridItem gridRow={4} gridColumn={gridColumn}>
               <SummaryData tv={tv} size="lg" />
             </GridItem>
           </Fragment>

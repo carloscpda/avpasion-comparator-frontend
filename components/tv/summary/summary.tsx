@@ -1,4 +1,5 @@
-import { Box, Grid, GridItem } from "@chakra-ui/react";
+import { Box, Button, Grid, GridItem } from "@chakra-ui/react";
+import Link from "next/link";
 import React from "react";
 import { useTvs } from "../tvs-provider";
 import SummaryData from "./data";
@@ -21,13 +22,19 @@ const Summary = () => {
       ]}
       gridTemplateRows={{ md: "auto 1fr" }}
       gridRowGap={{ md: 0 }}
+      pb={16}
+      borderBottom="2px"
+      borderColor="gray.100"
     >
       <GridItem
         gridColumn={{ base: "1 / span 2", md: "2" }}
         gridRow={{ md: "1" }}
         my={4}
+        display="flex"
+        gap={4}
       >
         <SummaryTitle tv={tv} />
+        <SummaryScore tv={tv} size={60} />
       </GridItem>
       <GridItem
         gridColumn={{ base: "1 / span 2", md: "1" }}
@@ -39,13 +46,11 @@ const Summary = () => {
         <SummaryData tv={tv} />
       </GridItem>
       <GridItem
-        justifySelf="center"
-        alignSelf="center"
+        justifySelf="flex-end"
+        alignSelf="flex-start"
         gridColumn={{ md: "3" }}
-        gridRow={{ md: "1 / span 2" }}
-      >
-        <SummaryScore tv={tv} />
-      </GridItem>
+        gridRow={{ md: "1" }}
+      ></GridItem>
     </Grid>
   );
 };

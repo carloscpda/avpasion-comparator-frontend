@@ -18,6 +18,7 @@ import TvSerie from "../tv/basics/serie";
 import TvEan from "../tv/basics/ean";
 import TvResolution from "../tv/basics/resolution";
 import TvScreenSize from "../tv/basics/screen-size";
+import parseCurrency from "../../helpers/parse-currency";
 
 type SearchItemProps = {
   href: string;
@@ -35,6 +36,7 @@ type SearchItemProps = {
     alternativeName?: string;
   };
   screenSize?: number;
+  price?: number;
   children?: ReactNode;
 };
 
@@ -51,11 +53,12 @@ const SearchItem = ({
   ean,
   resolution,
   screenSize,
+  price,
   children,
 }: SearchItemProps) => {
   return (
-    <NextLink href={href} passHref>
-      <VStack width="100%" position="relative" as="a" cursor="pointer">
+    <VStack width="100%" position="relative">
+      {price && (
         <HStack
           mt="4"
           justifyContent="space-between"
@@ -65,38 +68,42 @@ const SearchItem = ({
           zIndex="2"
         >
           <Tag variant="subtle" colorScheme="yellow">
-            <TagLabel>1300 €</TagLabel>
+            <TagLabel>{parseCurrency(price)}</TagLabel>
           </Tag>
         </HStack>
-        <TvPicture src={picture} alt={fullName} width="100%" height={200} />
-        <Box
-          borderWidth="1px"
-          borderColor="gray.100"
-          borderRadius={16}
-          py="2"
-          px="4"
-          width="100%"
-        >
-          <Flex justifyContent="space-between" alignItems="flex-start">
-            <TvTitle brand={brand} model={model} size="md" captionSize="sm" />
-            <Score value={score} size={50} />
-          </Flex>
-          <Grid
-            my="2"
-            gridTemplateColumns="repeat(2, minmax(0, 1fr))"
-            borderColor="gray.100"
-          >
-            {releaseDate && <TvReleaseDate value={releaseDate} />}
-            {imageTechnology && <TvImageTechnology value={imageTechnology} />}
-            {serie && <TvSerie value={serie} />}
-            {ean && <TvEan value={ean} />}
-            {resolution && <TvResolution value={resolution} />}
-            {screenSize && <TvScreenSize value={screenSize} />}
-          </Grid>
-          {children}
+      )}
+      <NextLink href={href} passHref>
+        <Box width="100%" cursor="pointer" as="a">
+          <TvPicture src={picture} alt={fullName} />
         </Box>
-      </VStack>
-    </NextLink>
+      </NextLink>
+      <Box
+        borderWidth="1px"
+        borderColor="gray.100"
+        borderRadius={16}
+        py="2"
+        px="4"
+        width="100%"
+      >
+        <Flex justifyContent="space-between" alignItems="flex-start">
+          <TvTitle brand={brand} model={model} size="md" captionSize="sm" />
+          <Score value={score} size={50} />
+        </Flex>
+        <Grid
+          my="2"
+          gridTemplateColumns="repeat(2, minmax(0, 1fr))"
+          borderColor="gray.100"
+        >
+          {releaseDate && <TvReleaseDate value={releaseDate} />}
+          {imageTechnology && <TvImageTechnology value={imageTechnology} />}
+          {serie && <TvSerie value={serie} />}
+          {ean && <TvEan value={ean} />}
+          {resolution && <TvResolution value={resolution} />}
+          {screenSize && <TvScreenSize value={screenSize} />}
+        </Grid>
+        {children}
+      </Box>
+    </VStack>
   );
 };
 

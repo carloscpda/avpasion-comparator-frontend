@@ -1,7 +1,7 @@
-import { Box, Button, Flex, HStack, Icon, Link } from "@chakra-ui/react";
+import { Box, Flex, HStack, Icon, Link } from "@chakra-ui/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
+import { SlMagnifier } from "react-icons/sl";
 import React from "react";
 
 const Navbar = () => {
@@ -52,7 +52,7 @@ const Navbar = () => {
           <Link>Cine</Link>
         </HStack>
         <HStack spacing="3">
-          <Icon as={HiOutlineMagnifyingGlass} />
+          <Icon as={SlMagnifier} />
         </HStack>
       </Flex>
     </Flex>

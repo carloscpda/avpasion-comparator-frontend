@@ -12,7 +12,6 @@ function ScreenSizeFilter() {
     sizegt?: number;
     sizelt?: number;
   }) => {
-    console.log({ sizegt, sizelt });
     if (sizegt) {
       router.query.sizegt = sizegt.toString();
     } else {

@@ -2,7 +2,7 @@ import placeholderPic from "../public/tv-placeholder.png";
 
 type Picture = { alternativeText: string; url: string };
 
-const buildPicture = (path: string) => `https://cmc.avpasion.com${path}`;
+export const buildPicture = (path: string) => `https://cmc.avpasion.com${path}`;
 
 const getFrontalPicture = (pictures: Picture[]) => {
   return pictures.find((pic) => pic.alternativeText.includes("frontal"));
@@ -21,8 +21,19 @@ export const getPicture = (pictures: Picture[]) => {
   return placeholderPic as unknown as string;
 };
 
+export const getSecondaryPictures = (pictures: Picture[]) => {
+  const frontal = getFrontalPicture(pictures);
+  const secondaryPics = pictures.filter((pic) => pic.url !== frontal?.url);
+
+  return secondaryPics.map((pic) => ({
+    alternativeText: pic.alternativeText,
+    url: buildPicture(pic.url),
+  }));
+};
+
 const Picture = {
   getPicture,
+  getSecondaryPictures,
 };
 
 export default Picture;

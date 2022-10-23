@@ -25,12 +25,7 @@ function Filter<T extends { id: string; name: string }>({
 
   return (
     <FormControl>
-      <FormLabel
-        textTransform="uppercase"
-        fontSize="xs"
-        color="red.700"
-        fontWeight="bold"
-      >
+      <FormLabel textTransform="uppercase" fontSize="xs" fontWeight="bold">
         {name}
       </FormLabel>
       <Select

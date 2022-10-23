@@ -9,6 +9,7 @@ const getTv = async ({ slug }: { slug: string }) => {
       query GetTv($slug: String!) {
         tvs(filters: { slug: { eq: $slug } }) {
           data {
+            id
             attributes {
               name
               ean
@@ -329,6 +330,6 @@ const getTv = async ({ slug }: { slug: string }) => {
     `,
   });
 
-  return data.tvs?.data[0]?.attributes;
+  return { ...data.tvs?.data[0]?.attributes, id: data.tvs?.data[0]?.id };
 };
 export default getTv;

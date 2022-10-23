@@ -125,6 +125,7 @@ const IndexPage = ({
               resolution={getResolution(tv)}
               screenSize={getScreenSize(tv)}
               serie={getSerie(tv)}
+              price={tv.minPrice || 0}
             >
               <HStack justifyContent="flex-end">
                 <NextLink href={`/vs?tv=${tv.slug}`} passHref>

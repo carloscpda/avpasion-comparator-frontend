@@ -5,15 +5,19 @@ import React from "react";
 type TvPictureProps = {
   src: string;
   alt: string;
-  height?: LayoutProps["height"];
-  width?: LayoutProps["width"];
+  height?: number | string;
+  width?: number | string;
 };
 
-const TvPicture = ({ src, alt, height, width }: TvPictureProps) => {
+const TvPicture = ({ src, alt, height = 300, width = 400 }: TvPictureProps) => {
   return (
-    <Box position="relative" height={height} width={width}>
-      <Image src={src} alt={alt} layout="fill" objectFit="contain" />
-    </Box>
+    <Image
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      objectFit="contain"
+    />
   );
 };
 

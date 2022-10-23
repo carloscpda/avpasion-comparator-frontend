@@ -33,17 +33,16 @@ const Section = ({ title, getScore, children, id, icon }: SectionProps) => {
 
   return (
     <Box id={id} pt="20">
-      <Box as="section" borderRadius="16" overflow="hidden">
+      <Box as="section" borderRadius="8" overflow="hidden">
         <Grid
           gridTemplateColumns={`repeat(${tvs.length + 1}, 1fr)`}
           p="4"
           justifyContent="space-between"
           alignItems="flex-end"
-          backgroundColor={`${color}0D`}
           borderBottom="2px"
-          borderColor={color}
+          borderColor="gray.700"
         >
-          <GridItem color={color} display="flex">
+          <GridItem color="gray.700" display="flex">
             <Icon as={icon} fontSize={{ base: "24", md: "36" }} mr="2" />
             <Heading
               as="h2"

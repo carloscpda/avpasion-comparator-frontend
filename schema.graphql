@@ -1279,6 +1279,7 @@ union GenericMorph =
   | OperatingSystemVersion
   | PanelManufacturer
   | PanelTechnology
+  | PaymentMethod
   | Price
   | ScoreWeighting
   | ScreenResolution
@@ -1577,9 +1578,15 @@ input LongFilterInput {
 }
 
 type Marketplace {
+  color: String!
   createdAt: DateTime
   logo: UploadFileEntityResponse!
   name: String!
+  paymentMethods(
+    filters: PaymentMethodFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): PaymentMethodRelationResponseCollection
   updatedAt: DateTime
 }
 
@@ -1599,17 +1606,21 @@ type MarketplaceEntityResponseCollection {
 
 input MarketplaceFiltersInput {
   and: [MarketplaceFiltersInput]
+  color: StringFilterInput
   createdAt: DateTimeFilterInput
   id: IDFilterInput
   name: StringFilterInput
   not: MarketplaceFiltersInput
   or: [MarketplaceFiltersInput]
+  paymentMethods: PaymentMethodFiltersInput
   updatedAt: DateTimeFilterInput
 }
 
 input MarketplaceInput {
+  color: String
   logo: ID
   name: String
+  paymentMethods: [ID]
 }
 
 type MarketplaceRelationResponseCollection {
@@ -1621,7 +1632,7 @@ type MarketplaceTv {
   available: Boolean
   createdAt: DateTime
   deliveryCost: Float
-  deliveryTime: Float
+  deliveryTime: String
   financing: Boolean
   marketplace: MarketplaceEntityResponse
   prices(
@@ -1655,7 +1666,7 @@ input MarketplaceTvFiltersInput {
   available: BooleanFilterInput
   createdAt: DateTimeFilterInput
   deliveryCost: FloatFilterInput
-  deliveryTime: FloatFilterInput
+  deliveryTime: StringFilterInput
   financing: BooleanFilterInput
   id: IDFilterInput
   marketplace: MarketplaceFiltersInput
@@ -1672,7 +1683,7 @@ input MarketplaceTvInput {
   affiliateUrl: String
   available: Boolean
   deliveryCost: Float
-  deliveryTime: Float
+  deliveryTime: String
   financing: Boolean
   marketplace: ID
   prices: [ID]
@@ -1731,6 +1742,7 @@ type Mutation {
   createPanelTechnology(
     data: PanelTechnologyInput!
   ): PanelTechnologyEntityResponse
+  createPaymentMethod(data: PaymentMethodInput!): PaymentMethodEntityResponse
   createPrice(data: PriceInput!): PriceEntityResponse
   createScreenResolution(
     data: ScreenResolutionInput!
@@ -1790,6 +1802,7 @@ type Mutation {
   deleteOperatingSystemVersion(id: ID!): OperatingSystemVersionEntityResponse
   deletePanelManufacturer(id: ID!): PanelManufacturerEntityResponse
   deletePanelTechnology(id: ID!): PanelTechnologyEntityResponse
+  deletePaymentMethod(id: ID!): PaymentMethodEntityResponse
   deletePrice(id: ID!): PriceEntityResponse
   deleteScoreWeighting: ScoreWeightingEntityResponse
   deleteScreenResolution(id: ID!): ScreenResolutionEntityResponse
@@ -1916,6 +1929,10 @@ type Mutation {
     data: PanelTechnologyInput!
     id: ID!
   ): PanelTechnologyEntityResponse
+  updatePaymentMethod(
+    data: PaymentMethodInput!
+    id: ID!
+  ): PaymentMethodEntityResponse
   updatePrice(data: PriceInput!, id: ID!): PriceEntityResponse
   updateScoreWeighting(data: ScoreWeightingInput!): ScoreWeightingEntityResponse
   updateScreenResolution(
@@ -2152,7 +2169,48 @@ type PanelTechnologyRelationResponseCollection {
   data: [PanelTechnologyEntity!]!
 }
 
+type PaymentMethod {
+  createdAt: DateTime
+  logo: UploadFileEntityResponse!
+  name: String!
+  updatedAt: DateTime
+}
+
+type PaymentMethodEntity {
+  attributes: PaymentMethod
+  id: ID
+}
+
+type PaymentMethodEntityResponse {
+  data: PaymentMethodEntity
+}
+
+type PaymentMethodEntityResponseCollection {
+  data: [PaymentMethodEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+input PaymentMethodFiltersInput {
+  and: [PaymentMethodFiltersInput]
+  createdAt: DateTimeFilterInput
+  id: IDFilterInput
+  name: StringFilterInput
+  not: PaymentMethodFiltersInput
+  or: [PaymentMethodFiltersInput]
+  updatedAt: DateTimeFilterInput
+}
+
+input PaymentMethodInput {
+  logo: ID
+  name: String
+}
+
+type PaymentMethodRelationResponseCollection {
+  data: [PaymentMethodEntity!]!
+}
+
 type Price {
+  basePrice: Float!
   createdAt: DateTime
   datetime: DateTime!
   marketplaceTv: MarketplaceTvEntityResponse
@@ -2176,6 +2234,7 @@ type PriceEntityResponseCollection {
 
 input PriceFiltersInput {
   and: [PriceFiltersInput]
+  basePrice: FloatFilterInput
   createdAt: DateTimeFilterInput
   datetime: DateTimeFilterInput
   id: IDFilterInput
@@ -2187,6 +2246,7 @@ input PriceFiltersInput {
 }
 
 input PriceInput {
+  basePrice: Float
   datetime: DateTime
   marketplaceTv: ID
   price: Float
@@ -2335,6 +2395,12 @@ type Query {
     sort: [String] = []
   ): PanelTechnologyEntityResponseCollection
   panelTechnology(id: ID): PanelTechnologyEntityResponse
+  paymentMethod(id: ID): PaymentMethodEntityResponse
+  paymentMethods(
+    filters: PaymentMethodFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): PaymentMethodEntityResponseCollection
   price(id: ID): PriceEntityResponse
   prices(
     filters: PriceFiltersInput
@@ -2749,12 +2815,14 @@ type Tv {
   ean: String!
   general: ComponentSectionsGeneral
   image: ComponentSectionsImage
+  maxPrice: Float
+  minPrice: Float
   name: String!
   publishedAt: DateTime
   reviews: ComponentSectionsReviews
   rrp: Float
   score: Float
-  slug: String!
+  slug: String
   sound: ComponentSectionsSound
   system: ComponentSectionsSystem
   updatedAt: DateTime
@@ -2783,6 +2851,8 @@ input TvFiltersInput {
   general: ComponentSectionsGeneralFiltersInput
   id: IDFilterInput
   image: ComponentSectionsImageFiltersInput
+  maxPrice: FloatFilterInput
+  minPrice: FloatFilterInput
   name: StringFilterInput
   not: TvFiltersInput
   or: [TvFiltersInput]
@@ -2802,6 +2872,8 @@ input TvInput {
   ean: String
   general: ComponentSectionsGeneralInput
   image: ComponentSectionsImageInput
+  maxPrice: Float
+  minPrice: Float
   name: String
   publishedAt: DateTime
   reviews: ComponentSectionsReviewsInput

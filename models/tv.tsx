@@ -57,3 +57,8 @@ export const getPicture = (tv: TV) => {
   const pictures = getPictures(tv);
   return Picture.getPicture((pictures as Picture[]) || []);
 };
+
+export const getSecundaryPictures = (tv: TV) => {
+  const pictures = getPictures(tv);
+  return Picture.getSecondaryPictures((pictures as Picture[]) || []);
+};
