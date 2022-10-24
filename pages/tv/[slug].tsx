@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import TvProvider from "../../components/tv/tvs-provider";
 import Comparator from "../../components/comparator/comparator";
 import Navbar from "../../components/comparator/navbar";
@@ -51,6 +52,14 @@ const TVPage = ({
   tvId: string;
   offerCount: number;
 }) => {
+  useEffect(() => {
+    fetch(`/api/hit`, {
+      method: "POST",
+      body: JSON.stringify({ tvid: tvId }),
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <Layout>
       <TvProvider value={[tv]}>
