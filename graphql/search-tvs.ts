@@ -56,6 +56,7 @@ const searchTvs = async ({
             }
           }
           data {
+            id
             attributes {
               name
               slug

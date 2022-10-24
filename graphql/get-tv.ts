@@ -15,6 +15,8 @@ const getTv = async ({ slug }: { slug: string }) => {
               ean
               slug
               score
+              minPrice
+              maxPrice
               general {
                 screenSize
                 releaseDate

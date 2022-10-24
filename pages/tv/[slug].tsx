@@ -11,12 +11,9 @@ import getTv from "../../graphql/get-tv";
 import { TV } from "../../models/tv";
 import getTvSeries from "../../graphql/get-tv-series";
 import { TVSeries } from "../../models/tv-serie";
-import { Box, Button, Divider } from "@chakra-ui/react";
-import Link from "next/link";
 import TVHead from "../../components/tv/head";
 import PricesSection from "../../components/tv/prices/prices";
 import getMarketplaceTvs from "../../graphql/get-marketplaces-tv";
-import { MarketplaceTv } from "../../gql/graphql";
 
 export const getStaticPaths = async () => {
   const slugs = await getTvSlugs();
@@ -32,30 +29,39 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const tvSeries = await getTvSeries({
     serieId: tv?.general?.brand?.serie?.data?.id || "-1",
   });
+
   const marketplaceTvs = await getMarketplaceTvs({ tvId: tv.id || "" });
 
   return {
-    props: { tv, tvSeries, marketplaceTvs },
+    props: {
+      tv,
+      tvSeries,
+      offerCount: marketplaceTvs?.length || 0,
+      tvId: tv.id,
+    },
+    revalidate: 7 * 24 * 60 * 60, // 1 week
   };
 };
 
 const TVPage = ({
   tv,
   tvSeries,
-  marketplaceTvs,
+  tvId,
+  offerCount,
 }: {
   tv: TV;
   tvSeries: TVSeries;
-  marketplaceTvs: MarketplaceTv[];
+  tvId: string;
+  offerCount: number;
 }) => {
   return (
     <Layout>
       <TvProvider value={[tv]}>
-        <TVHead />
+        <TVHead offerCount={offerCount} />
         <Navbar />
         <Main>
           <Summary />
-          <PricesSection marketplaceTvs={marketplaceTvs} />
+          <PricesSection tvId={tvId} />
           <SerieSection tvs={tvSeries} />
           <Comparator />
         </Main>

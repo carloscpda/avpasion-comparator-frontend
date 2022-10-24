@@ -3,7 +3,7 @@ import { getBrand, getFullName, TV } from "../../models/tv";
 import Head from "next/head";
 import { buildPicture } from "../../models/picture";
 
-const TVHead = () => {
+const TVHead = ({ offerCount }: { offerCount: number }) => {
   const tv = useTvs().tvs[0];
 
   return (
@@ -40,9 +40,9 @@ const TVHead = () => {
             },
             offers: {
               "@type": "AggregateOffer",
-              offerCount: "5",
-              lowPrice: "119.99",
-              highPrice: "199.99",
+              offerCount: offerCount,
+              lowPrice: tv.minPrice,
+              highPrice: tv.maxPrice,
               priceCurrency: "EUR",
             },
           }),

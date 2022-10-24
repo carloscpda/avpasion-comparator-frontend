@@ -23,6 +23,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       tvs,
     },
+    revalidate: 60 * 10, // 10 mins
   };
 };
 
