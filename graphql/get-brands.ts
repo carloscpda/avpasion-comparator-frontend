@@ -4,6 +4,7 @@ import { GetBrandsQuery } from "../gql/graphql";
 
 const getBrands = async () => {
   const { data } = await apollo.query<GetBrandsQuery>({
+    fetchPolicy: "network-only",
     query: gql`
       query GetBrands {
         brands {

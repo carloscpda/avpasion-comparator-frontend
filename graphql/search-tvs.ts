@@ -18,6 +18,7 @@ const searchTvs = async ({
   sizeLessThan?: number;
 }) => {
   const { data } = await apollo.query<SearchTvsQuery>({
+    fetchPolicy: "network-only",
     variables: {
       page,
       offset,

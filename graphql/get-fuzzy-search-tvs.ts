@@ -4,6 +4,7 @@ import { GetFuzzySearchQuery } from "../gql/graphql";
 
 const getFuzzySearch = async () => {
   const { data } = await apollo.query<GetFuzzySearchQuery>({
+    fetchPolicy: "network-only",
     query: gql`
       query GetFuzzySearch {
         tvs {
