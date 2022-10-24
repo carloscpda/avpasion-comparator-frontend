@@ -5,7 +5,6 @@ import SerieSection from "../../components/tv/serie/serie";
 import Layout from "../../components/layout/layout";
 import Main from "../../components/layout/main";
 import Summary from "../../components/tv/summary/summary";
-import getTvSlugs from "../../graphql/get-tv-slugs";
 import { GetStaticProps } from "next";
 import getTv from "../../graphql/get-tv";
 import { TV } from "../../models/tv";
@@ -16,11 +15,9 @@ import PricesSection from "../../components/tv/prices/prices";
 import getMarketplaceTvs from "../../graphql/get-marketplaces-tv";
 
 export const getStaticPaths = async () => {
-  const slugs = await getTvSlugs();
-
   return {
-    paths: slugs.map((slug) => ({ params: { slug } })),
-    fallback: false,
+    paths: [],
+    fallback: "blocking",
   };
 };
 

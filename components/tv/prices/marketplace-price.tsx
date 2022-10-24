@@ -30,11 +30,8 @@ const MarketplacePrice = ({
   affiliateUrl,
   available,
   reconditioned,
-  financing,
 }: MarketplaceTv & { position: number }) => {
   const price = prices?.data[0].attributes?.price || 0;
-  const basePrice = prices?.data[0].attributes?.basePrice || 0;
-  const isDiscount = price !== basePrice;
   let delivery = [];
   if (deliveryCost || deliveryCost === 0) {
     delivery.push(parseCurrency(deliveryCost));
@@ -133,14 +130,6 @@ const MarketplacePrice = ({
                   color={reconditioned ? "green" : "red"}
                 />
                 <Text>Reacondicionado</Text>
-              </Flex>
-              <Flex fontSize="xs" color="gray.600" alignItems="center">
-                <Icon
-                  fontSize="lg"
-                  as={financing ? IoCheckmark : IoClose}
-                  color={financing ? "green" : "red"}
-                />
-                <Text>Financiable</Text>
               </Flex>
             </HStack>
             <HStack gap="1" height="20px">

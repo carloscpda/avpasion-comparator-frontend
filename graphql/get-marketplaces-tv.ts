@@ -14,14 +14,12 @@ const getMarketplaceTvs = async ({ tvId }: { tvId: string }) => {
               available
               deliveryCost
               deliveryTime
-              financing
               reconditioned
-              prices(pagination: { limit: 1 }, sort: "datetime:desc") {
+              prices(pagination: { limit: 1 }, sort: "createdAt:desc") {
                 data {
                   attributes {
-                    datetime
+                    createdAt
                     price
-                    basePrice
                   }
                 }
               }

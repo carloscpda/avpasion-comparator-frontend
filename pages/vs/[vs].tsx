@@ -27,6 +27,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   return {
     props: { tvs: [tv1, tv2] },
+    revalidate: 7 * 24 * 60 * 60, // 1 week
   };
 };
 
