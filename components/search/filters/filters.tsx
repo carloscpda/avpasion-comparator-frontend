@@ -46,7 +46,7 @@ const Filters = ({
   };
 
   return (
-    <HStack gap={4} my="8" justifyContent="flex-end">
+    <HStack gap={1} my="8" justifyContent="flex-end">
       <ScreenSizeFilter />
       <Divider
         orientation="vertical"

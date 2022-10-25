@@ -1,12 +1,4 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Grid,
-  Heading,
-  HStack,
-  Icon,
-} from "@chakra-ui/react";
+import { Button, Grid, Heading, HStack, Icon } from "@chakra-ui/react";
 import Main from "../components/layout/main";
 import Layout from "../components/layout/layout";
 import Paginator from "../components/search/paginator";
@@ -30,7 +22,6 @@ import getBrands from "../graphql/get-brands";
 import { Brand } from "../models/brand";
 import getImageTechnologies from "../graphql/get-image-technologies";
 import { ImageTechnology } from "../models/image-technology";
-import NextLink from "next/link";
 import SearchItem from "../components/search/item";
 import Filters from "../components/search/filters/filters";
 import Link from "next/link";
@@ -47,16 +38,15 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 
   const brand = query?.brand ? query.brand.toString() : undefined;
 
-  if (query?["screen-size"])
+  let sizeGreatherThan;
+  let sizeLessThan;
+  if (query?.["screen-size"]) {
+    const size = parseInt(query["screen-size"] as string);
+    const { sizegt, sizelt } = ScreenSizeFilter.Sizes[size];
+    sizeGreatherThan = sizegt;
+    sizeLessThan = sizelt;
+  }
 
-  ScreenSizeFilter.Sizes
-
-  const sizeGreatherThan = query?.sizegt
-    ? parseFloat(query.sizegt as string)
-    : undefined;
-  const sizeLessThan = query?.sizelt
-    ? parseFloat(query.sizelt as string)
-    : undefined;
   const imageTechnology = query?.["image-technology"]
     ? query["image-technology"].toString()
     : undefined;

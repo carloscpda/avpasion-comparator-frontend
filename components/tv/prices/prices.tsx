@@ -29,7 +29,7 @@ const PricesSection = ({ tvId }: { tvId: string }) => {
       >
         Precios
       </Heading>
-      <Wrap>
+      <Wrap spacing={4} spacingY={6}>
         {loading && <Spinner />}
         {data.map((mt, index) => (
           <MarketplacePrice
