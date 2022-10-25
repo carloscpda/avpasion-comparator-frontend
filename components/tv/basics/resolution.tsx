@@ -11,7 +11,7 @@ type TvResolutionProps = {
 const TvResolution = ({ value }: TvResolutionProps) => {
   let text = value.resolution?.replace(":", " x ");
   if (value.alternativeName) {
-    text = `${text}  · ${value.alternativeName} · ${value.alternativeName}`;
+    text = `${text} · ${value.alternativeName}`;
   }
 
   return (

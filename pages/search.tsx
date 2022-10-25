@@ -6,17 +6,17 @@ import {
   InputLeftElement,
 } from "@chakra-ui/react";
 import { IoTvOutline } from "react-icons/io5";
-import Main from "../../components/layout/main";
-import Layout from "../../components/layout/layout";
+import Main from "../components/layout/main";
+import Layout from "../components/layout/layout";
 import { GetStaticProps } from "next";
-import { FuzzySearch, getPicture } from "../../models/fuzzy-search-tv";
-import getFuzzySearch from "../../graphql/get-fuzzy-search-tvs";
+import { FuzzySearch, getPicture } from "../models/fuzzy-search-tv";
+import getFuzzySearch from "../graphql/get-fuzzy-search-tvs";
 import Fuse from "fuse.js";
 import { ChangeEventHandler, useMemo, useState } from "react";
 import { useRouter } from "next/router";
-import SearchItem from "../../components/search/item";
+import SearchItem from "../components/search/item";
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps = async () => {
   const tvs = await getFuzzySearch();
 
   return {
@@ -38,13 +38,13 @@ const VsPage = ({ tvs }: { tvs: FuzzySearch[] }) => {
   }, [tvs]);
 
   const handleSearch: ChangeEventHandler<HTMLInputElement> = (event) => {
-    search(fuse.search(event.target.value));
+    search(fuse.search(event.target.value, { limit: 10 }));
   };
 
   return (
     <Layout>
       <Main>
-        <Heading hidden>Comparator</Heading>
+        <Heading color="red.700">Busqueda.</Heading>
         <InputGroup mt="4" mb="8">
           <InputLeftElement
             pointerEvents="none"
@@ -72,7 +72,11 @@ const VsPage = ({ tvs }: { tvs: FuzzySearch[] }) => {
             {searched.map(({ item: tv }) => (
               <SearchItem
                 key={tv.slug}
-                href={`/vs/${router.query.tv}-vs-${tv.slug}`}
+                href={
+                  router.query.tv
+                    ? `/vs/${router.query.tv}-vs-${tv.slug}`
+                    : `/tv/${tv.slug}`
+                }
                 score={tv.score || 0}
                 brand={tv.brand}
                 model={tv.model}

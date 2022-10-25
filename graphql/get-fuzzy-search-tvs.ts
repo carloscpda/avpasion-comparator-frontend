@@ -7,7 +7,7 @@ const getFuzzySearch = async () => {
     fetchPolicy: "network-only",
     query: gql`
       query GetFuzzySearch {
-        tvs {
+        tvs(pagination: { limit: -1 }) {
           data {
             attributes {
               ean

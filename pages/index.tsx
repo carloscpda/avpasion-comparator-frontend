@@ -1,4 +1,12 @@
-import { Box, Button, Grid, Heading, HStack, Icon } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Grid,
+  Heading,
+  HStack,
+  Icon,
+} from "@chakra-ui/react";
 import Main from "../components/layout/main";
 import Layout from "../components/layout/layout";
 import Paginator from "../components/search/paginator";
@@ -25,6 +33,8 @@ import { ImageTechnology } from "../models/image-technology";
 import NextLink from "next/link";
 import SearchItem from "../components/search/item";
 import Filters from "../components/search/filters/filters";
+import Link from "next/link";
+import { SlMagnifier } from "react-icons/sl";
 
 const TVS_PER_PAGE = 12;
 
@@ -97,7 +107,15 @@ const IndexPage = ({
   return (
     <Layout>
       <Main>
-        <Heading color="red.700">Todos los modelos.</Heading>
+        <HStack justifyContent="space-between">
+          <Heading color="red.700">Todos los modelos.</Heading>
+          <Link href="/search" passHref>
+            <Button as="a" variant="outline" colorScheme="gray">
+              Busca por modelo, serie, marca o EAN...
+              <Icon as={SlMagnifier} ml="2" />
+            </Button>
+          </Link>
+        </HStack>
         <Filters
           brands={brands}
           currentBrand={brand}
@@ -128,7 +146,7 @@ const IndexPage = ({
               price={tv.minPrice || 0}
             >
               <HStack justifyContent="flex-end">
-                <NextLink href={`/vs?tv=${tv.slug}`} passHref>
+                <NextLink href={`/search?tv=${tv.slug}`} passHref>
                   <Button as="a" colorScheme="gray" color="red.700" size="xs">
                     Comparar
                   </Button>

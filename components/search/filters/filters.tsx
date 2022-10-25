@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Divider,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
@@ -45,14 +46,19 @@ const Filters = ({
   };
 
   return (
-    <HStack gap={4} my="8" justifyContent="space-between">
+    <HStack gap={4} my="8" justifyContent="flex-end">
       <ScreenSizeFilter />
+      <Divider
+        orientation="vertical"
+        height="6"
+        borderLeftWidth="2px"
+        borderColor="gray.300"
+      />
       <Button
         ref={filtersButtonRef}
         colorScheme="gray"
         onClick={onOpen}
         size="sm"
-        variant="outline"
         leftIcon={<IoFilter />}
       >
         Filtros

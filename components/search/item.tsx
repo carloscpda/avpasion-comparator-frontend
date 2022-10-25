@@ -58,20 +58,6 @@ const SearchItem = ({
 }: SearchItemProps) => {
   return (
     <VStack width="100%" position="relative">
-      {price && (
-        <HStack
-          mt="4"
-          justifyContent="space-between"
-          position="absolute"
-          top="1"
-          right="2"
-          zIndex="2"
-        >
-          <Tag variant="subtle" colorScheme="yellow">
-            <TagLabel>{parseCurrency(price)}</TagLabel>
-          </Tag>
-        </HStack>
-      )}
       <NextLink href={href} passHref>
         <Box width="100%" cursor="pointer" as="a">
           <TvPicture src={picture} alt={fullName} />
@@ -103,6 +89,20 @@ const SearchItem = ({
         </Grid>
         {children}
       </Box>
+      {price && (
+        <HStack
+          mt="4"
+          justifyContent="space-between"
+          position="absolute"
+          top="10"
+          right="4"
+          zIndex="2"
+        >
+          <Tag variant="subtle" colorScheme="yellow">
+            <TagLabel>{parseCurrency(price)}</TagLabel>
+          </Tag>
+        </HStack>
+      )}
     </VStack>
   );
 };

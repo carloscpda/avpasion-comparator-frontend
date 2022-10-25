@@ -78,7 +78,7 @@ const Navbar = () => {
           Sistema
         </Link>
         {tvs.length === 1 && (
-          <NextLink href={`/vs?tv=${tvs[0].slug}`} passHref>
+          <NextLink href={`/search?tv=${tvs[0].slug}`} passHref>
             <Button
               backgroundColor="red.700"
               size="sm"
