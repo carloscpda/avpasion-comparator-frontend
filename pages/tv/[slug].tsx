@@ -53,10 +53,16 @@ const TVPage = ({
   offerCount: number;
 }) => {
   useEffect(() => {
-    fetch(`/api/hit`, {
-      method: "POST",
-      body: JSON.stringify({ tvid: tvId }),
-    });
+    const hitReference = setTimeout(() => {
+      fetch(`/api/hit`, {
+        method: "POST",
+        body: JSON.stringify({ tvid: tvId }),
+      });
+    }, 3000);
+
+    return () => {
+      clearTimeout(hitReference);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

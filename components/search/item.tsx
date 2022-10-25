@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Flex,
   Grid,
   HStack,
@@ -8,7 +9,6 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
-import { ReactNode } from "react";
 import TvPicture from "../tv/basics/picture";
 import TvTitle from "../tv/basics/title";
 import Score from "../score";
@@ -19,9 +19,10 @@ import TvEan from "../tv/basics/ean";
 import TvResolution from "../tv/basics/resolution";
 import TvScreenSize from "../tv/basics/screen-size";
 import parseCurrency from "../../helpers/parse-currency";
+import { useRouter } from "next/router";
 
 type SearchItemProps = {
-  href: string;
+  slug: string;
   picture: string;
   fullName: string;
   brand?: string;
@@ -37,11 +38,10 @@ type SearchItemProps = {
   };
   screenSize?: number;
   price?: number;
-  children?: ReactNode;
 };
 
 const SearchItem = ({
-  href,
+  slug,
   picture,
   fullName,
   brand,
@@ -54,11 +54,17 @@ const SearchItem = ({
   resolution,
   screenSize,
   price,
-  children,
 }: SearchItemProps) => {
+  const router = useRouter();
+
   return (
     <VStack width="100%" position="relative">
-      <NextLink href={href} passHref>
+      <NextLink
+        href={
+          router.query.tv ? `/vs/${router.query.tv}-vs-${slug}` : `/tv/${slug}`
+        }
+        passHref
+      >
         <Box width="100%" cursor="pointer" as="a">
           <TvPicture src={picture} alt={fullName} />
         </Box>
@@ -87,7 +93,25 @@ const SearchItem = ({
           {resolution && <TvResolution value={resolution} />}
           {screenSize && <TvScreenSize value={screenSize} />}
         </Grid>
-        {children}
+        <HStack justifyContent="flex-end">
+          <NextLink
+            href={
+              router.query.tv
+                ? `/vs/${router.query.tv}-vs-${slug}`
+                : `/search?tv=${slug}`
+            }
+            passHref
+          >
+            <Button as="a" colorScheme="gray" color="red.700" size="xs">
+              Comparar
+            </Button>
+          </NextLink>
+          <NextLink href={`/tv/${slug}`} passHref>
+            <Button as="a" colorScheme="gray" color="red.700" size="xs">
+              Ver ficha
+            </Button>
+          </NextLink>
+        </HStack>
       </Box>
       {price && (
         <HStack

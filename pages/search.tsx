@@ -72,11 +72,7 @@ const VsPage = ({ tvs }: { tvs: FuzzySearch[] }) => {
             {searched.map(({ item: tv }) => (
               <SearchItem
                 key={tv.slug}
-                href={
-                  router.query.tv
-                    ? `/vs/${router.query.tv}-vs-${tv.slug}`
-                    : `/tv/${tv.slug}`
-                }
+                slug={tv.slug || ""}
                 score={tv.score || 0}
                 brand={tv.brand}
                 model={tv.model}

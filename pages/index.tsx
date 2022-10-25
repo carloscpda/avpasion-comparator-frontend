@@ -131,7 +131,7 @@ const IndexPage = ({
           {tvs.map((tv) => (
             <SearchItem
               key={tv.slug}
-              href={`/tv/${tv.slug}`}
+              slug={tv.slug || ""}
               fullName={getFullName(tv)}
               picture={getPicture(tv)}
               score={tv.score || 0}
@@ -144,20 +144,7 @@ const IndexPage = ({
               screenSize={getScreenSize(tv)}
               serie={getSerie(tv)}
               price={tv.minPrice || 0}
-            >
-              <HStack justifyContent="flex-end">
-                <NextLink href={`/search?tv=${tv.slug}`} passHref>
-                  <Button as="a" colorScheme="gray" color="red.700" size="xs">
-                    Comparar
-                  </Button>
-                </NextLink>
-                <NextLink href={`/tv/${tv.slug}`} passHref>
-                  <Button as="a" colorScheme="gray" color="red.700" size="xs">
-                    Ver ficha
-                  </Button>
-                </NextLink>
-              </HStack>
-            </SearchItem>
+            />
           ))}
         </Grid>
         <Paginator
