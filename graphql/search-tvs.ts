@@ -9,6 +9,8 @@ const searchTvs = async ({
   imageTechnology,
   sizeGreatherThan,
   sizeLessThan,
+  minPrice,
+  maxPrice,
 }: {
   page: number;
   offset: number;
@@ -16,6 +18,8 @@ const searchTvs = async ({
   imageTechnology?: string;
   sizeGreatherThan?: number;
   sizeLessThan?: number;
+  minPrice?: number;
+  maxPrice?: number;
 }) => {
   const { data } = await apollo.query<SearchTvsQuery>({
     fetchPolicy: "network-only",
@@ -26,6 +30,8 @@ const searchTvs = async ({
       imageTechnology,
       sizeGreatherThan,
       sizeLessThan,
+      minPrice,
+      maxPrice,
     },
     query: gql`
       query SearchTvs(
@@ -35,6 +41,8 @@ const searchTvs = async ({
         $imageTechnology: ID
         $sizeGreatherThan: Float
         $sizeLessThan: Float
+        $minPrice: Float
+        $maxPrice: Float
       ) {
         tvs(
           pagination: { page: $page, pageSize: $offset }
@@ -47,6 +55,7 @@ const searchTvs = async ({
                   brand: { serie: { brand: { id: { eq: $brand } } } }
                 }
               }
+              minPrice: { gte: $minPrice, lte: $maxPrice }
               image: { technology: { image: { id: { eq: $imageTechnology } } } }
             }
           }

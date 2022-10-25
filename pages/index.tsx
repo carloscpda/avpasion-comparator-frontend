@@ -27,16 +27,26 @@ import Filters from "../components/search/filters/filters";
 import Link from "next/link";
 import { SlMagnifier } from "react-icons/sl";
 import ScreenSizeFilter from "../components/search/filters/screen-size-filter";
+import getPrices from "../graphql/get-prices";
 
 const TVS_PER_PAGE = 12;
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const brands = await getBrands();
   const imageTechnologies = await getImageTechnologies();
+  const prices = await getPrices();
 
   const currentPage = parseInt(query?.page as string) || 1;
 
   const brand = query?.brand ? query.brand.toString() : undefined;
+
+  const minPrice = query?.["min-price"]
+    ? parseFloat(query["min-price"] as string)
+    : undefined;
+
+  const maxPrice = query?.["max-price"]
+    ? parseFloat(query["max-price"] as string)
+    : undefined;
 
   let sizeGreatherThan;
   let sizeLessThan;
@@ -58,6 +68,8 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
     imageTechnology,
     sizeGreatherThan,
     sizeLessThan,
+    minPrice,
+    maxPrice,
   });
 
   return {
@@ -69,6 +81,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
       brand: brand || null,
       imageTechnologies,
       imageTechnology: imageTechnology || null,
+      prices,
     },
   };
 };
@@ -81,6 +94,7 @@ const IndexPage = ({
   brand,
   imageTechnologies,
   imageTechnology,
+  prices,
 }: {
   tvs: SearchTV[];
   currentPage: number;
@@ -89,6 +103,7 @@ const IndexPage = ({
   brand: Brand["id"];
   imageTechnologies: ImageTechnology[];
   imageTechnology: ImageTechnology["id"];
+  prices: { minPrice: number; maxPrice: number };
 }) => {
   const router = useRouter();
 
@@ -117,6 +132,7 @@ const IndexPage = ({
           currentBrand={brand}
           imageTechnologies={imageTechnologies}
           currentImageTechnologies={imageTechnology}
+          prices={prices}
         />
         <Grid
           flex="1"
