@@ -35,6 +35,7 @@ import SearchItem from "../components/search/item";
 import Filters from "../components/search/filters/filters";
 import Link from "next/link";
 import { SlMagnifier } from "react-icons/sl";
+import ScreenSizeFilter from "../components/search/filters/screen-size-filter";
 
 const TVS_PER_PAGE = 12;
 
@@ -45,6 +46,11 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const currentPage = parseInt(query?.page as string) || 1;
 
   const brand = query?.brand ? query.brand.toString() : undefined;
+
+  if (query?["screen-size"])
+
+  ScreenSizeFilter.Sizes
+
   const sizeGreatherThan = query?.sizegt
     ? parseFloat(query.sizegt as string)
     : undefined;
