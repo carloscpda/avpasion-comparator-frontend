@@ -1,5 +1,4 @@
-import { Box, Button, Grid, GridItem } from "@chakra-ui/react";
-import Link from "next/link";
+import { Grid, GridItem } from "@chakra-ui/react";
 import React from "react";
 import { useTvs } from "../tvs-provider";
 import SummaryData from "./data";

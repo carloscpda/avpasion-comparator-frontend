@@ -46,7 +46,7 @@ const SummaryPictures = ({ tv, height, width }: SummaryPicturesProps) => {
           disableScroll
           backgroundStyle={{
             backgroundColor: "rgba(0,0,0,0.9)",
-            zIndex: 2,
+            zIndex: 3,
           }}
           closeOnClickOutside
         />

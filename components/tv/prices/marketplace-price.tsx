@@ -87,7 +87,7 @@ const MarketplacePrice = ({
             opacity={!available ? "0.6" : 1}
             alignItems="flex-start"
             _hover={{
-              backgroundColor: "gray.100",
+              borderColor: "red.700",
             }}
           >
             <HStack gap={4}>
