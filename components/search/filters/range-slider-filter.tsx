@@ -10,39 +10,43 @@ import {
 import { useState } from "react";
 import { useRouter } from "next/router";
 
-type PriceFilterProps = {
-  minPrice: number;
-  maxPrice: number;
+type RangeSliderFilterProps = {
+  minValue: number;
+  maxValue: number;
+  queryParamName: string;
+  name: string;
+  step?: number;
 };
 
-const PriceFilter = ({ minPrice, maxPrice }: PriceFilterProps) => {
+const RangeSliderFilter = ({
+  minValue,
+  maxValue,
+  name,
+  queryParamName,
+  step = 1,
+}: RangeSliderFilterProps) => {
   const router = useRouter();
-
+  const routerValue = (router.query[queryParamName] as string[]) || [];
   const [sliderValue, setSliderValue] = useState<[number, number]>([
-    router.query["min-price"]
-      ? parseFloat(router.query["min-price"] as string)
-      : minPrice,
-    router.query["max-price"]
-      ? parseFloat(router.query["max-price"] as string)
-      : maxPrice,
+    routerValue[0] ? parseFloat(routerValue[0]) : minValue,
+    routerValue[1] ? parseFloat(routerValue[1]) : maxValue,
   ]);
 
   return (
-    <FormControl>
+    <FormControl mb="6">
       <FormLabel textTransform="uppercase" fontSize="xs" fontWeight="bold">
-        Precio
+        {name}
       </FormLabel>
       <RangeSlider
         // eslint-disable-next-line jsx-a11y/aria-proptypes
         aria-label={["min", "max"]}
-        min={Math.floor(minPrice)}
-        max={Math.ceil(maxPrice)}
-        step={1}
+        min={Math.floor(minValue)}
+        max={Math.ceil(maxValue)}
+        step={step}
         defaultValue={sliderValue}
         onChange={(val) => setSliderValue([val[0], val[1]])}
         onChangeEnd={(val) => {
-          router.query["min-price"] = val[0].toString();
-          router.query["max-price"] = val[1].toString();
+          router.query[queryParamName] = [val[0].toString(), val[1].toString()];
           router.query.page = "1";
           router.replace(router);
         }}
@@ -79,4 +83,4 @@ const PriceFilter = ({ minPrice, maxPrice }: PriceFilterProps) => {
   );
 };
 
-export default PriceFilter;
+export default RangeSliderFilter;

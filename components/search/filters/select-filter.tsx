@@ -2,19 +2,19 @@ import { FormControl, FormLabel, Select } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { ChangeEventHandler } from "react";
 
-type FilterProps<T extends { id: string; name: string }> = {
+type SelectFilterProps<T extends { id: string; name: string }> = {
   data: T[];
   currentValue?: T["id"];
   queryParamName: string;
   name: string;
 };
 
-function Filter<T extends { id: string; name: string }>({
+function SelectFilter<T extends { id: string; name: string }>({
   data,
   currentValue,
   queryParamName,
   name,
-}: FilterProps<T>) {
+}: SelectFilterProps<T>) {
   const router = useRouter();
 
   const handleChangeValue: ChangeEventHandler<HTMLSelectElement> = (event) => {
@@ -45,4 +45,4 @@ function Filter<T extends { id: string; name: string }>({
   );
 }
 
-export default Filter;
+export default SelectFilter;

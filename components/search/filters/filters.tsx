@@ -13,16 +13,16 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { IoFilter } from "react-icons/io5";
 import { AiOutlineClear } from "react-icons/ai";
 
 import { Brand } from "../../../models/brand";
 import { ImageTechnology } from "../../../models/image-technology";
-import Filter from "./filter";
+import SelectFilter from "./select-filter";
 import ScreenSizeFilter from "./screen-size-filter";
 import { useRouter } from "next/router";
-import PriceFilter from "./prices-filter";
+import RangeSliderFilter from "./range-slider-filter";
 
 type FiltersProps = {
   brands: Brand[];
@@ -40,20 +40,11 @@ const Filters = ({
   prices,
 }: FiltersProps) => {
   const router = useRouter();
-  const [pricesSliderValue, setPricesSliderValue] = useState<[number, number]>([
-    router.query["min-price"]
-      ? parseFloat(router.query["min-price"] as string)
-      : prices.minPrice,
-    router.query["max-price"]
-      ? parseFloat(router.query["max-price"] as string)
-      : prices.maxPrice,
-  ]);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const filtersButtonRef = useRef<any>();
 
   const cleanFilters = () => {
-    setPricesSliderValue([prices.minPrice, prices.maxPrice]);
     router.replace("/", undefined);
     onClose();
   };
@@ -88,7 +79,7 @@ const Filters = ({
           <DrawerBody>
             <VStack gap="4">
               <Box width="100%">
-                <Filter
+                <SelectFilter
                   data={brands}
                   currentValue={currentBrand}
                   name="Marca"
@@ -96,7 +87,7 @@ const Filters = ({
                 />
               </Box>
               <Box width="100%">
-                <Filter
+                <SelectFilter
                   data={imageTechnologies}
                   currentValue={currentImageTechnologies}
                   name="Tecnología de imagen"
@@ -104,9 +95,20 @@ const Filters = ({
                 />
               </Box>
               <Box width="100%">
-                <PriceFilter
-                  minPrice={prices.minPrice}
-                  maxPrice={prices.maxPrice}
+                <RangeSliderFilter
+                  name="Precios"
+                  minValue={prices.minPrice}
+                  maxValue={prices.maxPrice}
+                  queryParamName="price"
+                />
+              </Box>
+              <Box width="100%">
+                <RangeSliderFilter
+                  name="Puntuación"
+                  minValue={0}
+                  maxValue={10}
+                  queryParamName="score"
+                  step={0.1}
                 />
               </Box>
             </VStack>

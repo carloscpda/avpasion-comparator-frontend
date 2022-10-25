@@ -1,4 +1,13 @@
-import { Button, Grid, Heading, HStack, Icon } from "@chakra-ui/react";
+import {
+  Button,
+  Flex,
+  Grid,
+  Heading,
+  HStack,
+  Icon,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import Main from "../components/layout/main";
 import Layout from "../components/layout/layout";
 import Paginator from "../components/search/paginator";
@@ -28,6 +37,7 @@ import Link from "next/link";
 import { SlMagnifier } from "react-icons/sl";
 import ScreenSizeFilter from "../components/search/filters/screen-size-filter";
 import getPrices from "../graphql/get-prices";
+import { AiOutlineClear } from "react-icons/ai";
 
 const TVS_PER_PAGE = 12;
 
@@ -40,13 +50,13 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 
   const brand = query?.brand ? query.brand.toString() : undefined;
 
-  const minPrice = query?.["min-price"]
-    ? parseFloat(query["min-price"] as string)
-    : undefined;
+  const price = (query?.price as string[]) || [];
+  const minPrice = price[0] ? parseFloat(price[0]) : undefined;
+  const maxPrice = price[1] ? parseFloat(price[1]) : undefined;
 
-  const maxPrice = query?.["max-price"]
-    ? parseFloat(query["max-price"] as string)
-    : undefined;
+  const score = (query?.score as string[]) || [];
+  const minScore = score[0] ? parseFloat(score[0]) : undefined;
+  const maxScore = score[1] ? parseFloat(score[1]) : undefined;
 
   let sizeGreatherThan;
   let sizeLessThan;
@@ -70,6 +80,8 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
     sizeLessThan,
     minPrice,
     maxPrice,
+    minScore,
+    maxScore,
   });
 
   return {
@@ -159,6 +171,20 @@ const IndexPage = ({
             />
           ))}
         </Grid>
+        {tvs.length === 0 && (
+          <Flex justifyContent="center" alignItems="center" h="400px">
+            <VStack>
+              <Text>No se encuentran televisiones con estos filtros.</Text>
+              <Button
+                colorScheme="gray"
+                onClick={() => router.replace("/", undefined)}
+                leftIcon={<AiOutlineClear />}
+              >
+                Limpiar filtros
+              </Button>
+            </VStack>
+          </Flex>
+        )}
         <Paginator
           currentPage={currentPage}
           totalPages={numberOfPages}

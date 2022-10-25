@@ -1,6 +1,7 @@
-import { Text, WrapItem } from "@chakra-ui/react";
+import { Tag, TagLabel, Text, WrapItem } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React from "react";
+import parseCurrency from "../../../helpers/parse-currency";
 import { useTvs } from "../tvs-provider";
 
 type SerieTvProps = {
@@ -8,9 +9,16 @@ type SerieTvProps = {
   name?: string | null;
   screenSize?: number | null;
   resolution?: string | null;
+  price?: number;
 };
 
-const SerieTv = ({ name, slug, resolution, screenSize }: SerieTvProps) => {
+const SerieTv = ({
+  name,
+  slug,
+  resolution,
+  screenSize,
+  price,
+}: SerieTvProps) => {
   const router = useRouter();
 
   const { slug: currentSlug } = useTvs().tvs[0];
@@ -44,6 +52,11 @@ const SerieTv = ({ name, slug, resolution, screenSize }: SerieTvProps) => {
     >
       <Text>{name}</Text>
       <Text fontSize="sm">{details.join(" · ")}</Text>
+      {!!price && (
+        <Tag variant="subtle" colorScheme="yellow" mt="2">
+          <TagLabel>{parseCurrency(price)}</TagLabel>
+        </Tag>
+      )}
     </WrapItem>
   );
 };

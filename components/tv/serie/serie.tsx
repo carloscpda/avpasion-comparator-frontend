@@ -32,6 +32,7 @@ const SerieSection = ({ tvs }: SerieSectionProps) => {
               tv?.image?.resolution?.data?.attributes?.alternativeName
             }
             screenSize={tv?.general?.screenSize}
+            price={tv?.minPrice || 0}
           />
         ))}
       </Wrap>

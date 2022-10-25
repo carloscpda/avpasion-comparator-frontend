@@ -16,7 +16,7 @@ const PricesSection = ({ tvId }: { tvId: string }) => {
         setLoading(false);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [tvId]);
 
   return (
     <Box mb="10">

@@ -15,6 +15,7 @@ const getTvSeries = async ({ serieId }: { serieId: string }) => {
             attributes {
               name
               slug
+              minPrice
               general {
                 screenSize
               }
