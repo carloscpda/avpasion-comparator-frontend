@@ -1,4 +1,4 @@
-import { Box, Heading, HStack, Spinner, Wrap } from "@chakra-ui/react";
+import { Box, Grid, Heading, Spinner } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { MarketplaceTv } from "../../../models/marketplace-tv.tsx";
 import MarketplacePrice from "./marketplace-price";
@@ -29,8 +29,15 @@ const PricesSection = ({ tvId }: { tvId: string }) => {
       >
         Precios
       </Heading>
-      <Wrap spacing={4} spacingY={6}>
-        {loading && <Spinner />}
+      {loading && <Spinner />}
+      <Grid
+        gap={4}
+        gridTemplateColumns={{
+          base: "repeat(1, minmax(0, 1fr))",
+          sm: "repeat(2, minmax(0, 1fr))",
+          lg: "repeat(3, minmax(0, 1fr))",
+        }}
+      >
         {data.map((mt, index) => (
           <MarketplacePrice
             key={mt.marketplace?.data?.attributes?.name}
@@ -38,7 +45,7 @@ const PricesSection = ({ tvId }: { tvId: string }) => {
             {...mt}
           />
         ))}
-      </Wrap>
+      </Grid>
     </Box>
   );
 };

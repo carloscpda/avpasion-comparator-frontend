@@ -57,10 +57,12 @@ const Filters = ({
         height="6"
         borderLeftWidth="2px"
         borderColor="gray.300"
+        display={{ base: "none", lg: "unset" }}
       />
       <Button
         ref={filtersButtonRef}
-        colorScheme="gray"
+        colorScheme="red"
+        backgroundColor="red.700"
         onClick={onOpen}
         size="sm"
         leftIcon={<IoFilter />}

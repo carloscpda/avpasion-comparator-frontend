@@ -3,10 +3,10 @@ import {
   Flex,
   Grid,
   Heading,
-  HStack,
   Icon,
   Text,
   VStack,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import Main from "../components/layout/main";
 import Layout from "../components/layout/layout";
@@ -117,6 +117,10 @@ const IndexPage = ({
   imageTechnology: ImageTechnology["id"];
   prices: { minPrice: number; maxPrice: number };
 }) => {
+  const searchText = useBreakpointValue({
+    base: "Busca una TV...",
+    md: "Busca por modelo, serie, marca o EAN...",
+  });
   const router = useRouter();
 
   const handleNavigate = useCallback(
@@ -130,15 +134,29 @@ const IndexPage = ({
   return (
     <Layout>
       <Main>
-        <HStack justifyContent="space-between">
+        <Flex
+          direction={{ base: "column-reverse", md: "row" }}
+          alignItems="flex-start"
+          justifyContent="space-between"
+          gap="3"
+        >
           <Heading color="red.700">Todos los modelos.</Heading>
           <Link href="/search" passHref>
-            <Button as="a" variant="outline" colorScheme="gray">
-              Busca por modelo, serie, marca o EAN...
+            <Button
+              as="a"
+              variant="outline"
+              colorScheme="gray"
+              color="gray.400"
+              fontStyle="italic"
+              fontWeight="light"
+              width={{ base: "100%", md: "unset" }}
+              justifyContent="space-between"
+            >
+              {searchText}
               <Icon as={SlMagnifier} ml="2" />
             </Button>
           </Link>
-        </HStack>
+        </Flex>
         <Filters
           brands={brands}
           currentBrand={brand}
@@ -148,9 +166,14 @@ const IndexPage = ({
         />
         <Grid
           flex="1"
-          gridTemplateColumns="repeat(3, minmax(0, 1fr))"
+          gridTemplateColumns={{
+            base: "repeat(1, minmax(0, 1fr))",
+            sm: "repeat(2, minmax(0, 1fr))",
+            lg: "repeat(3, minmax(0, 1fr))",
+          }}
           rowGap={16}
           columnGap={4}
+          mb="4"
         >
           {tvs.map((tv) => (
             <SearchItem

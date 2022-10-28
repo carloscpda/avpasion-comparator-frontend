@@ -65,7 +65,11 @@ const VsPage = ({ tvs }: { tvs: FuzzySearch[] }) => {
         {!!searched.length && (
           <Grid
             flex="1"
-            gridTemplateColumns="repeat(3, minmax(0, 1fr))"
+            gridTemplateColumns={{
+              base: "repeat(1, minmax(0, 1fr))",
+              sm: "repeat(2, minmax(0, 1fr))",
+              lg: "repeat(3, minmax(0, 1fr))",
+            }}
             rowGap={16}
             columnGap={4}
           >

@@ -13,19 +13,15 @@ const Navbar = () => {
     <Flex
       display={{ base: "none", md: "flex" }}
       position="sticky"
-      top="0"
-      w="100%"
-      justify="space-between"
-      align="center"
+      justifyContent="space-between"
+      alignItems="center"
+      maxW={{ lg: "75em" }}
+      mx={{ base: 4, md: 8, xl: "auto" }}
       py="4"
       bg="whiteAlpha.900"
       backdropFilter="auto"
       backdropBlur="4px"
       zIndex="2"
-      width="100%"
-      maxW={{ lg: "75em" }}
-      mx={[4, 8, 8, "auto"]}
-      justifyContent="space-between"
     >
       <Heading
         as="p"

@@ -32,7 +32,7 @@ const Section = ({ title, getScore, children, id, icon }: SectionProps) => {
   }
 
   return (
-    <Box id={id} pt="20">
+    <Box id={id}>
       <Box as="section" borderRadius="8" overflow="hidden">
         <Grid
           gridTemplateColumns={`repeat(${tvs.length + 1}, 1fr)`}

@@ -29,7 +29,7 @@ function ScreenSizeFilter() {
   };
 
   return (
-    <HStack gap="1">
+    <HStack gap="1" display={{ base: "none", lg: "unset" }}>
       {sizesMap.map((size, index) => (
         <Button
           key={size.text}

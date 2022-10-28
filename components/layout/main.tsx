@@ -12,7 +12,7 @@ const Main = ({ children }: MainProps) => {
       direction="column"
       maxW={{ lg: "75em" }}
       my={8}
-      mx={[4, 8, 8, "auto"]}
+      mx={{ base: 4, md: 8, xl: "auto" }}
     >
       {children}
     </Flex>
