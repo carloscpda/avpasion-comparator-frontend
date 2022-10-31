@@ -1,9 +1,7 @@
-import { GetTvQuery } from "../gql/graphql";
+import { CoreTvFragment } from "../gql/graphql";
 import Picture from "./picture";
 
-export type TV = NonNullable<
-  NonNullable<GetTvQuery["tvs"]>["data"][number]["attributes"]
->;
+export type TV = CoreTvFragment;
 
 export const getBrand = (tv: TV) => {
   return tv.general?.brand?.serie?.data?.attributes?.brand?.data?.attributes

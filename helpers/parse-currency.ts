@@ -1,5 +1,5 @@
 const parseCurrency = (number: number) =>
-  number.toLocaleString("es-ES", {
+  number.toLocaleString("de-DE", {
     style: "currency",
     currency: "EUR",
   });

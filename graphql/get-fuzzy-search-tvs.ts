@@ -14,6 +14,7 @@ const getFuzzySearch = async () => {
               slug
               score
               general {
+                screenSize
                 brand {
                   model
                   serie {
@@ -28,6 +29,15 @@ const getFuzzySearch = async () => {
                           }
                         }
                       }
+                    }
+                  }
+                }
+              }
+              image {
+                resolution {
+                  data {
+                    attributes {
+                      alternativeName
                     }
                   }
                 }
@@ -62,6 +72,10 @@ const getFuzzySearch = async () => {
       pictures: tv.attributes?.design?.pictures?.data.map(
         (pic) => pic.attributes
       ),
+      screenSize: tv.attributes?.general?.screenSize || "",
+      resolution:
+        tv.attributes?.image?.resolution?.data?.attributes?.alternativeName ||
+        "",
     })) || []
   );
 };

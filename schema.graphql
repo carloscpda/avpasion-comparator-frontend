@@ -1277,6 +1277,7 @@ union GenericMorph =
   | MarketplaceTv
   | OperatingSystem
   | OperatingSystemVersion
+  | PageHit
   | PanelManufacturer
   | PanelTechnology
   | PaymentMethod
@@ -1628,19 +1629,22 @@ type MarketplaceRelationResponseCollection {
 }
 
 type MarketplaceTv {
+  absoluteDiscount: Float
   affiliateUrl: String
   available: Boolean
+  basePrice: Float
   createdAt: DateTime
   deliveryCost: Float
   deliveryTime: String
-  financing: Boolean
   marketplace: MarketplaceEntityResponse
+  price: Float
   prices(
     filters: PriceFiltersInput
     pagination: PaginationArg = {}
     sort: [String] = []
   ): PriceRelationResponseCollection
   reconditioned: Boolean
+  relativeDiscount: Float
   tv: TvEntityResponse
   updatedAt: DateTime
   url: String
@@ -1661,33 +1665,39 @@ type MarketplaceTvEntityResponseCollection {
 }
 
 input MarketplaceTvFiltersInput {
+  absoluteDiscount: FloatFilterInput
   affiliateUrl: StringFilterInput
   and: [MarketplaceTvFiltersInput]
   available: BooleanFilterInput
+  basePrice: FloatFilterInput
   createdAt: DateTimeFilterInput
   deliveryCost: FloatFilterInput
   deliveryTime: StringFilterInput
-  financing: BooleanFilterInput
   id: IDFilterInput
   marketplace: MarketplaceFiltersInput
   not: MarketplaceTvFiltersInput
   or: [MarketplaceTvFiltersInput]
+  price: FloatFilterInput
   prices: PriceFiltersInput
   reconditioned: BooleanFilterInput
+  relativeDiscount: FloatFilterInput
   tv: TvFiltersInput
   updatedAt: DateTimeFilterInput
   url: StringFilterInput
 }
 
 input MarketplaceTvInput {
+  absoluteDiscount: Float
   affiliateUrl: String
   available: Boolean
+  basePrice: Float
   deliveryCost: Float
   deliveryTime: String
-  financing: Boolean
   marketplace: ID
+  price: Float
   prices: [ID]
   reconditioned: Boolean
+  relativeDiscount: Float
   tv: ID
   url: String
 }
@@ -1736,6 +1746,7 @@ type Mutation {
   createOperatingSystemVersion(
     data: OperatingSystemVersionInput!
   ): OperatingSystemVersionEntityResponse
+  createPageHit(data: PageHitInput!): PageHitEntityResponse
   createPanelManufacturer(
     data: PanelManufacturerInput!
   ): PanelManufacturerEntityResponse
@@ -1800,6 +1811,7 @@ type Mutation {
   deleteMarketplaceTv(id: ID!): MarketplaceTvEntityResponse
   deleteOperatingSystem(id: ID!): OperatingSystemEntityResponse
   deleteOperatingSystemVersion(id: ID!): OperatingSystemVersionEntityResponse
+  deletePageHit(id: ID!): PageHitEntityResponse
   deletePanelManufacturer(id: ID!): PanelManufacturerEntityResponse
   deletePanelTechnology(id: ID!): PanelTechnologyEntityResponse
   deletePaymentMethod(id: ID!): PaymentMethodEntityResponse
@@ -1921,6 +1933,7 @@ type Mutation {
     data: OperatingSystemVersionInput!
     id: ID!
   ): OperatingSystemVersionEntityResponse
+  updatePageHit(data: PageHitInput!, id: ID!): PageHitEntityResponse
   updatePanelManufacturer(
     data: PanelManufacturerInput!
     id: ID!
@@ -2076,6 +2089,50 @@ type OperatingSystemVersionRelationResponseCollection {
   data: [OperatingSystemVersionEntity!]!
 }
 
+type PageHit {
+  createdAt: DateTime
+  date: Date!
+  hits: Int!
+  tv: TvEntityResponse
+  updatedAt: DateTime
+}
+
+type PageHitEntity {
+  attributes: PageHit
+  id: ID
+}
+
+type PageHitEntityResponse {
+  data: PageHitEntity
+}
+
+type PageHitEntityResponseCollection {
+  data: [PageHitEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+input PageHitFiltersInput {
+  and: [PageHitFiltersInput]
+  createdAt: DateTimeFilterInput
+  date: DateFilterInput
+  hits: IntFilterInput
+  id: IDFilterInput
+  not: PageHitFiltersInput
+  or: [PageHitFiltersInput]
+  tv: TvFiltersInput
+  updatedAt: DateTimeFilterInput
+}
+
+input PageHitInput {
+  date: Date
+  hits: Int
+  tv: ID
+}
+
+type PageHitRelationResponseCollection {
+  data: [PageHitEntity!]!
+}
+
 type Pagination {
   page: Int!
   pageCount: Int!
@@ -2210,9 +2267,8 @@ type PaymentMethodRelationResponseCollection {
 }
 
 type Price {
-  basePrice: Float!
+  basePrice: Float
   createdAt: DateTime
-  datetime: DateTime!
   marketplaceTv: MarketplaceTvEntityResponse
   price: Float!
   updatedAt: DateTime
@@ -2236,7 +2292,6 @@ input PriceFiltersInput {
   and: [PriceFiltersInput]
   basePrice: FloatFilterInput
   createdAt: DateTimeFilterInput
-  datetime: DateTimeFilterInput
   id: IDFilterInput
   marketplaceTv: MarketplaceTvFiltersInput
   not: PriceFiltersInput
@@ -2247,7 +2302,6 @@ input PriceFiltersInput {
 
 input PriceInput {
   basePrice: Float
-  datetime: DateTime
   marketplaceTv: ID
   price: Float
 }
@@ -2383,6 +2437,12 @@ type Query {
     pagination: PaginationArg = {}
     sort: [String] = []
   ): OperatingSystemEntityResponseCollection
+  pageHit(id: ID): PageHitEntityResponse
+  pageHits(
+    filters: PageHitFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): PageHitEntityResponseCollection
   panelManufacturer(id: ID): PanelManufacturerEntityResponse
   panelManufacturers(
     filters: PanelManufacturerFiltersInput

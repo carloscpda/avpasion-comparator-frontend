@@ -1,9 +1,9 @@
 import { gql } from "@apollo/client";
 import apollo from "../apollo-client";
-import { SearchTvFragment, SearchTvsQuery } from "../gql/graphql";
+import { SearchSalesQuery } from "../gql/graphql";
 import { SEARCH_TV } from "./search-tv.fragment";
 
-const searchTvs = async ({
+const searchSales = async ({
   page,
   offset,
   brand,
@@ -26,7 +26,7 @@ const searchTvs = async ({
   minScore?: number;
   maxScore?: number;
 }) => {
-  const { data } = await apollo.query<SearchTvsQuery>({
+  const { data } = await apollo.query<SearchSalesQuery>({
     fetchPolicy: "network-only",
     variables: {
       page,
@@ -41,7 +41,8 @@ const searchTvs = async ({
       maxScore,
     },
     query: gql`
-      query SearchTvs(
+      ${SEARCH_TV}
+      query SearchSales(
         $page: Int!
         $offset: Int!
         $brand: ID
@@ -53,20 +54,25 @@ const searchTvs = async ({
         $minScore: Float
         $maxScore: Float
       ) {
-        tvs(
+        marketplaceTvs(
           pagination: { page: $page, pageSize: $offset }
-          sort: "score:desc"
+          sort: "absoluteDiscount:desc"
           filters: {
             and: {
-              general: {
-                and: {
-                  screenSize: { gt: $sizeGreatherThan, lt: $sizeLessThan }
-                  brand: { serie: { brand: { id: { eq: $brand } } } }
+              price: { gt: 0 }
+              tv: {
+                general: {
+                  and: {
+                    screenSize: { gt: $sizeGreatherThan, lt: $sizeLessThan }
+                    brand: { serie: { brand: { id: { eq: $brand } } } }
+                  }
+                }
+                minPrice: { gte: $minPrice, lte: $maxPrice }
+                score: { gte: $minScore, lte: $maxScore }
+                image: {
+                  technology: { image: { id: { eq: $imageTechnology } } }
                 }
               }
-              minPrice: { gte: $minPrice, lte: $maxPrice }
-              score: { gte: $minScore, lte: $maxScore }
-              image: { technology: { image: { id: { eq: $imageTechnology } } } }
             }
           }
         ) {
@@ -78,21 +84,30 @@ const searchTvs = async ({
           data {
             id
             attributes {
-              ...SearchTv
+              price
+              basePrice
+              absoluteDiscount
+              relativeDiscount
+              tv {
+                data {
+                  attributes {
+                    ...SearchTv
+                  }
+                }
+              }
             }
           }
         }
       }
-      ${SEARCH_TV}
     `,
   });
 
   return {
-    meta: data.tvs?.meta,
-    data: data.tvs?.data.map((tv) => ({
-      ...(tv.attributes as unknown as SearchTvFragment),
-      id: tv.id,
+    meta: data.marketplaceTvs?.meta,
+    data: data.marketplaceTvs?.data.map((mktv) => ({
+      ...mktv.attributes,
+      id: mktv.id,
     })),
   };
 };
-export default searchTvs;
+export default searchSales;

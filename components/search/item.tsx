@@ -38,6 +38,8 @@ type SearchItemProps = {
   };
   screenSize?: number;
   price?: number;
+  basePrice?: number;
+  relativeDiscount?: number;
 };
 
 const SearchItem = ({
@@ -54,6 +56,7 @@ const SearchItem = ({
   resolution,
   screenSize,
   price,
+  basePrice,
 }: SearchItemProps) => {
   const router = useRouter();
 
@@ -94,14 +97,7 @@ const SearchItem = ({
           {screenSize && <TvScreenSize value={screenSize} />}
         </Grid>
         <HStack justifyContent="flex-end">
-          <NextLink
-            href={
-              router.query.tv
-                ? `/vs/${router.query.tv}-vs-${slug}`
-                : `/search?tv=${slug}`
-            }
-            passHref
-          >
+          <NextLink href={`/compare?tv=${slug}`} passHref>
             <Button as="a" colorScheme="gray" color="red.700" size="xs">
               Comparar
             </Button>
@@ -117,13 +113,32 @@ const SearchItem = ({
         <HStack
           mt="4"
           justifyContent="space-between"
+          alignItems="flex-start"
           position="absolute"
           top="10"
           right="4"
           zIndex="2"
         >
-          <Tag variant="subtle" colorScheme="yellow">
-            <TagLabel>{parseCurrency(price)}</TagLabel>
+          <Tag
+            variant="subtle"
+            colorScheme="purple"
+            display="flex"
+            flexDirection="column"
+            alignItems="flex-end"
+            gap="2"
+          >
+            {basePrice && (
+              <TagLabel
+                textDecoration="line-through"
+                fontSize="sm"
+                color="red.700"
+              >
+                {parseCurrency(basePrice)}
+              </TagLabel>
+            )}
+            <TagLabel fontSize="lg" fontWeight="bold">
+              {parseCurrency(price)}
+            </TagLabel>
           </Tag>
         </HStack>
       )}

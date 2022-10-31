@@ -15,10 +15,8 @@ const handler: NextApiHandler = async (req, res) => {
       if (a?.available !== b?.available) {
         return a?.available ? -1 : 1;
       }
-      const priceA =
-        (a?.prices?.data[0].attributes?.price || 0) + (a?.deliveryCost || 0);
-      const priceB =
-        (b?.prices?.data[0].attributes?.price || 0) + (b?.deliveryCost || 0);
+      const priceA = (a?.price || 0) + (a?.deliveryCost || 0);
+      const priceB = (b?.price || 0) + (b?.deliveryCost || 0);
       return priceA - priceB;
     });
 

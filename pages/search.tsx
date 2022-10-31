@@ -13,7 +13,6 @@ import { FuzzySearch, getPicture } from "../models/fuzzy-search-tv";
 import getFuzzySearch from "../graphql/get-fuzzy-search-tvs";
 import Fuse from "fuse.js";
 import { ChangeEventHandler, useMemo, useState } from "react";
-import { useRouter } from "next/router";
 import SearchItem from "../components/search/item";
 
 export const getStaticProps: GetStaticProps = async () => {
@@ -27,8 +26,7 @@ export const getStaticProps: GetStaticProps = async () => {
   };
 };
 
-const VsPage = ({ tvs }: { tvs: FuzzySearch[] }) => {
-  const router = useRouter();
+const SearchPage = ({ tvs }: { tvs: FuzzySearch[] }) => {
   const [searched, search] = useState<Fuse.FuseResult<FuzzySearch>[]>([]);
 
   const fuse = useMemo(() => {
@@ -93,4 +91,4 @@ const VsPage = ({ tvs }: { tvs: FuzzySearch[] }) => {
   );
 };
 
-export default VsPage;
+export default SearchPage;

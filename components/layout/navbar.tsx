@@ -9,6 +9,7 @@ import {
   Flex,
   HStack,
   Icon,
+  IconButton,
   Link,
   useDisclosure,
   VStack,
@@ -21,16 +22,32 @@ import React, { useRef } from "react";
 
 const navbarLinks = [
   {
-    name: "Inicio",
+    name: "Todos los Televisores",
     link: "/",
   },
   {
-    name: "Video",
-    link: "https://avpasion.com/video",
+    name: "Comparar",
+    link: "/compare",
   },
   {
-    name: "Sonido",
-    link: "https://avpasion.com/sound",
+    name: "Marcas",
+    link: "/brands",
+  },
+  {
+    name: "Reviews",
+    link: "/reviews",
+  },
+  {
+    name: "Mejores ofertas",
+    link: "/sales",
+  },
+  {
+    name: "Mejores televisores",
+    link: "/tvs",
+  },
+  {
+    name: "Noticias",
+    link: "https://avpasion.com",
   },
 ];
 
@@ -87,7 +104,14 @@ const Navbar = () => {
           ))}
         </HStack>
         <Flex alignItems="center">
-          <Icon as={SlMagnifier} />
+          <NextLink href="/search" passHref>
+            <IconButton
+              as="a"
+              icon={<SlMagnifier />}
+              aria-label="search"
+              variant="link"
+            />
+          </NextLink>
         </Flex>
       </Flex>
       <Drawer

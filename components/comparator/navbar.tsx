@@ -13,6 +13,7 @@ const Navbar = () => {
     <Flex
       display={{ base: "none", md: "flex" }}
       position="sticky"
+      top="0"
       justifyContent="space-between"
       alignItems="center"
       maxW={{ lg: "75em" }}
