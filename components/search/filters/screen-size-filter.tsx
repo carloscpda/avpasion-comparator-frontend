@@ -1,6 +1,7 @@
 import { Button, HStack, Icon, TypographyProps } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { IoTvOutline } from "react-icons/io5";
+import SelectFilter from "./select-filter";
 
 const sizesMap: {
   sizegt?: number;
@@ -16,7 +17,7 @@ const sizesMap: {
   { sizegt: 80, text: 'Más de 79"', iconSize: "xl" },
 ];
 
-function ScreenSizeFilter() {
+const useScreenSizeFilter = () => {
   const router = useRouter();
   const currentSelection = router.query["screen-size"]
     ? parseInt(router.query["screen-size"] as string, 10)
@@ -28,8 +29,21 @@ function ScreenSizeFilter() {
     router.replace(router);
   };
 
+  const selectData = sizesMap
+    .map((size, index) => ({
+      id: index.toString(),
+      name: size.text,
+    }))
+    .slice(1);
+
+  return { handleChangeValue, currentSelection, selectData };
+};
+
+const ScreenSizeFilter = () => {
+  const { handleChangeValue, currentSelection } = useScreenSizeFilter();
+
   return (
-    <HStack gap="1" display={{ base: "none", lg: "unset" }}>
+    <HStack gap="1">
       {sizesMap.map((size, index) => (
         <Button
           key={size.text}
@@ -44,8 +58,22 @@ function ScreenSizeFilter() {
       ))}
     </HStack>
   );
-}
+};
+
+const ScreenSizeSelectFilter = () => {
+  const { selectData, currentSelection } = useScreenSizeFilter();
+
+  return (
+    <SelectFilter
+      data={selectData}
+      currentValue={currentSelection.toString()}
+      name="Diagonal"
+      queryParamName="screen-size"
+    />
+  );
+};
 
 ScreenSizeFilter.Sizes = sizesMap;
+ScreenSizeFilter.Select = ScreenSizeSelectFilter;
 
 export default ScreenSizeFilter;

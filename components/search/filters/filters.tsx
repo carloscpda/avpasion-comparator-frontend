@@ -10,6 +10,7 @@ import {
   DrawerHeader,
   DrawerOverlay,
   HStack,
+  useBreakpointValue,
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
@@ -40,6 +41,7 @@ const Filters = ({
   prices,
 }: FiltersProps) => {
   const router = useRouter();
+  const isDesktop = useBreakpointValue({ base: false, md: true });
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const filtersButtonRef = useRef<any>();
@@ -51,7 +53,7 @@ const Filters = ({
 
   return (
     <HStack gap={1} my="8" justifyContent="flex-end">
-      <ScreenSizeFilter />
+      {isDesktop && <ScreenSizeFilter />}
       <Divider
         orientation="vertical"
         height="6"
@@ -80,39 +82,34 @@ const Filters = ({
           <DrawerHeader color={"red.700"}>Filtros.</DrawerHeader>
           <DrawerBody>
             <VStack gap="4">
-              <Box width="100%">
-                <SelectFilter
-                  data={brands}
-                  currentValue={currentBrand}
-                  name="Marca"
-                  queryParamName="brand"
-                />
-              </Box>
-              <Box width="100%">
-                <SelectFilter
-                  data={imageTechnologies}
-                  currentValue={currentImageTechnologies}
-                  name="Tecnología de imagen"
-                  queryParamName="image-technology"
-                />
-              </Box>
-              <Box width="100%">
-                <RangeSliderFilter
-                  name="Precios"
-                  minValue={prices.minPrice}
-                  maxValue={prices.maxPrice}
-                  queryParamName="price"
-                />
-              </Box>
-              <Box width="100%">
-                <RangeSliderFilter
-                  name="Puntuación"
-                  minValue={0}
-                  maxValue={10}
-                  queryParamName="score"
-                  step={0.1}
-                />
-              </Box>
+              {!isDesktop && <ScreenSizeFilter.Select />}
+              <SelectFilter
+                data={brands}
+                currentValue={currentBrand}
+                name="Marca"
+                queryParamName="brand"
+              />
+              <SelectFilter
+                data={imageTechnologies}
+                currentValue={currentImageTechnologies}
+                name="Tecnología de imagen"
+                queryParamName="image-technology"
+              />
+
+              <RangeSliderFilter
+                name="Precios"
+                minValue={prices.minPrice}
+                maxValue={prices.maxPrice}
+                queryParamName="price"
+              />
+
+              <RangeSliderFilter
+                name="Puntuación"
+                minValue={0}
+                maxValue={10}
+                queryParamName="score"
+                step={0.1}
+              />
             </VStack>
           </DrawerBody>
           <DrawerFooter>

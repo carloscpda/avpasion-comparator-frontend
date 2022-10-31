@@ -27,24 +27,29 @@ import {
 } from "../models/tv";
 import { useRouter } from "next/router";
 import { useCallback } from "react";
-import getBrands from "../graphql/get-brands";
 import { Brand } from "../models/brand";
-import getImageTechnologies from "../graphql/get-image-technologies";
 import { ImageTechnology } from "../models/image-technology";
 import SearchItem from "../components/search/item";
 import Filters from "../components/search/filters/filters";
 import Link from "next/link";
 import { SlMagnifier } from "react-icons/sl";
 import ScreenSizeFilter from "../components/search/filters/screen-size-filter";
-import getPrices from "../graphql/get-prices";
 import { AiOutlineClear } from "react-icons/ai";
 
 const TVS_PER_PAGE = 12;
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const brands = await getBrands();
-  const imageTechnologies = await getImageTechnologies();
-  const prices = await getPrices();
+  const [brands, imageTechnologies, prices]: [
+    Brand[],
+    ImageTechnology[],
+    { minPrice: number; maxPrice: number }
+  ] = await Promise.all([
+    fetch("http://localhost:3000/api/filters/brands").then((res) => res.json()),
+    fetch("http://localhost:3000/api/filters/image-technologies").then((res) =>
+      res.json()
+    ),
+    fetch("http://localhost:3000/api/filters/prices").then((res) => res.json()),
+  ]);
 
   const currentPage = parseInt(query?.page as string) || 1;
 
