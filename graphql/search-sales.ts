@@ -88,6 +88,7 @@ const searchSales = async ({
               basePrice
               absoluteDiscount
               relativeDiscount
+              affiliateUrl
               tv {
                 data {
                   attributes {

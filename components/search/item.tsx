@@ -19,7 +19,6 @@ import TvEan from "../tv/basics/ean";
 import TvResolution from "../tv/basics/resolution";
 import TvScreenSize from "../tv/basics/screen-size";
 import parseCurrency from "../../helpers/parse-currency";
-import { useRouter } from "next/router";
 
 type SearchItemProps = {
   slug: string;
@@ -38,6 +37,7 @@ type SearchItemProps = {
   };
   screenSize?: number;
   price?: number;
+  affiliateUrl?: string;
   basePrice?: number;
   relativeDiscount?: number;
 };
@@ -55,19 +55,13 @@ const SearchItem = ({
   ean,
   resolution,
   screenSize,
+  affiliateUrl,
   price,
   basePrice,
 }: SearchItemProps) => {
-  const router = useRouter();
-
   return (
     <VStack width="100%" position="relative">
-      <NextLink
-        href={
-          router.query.tv ? `/vs/${router.query.tv}-vs-${slug}` : `/tv/${slug}`
-        }
-        passHref
-      >
+      <NextLink href={affiliateUrl || `/tv/${slug}`} passHref>
         <Box width="100%" cursor="pointer" as="a">
           <TvPicture src={picture} alt={fullName} />
         </Box>
@@ -97,11 +91,20 @@ const SearchItem = ({
           {screenSize && <TvScreenSize value={screenSize} />}
         </Grid>
         <HStack justifyContent="flex-end">
-          <NextLink href={`/compare?tv=${slug}`} passHref>
-            <Button as="a" colorScheme="gray" color="red.700" size="xs">
-              Comparar
-            </Button>
-          </NextLink>
+          {affiliateUrl && (
+            <NextLink href={affiliateUrl} passHref>
+              <Button as="a" colorScheme="gray" color="red.700" size="xs">
+                Ver oferta
+              </Button>
+            </NextLink>
+          )}
+          {!affiliateUrl && (
+            <NextLink href={`/compare?tv=${slug}`} passHref>
+              <Button as="a" colorScheme="gray" color="red.700" size="xs">
+                Comparar
+              </Button>
+            </NextLink>
+          )}
           <NextLink href={`/tv/${slug}`} passHref>
             <Button as="a" colorScheme="gray" color="red.700" size="xs">
               Ver ficha

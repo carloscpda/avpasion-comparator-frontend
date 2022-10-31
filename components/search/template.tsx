@@ -51,6 +51,7 @@ const SearchTemplate = ({
       basePrice: number;
       absoluteDiscount: number;
       relativeDiscount: number;
+      affiliateUrl: string;
     };
   })[];
   currentPage: number;
@@ -136,6 +137,7 @@ const SearchTemplate = ({
               serie={getSerie(tv)}
               price={tv.sale ? tv.sale.price : tv.minPrice || 0}
               basePrice={tv.sale?.basePrice}
+              affiliateUrl={tv.sale?.affiliateUrl}
             />
           ))}
         </Grid>

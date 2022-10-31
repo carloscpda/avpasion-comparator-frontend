@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Heading,
   HStack,
   Tag,
@@ -17,6 +18,7 @@ import Fuse from "fuse.js";
 import { useMemo, useState } from "react";
 import { AsyncSelect, components, OptionProps } from "chakra-react-select";
 import SearchItem from "../components/search/item";
+import Link from "next/link";
 
 export const getStaticProps: GetStaticProps = async () => {
   const tvs = await getFuzzySearch();
@@ -143,6 +145,21 @@ const ComparePage = ({ tvs }: { tvs: FuzzySearch[] }) => {
             </Box>
           </VStack>
         </HStack>
+        <Link href={`vs/${tv1.slug}-vs-${tv2.slug}`} passHref>
+          <Button
+            as="a"
+            alignSelf="center"
+            colorScheme="gray"
+            backgroundColor="red.700"
+            color="white"
+            width="300px"
+            _hover={{
+              backgroundColor: "red.900",
+            }}
+          >
+            Comparar
+          </Button>
+        </Link>
       </Main>
     </Layout>
   );
