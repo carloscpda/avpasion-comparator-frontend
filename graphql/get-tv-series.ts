@@ -9,6 +9,7 @@ const getTvSeries = async ({ serieId }: { serieId: string }) => {
     query: gql`
       query GetTvSeries($serieId: ID!) {
         tvs(
+          sort: "name:desc"
           filters: { general: { brand: { serie: { id: { eq: $serieId } } } } }
         ) {
           data {

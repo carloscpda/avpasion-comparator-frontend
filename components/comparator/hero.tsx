@@ -50,6 +50,7 @@ const ComparatorHero = () => {
                   alt={getFullName(tv)}
                   layout="fill"
                   objectFit="contain"
+                  unoptimized
                 />
               </GridItem>
             )}

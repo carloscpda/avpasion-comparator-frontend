@@ -1,4 +1,3 @@
-import { Box, LayoutProps } from "@chakra-ui/react";
 import Image from "next/image";
 import React from "react";
 
@@ -12,11 +11,12 @@ type TvPictureProps = {
 const TvPicture = ({ src, alt, height = 300, width = 400 }: TvPictureProps) => {
   return (
     <Image
-      src={src}
+      src={`${src}?width=${width}`}
       alt={alt}
       width={width}
       height={height}
       objectFit="contain"
+      unoptimized
     />
   );
 };

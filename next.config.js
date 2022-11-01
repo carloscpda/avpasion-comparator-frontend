@@ -6,15 +6,15 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "cmc.avpasion.com",
+        hostname: "cdn.avpasion.com",
         port: "",
-        pathname: "/uploads/**",
+        pathname: "/wp-content/uploads/**",
       },
       {
         protocol: "https",
         hostname: "cdn.avpasion.com",
         port: "",
-        pathname: "/wp-content/uploads/**",
+        pathname: "/ctv-statics/**",
       },
     ],
   },

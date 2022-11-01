@@ -93,6 +93,7 @@ const SearchSaleItem = ({
             height={40}
             objectFit="contain"
             alt="market-logo"
+            unoptimized
           />
         </VStack>
       }

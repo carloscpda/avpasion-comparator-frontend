@@ -2,7 +2,8 @@ import placeholderPic from "../public/tv-placeholder.png";
 
 type Picture = { alternativeText: string; url: string };
 
-export const buildPicture = (path: string) => `https://cmc.avpasion.com${path}`;
+export const buildPicture = (path: string) =>
+  `https://cdn.avpasion.com/ctv-statics/${path.substring(9)}`;
 
 const getFrontalPicture = (pictures: Picture[]) => {
   return pictures.find((pic) => pic.alternativeText.includes("frontal"));

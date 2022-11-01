@@ -1,7 +1,9 @@
-import { Tag, TagLabel, Text, WrapItem } from "@chakra-ui/react";
+import { HStack, Tag, TagLabel, Text, WrapItem } from "@chakra-ui/react";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
 import parseCurrency from "../../../helpers/parse-currency";
+import { getPicture } from "../../../models/tv";
 import { useTvs } from "../tvs-provider";
 
 type SerieTvProps = {
@@ -20,8 +22,7 @@ const SerieTv = ({
   price,
 }: SerieTvProps) => {
   const router = useRouter();
-
-  const { slug: currentSlug } = useTvs().tvs[0];
+  const tv = useTvs().tvs[0];
 
   const details = [];
 
@@ -39,24 +40,40 @@ const SerieTv = ({
       px="4"
       py="2"
       border="1px"
-      borderColor="gray.100"
+      borderColor={tv.slug === slug ? "gray.300" : "gray.100"}
       minW="44"
       display="inline"
       transition="0.3s ease"
       cursor="pointer"
-      background={currentSlug === slug ? "gray.100" : ""}
       _hover={{
-        background: "gray.200",
+        transform: "scale(1.02)",
       }}
       onClick={() => router.push(`/tv/${slug}`)}
     >
-      <Text>{name}</Text>
-      <Text fontSize="sm">{details.join(" · ")}</Text>
-      {!!price && (
-        <Tag variant="subtle" colorScheme="yellow" mt="2">
-          <TagLabel>{parseCurrency(price)}</TagLabel>
+      <HStack>
+        <Image
+          src={getPicture(tv)}
+          alt={name || ""}
+          objectFit="contain"
+          width="40"
+          height="30"
+          unoptimized
+        />
+        <Text>{name}</Text>
+      </HStack>
+      <HStack mt="2">
+        <Tag color="black" variant="outline">
+          <TagLabel>{`${screenSize}"`}</TagLabel>
         </Tag>
-      )}
+        <Tag color="black" variant="outline">
+          <TagLabel>{resolution}</TagLabel>
+        </Tag>
+        {!!price && (
+          <Tag color="black" variant="outline">
+            <TagLabel>{parseCurrency(price)}</TagLabel>
+          </Tag>
+        )}
+      </HStack>
     </WrapItem>
   );
 };

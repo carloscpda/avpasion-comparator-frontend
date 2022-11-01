@@ -12,6 +12,13 @@ const getBrands = async () => {
             id
             attributes {
               name
+              logo {
+                data {
+                  attributes {
+                    url
+                  }
+                }
+              }
               series {
                 data {
                   id
@@ -28,6 +35,7 @@ const getBrands = async () => {
     data.brands?.data.map((brand) => ({
       id: brand.id as string,
       name: brand.attributes?.name as string,
+      logo: brand.attributes?.logo?.data?.attributes?.url || "",
     })) || []
   );
 };

@@ -68,6 +68,7 @@ const MarketplacePrice = ({
             width={80}
             height={54}
             objectFit="contain"
+            unoptimized
           />
           <Stat display="flex" flexDir="column" justifyContent="center">
             <StatLabel hidden>Precio</StatLabel>
@@ -102,6 +103,7 @@ const MarketplacePrice = ({
               height={20}
               width={28}
               objectFit="contain"
+              unoptimized
             />
           ))}
         </Flex>
