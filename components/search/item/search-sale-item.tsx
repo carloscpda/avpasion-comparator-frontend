@@ -88,7 +88,7 @@ const SearchSaleItem = ({
             {`Descuento: ${(relativeDiscount * 100).toFixed(0)}%`}
           </Text>
           <Image
-            src={marketLogo}
+            src={`${marketLogo}?width=80`}
             width={80}
             height={40}
             objectFit="contain"

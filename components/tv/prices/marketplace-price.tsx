@@ -62,9 +62,9 @@ const MarketplacePrice = ({
         <HStack gap={4}>
           <Image
             alt={marketplace?.data?.attributes?.name}
-            src={buildPicture(
+            src={`${buildPicture(
               marketplace?.data?.attributes?.logo.data?.attributes?.url || ""
-            )}
+            )}?width=80`}
             width={80}
             height={54}
             objectFit="contain"

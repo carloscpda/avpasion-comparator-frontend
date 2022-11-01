@@ -46,7 +46,7 @@ const ComparatorHero = () => {
                 height="144"
               >
                 <Image
-                  src={image}
+                  src={`${image}?width=400`}
                   alt={getFullName(tv)}
                   layout="fill"
                   objectFit="contain"
