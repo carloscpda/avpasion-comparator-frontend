@@ -13,7 +13,9 @@ const getFuzzySearch = async () => {
               ean
               slug
               score
+              minPrice
               general {
+                releaseDate
                 screenSize
                 brand {
                   model
@@ -37,7 +39,17 @@ const getFuzzySearch = async () => {
                 resolution {
                   data {
                     attributes {
+                      resolution
                       alternativeName
+                    }
+                  }
+                }
+                technology {
+                  image {
+                    data {
+                      attributes {
+                        name
+                      }
                     }
                   }
                 }
@@ -72,10 +84,16 @@ const getFuzzySearch = async () => {
       pictures: tv.attributes?.design?.pictures?.data.map(
         (pic) => pic.attributes
       ),
-      screenSize: tv.attributes?.general?.screenSize || "",
+      screenSize: tv.attributes?.general?.screenSize || 0,
       resolution:
+        tv.attributes?.image?.resolution?.data?.attributes?.resolution || "",
+      resolutionAlt:
         tv.attributes?.image?.resolution?.data?.attributes?.alternativeName ||
         "",
+      price: tv.attributes?.minPrice || 0,
+      imageTechnology:
+        tv.attributes?.image?.technology?.image?.data?.attributes?.name || "",
+      releaseDate: tv.attributes?.general?.releaseDate || "",
     })) || []
   );
 };

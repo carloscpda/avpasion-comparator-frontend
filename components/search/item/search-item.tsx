@@ -27,7 +27,7 @@ type SearchItemProps = {
   };
   screenSize?: number;
   href: string;
-  buttons: ReactNode;
+  buttons?: ReactNode;
   price?: ReactNode;
 };
 

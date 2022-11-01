@@ -83,7 +83,7 @@ const SearchSalesPage = ({
 }) => {
   return (
     <SearchTemplate
-      title="Todos los modelos."
+      title="Los mejores televisores."
       currentPage={currentPage}
       numberOfPages={numberOfPages}
       brands={brands}

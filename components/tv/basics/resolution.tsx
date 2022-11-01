@@ -16,7 +16,7 @@ const TvResolution = ({ value }: TvResolutionProps) => {
 
   return (
     <Value label="Resolución" icon={IoTvOutline}>
-      {text}
+      {text || "-"}
     </Value>
   );
 };
