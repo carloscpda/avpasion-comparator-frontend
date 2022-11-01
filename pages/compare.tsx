@@ -17,8 +17,8 @@ import getFuzzySearch from "../graphql/get-fuzzy-search-tvs";
 import Fuse from "fuse.js";
 import { useMemo, useState } from "react";
 import { AsyncSelect, components, OptionProps } from "chakra-react-select";
-import SearchItem from "../components/search/item";
 import Link from "next/link";
+import SearchTvItem from "../components/search/item/search-tv-item";
 
 export const getStaticProps: GetStaticProps = async () => {
   const tvs = await getFuzzySearch();
@@ -79,14 +79,16 @@ const ComparePage = ({ tvs }: { tvs: FuzzySearch[] }) => {
     <Layout>
       <Main>
         <Heading color="red.700">Comparador.</Heading>
-        <HStack
+        <VStack
+          direction={{ md: "row" }}
+          height={{ md: "600px" }}
+          mb={{ base: 10, md: 0 }}
           gap="10"
           justifyContent="center"
-          height="600px"
           alignItems="center"
         >
           <VStack flex="1" maxWidth="400px">
-            <SearchItem
+            <SearchTvItem
               key={tv1.slug}
               slug={tv1.slug || ""}
               score={tv1.score || 0}
@@ -117,7 +119,7 @@ const ComparePage = ({ tvs }: { tvs: FuzzySearch[] }) => {
             vs
           </Text>
           <VStack flex="1" maxWidth="400px">
-            <SearchItem
+            <SearchTvItem
               key={tv2.slug}
               slug={tv2.slug || ""}
               score={tv2.score || 0}
@@ -144,7 +146,7 @@ const ComparePage = ({ tvs }: { tvs: FuzzySearch[] }) => {
               />
             </Box>
           </VStack>
-        </HStack>
+        </VStack>
         <Link href={`vs/${tv1.slug}-vs-${tv2.slug}`} passHref>
           <Button
             as="a"

@@ -31,7 +31,7 @@ const ComparatorHero = () => {
             <GridItem
               gridRow={1}
               gridColumn={gridColumn}
-              display="flex"
+              display={{ lg: "flex" }}
               gap={4}
             >
               <SummaryTitle tv={tv} size="2xl" captionSize="lg" />

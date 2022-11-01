@@ -4,7 +4,20 @@ import { Brand } from "../models/brand";
 import { ImageTechnology } from "../models/image-technology";
 import searchSales from "../graphql/search-sales";
 import getSearchFilters from "../helpers/search/get-search-filters";
-import SearchTemplate from "../components/search/template";
+import SearchTemplate from "../components/search/search-template";
+import SearchSaleItem from "../components/search/item/search-sale-item";
+import {
+  getBrand,
+  getFullName,
+  getImageTechnology,
+  getModel,
+  getPicture,
+  getReleaseDate,
+  getResolution,
+  getScreenSize,
+  getSerie,
+} from "../models/search-tv";
+import { SearchSale } from "../models/search-sale";
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const {
@@ -38,17 +51,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 
   return {
     props: {
-      tvs: sales?.map((sale) => ({
-        ...sale?.tv?.data?.attributes,
-        id: sale.id,
-        sale: {
-          price: sale.price,
-          basePrice: sale?.basePrice,
-          relativeDiscount: sale.relativeDiscount,
-          absoluteDiscount: sale.absoluteDiscount,
-          affiliateUrl: sale.affiliateUrl,
-        },
-      })),
+      sales,
       numberOfPages: meta?.pagination.pageCount,
       currentPage: page,
       brands,
@@ -61,7 +64,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 };
 
 const SearchSalesPage = ({
-  tvs,
+  sales,
   currentPage,
   numberOfPages,
   brands,
@@ -70,7 +73,7 @@ const SearchSalesPage = ({
   imageTechnology,
   prices,
 }: {
-  tvs: SearchTV[];
+  sales: SearchSale[];
   currentPage: number;
   numberOfPages: number;
   brands: Brand[];
@@ -82,7 +85,6 @@ const SearchSalesPage = ({
   return (
     <SearchTemplate
       title="Las mejores ofertas."
-      tvs={tvs}
       currentPage={currentPage}
       numberOfPages={numberOfPages}
       brands={brands}
@@ -90,7 +92,31 @@ const SearchSalesPage = ({
       imageTechnologies={imageTechnologies}
       imageTechnology={imageTechnology}
       prices={prices}
-    />
+      noResults={sales.length === 0}
+    >
+      {sales.map((sale) => (
+        <SearchSaleItem
+          key={sale.id}
+          slug={sale.tv.data.attributes.slug || ""}
+          fullName={getFullName(sale.tv.data.attributes)}
+          picture={getPicture(sale.tv.data.attributes)}
+          score={sale.tv.data.attributes.score || 0}
+          brand={getBrand(sale.tv.data.attributes)}
+          ean={sale.tv.data.attributes.ean}
+          imageTechnology={getImageTechnology(sale.tv.data.attributes)}
+          model={getModel(sale.tv.data.attributes)}
+          releaseDate={getReleaseDate(sale.tv.data.attributes)}
+          resolution={getResolution(sale.tv.data.attributes)}
+          screenSize={getScreenSize(sale.tv.data.attributes)}
+          serie={getSerie(sale.tv.data.attributes)}
+          price={sale.price || 0}
+          basePrice={sale.basePrice || 0}
+          relativeDiscount={sale.relativeDiscount || 0}
+          absoluteDiscount={sale.absoluteDiscount || 0}
+          affiliateUrl={sale.affiliateUrl || ""}
+        />
+      ))}
+    </SearchTemplate>
   );
 };
 

@@ -3,8 +3,20 @@ import { SearchTV } from "../models/search-tv";
 import { Brand } from "../models/brand";
 import { ImageTechnology } from "../models/image-technology";
 import getSearchFilters from "../helpers/search/get-search-filters";
-import SearchTemplate from "../components/search/template";
+import SearchTemplate from "../components/search/search-template";
 import searchTvs from "../graphql/search-tvs";
+import SearchTvItem from "../components/search/item/search-tv-item";
+import {
+  getBrand,
+  getFullName,
+  getImageTechnology,
+  getModel,
+  getPicture,
+  getReleaseDate,
+  getResolution,
+  getScreenSize,
+  getSerie,
+} from "../models/search-tv";
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const {
@@ -72,7 +84,6 @@ const SearchSalesPage = ({
   return (
     <SearchTemplate
       title="Todos los modelos."
-      tvs={tvs}
       currentPage={currentPage}
       numberOfPages={numberOfPages}
       brands={brands}
@@ -80,7 +91,27 @@ const SearchSalesPage = ({
       imageTechnologies={imageTechnologies}
       imageTechnology={imageTechnology}
       prices={prices}
-    />
+      noResults={tvs.length === 0}
+    >
+      {tvs.map((tv) => (
+        <SearchTvItem
+          key={tv.id}
+          slug={tv.slug || ""}
+          fullName={getFullName(tv)}
+          picture={getPicture(tv)}
+          score={tv.score || 0}
+          brand={getBrand(tv)}
+          ean={tv.ean}
+          imageTechnology={getImageTechnology(tv)}
+          model={getModel(tv)}
+          releaseDate={getReleaseDate(tv)}
+          resolution={getResolution(tv)}
+          screenSize={getScreenSize(tv)}
+          serie={getSerie(tv)}
+          price={tv.minPrice || 0}
+        />
+      ))}
+    </SearchTemplate>
   );
 };
 

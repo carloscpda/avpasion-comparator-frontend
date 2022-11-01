@@ -3,7 +3,7 @@ import apollo from "../apollo-client";
 import { SearchSalesQuery } from "../gql/graphql";
 import { SEARCH_TV } from "./search-tv.fragment";
 
-const searchSales = async ({
+const getSearchSales = async ({
   page,
   offset,
   brand,
@@ -111,4 +111,4 @@ const searchSales = async ({
     })),
   };
 };
-export default searchSales;
+export default getSearchSales;

@@ -13,7 +13,7 @@ import { FuzzySearch, getPicture } from "../models/fuzzy-search-tv";
 import getFuzzySearch from "../graphql/get-fuzzy-search-tvs";
 import Fuse from "fuse.js";
 import { ChangeEventHandler, useMemo, useState } from "react";
-import SearchItem from "../components/search/item";
+import SearchTvItem from "../components/search/item/search-tv-item";
 
 export const getStaticProps: GetStaticProps = async () => {
   const tvs = await getFuzzySearch();
@@ -72,7 +72,7 @@ const SearchPage = ({ tvs }: { tvs: FuzzySearch[] }) => {
             columnGap={4}
           >
             {searched.map(({ item: tv }) => (
-              <SearchItem
+              <SearchTvItem
                 key={tv.slug}
                 slug={tv.slug || ""}
                 score={tv.score || 0}
