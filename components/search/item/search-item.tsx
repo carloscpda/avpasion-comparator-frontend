@@ -14,6 +14,7 @@ import { ReactNode } from "react";
 type SearchItemProps = {
   picture: string;
   fullName: string;
+  slug: string;
   brand?: string;
   model?: string;
   score: number;
@@ -26,12 +27,12 @@ type SearchItemProps = {
     alternativeName?: string;
   };
   screenSize?: number;
-  href: string;
   buttons?: ReactNode;
   price?: ReactNode;
 };
 
 const SearchItem = ({
+  slug,
   picture,
   fullName,
   brand,
@@ -43,13 +44,12 @@ const SearchItem = ({
   ean,
   resolution,
   screenSize,
-  href,
   price,
   buttons,
 }: SearchItemProps) => {
   return (
     <VStack width="100%" position="relative">
-      <NextLink href={href} passHref>
+      <NextLink href={`/tv/${slug}`} passHref>
         <Box width="100%" cursor="pointer" as="a">
           <TvPicture src={picture} alt={fullName} />
         </Box>

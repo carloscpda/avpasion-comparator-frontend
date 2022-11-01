@@ -50,7 +50,7 @@ const SearchSaleItem = ({
 }: SearchSaleItemProps) => {
   return (
     <SearchItem
-      href={affiliateUrl}
+      slug={slug}
       picture={picture}
       fullName={fullName}
       brand={brand}
@@ -119,7 +119,7 @@ const SearchSaleItem = ({
               target="_blank"
               rel="sponsored"
             >
-              Comprar
+              Ver oferta
             </Button>
           </NextLink>
         </>

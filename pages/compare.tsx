@@ -89,7 +89,7 @@ const ComparePage = ({ tvs }: { tvs: FuzzySearch[] }) => {
         >
           <VStack flex="1" maxWidth="400px">
             <SearchItem
-              href={`tv/${tv1.slug}`}
+              slug={tv1.slug || ""}
               score={tv1.score || 0}
               brand={tv1.brand}
               model={tv1.model}
@@ -127,7 +127,7 @@ const ComparePage = ({ tvs }: { tvs: FuzzySearch[] }) => {
           </Text>
           <VStack flex="1" maxWidth="400px">
             <SearchItem
-              href={`tv/${tv2.slug}`}
+              slug={tv2.slug || ""}
               score={tv2.score || 0}
               brand={tv2.brand}
               model={tv2.model}

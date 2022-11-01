@@ -39,7 +39,7 @@ const SearchTvItem = ({
 }: SearchTvItemProps) => {
   return (
     <SearchItem
-      href={`/tv/${slug}`}
+      slug={slug}
       picture={picture}
       fullName={fullName}
       brand={brand}
