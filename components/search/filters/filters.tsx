@@ -17,8 +17,7 @@ import {
 import { useRef } from "react";
 import { IoFilter } from "react-icons/io5";
 import { AiOutlineClear } from "react-icons/ai";
-
-import { Brand } from "../../../models/brand";
+import { BrandFilter } from "../../../models/brand-filter";
 import { ImageTechnology } from "../../../models/image-technology";
 import SelectFilter from "./select-filter";
 import ScreenSizeFilter from "./screen-size-filter";
@@ -26,8 +25,8 @@ import { useRouter } from "next/router";
 import RangeSliderFilter from "./range-slider-filter";
 
 type FiltersProps = {
-  brands: Brand[];
-  currentBrand?: Brand["id"];
+  brands: BrandFilter[];
+  currentBrand?: BrandFilter["id"];
   imageTechnologies: ImageTechnology[];
   currentImageTechnologies?: ImageTechnology["id"];
   prices: { minPrice: number; maxPrice: number };

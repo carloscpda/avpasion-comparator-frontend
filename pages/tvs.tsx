@@ -1,6 +1,6 @@
 import { GetServerSideProps } from "next";
 import { SearchTV } from "../models/search-tv";
-import { Brand } from "../models/brand";
+import { BrandFilter } from "../models/brand-filter";
 import { ImageTechnology } from "../models/image-technology";
 import getSearchFilters from "../helpers/search/get-search-filters";
 import SearchTemplate from "../components/search/search-template";
@@ -75,8 +75,8 @@ const SearchSalesPage = ({
   tvs: SearchTV[];
   currentPage: number;
   numberOfPages: number;
-  brands: Brand[];
-  brand: Brand["id"];
+  brands: BrandFilter[];
+  brand: BrandFilter["id"];
   imageTechnologies: ImageTechnology[];
   imageTechnology: ImageTechnology["id"];
   prices: { minPrice: number; maxPrice: number };

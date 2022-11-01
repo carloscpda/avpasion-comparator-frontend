@@ -1,4 +1,4 @@
-import { Button, Tag, TagLabel } from "@chakra-ui/react";
+import { Button, Tag, TagLabel, Text, VStack } from "@chakra-ui/react";
 import NextLink from "next/link";
 import parseCurrency from "../../../helpers/parse-currency";
 import SearchItem from "./search-item";
@@ -52,18 +52,25 @@ const SearchTvItem = ({
       resolution={resolution}
       screenSize={screenSize}
       price={
-        <Tag
-          variant="subtle"
-          colorScheme="purple"
-          display="flex"
-          flexDirection="column"
-          alignItems="flex-end"
-          gap="2"
-        >
-          <TagLabel fontSize="lg" fontWeight="bold">
-            {price ? parseCurrency(price) : "Sin stock"}
-          </TagLabel>
-        </Tag>
+        !!price && (
+          <VStack
+            alignItems="flex-end"
+            borderRadius="8"
+            bg="whiteAlpha.800"
+            backdropFilter="auto"
+            backdropBlur="4px"
+            border="gray.100"
+            borderWidth="1px"
+            spacing="0"
+            p="2"
+            pl="8"
+          >
+            <Text fontSize="xs">Desde</Text>
+            <Text fontSize="2xl" fontWeight="bold">
+              {parseCurrency(price)}
+            </Text>
+          </VStack>
+        )
       }
       buttons={
         <>

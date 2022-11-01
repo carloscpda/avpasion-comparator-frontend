@@ -1,22 +1,17 @@
 import { gql } from "@apollo/client";
 import apollo from "../apollo-client";
-import { GetBrandsQuery } from "../gql/graphql";
+import { GetBrandsFilterQuery } from "../gql/graphql";
 
-const getBrands = async () => {
-  const { data } = await apollo.query<GetBrandsQuery>({
+const getBrandsFilter = async () => {
+  const { data } = await apollo.query<GetBrandsFilterQuery>({
     fetchPolicy: "network-only",
     query: gql`
-      query GetBrands {
-        brands(sort: "name:asc") {
+      query GetBrandsFilter {
+        brands {
           data {
             id
             attributes {
               name
-              series {
-                data {
-                  id
-                }
-              }
             }
           }
         }
@@ -32,4 +27,4 @@ const getBrands = async () => {
   );
 };
 
-export default getBrands;
+export default getBrandsFilter;

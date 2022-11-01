@@ -3,7 +3,7 @@ import apollo from "../apollo-client";
 import { SearchSalesQuery } from "../gql/graphql";
 import { SEARCH_TV } from "./search-tv.fragment";
 
-const getSearchSales = async ({
+const searchSales = async ({
   page,
   offset,
   brand,
@@ -60,6 +60,7 @@ const getSearchSales = async ({
           filters: {
             and: {
               price: { gt: 0 }
+              absoluteDiscount: { gt: 0 }
               tv: {
                 general: {
                   and: {
@@ -89,6 +90,19 @@ const getSearchSales = async ({
               absoluteDiscount
               relativeDiscount
               affiliateUrl
+              marketplace {
+                data {
+                  attributes {
+                    logo {
+                      data {
+                        attributes {
+                          url
+                        }
+                      }
+                    }
+                  }
+                }
+              }
               tv {
                 data {
                   attributes {
@@ -111,4 +125,4 @@ const getSearchSales = async ({
     })),
   };
 };
-export default getSearchSales;
+export default searchSales;

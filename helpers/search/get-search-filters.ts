@@ -1,6 +1,7 @@
 import { ParsedUrlQuery } from "querystring";
 import ScreenSizeFilter from "../../components/search/filters/screen-size-filter";
-import { Brand, ImageTechnology } from "../../gql/graphql";
+import { ImageTechnology } from "../../gql/graphql";
+import { BrandFilter } from "../../models/brand-filter";
 
 const TVS_PER_PAGE = 12;
 
@@ -10,7 +11,7 @@ export const getSearchFilters = async ({
   query: ParsedUrlQuery;
 }) => {
   const [brands, imageTechnologies, prices]: [
-    Brand[],
+    BrandFilter[],
     ImageTechnology[],
     { minPrice: number; maxPrice: number }
   ] = await Promise.all([

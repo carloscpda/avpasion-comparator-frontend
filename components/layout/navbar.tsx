@@ -43,7 +43,7 @@ const navbarLinks = [
   },
   {
     name: "Mejores televisores",
-    link: "/tvs",
+    link: "/tvs?screen-size=3&page=1",
   },
   {
     name: "Noticias",

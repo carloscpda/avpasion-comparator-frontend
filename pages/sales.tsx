@@ -1,6 +1,5 @@
 import { GetServerSideProps } from "next";
-import { SearchTV } from "../models/search-tv";
-import { Brand } from "../models/brand";
+import { BrandFilter } from "../models/brand-filter";
 import { ImageTechnology } from "../models/image-technology";
 import searchSales from "../graphql/search-sales";
 import getSearchFilters from "../helpers/search/get-search-filters";
@@ -18,6 +17,7 @@ import {
   getSerie,
 } from "../models/search-tv";
 import { SearchSale } from "../models/search-sale";
+import { buildPicture } from "../models/picture";
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const {
@@ -76,8 +76,8 @@ const SearchSalesPage = ({
   sales: SearchSale[];
   currentPage: number;
   numberOfPages: number;
-  brands: Brand[];
-  brand: Brand["id"];
+  brands: BrandFilter[];
+  brand: BrandFilter["id"];
   imageTechnologies: ImageTechnology[];
   imageTechnology: ImageTechnology["id"];
   prices: { minPrice: number; maxPrice: number };
@@ -114,6 +114,9 @@ const SearchSalesPage = ({
           relativeDiscount={sale.relativeDiscount || 0}
           absoluteDiscount={sale.absoluteDiscount || 0}
           affiliateUrl={sale.affiliateUrl || ""}
+          marketLogo={buildPicture(
+            sale.marketplace?.data?.attributes?.logo.data?.attributes?.url || ""
+          )}
         />
       ))}
     </SearchTemplate>

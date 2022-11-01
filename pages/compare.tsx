@@ -18,7 +18,6 @@ import Fuse from "fuse.js";
 import { useMemo, useState } from "react";
 import { AsyncSelect, components, OptionProps } from "chakra-react-select";
 import Link from "next/link";
-import SearchTvItem from "../components/search/item/search-tv-item";
 import SearchItem from "../components/search/item/search-item";
 import { useRouter } from "next/router";
 

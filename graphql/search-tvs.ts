@@ -55,7 +55,7 @@ const searchTvs = async ({
       ) {
         tvs(
           pagination: { page: $page, pageSize: $offset }
-          sort: "score:desc"
+          sort: "score:desc,minPrice:desc"
           filters: {
             and: {
               general: {

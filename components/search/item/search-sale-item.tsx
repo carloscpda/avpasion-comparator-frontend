@@ -1,12 +1,5 @@
-import {
-  Box,
-  Button,
-  Flex,
-  HStack,
-  Tag,
-  TagLabel,
-  Text,
-} from "@chakra-ui/react";
+import { Button, Text, VStack } from "@chakra-ui/react";
+import Image from "next/image";
 import NextLink from "next/link";
 import parseCurrency from "../../../helpers/parse-currency";
 import SearchItem from "./search-item";
@@ -32,6 +25,7 @@ type SearchSaleItemProps = {
   basePrice: number;
   relativeDiscount: number;
   absoluteDiscount: number;
+  marketLogo: string;
 };
 
 const SearchSaleItem = ({
@@ -52,6 +46,7 @@ const SearchSaleItem = ({
   basePrice,
   relativeDiscount,
   absoluteDiscount,
+  marketLogo,
 }: SearchSaleItemProps) => {
   return (
     <SearchItem
@@ -68,34 +63,38 @@ const SearchSaleItem = ({
       resolution={resolution}
       screenSize={screenSize}
       price={
-        <Tag
-          variant="subtle"
-          colorScheme="purple"
-          display="flex"
-          flexDirection="column"
+        <VStack
           alignItems="flex-end"
-          gap="1"
-          py="1"
+          borderRadius="8"
+          bg="whiteAlpha.800"
+          backdropFilter="auto"
+          backdropBlur="4px"
+          border="gray.100"
+          borderWidth="1px"
+          spacing="0"
+          p="2"
+          pl="8"
         >
-          <HStack alignItems="flex-end">
-            <TagLabel
-              textDecoration="line-through"
-              fontSize="sm"
-              color="red.700"
-            >
-              {parseCurrency(basePrice)}
-            </TagLabel>
-            <TagLabel fontSize="lg" fontWeight="bold">
-              {parseCurrency(price)}
-            </TagLabel>
-          </HStack>
-          <TagLabel fontSize="xs">
-            {`Te ahorras: ${parseCurrency(absoluteDiscount)}`}
-            <Text as="span" fontSize="md" ml="4">{`${(
-              relativeDiscount * 100
-            ).toFixed(0)}%`}</Text>
-          </TagLabel>
-        </Tag>
+          <Text textDecoration="line-through" fontSize="xs" color="red.700">
+            {parseCurrency(basePrice)}
+          </Text>
+          <Text fontSize="2xl" fontWeight="bold">
+            {parseCurrency(price)}
+          </Text>
+          <Text fontSize="xs">
+            {`Ahorras: ${parseCurrency(absoluteDiscount)}`}
+          </Text>
+          <Text fontSize="xs">
+            {`Descuento: ${(relativeDiscount * 100).toFixed(0)}%`}
+          </Text>
+          <Image
+            src={marketLogo}
+            width={80}
+            height={40}
+            objectFit="contain"
+            alt="market-logo"
+          />
+        </VStack>
       }
       buttons={
         <>

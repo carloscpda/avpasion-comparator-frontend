@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { ReactNode, useCallback } from "react";
-import { Brand } from "../../models/brand";
+import { BrandFilter } from "../../models/brand-filter";
 import { ImageTechnology } from "../../models/image-technology";
 import Layout from "../layout/layout";
 import Main from "../layout/main";
@@ -35,8 +35,8 @@ const SearchTemplate = ({
   title: string;
   currentPage: number;
   numberOfPages: number;
-  brands: Brand[];
-  brand: Brand["id"];
+  brands: BrandFilter[];
+  brand: BrandFilter["id"];
   imageTechnologies: ImageTechnology[];
   imageTechnology: ImageTechnology["id"];
   prices: { minPrice: number; maxPrice: number };
