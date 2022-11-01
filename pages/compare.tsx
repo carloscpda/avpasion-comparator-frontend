@@ -78,7 +78,7 @@ const ComparePage = ({ tvs }: { tvs: FuzzySearch[] }) => {
   return (
     <Layout>
       <Main>
-        <Heading color="red.700">Comparador.</Heading>
+        <Heading>Comparador.</Heading>
         <VStack
           flexDirection={{ base: "column", md: "row" }}
           height={{ md: "600px" }}

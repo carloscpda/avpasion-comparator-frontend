@@ -54,6 +54,7 @@ const MarketplacePrice = ({
         opacity={!available ? "0.6" : 1}
         transition="all 0.2s"
         cursor="pointer"
+        rel="sponsored"
         target="_blank"
         _hover={{
           transform: "scale(1.02)",

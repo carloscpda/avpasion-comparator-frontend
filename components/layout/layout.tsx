@@ -14,6 +14,7 @@ const theme = extendTheme(
       secondary: baseTheme.colors.red,
       success: baseTheme.colors.green,
       error: baseTheme.colors.red,
+      "sale.700": "#f4501e",
     },
   },
   withDefaultColorScheme({ colorScheme: "primary" })

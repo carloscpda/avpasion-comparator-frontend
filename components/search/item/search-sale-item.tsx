@@ -88,7 +88,7 @@ const SearchSaleItem = ({
             {`Descuento: ${(relativeDiscount * 100).toFixed(0)}%`}
           </Text>
           <Image
-            src={`${marketLogo}?width=80`}
+            src={`${marketLogo}?width=160`}
             width={80}
             height={40}
             objectFit="contain"
@@ -99,14 +99,27 @@ const SearchSaleItem = ({
       }
       buttons={
         <>
-          <NextLink href={affiliateUrl} passHref>
-            <Button as="a" colorScheme="gray" color="red.700" size="xs">
-              Ver oferta
+          <NextLink href={`/tv/${slug}`} passHref>
+            <Button
+              as="a"
+              colorScheme="white"
+              color="sale.700"
+              size="sm"
+              variant="outline"
+            >
+              Ver detalles
             </Button>
           </NextLink>
-          <NextLink href={`/tv/${slug}`} passHref>
-            <Button as="a" colorScheme="gray" color="red.700" size="xs">
-              Ver ficha
+          <NextLink href={affiliateUrl} passHref>
+            <Button
+              as="a"
+              colorScheme="white"
+              bg="sale.700"
+              size="sm"
+              target="_blank"
+              rel="sponsored"
+            >
+              Comprar
             </Button>
           </NextLink>
         </>

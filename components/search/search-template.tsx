@@ -66,13 +66,13 @@ const SearchTemplate = ({
           justifyContent="space-between"
           gap="3"
         >
-          <Heading color="red.700">{title}</Heading>
+          <Heading>{title}</Heading>
           <Link href="/search" passHref>
             <Button
               as="a"
               variant="outline"
               colorScheme="gray"
-              color="gray.400"
+              color="gray.700"
               fontStyle="italic"
               fontWeight="light"
               width={{ base: "100%", md: "unset" }}
