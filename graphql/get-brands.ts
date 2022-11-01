@@ -19,7 +19,7 @@ const getBrands = async () => {
                   }
                 }
               }
-              series {
+              series(pagination: { limit: -1 }) {
                 data {
                   id
                 }
@@ -36,6 +36,7 @@ const getBrands = async () => {
       id: brand.id as string,
       name: brand.attributes?.name as string,
       logo: brand.attributes?.logo?.data?.attributes?.url || "",
+      series: brand.attributes?.series?.data.length,
     })) || []
   );
 };
