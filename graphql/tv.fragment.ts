@@ -241,6 +241,8 @@ export const CORE_TV = gql`
           attributes {
             url
             alternativeText
+            height
+            width
           }
         }
       }
