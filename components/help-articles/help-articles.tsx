@@ -1,5 +1,6 @@
 import { Flex, Grid, Heading } from "@chakra-ui/react";
 import { HelpArticlesSection } from "../../models/help-articles-section";
+import Center from "../layout/center";
 import HelpArticlesSubsection from "./subsection";
 
 const HelpArticles = ({
@@ -8,12 +9,7 @@ const HelpArticles = ({
   section3,
 }: HelpArticlesSection) => {
   return (
-    <Flex
-      mt="32"
-      direction="column"
-      maxW={{ lg: "75em" }}
-      mx={{ base: 4, md: 8, xl: "auto" }}
-    >
+    <Center mt="32" direction="column">
       <Heading
         as="h2"
         size="md"
@@ -36,7 +32,7 @@ const HelpArticles = ({
         <HelpArticlesSubsection {...section2} />
         <HelpArticlesSubsection {...section3} />
       </Grid>
-    </Flex>
+    </Center>
   );
 };
 

@@ -2,6 +2,7 @@ import { Flex, HStack, Button, Heading, Link } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import { getFullName } from "../../models/tv";
+import Center from "../layout/center";
 import { useTvs } from "../tv/tvs-provider";
 
 const Navbar = () => {
@@ -10,14 +11,12 @@ const Navbar = () => {
   const title = tvs.map(getFullName).join(" vs ");
 
   return (
-    <Flex
+    <Center
       display={{ base: "none", md: "flex" }}
       position="sticky"
       top="0"
       justifyContent="space-between"
       alignItems="center"
-      maxW={{ lg: "75em" }}
-      mx={{ base: 4, md: 8, xl: "auto" }}
       py="4"
       bg="whiteAlpha.900"
       backdropFilter="auto"
@@ -89,7 +88,7 @@ const Navbar = () => {
           </NextLink>
         )}
       </HStack>
-    </Flex>
+    </Center>
   );
 };
 

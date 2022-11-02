@@ -19,6 +19,7 @@ import NextLink from "next/link";
 import { SlMagnifier } from "react-icons/sl";
 import { IoMdMenu } from "react-icons/io";
 import React, { useRef } from "react";
+import Center from "./center";
 
 const navbarLinks = [
   {
@@ -68,12 +69,7 @@ const Navbar = () => {
       align="center"
       padding="1"
     >
-      <Flex
-        width="100%"
-        maxW={{ lg: "75em" }}
-        mx={{ base: 4, md: 8, xl: "auto" }}
-        justifyContent="space-between"
-      >
+      <Center width="100%" justifyContent="space-between">
         <Flex alignItems="center" gap="2">
           <Box ref={menuButtonRef} display={{ lg: "none" }}>
             <Icon
@@ -118,7 +114,7 @@ const Navbar = () => {
             />
           </NextLink>
         </Flex>
-      </Flex>
+      </Center>
       <Drawer
         isOpen={isOpen}
         onClose={onClose}

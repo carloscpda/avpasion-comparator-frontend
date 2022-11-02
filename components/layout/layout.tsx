@@ -6,6 +6,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import Navbar from "./navbar";
+import Toast from "./toast";
 
 const theme = extendTheme(
   {
@@ -15,6 +16,7 @@ const theme = extendTheme(
       success: baseTheme.colors.green,
       error: baseTheme.colors.red,
       "sale.700": "#f4501e",
+      "red.700": "#9e0c0c",
     },
   },
   withDefaultColorScheme({ colorScheme: "primary" })
@@ -23,6 +25,7 @@ const theme = extendTheme(
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <ChakraProvider theme={theme}>
+      <Toast />
       <Navbar />
       {children}
     </ChakraProvider>

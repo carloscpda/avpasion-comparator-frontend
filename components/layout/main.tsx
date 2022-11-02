@@ -1,5 +1,6 @@
 import React from "react";
 import { Flex } from "@chakra-ui/react";
+import Center from "./center";
 
 type MainProps = {
   children: React.ReactNode;
@@ -7,15 +8,9 @@ type MainProps = {
 
 const Main = ({ children }: MainProps) => {
   return (
-    <Flex
-      as="main"
-      direction="column"
-      maxW={{ lg: "75em" }}
-      my={8}
-      mx={{ base: 4, md: 8, xl: "auto" }}
-    >
+    <Center as="main" direction="column" my={8}>
       {children}
-    </Flex>
+    </Center>
   );
 };
 
