@@ -14,6 +14,7 @@ import NextLink from "next/link";
 import React from "react";
 import { FaBox } from "react-icons/fa";
 import { RiTrophyLine } from "react-icons/ri";
+import { TbTool } from "react-icons/tb";
 import parseCurrency from "../../../helpers/parse-currency";
 import { MarketplaceTv } from "../../../models/marketplace-tv.tsx";
 import { buildPicture } from "../../../models/picture";
@@ -94,6 +95,20 @@ const MarketplacePrice = ({
             <Icon as={FaBox} />
             {available ? "Con stock" : "Sin stock"}
           </Badge>
+          {reconditioned && (
+            <Badge
+              colorScheme="gray"
+              size="sm"
+              gap={1}
+              borderRadius={4}
+              display="flex"
+              width="min-content"
+              alignItems="center"
+            >
+              <Icon as={TbTool} />
+              Reacondicionado
+            </Badge>
+          )}
           {marketplace?.data?.attributes?.paymentMethods?.data.map((method) => (
             <Image
               key={method.attributes?.name}
