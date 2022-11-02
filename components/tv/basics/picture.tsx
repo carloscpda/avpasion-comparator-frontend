@@ -11,7 +11,7 @@ type TvPictureProps = {
 const TvPicture = ({ src, alt, height = 300, width = 400 }: TvPictureProps) => {
   return (
     <Image
-      src={`${src}?width=${width}`}
+      src={`${src}?width=${width}&height=${height}`}
       alt={alt}
       width={width}
       height={height}

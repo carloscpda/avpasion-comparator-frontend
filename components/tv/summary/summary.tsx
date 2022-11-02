@@ -41,7 +41,7 @@ const Summary = () => {
         gridRow={{ md: "1 / span 2" }}
         justifySelf="flex-start"
       >
-        <SummaryPicture tv={tv} height="220" />
+        <SummaryPicture tv={tv} />
       </GridItem>
       <GridItem gridColumn={{ base: "span 2", md: "2" }}>
         <SummaryData tv={tv} />
