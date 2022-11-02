@@ -18,20 +18,11 @@ import {
 } from "../models/search-tv";
 import { SearchSale } from "../models/search-sale";
 import { buildPicture } from "../models/picture";
-import cache from "memory-cache";
 
 export const getServerSideProps: GetServerSideProps = async ({
   query,
-  resolvedUrl,
+  res,
 }) => {
-  const cached = cache.get(resolvedUrl);
-
-  if (cached) {
-    return {
-      props: JSON.parse(cached),
-    };
-  }
-
   const {
     brands,
     imageTechnologies,
@@ -61,20 +52,24 @@ export const getServerSideProps: GetServerSideProps = async ({
     maxScore,
   });
 
-  const props = {
-    sales,
-    numberOfPages: meta?.pagination.pageCount,
-    currentPage: page,
-    brands,
-    brand: brand || null,
-    imageTechnologies,
-    imageTechnology: imageTechnology || null,
-    prices,
+  // 1 hour
+  res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=3600, stale-while-revalidate=86400"
+  );
+
+  return {
+    props: {
+      sales,
+      numberOfPages: meta?.pagination.pageCount,
+      currentPage: page,
+      brands,
+      brand: brand || null,
+      imageTechnologies,
+      imageTechnology: imageTechnology || null,
+      prices,
+    },
   };
-
-  cache.put(resolvedUrl, JSON.stringify(props), 3600);
-
-  return { props };
 };
 
 const SearchSalesPage = ({
