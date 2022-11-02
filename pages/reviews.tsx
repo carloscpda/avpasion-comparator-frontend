@@ -10,6 +10,7 @@ import { MdCompare, MdOutlineReviews } from "react-icons/md";
 import { Enum_Externalsite_Type } from "../gql/graphql";
 import ReviewCard from "../components/reviews/review";
 import GeneralHead from "../components/head";
+import getHelpArticlesProps from "../server/help-articles/get-help-articles-props";
 
 const REVIEWS_PER_PAGE = 12;
 
@@ -17,6 +18,8 @@ export const getServerSideProps: GetServerSideProps = async ({
   query,
   res,
 }) => {
+  const helpArticles = await getHelpArticlesProps();
+
   const currentPage = parseInt(query?.page as string) || 1;
   const type = query?.type ? query.type.toString() : undefined;
 
@@ -34,6 +37,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   return {
     props: {
+      helpArticles,
       reviews: reviews.data,
       currentPage,
       numberOfPages: reviews.meta?.pagination.pageCount,

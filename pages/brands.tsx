@@ -17,13 +17,16 @@ import NextLink from "next/link";
 import getImageTechnologies from "../graphql/get-image-technologies";
 import { ImageTechnology } from "../models/image-technology";
 import GeneralHead from "../components/head";
+import getHelpArticlesProps from "../server/help-articles/get-help-articles-props";
 
 export const getStaticProps: GetStaticProps = async () => {
+  const helpArticles = await getHelpArticlesProps();
   const brands = await getBrands();
   const imageTechnologies = await getImageTechnologies();
 
   return {
     props: {
+      helpArticles,
       brands,
       imageTechnologies,
     },

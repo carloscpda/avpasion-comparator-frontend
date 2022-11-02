@@ -14,12 +14,15 @@ import Fuse from "fuse.js";
 import { ChangeEventHandler, useMemo, useState } from "react";
 import SearchTvItem from "../components/search/item/search-tv-item";
 import GeneralHead from "../components/head";
+import getHelpArticlesProps from "../server/help-articles/get-help-articles-props";
 
 export const getStaticProps: GetStaticProps = async () => {
+  const helpArticles = await getHelpArticlesProps();
   const tvs = await getFuzzySearch();
 
   return {
     props: {
+      helpArticles,
       tvs,
     },
     revalidate: 60 * 10, // 10 mins

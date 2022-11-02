@@ -2,7 +2,7 @@ import { GetServerSideProps } from "next";
 import { SearchTV } from "../models/search-tv";
 import { BrandFilter } from "../models/brand-filter";
 import { ImageTechnology } from "../models/image-technology";
-import getSearchFilters from "../helpers/search/get-search-filters";
+import getSearchFilters from "../server/search/get-search-filters";
 import SearchTemplate from "../components/search/search-template";
 import searchTvs from "../graphql/search-tvs";
 import SearchTvItem from "../components/search/item/search-tv-item";
@@ -18,11 +18,14 @@ import {
   getSerie,
 } from "../models/search-tv";
 import GeneralHead from "../components/head";
+import getHelpArticlesProps from "../server/help-articles/get-help-articles-props";
 
 export const getServerSideProps: GetServerSideProps = async ({
   query,
   res,
 }) => {
+  const helpArticles = await getHelpArticlesProps();
+
   const {
     brands,
     imageTechnologies,
@@ -60,6 +63,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   return {
     props: {
+      helpArticles,
       tvs,
       numberOfPages: meta?.pagination.pageCount,
       currentPage: page,

@@ -3,11 +3,15 @@ import { ChakraProvider } from "@chakra-ui/react";
 import GlobalHead from "../components/global-head";
 import Layout from "../components/layout/layout";
 import useProgress from "../components/use-progress";
+import HelpArticles from "../components/help-articles/help-articles";
+import { HelpArticlesSection } from "../models/help-articles-section";
 
 import "../styles/nprogress.css";
-import HelpArticles from "../components/help-articles/help-articles";
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({
+  Component,
+  pageProps,
+}: AppProps<{ helpArticles?: HelpArticlesSection }>) {
   useProgress();
 
   return (
@@ -16,7 +20,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ChakraProvider>
         <Layout>
           <Component {...pageProps} />
-          <HelpArticles />
+          {!!pageProps.helpArticles && (
+            <HelpArticles {...pageProps.helpArticles} />
+          )}
         </Layout>
       </ChakraProvider>
     </>

@@ -2,7 +2,6 @@ import { GetServerSideProps } from "next";
 import { BrandFilter } from "../models/brand-filter";
 import { ImageTechnology } from "../models/image-technology";
 import searchSales from "../graphql/search-sales";
-import getSearchFilters from "../helpers/search/get-search-filters";
 import SearchTemplate from "../components/search/search-template";
 import SearchSaleItem from "../components/search/item/search-sale-item";
 import {
@@ -19,11 +18,15 @@ import {
 import { SearchSale } from "../models/search-sale";
 import { buildPicture } from "../models/picture";
 import GeneralHead from "../components/head";
+import getSearchFilters from "../server/search/get-search-filters";
+import getHelpArticlesProps from "../server/help-articles/get-help-articles-props";
 
 export const getServerSideProps: GetServerSideProps = async ({
   query,
   res,
 }) => {
+  const helpArticles = await getHelpArticlesProps();
+
   const {
     brands,
     imageTechnologies,
@@ -61,6 +64,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   return {
     props: {
+      helpArticles,
       sales,
       numberOfPages: meta?.pagination.pageCount,
       currentPage: page,

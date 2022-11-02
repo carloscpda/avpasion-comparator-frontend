@@ -20,12 +20,15 @@ import Link from "next/link";
 import SearchItem from "../components/search/item/search-item";
 import { useRouter } from "next/router";
 import GeneralHead from "../components/head";
+import getHelpArticlesProps from "../server/help-articles/get-help-articles-props";
 
 export const getStaticProps: GetStaticProps = async () => {
+  const helpArticles = await getHelpArticlesProps();
   const tvs = await getFuzzySearch();
 
   return {
     props: {
+      helpArticles,
       tvs,
     },
     revalidate: 60 * 10, // 10 mins
