@@ -7,6 +7,7 @@ import HelpArticles from "../components/help-articles/help-articles";
 import { HelpArticlesSection } from "../models/help-articles-section";
 
 import "../styles/nprogress.css";
+import Footer from "../components/layout/footer";
 
 function MyApp({
   Component,
@@ -23,6 +24,7 @@ function MyApp({
           {!!pageProps.helpArticles && (
             <HelpArticles {...pageProps.helpArticles} />
           )}
+          <Footer />
         </Layout>
       </ChakraProvider>
     </>

@@ -22,32 +22,25 @@ type SectionProps = {
 };
 
 const Section = ({ title, getScore, children, id, icon }: SectionProps) => {
-  const bp = useBreakpoint();
-
-  let color = "#1A202C"; // gray.800
   const { tvs } = useTvs();
 
-  if (tvs.length === 1) {
-    color = getColor(getScore(tvs[0]));
-  }
-
   return (
-    <Box id={id}>
-      <Box as="section" borderRadius="8" overflow="hidden">
+    <section id={id}>
+      <Box borderRadius="8" overflow="hidden">
         <Grid
           gridTemplateColumns={`repeat(${tvs.length + 1}, 1fr)`}
-          p="4"
           justifyContent="space-between"
           alignItems="flex-end"
           borderBottom="2px"
-          borderColor="gray.700"
+          pb="2"
         >
-          <GridItem color="gray.700" display="flex">
-            <Icon as={icon} fontSize={{ base: "24", md: "36" }} mr="2" />
+          <GridItem display="flex">
+            <Icon as={icon} fontSize="24" mr="2" />
             <Heading
               as="h2"
-              size={{ base: "md", md: "lg" }}
+              size="md"
               fontWeight="extrabold"
+              textTransform="uppercase"
               height="min-content"
             >
               {title.toUpperCase()}
@@ -55,13 +48,13 @@ const Section = ({ title, getScore, children, id, icon }: SectionProps) => {
           </GridItem>
           {tvs.map((tv) => (
             <GridItem justifySelf="flex-end" key={tv.slug}>
-              <Score value={getScore(tv)} size={bp === "base" ? 50 : 70} />
+              <Score value={getScore(tv)} size={50} />
             </GridItem>
           ))}
         </Grid>
         <Box py="4">{children}</Box>
       </Box>
-    </Box>
+    </section>
   );
 };
 

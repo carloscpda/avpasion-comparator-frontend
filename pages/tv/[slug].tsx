@@ -14,6 +14,7 @@ import TVHead from "../../components/tv/head";
 import PricesSection from "../../components/tv/prices/prices";
 import getMarketplaceTvs from "../../graphql/get-marketplaces-tv";
 import ReviewsSection from "../../components/tv/reviews/reviews";
+import getHelpArticlesProps from "../../server/help-articles/get-help-articles-props";
 
 export const getStaticPaths = async () => {
   return {
@@ -23,6 +24,7 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const helpArticles = await getHelpArticlesProps();
   const tv = await getTv({ slug: params?.slug as string });
   const tvSeries = await getTvSeries({
     serieId: tv?.general?.brand?.serie?.data?.id || "-1",
@@ -32,6 +34,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   return {
     props: {
+      helpArticles,
       tv,
       tvSeries,
       offerCount: marketplaceTvs?.length || 0,

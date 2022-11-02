@@ -68,6 +68,10 @@ const Navbar = () => {
       justify="space-between"
       align="center"
       padding="1"
+      position="sticky"
+      zIndex={3}
+      top="0"
+      bg="white"
     >
       <Center width="100%" justifyContent="space-between">
         <Flex alignItems="center" gap="2">
