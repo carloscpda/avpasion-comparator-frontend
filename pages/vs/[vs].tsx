@@ -7,6 +7,7 @@ import { GetStaticProps } from "next";
 import getTv from "../../graphql/get-tv";
 import { TV } from "../../models/tv";
 import ComparatorHero from "../../components/comparator/hero";
+import ComparatorHead from "../../components/comparator/head";
 
 export const getStaticPaths = async () => {
   return {
@@ -34,6 +35,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 const ComparatorPage = ({ tvs }: { tvs: [TV, TV] }) => {
   return (
     <TvProvider value={tvs}>
+      <ComparatorHead />
       <Layout>
         <Navbar />
         <Main>

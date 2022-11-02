@@ -14,6 +14,7 @@ import getFuzzySearch from "../graphql/get-fuzzy-search-tvs";
 import Fuse from "fuse.js";
 import { ChangeEventHandler, useMemo, useState } from "react";
 import SearchTvItem from "../components/search/item/search-tv-item";
+import GeneralHead from "../components/head";
 
 export const getStaticProps: GetStaticProps = async () => {
   const tvs = await getFuzzySearch();
@@ -41,6 +42,7 @@ const SearchPage = ({ tvs }: { tvs: FuzzySearch[] }) => {
 
   return (
     <Layout>
+      <GeneralHead slug="search" title="Búsqueda" />
       <Main>
         <Heading>Búsqueda</Heading>
         <InputGroup mt="4" mb="8">

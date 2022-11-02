@@ -10,6 +10,7 @@ import { Review } from "../models/review";
 import { MdCompare, MdOutlineReviews } from "react-icons/md";
 import { Enum_Externalsite_Type } from "../gql/graphql";
 import ReviewCard from "../components/reviews/review";
+import GeneralHead from "../components/head";
 
 const REVIEWS_PER_PAGE = 12;
 
@@ -69,6 +70,7 @@ const ReviewsPage = ({
 
   return (
     <Layout>
+      <GeneralHead slug="reviews" title="Reviews y comparativas" />
       <Main>
         <Heading>Todas las reviews</Heading>
         <HStack gap="1" mt="8" justifyContent="flex-end">

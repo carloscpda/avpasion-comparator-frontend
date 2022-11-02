@@ -49,6 +49,10 @@ const navbarLinks = [
     name: "Noticias",
     link: "https://avpasion.com",
   },
+  {
+    name: "Foros",
+    link: "https://foro.avpasion.com",
+  },
 ];
 
 const Navbar = () => {

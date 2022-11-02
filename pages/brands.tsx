@@ -17,6 +17,7 @@ import { buildPicture } from "../models/picture";
 import NextLink from "next/link";
 import getImageTechnologies from "../graphql/get-image-technologies";
 import { ImageTechnology } from "../models/image-technology";
+import GeneralHead from "../components/head";
 
 export const getStaticProps: GetStaticProps = async () => {
   const brands = await getBrands();
@@ -40,6 +41,7 @@ const BrandsPage = ({
 }) => {
   return (
     <Layout>
+      <GeneralHead slug="brands" title="Marcas" />
       <Main>
         <Heading>Todas las marcas</Heading>
         <VStack alignItems="flex-start" mt="16" spacing={8}>

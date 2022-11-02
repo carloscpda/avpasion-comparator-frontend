@@ -20,6 +20,7 @@ import { AsyncSelect, components, OptionProps } from "chakra-react-select";
 import Link from "next/link";
 import SearchItem from "../components/search/item/search-item";
 import { useRouter } from "next/router";
+import GeneralHead from "../components/head";
 
 export const getStaticProps: GetStaticProps = async () => {
   const tvs = await getFuzzySearch();
@@ -77,8 +78,9 @@ const ComparePage = ({ tvs }: { tvs: FuzzySearch[] }) => {
 
   return (
     <Layout>
+      <GeneralHead slug="compare" title="Comparar" />
       <Main>
-        <Heading>Comparador</Heading>
+        <Heading>Comparar</Heading>
         <VStack
           flexDirection={{ base: "column", md: "row" }}
           height={{ md: "600px" }}

@@ -2,7 +2,6 @@
 import { useTvs } from "../../components/tv/tvs-provider";
 import {
   getBrand,
-  getFullName,
   getModel,
   getPicture,
   getPictureDefinition,
@@ -17,41 +16,28 @@ const TVHead = ({ offerCount }: { offerCount: number }) => {
   const pageUrl = `https://comparador.avpasion.com/tv/${tv.slug}`;
   const mainPicture = getPicture(tv) + "?width=400";
   const originalPic = getPictureDefinition(tv);
+  const title = `Televisor ${seoName} especificaciones, características y precios | Comparador TV AVPasión`;
+  const description = `Descubre todas las especificaciones del televisor ${seoName} y las mejores ofertas online.`;
 
   return (
     <>
       <Head>
-        <title>{`Televisor ${seoName} especificaciones, caracterí­sticas y precios | Comparador TV AVPasión`}</title>
+        <title>{title}</title>
         <link rel="preload" href={mainPicture} as="image" />
-        <meta
-          name="description"
-          content={`Descubre todas las especificaciones del televisor ${seoName} y las mejores ofertas online.`}
-        />
+        <meta name="description" content={description} />
         <link rel="canonical" href={pageUrl} />
-        <meta
-          property="og:title"
-          content={`Televisor ${seoName} especificaciones, características y precios | Comparador TV AVPasión`}
-        />
+        <meta property="og:title" content={title} />
         <meta property="og:url" content={pageUrl} />
         <meta property="og:image" content={originalPic.url} />
-        <meta
-          property="og:description"
-          content={`Descubre todas las especificaciones del televisor ${seoName} y las mejores ofertas online.`}
-        />
+        <meta property="og:description" content={description} />
         <meta property="og:type" content="website" />
         <meta property="og:image:width" content={originalPic.width} />
         <meta property="og:image:height" content={originalPic.height} />
         <meta property="og:locale" content="es_ES" />
         <meta property="og:site_name" content="Comparador TV AVPasión" />
-        <meta
-          name="twitter:title"
-          content={`Televisor ${seoName} especificaciones, características y precios | Comparador TV AVPasión`}
-        />
-        <meta
-          name="twitter:description"
-          content={`Descubre todas las especificaciones del televisor ${seoName} y las mejores ofertas online.`}
-        />
-        <meta name="twitter:image" content={mainPicture} />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={originalPic.url} />
         <meta name="twitter:card" content="summary_large_image"></meta>
       </Head>
       <Script
@@ -67,7 +53,7 @@ const TVHead = ({ offerCount }: { offerCount: number }) => {
             tv.design?.pictures?.data.map((pic) =>
               buildPicture(pic.attributes?.url || "")
             ) || [],
-          description: getFullName(tv),
+          description: { title },
           gtin: tv.ean,
           brand: {
             "@type": "Brand",

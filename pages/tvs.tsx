@@ -17,6 +17,7 @@ import {
   getScreenSize,
   getSerie,
 } from "../models/search-tv";
+import GeneralHead from "../components/head";
 
 export const getServerSideProps: GetServerSideProps = async ({
   query,
@@ -91,36 +92,39 @@ const SearchSalesPage = ({
   prices: { minPrice: number; maxPrice: number };
 }) => {
   return (
-    <SearchTemplate
-      title="Los mejores televisores."
-      currentPage={currentPage}
-      numberOfPages={numberOfPages}
-      brands={brands}
-      brand={brand}
-      imageTechnologies={imageTechnologies}
-      imageTechnology={imageTechnology}
-      prices={prices}
-      noResults={tvs.length === 0}
-    >
-      {tvs.map((tv) => (
-        <SearchTvItem
-          key={tv.id}
-          slug={tv.slug || ""}
-          fullName={getFullName(tv)}
-          picture={getPicture(tv)}
-          score={tv.score || 0}
-          brand={getBrand(tv)}
-          ean={tv.ean}
-          imageTechnology={getImageTechnology(tv)}
-          model={getModel(tv)}
-          releaseDate={getReleaseDate(tv)}
-          resolution={getResolution(tv)}
-          screenSize={getScreenSize(tv)}
-          serie={getSerie(tv)}
-          price={tv.minPrice || 0}
-        />
-      ))}
-    </SearchTemplate>
+    <>
+      <GeneralHead slug="tvs" title="Los mejores televisores" />
+      <SearchTemplate
+        title="Los mejores televisores"
+        currentPage={currentPage}
+        numberOfPages={numberOfPages}
+        brands={brands}
+        brand={brand}
+        imageTechnologies={imageTechnologies}
+        imageTechnology={imageTechnology}
+        prices={prices}
+        noResults={tvs.length === 0}
+      >
+        {tvs.map((tv) => (
+          <SearchTvItem
+            key={tv.id}
+            slug={tv.slug || ""}
+            fullName={getFullName(tv)}
+            picture={getPicture(tv)}
+            score={tv.score || 0}
+            brand={getBrand(tv)}
+            ean={tv.ean}
+            imageTechnology={getImageTechnology(tv)}
+            model={getModel(tv)}
+            releaseDate={getReleaseDate(tv)}
+            resolution={getResolution(tv)}
+            screenSize={getScreenSize(tv)}
+            serie={getSerie(tv)}
+            price={tv.minPrice || 0}
+          />
+        ))}
+      </SearchTemplate>
+    </>
   );
 };
 
