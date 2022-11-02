@@ -120,6 +120,47 @@ type Color {
   updatedAt: DateTime
 }
 
+type ColorCreation {
+  createdAt: DateTime
+  description: String!
+  name: String!
+  updatedAt: DateTime
+}
+
+type ColorCreationEntity {
+  attributes: ColorCreation
+  id: ID
+}
+
+type ColorCreationEntityResponse {
+  data: ColorCreationEntity
+}
+
+type ColorCreationEntityResponseCollection {
+  data: [ColorCreationEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+input ColorCreationFiltersInput {
+  and: [ColorCreationFiltersInput]
+  createdAt: DateTimeFilterInput
+  description: StringFilterInput
+  id: IDFilterInput
+  name: StringFilterInput
+  not: ColorCreationFiltersInput
+  or: [ColorCreationFiltersInput]
+  updatedAt: DateTimeFilterInput
+}
+
+input ColorCreationInput {
+  description: String
+  name: String
+}
+
+type ColorCreationRelationResponseCollection {
+  data: [ColorCreationEntity!]!
+}
+
 type ColorDepth {
   createdAt: DateTime
   description: String
@@ -317,6 +358,7 @@ type ComponentImageBacklightAndContrast {
   brightness: Int
   contrast: String
   id: ID!
+  zoneNumber: Int
 }
 
 input ComponentImageBacklightAndContrastFiltersInput {
@@ -326,6 +368,7 @@ input ComponentImageBacklightAndContrastFiltersInput {
   contrast: StringFilterInput
   not: ComponentImageBacklightAndContrastFiltersInput
   or: [ComponentImageBacklightAndContrastFiltersInput]
+  zoneNumber: IntFilterInput
 }
 
 input ComponentImageBacklightAndContrastInput {
@@ -333,6 +376,7 @@ input ComponentImageBacklightAndContrastInput {
   brightness: Int
   contrast: String
   id: ID
+  zoneNumber: Int
 }
 
 type ComponentImageColorimetry {
@@ -460,32 +504,35 @@ input ComponentImageResponseTimesInput {
 }
 
 type ComponentImageTechnology {
+  creationColor: ColorCreationEntityResponse
   id: ID!
   image: ImageTechnologyEntityResponse
+  lightingType: LightingTypeEntityResponse
   panel: PanelTechnologyEntityResponse
   panelManufacturer: PanelManufacturerEntityResponse
   refreshRate: Float
-  subpixel: SubpixelTechnologyEntityResponse
 }
 
 input ComponentImageTechnologyFiltersInput {
   and: [ComponentImageTechnologyFiltersInput]
+  creationColor: ColorCreationFiltersInput
   image: ImageTechnologyFiltersInput
+  lightingType: LightingTypeFiltersInput
   not: ComponentImageTechnologyFiltersInput
   or: [ComponentImageTechnologyFiltersInput]
   panel: PanelTechnologyFiltersInput
   panelManufacturer: PanelManufacturerFiltersInput
   refreshRate: FloatFilterInput
-  subpixel: SubpixelTechnologyFiltersInput
 }
 
 input ComponentImageTechnologyInput {
+  creationColor: ID
   id: ID
   image: ID
+  lightingType: ID
   panel: ID
   panelManufacturer: ID
   refreshRate: Float
-  subpixel: ID
 }
 
 type ComponentSectionsConnections {
@@ -1065,6 +1112,12 @@ enum ENUM_DVB_TYPE {
   terrestrial
 }
 
+enum ENUM_EXTERNALSITE_TYPE {
+  comparative
+  help_article
+  review
+}
+
 type Error {
   code: String!
   message: String
@@ -1077,6 +1130,7 @@ type ExternalSite {
   siteName: String
   slug: String
   title: String
+  type: ENUM_EXTERNALSITE_TYPE!
   updatedAt: DateTime
   url: String!
   video: Boolean
@@ -1107,6 +1161,7 @@ input ExternalSiteFiltersInput {
   siteName: StringFilterInput
   slug: StringFilterInput
   title: StringFilterInput
+  type: StringFilterInput
   updatedAt: DateTimeFilterInput
   url: StringFilterInput
   video: BooleanFilterInput
@@ -1118,6 +1173,7 @@ input ExternalSiteInput {
   siteName: String
   slug: String
   title: String
+  type: ENUM_EXTERNALSITE_TYPE
   url: String
   video: Boolean
 }
@@ -1242,6 +1298,7 @@ union GenericMorph =
     BacklightType
   | Brand
   | Color
+  | ColorCreation
   | ColorDepth
   | ColorimetryTechnology
   | ComponentConnectionConnection
@@ -1275,11 +1332,11 @@ union GenericMorph =
   | I18NLocale
   | ImageProcessor
   | ImageTechnology
+  | LightingType
   | Marketplace
   | MarketplaceTv
   | OperatingSystem
   | OperatingSystemVersion
-  | PageHit
   | PanelManufacturer
   | PanelTechnology
   | PaymentMethod
@@ -1288,7 +1345,6 @@ union GenericMorph =
   | ScreenShape
   | SocModel
   | SoundTechnology
-  | SubpixelTechnology
   | Tv
   | TvSerie
   | UploadFile
@@ -1550,6 +1606,47 @@ input JSONFilterInput {
   startsWith: JSON
 }
 
+type LightingType {
+  createdAt: DateTime
+  description: String
+  name: String!
+  updatedAt: DateTime
+}
+
+type LightingTypeEntity {
+  attributes: LightingType
+  id: ID
+}
+
+type LightingTypeEntityResponse {
+  data: LightingTypeEntity
+}
+
+type LightingTypeEntityResponseCollection {
+  data: [LightingTypeEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+input LightingTypeFiltersInput {
+  and: [LightingTypeFiltersInput]
+  createdAt: DateTimeFilterInput
+  description: StringFilterInput
+  id: IDFilterInput
+  name: StringFilterInput
+  not: LightingTypeFiltersInput
+  or: [LightingTypeFiltersInput]
+  updatedAt: DateTimeFilterInput
+}
+
+input LightingTypeInput {
+  description: String
+  name: String
+}
+
+type LightingTypeRelationResponseCollection {
+  data: [LightingTypeEntity!]!
+}
+
 """
 The `BigInt` scalar type represents non-fractional signed whole numeric values.
 """
@@ -1712,6 +1809,7 @@ type Mutation {
   createBacklightType(data: BacklightTypeInput!): BacklightTypeEntityResponse
   createBrand(data: BrandInput!): BrandEntityResponse
   createColor(data: ColorInput!): ColorEntityResponse
+  createColorCreation(data: ColorCreationInput!): ColorCreationEntityResponse
   createColorDepth(data: ColorDepthInput!): ColorDepthEntityResponse
   createColorimetryTechnology(
     data: ColorimetryTechnologyInput!
@@ -1732,6 +1830,7 @@ type Mutation {
   createImageTechnology(
     data: ImageTechnologyInput!
   ): ImageTechnologyEntityResponse
+  createLightingType(data: LightingTypeInput!): LightingTypeEntityResponse
   createMarketplace(data: MarketplaceInput!): MarketplaceEntityResponse
   createMarketplaceTv(data: MarketplaceTvInput!): MarketplaceTvEntityResponse
   createOperatingSystem(
@@ -1740,7 +1839,6 @@ type Mutation {
   createOperatingSystemVersion(
     data: OperatingSystemVersionInput!
   ): OperatingSystemVersionEntityResponse
-  createPageHit(data: PageHitInput!): PageHitEntityResponse
   createPanelManufacturer(
     data: PanelManufacturerInput!
   ): PanelManufacturerEntityResponse
@@ -1756,9 +1854,6 @@ type Mutation {
   createSoundTechnology(
     data: SoundTechnologyInput!
   ): SoundTechnologyEntityResponse
-  createSubpixelTechnology(
-    data: SubpixelTechnologyInput!
-  ): SubpixelTechnologyEntityResponse
   createTv(data: TvInput!): TvEntityResponse
   createTvSerie(data: TvSerieInput!): TvSerieEntityResponse
   createUploadFile(data: UploadFileInput!): UploadFileEntityResponse
@@ -1788,6 +1883,7 @@ type Mutation {
   deleteBacklightType(id: ID!): BacklightTypeEntityResponse
   deleteBrand(id: ID!): BrandEntityResponse
   deleteColor(id: ID!): ColorEntityResponse
+  deleteColorCreation(id: ID!): ColorCreationEntityResponse
   deleteColorDepth(id: ID!): ColorDepthEntityResponse
   deleteColorimetryTechnology(id: ID!): ColorimetryTechnologyEntityResponse
   deleteConnection(id: ID!): ConnectionEntityResponse
@@ -1800,11 +1896,11 @@ type Mutation {
   deleteHdrTechnology(id: ID!): HdrTechnologyEntityResponse
   deleteImageProcessor(id: ID!): ImageProcessorEntityResponse
   deleteImageTechnology(id: ID!): ImageTechnologyEntityResponse
+  deleteLightingType(id: ID!): LightingTypeEntityResponse
   deleteMarketplace(id: ID!): MarketplaceEntityResponse
   deleteMarketplaceTv(id: ID!): MarketplaceTvEntityResponse
   deleteOperatingSystem(id: ID!): OperatingSystemEntityResponse
   deleteOperatingSystemVersion(id: ID!): OperatingSystemVersionEntityResponse
-  deletePageHit(id: ID!): PageHitEntityResponse
   deletePanelManufacturer(id: ID!): PanelManufacturerEntityResponse
   deletePanelTechnology(id: ID!): PanelTechnologyEntityResponse
   deletePaymentMethod(id: ID!): PaymentMethodEntityResponse
@@ -1813,7 +1909,6 @@ type Mutation {
   deleteScreenShape(id: ID!): ScreenShapeEntityResponse
   deleteSocModel(id: ID!): SocModelEntityResponse
   deleteSoundTechnology(id: ID!): SoundTechnologyEntityResponse
-  deleteSubpixelTechnology(id: ID!): SubpixelTechnologyEntityResponse
   deleteTv(id: ID!): TvEntityResponse
   deleteTvSerie(id: ID!): TvSerieEntityResponse
   deleteUploadFile(id: ID!): UploadFileEntityResponse
@@ -1872,6 +1967,10 @@ type Mutation {
   ): BacklightTypeEntityResponse
   updateBrand(data: BrandInput!, id: ID!): BrandEntityResponse
   updateColor(data: ColorInput!, id: ID!): ColorEntityResponse
+  updateColorCreation(
+    data: ColorCreationInput!
+    id: ID!
+  ): ColorCreationEntityResponse
   updateColorDepth(data: ColorDepthInput!, id: ID!): ColorDepthEntityResponse
   updateColorimetryTechnology(
     data: ColorimetryTechnologyInput!
@@ -1912,6 +2011,10 @@ type Mutation {
     data: ImageTechnologyInput!
     id: ID!
   ): ImageTechnologyEntityResponse
+  updateLightingType(
+    data: LightingTypeInput!
+    id: ID!
+  ): LightingTypeEntityResponse
   updateMarketplace(data: MarketplaceInput!, id: ID!): MarketplaceEntityResponse
   updateMarketplaceTv(
     data: MarketplaceTvInput!
@@ -1925,7 +2028,6 @@ type Mutation {
     data: OperatingSystemVersionInput!
     id: ID!
   ): OperatingSystemVersionEntityResponse
-  updatePageHit(data: PageHitInput!, id: ID!): PageHitEntityResponse
   updatePanelManufacturer(
     data: PanelManufacturerInput!
     id: ID!
@@ -1949,10 +2051,6 @@ type Mutation {
     data: SoundTechnologyInput!
     id: ID!
   ): SoundTechnologyEntityResponse
-  updateSubpixelTechnology(
-    data: SubpixelTechnologyInput!
-    id: ID!
-  ): SubpixelTechnologyEntityResponse
   updateTv(data: TvInput!, id: ID!): TvEntityResponse
   updateTvSerie(data: TvSerieInput!, id: ID!): TvSerieEntityResponse
   updateUploadFile(data: UploadFileInput!, id: ID!): UploadFileEntityResponse
@@ -2078,50 +2176,6 @@ input OperatingSystemVersionInput {
 
 type OperatingSystemVersionRelationResponseCollection {
   data: [OperatingSystemVersionEntity!]!
-}
-
-type PageHit {
-  createdAt: DateTime
-  date: Date!
-  hits: Int!
-  tv: TvEntityResponse
-  updatedAt: DateTime
-}
-
-type PageHitEntity {
-  attributes: PageHit
-  id: ID
-}
-
-type PageHitEntityResponse {
-  data: PageHitEntity
-}
-
-type PageHitEntityResponseCollection {
-  data: [PageHitEntity!]!
-  meta: ResponseCollectionMeta!
-}
-
-input PageHitFiltersInput {
-  and: [PageHitFiltersInput]
-  createdAt: DateTimeFilterInput
-  date: DateFilterInput
-  hits: IntFilterInput
-  id: IDFilterInput
-  not: PageHitFiltersInput
-  or: [PageHitFiltersInput]
-  tv: TvFiltersInput
-  updatedAt: DateTimeFilterInput
-}
-
-input PageHitInput {
-  date: Date
-  hits: Int
-  tv: ID
-}
-
-type PageHitRelationResponseCollection {
-  data: [PageHitEntity!]!
 }
 
 type Pagination {
@@ -2276,6 +2330,12 @@ type Query {
     sort: [String] = []
   ): BrandEntityResponseCollection
   color(id: ID): ColorEntityResponse
+  colorCreation(id: ID): ColorCreationEntityResponse
+  colorCreations(
+    filters: ColorCreationFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): ColorCreationEntityResponseCollection
   colorDepth(id: ID): ColorDepthEntityResponse
   colorDepths(
     filters: ColorDepthFiltersInput
@@ -2359,6 +2419,12 @@ type Query {
     sort: [String] = []
   ): ImageTechnologyEntityResponseCollection
   imageTechnology(id: ID): ImageTechnologyEntityResponse
+  lightingType(id: ID): LightingTypeEntityResponse
+  lightingTypes(
+    filters: LightingTypeFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): LightingTypeEntityResponseCollection
   marketplace(id: ID): MarketplaceEntityResponse
   marketplaceTv(id: ID): MarketplaceTvEntityResponse
   marketplaceTvs(
@@ -2384,12 +2450,6 @@ type Query {
     pagination: PaginationArg = {}
     sort: [String] = []
   ): OperatingSystemEntityResponseCollection
-  pageHit(id: ID): PageHitEntityResponse
-  pageHits(
-    filters: PageHitFiltersInput
-    pagination: PaginationArg = {}
-    sort: [String] = []
-  ): PageHitEntityResponseCollection
   panelManufacturer(id: ID): PanelManufacturerEntityResponse
   panelManufacturers(
     filters: PanelManufacturerFiltersInput
@@ -2433,12 +2493,6 @@ type Query {
     sort: [String] = []
   ): SoundTechnologyEntityResponseCollection
   soundTechnology(id: ID): SoundTechnologyEntityResponse
-  subpixelTechnologies(
-    filters: SubpixelTechnologyFiltersInput
-    pagination: PaginationArg = {}
-    sort: [String] = []
-  ): SubpixelTechnologyEntityResponseCollection
-  subpixelTechnology(id: ID): SubpixelTechnologyEntityResponse
   tv(id: ID): TvEntityResponse
   tvSerie(id: ID): TvSerieEntityResponse
   tvSeries(
@@ -2739,47 +2793,6 @@ input StringFilterInput {
   startsWith: String
 }
 
-type SubpixelTechnology {
-  createdAt: DateTime
-  description: String
-  name: String!
-  updatedAt: DateTime
-}
-
-type SubpixelTechnologyEntity {
-  attributes: SubpixelTechnology
-  id: ID
-}
-
-type SubpixelTechnologyEntityResponse {
-  data: SubpixelTechnologyEntity
-}
-
-type SubpixelTechnologyEntityResponseCollection {
-  data: [SubpixelTechnologyEntity!]!
-  meta: ResponseCollectionMeta!
-}
-
-input SubpixelTechnologyFiltersInput {
-  and: [SubpixelTechnologyFiltersInput]
-  createdAt: DateTimeFilterInput
-  description: StringFilterInput
-  id: IDFilterInput
-  name: StringFilterInput
-  not: SubpixelTechnologyFiltersInput
-  or: [SubpixelTechnologyFiltersInput]
-  updatedAt: DateTimeFilterInput
-}
-
-input SubpixelTechnologyInput {
-  description: String
-  name: String
-}
-
-type SubpixelTechnologyRelationResponseCollection {
-  data: [SubpixelTechnologyEntity!]!
-}
-
 """
 A time string with format HH:mm:ss.SSS
 """
@@ -2815,6 +2828,7 @@ type Tv {
   design: ComponentSectionsDesign
   ean: String!
   general: ComponentSectionsGeneral
+  hits: Int
   image: ComponentSectionsImage
   maxPrice: Float
   minPrice: Float
@@ -2850,6 +2864,7 @@ input TvFiltersInput {
   design: ComponentSectionsDesignFiltersInput
   ean: StringFilterInput
   general: ComponentSectionsGeneralFiltersInput
+  hits: IntFilterInput
   id: IDFilterInput
   image: ComponentSectionsImageFiltersInput
   maxPrice: FloatFilterInput
@@ -2872,6 +2887,7 @@ input TvInput {
   design: ComponentSectionsDesignInput
   ean: String
   general: ComponentSectionsGeneralInput
+  hits: Int
   image: ComponentSectionsImageInput
   maxPrice: Float
   minPrice: Float

@@ -161,6 +161,52 @@ export type Color = {
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
+export type ColorCreation = {
+  __typename?: 'ColorCreation';
+  createdAt?: Maybe<Scalars['DateTime']>;
+  description: Scalars['String'];
+  name: Scalars['String'];
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+export type ColorCreationEntity = {
+  __typename?: 'ColorCreationEntity';
+  attributes?: Maybe<ColorCreation>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type ColorCreationEntityResponse = {
+  __typename?: 'ColorCreationEntityResponse';
+  data?: Maybe<ColorCreationEntity>;
+};
+
+export type ColorCreationEntityResponseCollection = {
+  __typename?: 'ColorCreationEntityResponseCollection';
+  data: Array<ColorCreationEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type ColorCreationFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ColorCreationFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  description?: InputMaybe<StringFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  name?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<ColorCreationFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ColorCreationFiltersInput>>>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type ColorCreationInput = {
+  description?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+};
+
+export type ColorCreationRelationResponseCollection = {
+  __typename?: 'ColorCreationRelationResponseCollection';
+  data: Array<ColorCreationEntity>;
+};
+
 export type ColorDepth = {
   __typename?: 'ColorDepth';
   createdAt?: Maybe<Scalars['DateTime']>;
@@ -379,6 +425,7 @@ export type ComponentImageBacklightAndContrast = {
   brightness?: Maybe<Scalars['Int']>;
   contrast?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
+  zoneNumber?: Maybe<Scalars['Int']>;
 };
 
 export type ComponentImageBacklightAndContrastFiltersInput = {
@@ -388,6 +435,7 @@ export type ComponentImageBacklightAndContrastFiltersInput = {
   contrast?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<ComponentImageBacklightAndContrastFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ComponentImageBacklightAndContrastFiltersInput>>>;
+  zoneNumber?: InputMaybe<IntFilterInput>;
 };
 
 export type ComponentImageBacklightAndContrastInput = {
@@ -395,6 +443,7 @@ export type ComponentImageBacklightAndContrastInput = {
   brightness?: InputMaybe<Scalars['Int']>;
   contrast?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
+  zoneNumber?: InputMaybe<Scalars['Int']>;
 };
 
 export type ComponentImageColorimetry = {
@@ -537,32 +586,35 @@ export type ComponentImageResponseTimesInput = {
 
 export type ComponentImageTechnology = {
   __typename?: 'ComponentImageTechnology';
+  creationColor?: Maybe<ColorCreationEntityResponse>;
   id: Scalars['ID'];
   image?: Maybe<ImageTechnologyEntityResponse>;
+  lightingType?: Maybe<LightingTypeEntityResponse>;
   panel?: Maybe<PanelTechnologyEntityResponse>;
   panelManufacturer?: Maybe<PanelManufacturerEntityResponse>;
   refreshRate?: Maybe<Scalars['Float']>;
-  subpixel?: Maybe<SubpixelTechnologyEntityResponse>;
 };
 
 export type ComponentImageTechnologyFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<ComponentImageTechnologyFiltersInput>>>;
+  creationColor?: InputMaybe<ColorCreationFiltersInput>;
   image?: InputMaybe<ImageTechnologyFiltersInput>;
+  lightingType?: InputMaybe<LightingTypeFiltersInput>;
   not?: InputMaybe<ComponentImageTechnologyFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ComponentImageTechnologyFiltersInput>>>;
   panel?: InputMaybe<PanelTechnologyFiltersInput>;
   panelManufacturer?: InputMaybe<PanelManufacturerFiltersInput>;
   refreshRate?: InputMaybe<FloatFilterInput>;
-  subpixel?: InputMaybe<SubpixelTechnologyFiltersInput>;
 };
 
 export type ComponentImageTechnologyInput = {
+  creationColor?: InputMaybe<Scalars['ID']>;
   id?: InputMaybe<Scalars['ID']>;
   image?: InputMaybe<Scalars['ID']>;
+  lightingType?: InputMaybe<Scalars['ID']>;
   panel?: InputMaybe<Scalars['ID']>;
   panelManufacturer?: InputMaybe<Scalars['ID']>;
   refreshRate?: InputMaybe<Scalars['Float']>;
-  subpixel?: InputMaybe<Scalars['ID']>;
 };
 
 export type ComponentSectionsConnections = {
@@ -1198,6 +1250,12 @@ export enum Enum_Dvb_Type {
   Terrestrial = 'terrestrial'
 }
 
+export enum Enum_Externalsite_Type {
+  Comparative = 'comparative',
+  HelpArticle = 'help_article',
+  Review = 'review'
+}
+
 export type Error = {
   __typename?: 'Error';
   code: Scalars['String'];
@@ -1212,6 +1270,7 @@ export type ExternalSite = {
   siteName?: Maybe<Scalars['String']>;
   slug?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
+  type: Enum_Externalsite_Type;
   updatedAt?: Maybe<Scalars['DateTime']>;
   url: Scalars['String'];
   video?: Maybe<Scalars['Boolean']>;
@@ -1245,6 +1304,7 @@ export type ExternalSiteFiltersInput = {
   siteName?: InputMaybe<StringFilterInput>;
   slug?: InputMaybe<StringFilterInput>;
   title?: InputMaybe<StringFilterInput>;
+  type?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
   url?: InputMaybe<StringFilterInput>;
   video?: InputMaybe<BooleanFilterInput>;
@@ -1256,6 +1316,7 @@ export type ExternalSiteInput = {
   siteName?: InputMaybe<Scalars['String']>;
   slug?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Enum_Externalsite_Type>;
   url?: InputMaybe<Scalars['String']>;
   video?: InputMaybe<Scalars['Boolean']>;
 };
@@ -1387,7 +1448,7 @@ export type GamingTechnologyRelationResponseCollection = {
   data: Array<GamingTechnologyEntity>;
 };
 
-export type GenericMorph = BacklightType | Brand | Color | ColorDepth | ColorimetryTechnology | ComponentConnectionConnection | ComponentDesignDimensions | ComponentGeneralBrand | ComponentImageBacklightAndContrast | ComponentImageColorimetry | ComponentImageCrystal | ComponentImageHdr | ComponentImageProcessing | ComponentImageResponseTimes | ComponentImageTechnology | ComponentSectionsConnections | ComponentSectionsDesign | ComponentSectionsGeneral | ComponentSectionsImage | ComponentSectionsReviews | ComponentSectionsSound | ComponentSectionsSystem | ComponentSoundSpeaker | ComponentSystemConsumption | ComponentSystemHardware | Connection | ConnectionTechnology | ConnectionType | Dvb | ExternalSite | ExtraFeature | GamingTechnology | HdrTechnology | I18NLocale | ImageProcessor | ImageTechnology | Marketplace | MarketplaceTv | OperatingSystem | OperatingSystemVersion | PageHit | PanelManufacturer | PanelTechnology | PaymentMethod | ScoreWeighting | ScreenResolution | ScreenShape | SocModel | SoundTechnology | SubpixelTechnology | Tv | TvSerie | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser | VesaSize | VoiceAssistant | WirelessConnectionTechnology | WirelessConnectionType;
+export type GenericMorph = BacklightType | Brand | Color | ColorCreation | ColorDepth | ColorimetryTechnology | ComponentConnectionConnection | ComponentDesignDimensions | ComponentGeneralBrand | ComponentImageBacklightAndContrast | ComponentImageColorimetry | ComponentImageCrystal | ComponentImageHdr | ComponentImageProcessing | ComponentImageResponseTimes | ComponentImageTechnology | ComponentSectionsConnections | ComponentSectionsDesign | ComponentSectionsGeneral | ComponentSectionsImage | ComponentSectionsReviews | ComponentSectionsSound | ComponentSectionsSystem | ComponentSoundSpeaker | ComponentSystemConsumption | ComponentSystemHardware | Connection | ConnectionTechnology | ConnectionType | Dvb | ExternalSite | ExtraFeature | GamingTechnology | HdrTechnology | I18NLocale | ImageProcessor | ImageTechnology | LightingType | Marketplace | MarketplaceTv | OperatingSystem | OperatingSystemVersion | PanelManufacturer | PanelTechnology | PaymentMethod | ScoreWeighting | ScreenResolution | ScreenShape | SocModel | SoundTechnology | Tv | TvSerie | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser | VesaSize | VoiceAssistant | WirelessConnectionTechnology | WirelessConnectionType;
 
 export type HdrTechnology = {
   __typename?: 'HdrTechnology';
@@ -1645,6 +1706,52 @@ export type JsonFilterInput = {
   startsWith?: InputMaybe<Scalars['JSON']>;
 };
 
+export type LightingType = {
+  __typename?: 'LightingType';
+  createdAt?: Maybe<Scalars['DateTime']>;
+  description?: Maybe<Scalars['String']>;
+  name: Scalars['String'];
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+export type LightingTypeEntity = {
+  __typename?: 'LightingTypeEntity';
+  attributes?: Maybe<LightingType>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type LightingTypeEntityResponse = {
+  __typename?: 'LightingTypeEntityResponse';
+  data?: Maybe<LightingTypeEntity>;
+};
+
+export type LightingTypeEntityResponseCollection = {
+  __typename?: 'LightingTypeEntityResponseCollection';
+  data: Array<LightingTypeEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type LightingTypeFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<LightingTypeFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  description?: InputMaybe<StringFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  name?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<LightingTypeFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<LightingTypeFiltersInput>>>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type LightingTypeInput = {
+  description?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+};
+
+export type LightingTypeRelationResponseCollection = {
+  __typename?: 'LightingTypeRelationResponseCollection';
+  data: Array<LightingTypeEntity>;
+};
+
 export type LongFilterInput = {
   and?: InputMaybe<Array<InputMaybe<Scalars['Long']>>>;
   between?: InputMaybe<Array<InputMaybe<Scalars['Long']>>>;
@@ -1810,6 +1917,7 @@ export type Mutation = {
   createBacklightType?: Maybe<BacklightTypeEntityResponse>;
   createBrand?: Maybe<BrandEntityResponse>;
   createColor?: Maybe<ColorEntityResponse>;
+  createColorCreation?: Maybe<ColorCreationEntityResponse>;
   createColorDepth?: Maybe<ColorDepthEntityResponse>;
   createColorimetryTechnology?: Maybe<ColorimetryTechnologyEntityResponse>;
   createConnection?: Maybe<ConnectionEntityResponse>;
@@ -1822,11 +1930,11 @@ export type Mutation = {
   createHdrTechnology?: Maybe<HdrTechnologyEntityResponse>;
   createImageProcessor?: Maybe<ImageProcessorEntityResponse>;
   createImageTechnology?: Maybe<ImageTechnologyEntityResponse>;
+  createLightingType?: Maybe<LightingTypeEntityResponse>;
   createMarketplace?: Maybe<MarketplaceEntityResponse>;
   createMarketplaceTv?: Maybe<MarketplaceTvEntityResponse>;
   createOperatingSystem?: Maybe<OperatingSystemEntityResponse>;
   createOperatingSystemVersion?: Maybe<OperatingSystemVersionEntityResponse>;
-  createPageHit?: Maybe<PageHitEntityResponse>;
   createPanelManufacturer?: Maybe<PanelManufacturerEntityResponse>;
   createPanelTechnology?: Maybe<PanelTechnologyEntityResponse>;
   createPaymentMethod?: Maybe<PaymentMethodEntityResponse>;
@@ -1834,7 +1942,6 @@ export type Mutation = {
   createScreenShape?: Maybe<ScreenShapeEntityResponse>;
   createSocModel?: Maybe<SocModelEntityResponse>;
   createSoundTechnology?: Maybe<SoundTechnologyEntityResponse>;
-  createSubpixelTechnology?: Maybe<SubpixelTechnologyEntityResponse>;
   createTv?: Maybe<TvEntityResponse>;
   createTvSerie?: Maybe<TvSerieEntityResponse>;
   createUploadFile?: Maybe<UploadFileEntityResponse>;
@@ -1850,6 +1957,7 @@ export type Mutation = {
   deleteBacklightType?: Maybe<BacklightTypeEntityResponse>;
   deleteBrand?: Maybe<BrandEntityResponse>;
   deleteColor?: Maybe<ColorEntityResponse>;
+  deleteColorCreation?: Maybe<ColorCreationEntityResponse>;
   deleteColorDepth?: Maybe<ColorDepthEntityResponse>;
   deleteColorimetryTechnology?: Maybe<ColorimetryTechnologyEntityResponse>;
   deleteConnection?: Maybe<ConnectionEntityResponse>;
@@ -1862,11 +1970,11 @@ export type Mutation = {
   deleteHdrTechnology?: Maybe<HdrTechnologyEntityResponse>;
   deleteImageProcessor?: Maybe<ImageProcessorEntityResponse>;
   deleteImageTechnology?: Maybe<ImageTechnologyEntityResponse>;
+  deleteLightingType?: Maybe<LightingTypeEntityResponse>;
   deleteMarketplace?: Maybe<MarketplaceEntityResponse>;
   deleteMarketplaceTv?: Maybe<MarketplaceTvEntityResponse>;
   deleteOperatingSystem?: Maybe<OperatingSystemEntityResponse>;
   deleteOperatingSystemVersion?: Maybe<OperatingSystemVersionEntityResponse>;
-  deletePageHit?: Maybe<PageHitEntityResponse>;
   deletePanelManufacturer?: Maybe<PanelManufacturerEntityResponse>;
   deletePanelTechnology?: Maybe<PanelTechnologyEntityResponse>;
   deletePaymentMethod?: Maybe<PaymentMethodEntityResponse>;
@@ -1875,7 +1983,6 @@ export type Mutation = {
   deleteScreenShape?: Maybe<ScreenShapeEntityResponse>;
   deleteSocModel?: Maybe<SocModelEntityResponse>;
   deleteSoundTechnology?: Maybe<SoundTechnologyEntityResponse>;
-  deleteSubpixelTechnology?: Maybe<SubpixelTechnologyEntityResponse>;
   deleteTv?: Maybe<TvEntityResponse>;
   deleteTvSerie?: Maybe<TvSerieEntityResponse>;
   deleteUploadFile?: Maybe<UploadFileEntityResponse>;
@@ -1902,6 +2009,7 @@ export type Mutation = {
   updateBacklightType?: Maybe<BacklightTypeEntityResponse>;
   updateBrand?: Maybe<BrandEntityResponse>;
   updateColor?: Maybe<ColorEntityResponse>;
+  updateColorCreation?: Maybe<ColorCreationEntityResponse>;
   updateColorDepth?: Maybe<ColorDepthEntityResponse>;
   updateColorimetryTechnology?: Maybe<ColorimetryTechnologyEntityResponse>;
   updateConnection?: Maybe<ConnectionEntityResponse>;
@@ -1915,11 +2023,11 @@ export type Mutation = {
   updateHdrTechnology?: Maybe<HdrTechnologyEntityResponse>;
   updateImageProcessor?: Maybe<ImageProcessorEntityResponse>;
   updateImageTechnology?: Maybe<ImageTechnologyEntityResponse>;
+  updateLightingType?: Maybe<LightingTypeEntityResponse>;
   updateMarketplace?: Maybe<MarketplaceEntityResponse>;
   updateMarketplaceTv?: Maybe<MarketplaceTvEntityResponse>;
   updateOperatingSystem?: Maybe<OperatingSystemEntityResponse>;
   updateOperatingSystemVersion?: Maybe<OperatingSystemVersionEntityResponse>;
-  updatePageHit?: Maybe<PageHitEntityResponse>;
   updatePanelManufacturer?: Maybe<PanelManufacturerEntityResponse>;
   updatePanelTechnology?: Maybe<PanelTechnologyEntityResponse>;
   updatePaymentMethod?: Maybe<PaymentMethodEntityResponse>;
@@ -1928,7 +2036,6 @@ export type Mutation = {
   updateScreenShape?: Maybe<ScreenShapeEntityResponse>;
   updateSocModel?: Maybe<SocModelEntityResponse>;
   updateSoundTechnology?: Maybe<SoundTechnologyEntityResponse>;
-  updateSubpixelTechnology?: Maybe<SubpixelTechnologyEntityResponse>;
   updateTv?: Maybe<TvEntityResponse>;
   updateTvSerie?: Maybe<TvSerieEntityResponse>;
   updateUploadFile?: Maybe<UploadFileEntityResponse>;
@@ -1964,6 +2071,11 @@ export type MutationCreateBrandArgs = {
 
 export type MutationCreateColorArgs = {
   data: ColorInput;
+};
+
+
+export type MutationCreateColorCreationArgs = {
+  data: ColorCreationInput;
 };
 
 
@@ -2027,6 +2139,11 @@ export type MutationCreateImageTechnologyArgs = {
 };
 
 
+export type MutationCreateLightingTypeArgs = {
+  data: LightingTypeInput;
+};
+
+
 export type MutationCreateMarketplaceArgs = {
   data: MarketplaceInput;
 };
@@ -2044,11 +2161,6 @@ export type MutationCreateOperatingSystemArgs = {
 
 export type MutationCreateOperatingSystemVersionArgs = {
   data: OperatingSystemVersionInput;
-};
-
-
-export type MutationCreatePageHitArgs = {
-  data: PageHitInput;
 };
 
 
@@ -2084,11 +2196,6 @@ export type MutationCreateSocModelArgs = {
 
 export type MutationCreateSoundTechnologyArgs = {
   data: SoundTechnologyInput;
-};
-
-
-export type MutationCreateSubpixelTechnologyArgs = {
-  data: SubpixelTechnologyInput;
 };
 
 
@@ -2157,6 +2264,11 @@ export type MutationDeleteColorArgs = {
 };
 
 
+export type MutationDeleteColorCreationArgs = {
+  id: Scalars['ID'];
+};
+
+
 export type MutationDeleteColorDepthArgs = {
   id: Scalars['ID'];
 };
@@ -2217,6 +2329,11 @@ export type MutationDeleteImageTechnologyArgs = {
 };
 
 
+export type MutationDeleteLightingTypeArgs = {
+  id: Scalars['ID'];
+};
+
+
 export type MutationDeleteMarketplaceArgs = {
   id: Scalars['ID'];
 };
@@ -2233,11 +2350,6 @@ export type MutationDeleteOperatingSystemArgs = {
 
 
 export type MutationDeleteOperatingSystemVersionArgs = {
-  id: Scalars['ID'];
-};
-
-
-export type MutationDeletePageHitArgs = {
   id: Scalars['ID'];
 };
 
@@ -2273,11 +2385,6 @@ export type MutationDeleteSocModelArgs = {
 
 
 export type MutationDeleteSoundTechnologyArgs = {
-  id: Scalars['ID'];
-};
-
-
-export type MutationDeleteSubpixelTechnologyArgs = {
   id: Scalars['ID'];
 };
 
@@ -2390,6 +2497,12 @@ export type MutationUpdateColorArgs = {
 };
 
 
+export type MutationUpdateColorCreationArgs = {
+  data: ColorCreationInput;
+  id: Scalars['ID'];
+};
+
+
 export type MutationUpdateColorDepthArgs = {
   data: ColorDepthInput;
   id: Scalars['ID'];
@@ -2468,6 +2581,12 @@ export type MutationUpdateImageTechnologyArgs = {
 };
 
 
+export type MutationUpdateLightingTypeArgs = {
+  data: LightingTypeInput;
+  id: Scalars['ID'];
+};
+
+
 export type MutationUpdateMarketplaceArgs = {
   data: MarketplaceInput;
   id: Scalars['ID'];
@@ -2488,12 +2607,6 @@ export type MutationUpdateOperatingSystemArgs = {
 
 export type MutationUpdateOperatingSystemVersionArgs = {
   data: OperatingSystemVersionInput;
-  id: Scalars['ID'];
-};
-
-
-export type MutationUpdatePageHitArgs = {
-  data: PageHitInput;
   id: Scalars['ID'];
 };
 
@@ -2541,12 +2654,6 @@ export type MutationUpdateSocModelArgs = {
 
 export type MutationUpdateSoundTechnologyArgs = {
   data: SoundTechnologyInput;
-  id: Scalars['ID'];
-};
-
-
-export type MutationUpdateSubpixelTechnologyArgs = {
-  data: SubpixelTechnologyInput;
   id: Scalars['ID'];
 };
 
@@ -2711,55 +2818,6 @@ export type OperatingSystemVersionRelationResponseCollection = {
   data: Array<OperatingSystemVersionEntity>;
 };
 
-export type PageHit = {
-  __typename?: 'PageHit';
-  createdAt?: Maybe<Scalars['DateTime']>;
-  date: Scalars['Date'];
-  hits: Scalars['Int'];
-  tv?: Maybe<TvEntityResponse>;
-  updatedAt?: Maybe<Scalars['DateTime']>;
-};
-
-export type PageHitEntity = {
-  __typename?: 'PageHitEntity';
-  attributes?: Maybe<PageHit>;
-  id?: Maybe<Scalars['ID']>;
-};
-
-export type PageHitEntityResponse = {
-  __typename?: 'PageHitEntityResponse';
-  data?: Maybe<PageHitEntity>;
-};
-
-export type PageHitEntityResponseCollection = {
-  __typename?: 'PageHitEntityResponseCollection';
-  data: Array<PageHitEntity>;
-  meta: ResponseCollectionMeta;
-};
-
-export type PageHitFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<PageHitFiltersInput>>>;
-  createdAt?: InputMaybe<DateTimeFilterInput>;
-  date?: InputMaybe<DateFilterInput>;
-  hits?: InputMaybe<IntFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
-  not?: InputMaybe<PageHitFiltersInput>;
-  or?: InputMaybe<Array<InputMaybe<PageHitFiltersInput>>>;
-  tv?: InputMaybe<TvFiltersInput>;
-  updatedAt?: InputMaybe<DateTimeFilterInput>;
-};
-
-export type PageHitInput = {
-  date?: InputMaybe<Scalars['Date']>;
-  hits?: InputMaybe<Scalars['Int']>;
-  tv?: InputMaybe<Scalars['ID']>;
-};
-
-export type PageHitRelationResponseCollection = {
-  __typename?: 'PageHitRelationResponseCollection';
-  data: Array<PageHitEntity>;
-};
-
 export type Pagination = {
   __typename?: 'Pagination';
   page: Scalars['Int'];
@@ -2921,6 +2979,8 @@ export type Query = {
   brand?: Maybe<BrandEntityResponse>;
   brands?: Maybe<BrandEntityResponseCollection>;
   color?: Maybe<ColorEntityResponse>;
+  colorCreation?: Maybe<ColorCreationEntityResponse>;
+  colorCreations?: Maybe<ColorCreationEntityResponseCollection>;
   colorDepth?: Maybe<ColorDepthEntityResponse>;
   colorDepths?: Maybe<ColorDepthEntityResponseCollection>;
   colorimetryTechnologies?: Maybe<ColorimetryTechnologyEntityResponseCollection>;
@@ -2948,6 +3008,8 @@ export type Query = {
   imageProcessors?: Maybe<ImageProcessorEntityResponseCollection>;
   imageTechnologies?: Maybe<ImageTechnologyEntityResponseCollection>;
   imageTechnology?: Maybe<ImageTechnologyEntityResponse>;
+  lightingType?: Maybe<LightingTypeEntityResponse>;
+  lightingTypes?: Maybe<LightingTypeEntityResponseCollection>;
   marketplace?: Maybe<MarketplaceEntityResponse>;
   marketplaceTv?: Maybe<MarketplaceTvEntityResponse>;
   marketplaceTvs?: Maybe<MarketplaceTvEntityResponseCollection>;
@@ -2957,8 +3019,6 @@ export type Query = {
   operatingSystemVersion?: Maybe<OperatingSystemVersionEntityResponse>;
   operatingSystemVersions?: Maybe<OperatingSystemVersionEntityResponseCollection>;
   operatingSystems?: Maybe<OperatingSystemEntityResponseCollection>;
-  pageHit?: Maybe<PageHitEntityResponse>;
-  pageHits?: Maybe<PageHitEntityResponseCollection>;
   panelManufacturer?: Maybe<PanelManufacturerEntityResponse>;
   panelManufacturers?: Maybe<PanelManufacturerEntityResponseCollection>;
   panelTechnologies?: Maybe<PanelTechnologyEntityResponseCollection>;
@@ -2974,8 +3034,6 @@ export type Query = {
   socModels?: Maybe<SocModelEntityResponseCollection>;
   soundTechnologies?: Maybe<SoundTechnologyEntityResponseCollection>;
   soundTechnology?: Maybe<SoundTechnologyEntityResponse>;
-  subpixelTechnologies?: Maybe<SubpixelTechnologyEntityResponseCollection>;
-  subpixelTechnology?: Maybe<SubpixelTechnologyEntityResponse>;
   tv?: Maybe<TvEntityResponse>;
   tvSerie?: Maybe<TvSerieEntityResponse>;
   tvSeries?: Maybe<TvSerieEntityResponseCollection>;
@@ -3025,6 +3083,18 @@ export type QueryBrandsArgs = {
 
 export type QueryColorArgs = {
   id?: InputMaybe<Scalars['ID']>;
+};
+
+
+export type QueryColorCreationArgs = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
+
+export type QueryColorCreationsArgs = {
+  filters?: InputMaybe<ColorCreationFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
 
@@ -3191,6 +3261,18 @@ export type QueryImageTechnologyArgs = {
 };
 
 
+export type QueryLightingTypeArgs = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
+
+export type QueryLightingTypesArgs = {
+  filters?: InputMaybe<LightingTypeFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
 export type QueryMarketplaceArgs = {
   id?: InputMaybe<Scalars['ID']>;
 };
@@ -3234,18 +3316,6 @@ export type QueryOperatingSystemVersionsArgs = {
 
 export type QueryOperatingSystemsArgs = {
   filters?: InputMaybe<OperatingSystemFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-};
-
-
-export type QueryPageHitArgs = {
-  id?: InputMaybe<Scalars['ID']>;
-};
-
-
-export type QueryPageHitsArgs = {
-  filters?: InputMaybe<PageHitFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
@@ -3331,18 +3401,6 @@ export type QuerySoundTechnologiesArgs = {
 
 
 export type QuerySoundTechnologyArgs = {
-  id?: InputMaybe<Scalars['ID']>;
-};
-
-
-export type QuerySubpixelTechnologiesArgs = {
-  filters?: InputMaybe<SubpixelTechnologyFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-};
-
-
-export type QuerySubpixelTechnologyArgs = {
   id?: InputMaybe<Scalars['ID']>;
 };
 
@@ -3728,52 +3786,6 @@ export type StringFilterInput = {
   startsWith?: InputMaybe<Scalars['String']>;
 };
 
-export type SubpixelTechnology = {
-  __typename?: 'SubpixelTechnology';
-  createdAt?: Maybe<Scalars['DateTime']>;
-  description?: Maybe<Scalars['String']>;
-  name: Scalars['String'];
-  updatedAt?: Maybe<Scalars['DateTime']>;
-};
-
-export type SubpixelTechnologyEntity = {
-  __typename?: 'SubpixelTechnologyEntity';
-  attributes?: Maybe<SubpixelTechnology>;
-  id?: Maybe<Scalars['ID']>;
-};
-
-export type SubpixelTechnologyEntityResponse = {
-  __typename?: 'SubpixelTechnologyEntityResponse';
-  data?: Maybe<SubpixelTechnologyEntity>;
-};
-
-export type SubpixelTechnologyEntityResponseCollection = {
-  __typename?: 'SubpixelTechnologyEntityResponseCollection';
-  data: Array<SubpixelTechnologyEntity>;
-  meta: ResponseCollectionMeta;
-};
-
-export type SubpixelTechnologyFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<SubpixelTechnologyFiltersInput>>>;
-  createdAt?: InputMaybe<DateTimeFilterInput>;
-  description?: InputMaybe<StringFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
-  name?: InputMaybe<StringFilterInput>;
-  not?: InputMaybe<SubpixelTechnologyFiltersInput>;
-  or?: InputMaybe<Array<InputMaybe<SubpixelTechnologyFiltersInput>>>;
-  updatedAt?: InputMaybe<DateTimeFilterInput>;
-};
-
-export type SubpixelTechnologyInput = {
-  description?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
-};
-
-export type SubpixelTechnologyRelationResponseCollection = {
-  __typename?: 'SubpixelTechnologyRelationResponseCollection';
-  data: Array<SubpixelTechnologyEntity>;
-};
-
 export type TimeFilterInput = {
   and?: InputMaybe<Array<InputMaybe<Scalars['Time']>>>;
   between?: InputMaybe<Array<InputMaybe<Scalars['Time']>>>;
@@ -3805,6 +3817,7 @@ export type Tv = {
   design?: Maybe<ComponentSectionsDesign>;
   ean: Scalars['String'];
   general?: Maybe<ComponentSectionsGeneral>;
+  hits?: Maybe<Scalars['Int']>;
   image?: Maybe<ComponentSectionsImage>;
   maxPrice?: Maybe<Scalars['Float']>;
   minPrice?: Maybe<Scalars['Float']>;
@@ -3843,6 +3856,7 @@ export type TvFiltersInput = {
   design?: InputMaybe<ComponentSectionsDesignFiltersInput>;
   ean?: InputMaybe<StringFilterInput>;
   general?: InputMaybe<ComponentSectionsGeneralFiltersInput>;
+  hits?: InputMaybe<IntFilterInput>;
   id?: InputMaybe<IdFilterInput>;
   image?: InputMaybe<ComponentSectionsImageFiltersInput>;
   maxPrice?: InputMaybe<FloatFilterInput>;
@@ -3865,6 +3879,7 @@ export type TvInput = {
   design?: InputMaybe<ComponentSectionsDesignInput>;
   ean?: InputMaybe<Scalars['String']>;
   general?: InputMaybe<ComponentSectionsGeneralInput>;
+  hits?: InputMaybe<Scalars['Int']>;
   image?: InputMaybe<ComponentSectionsImageInput>;
   maxPrice?: InputMaybe<Scalars['Float']>;
   minPrice?: InputMaybe<Scalars['Float']>;
@@ -4546,10 +4561,11 @@ export type GetPricesQuery = { __typename?: 'Query', maxPrice?: { __typename?: '
 export type GetReviewsQueryVariables = Exact<{
   page: Scalars['Int'];
   offset: Scalars['Int'];
+  type?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type GetReviewsQuery = { __typename?: 'Query', externalSites?: { __typename?: 'ExternalSiteEntityResponseCollection', meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', pageCount: number } }, data: Array<{ __typename?: 'ExternalSiteEntity', attributes?: { __typename?: 'ExternalSite', title?: string | null, image?: string | null, siteName?: string | null, url: string, video?: boolean | null } | null }> } | null };
+export type GetReviewsQuery = { __typename?: 'Query', externalSites?: { __typename?: 'ExternalSiteEntityResponseCollection', meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', pageCount: number } }, data: Array<{ __typename?: 'ExternalSiteEntity', attributes?: { __typename?: 'ExternalSite', title?: string | null, image?: string | null, type: Enum_Externalsite_Type, url: string, video?: boolean | null } | null }> } | null };
 
 export type GetTvSeriesQueryVariables = Exact<{
   serieId: Scalars['ID'];
@@ -4618,7 +4634,7 @@ export const GetFuzzySearchDocument = {"kind":"Document","definitions":[{"kind":
 export const GetImageTechnologiesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetImageTechnologies"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"imageTechnologies"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetImageTechnologiesQuery, GetImageTechnologiesQueryVariables>;
 export const GetMarketplaceTvsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetMarketplaceTvs"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"tvId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"marketplaceTvs"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"tv"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"tvId"}}}]}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"affiliateUrl"}},{"kind":"Field","name":{"kind":"Name","value":"available"}},{"kind":"Field","name":{"kind":"Name","value":"deliveryCost"}},{"kind":"Field","name":{"kind":"Name","value":"deliveryTime"}},{"kind":"Field","name":{"kind":"Name","value":"reconditioned"}},{"kind":"Field","name":{"kind":"Name","value":"price"}},{"kind":"Field","name":{"kind":"Name","value":"basePrice"}},{"kind":"Field","name":{"kind":"Name","value":"absoluteDiscount"}},{"kind":"Field","name":{"kind":"Name","value":"relativeDiscount"}},{"kind":"Field","name":{"kind":"Name","value":"marketplace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"color"}},{"kind":"Field","name":{"kind":"Name","value":"logo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"paymentMethods"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"logo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]}}]}}]}}]}}]}}]}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetMarketplaceTvsQuery, GetMarketplaceTvsQueryVariables>;
 export const GetPricesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetPrices"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"maxPrice"},"name":{"kind":"Name","value":"tvs"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"sort"},"value":{"kind":"StringValue","value":"minPrice:desc","block":false}},{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"1"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"minPrice"}}]}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"minPrice"},"name":{"kind":"Name","value":"tvs"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"sort"},"value":{"kind":"StringValue","value":"minPrice:asc","block":false}},{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"1"}}]}},{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"minPrice"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"gt"},"value":{"kind":"IntValue","value":"0"}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"minPrice"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetPricesQuery, GetPricesQueryVariables>;
-export const GetReviewsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetReviews"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"page"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"offset"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"externalSites"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"page"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"pageSize"},"value":{"kind":"Variable","name":{"kind":"Name","value":"offset"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"sort"},"value":{"kind":"StringValue","value":"createdAt:desc","block":false}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"meta"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"pagination"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"pageCount"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"siteName"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"video"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetReviewsQuery, GetReviewsQueryVariables>;
+export const GetReviewsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetReviews"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"page"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"offset"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"type"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"externalSites"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"page"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"pageSize"},"value":{"kind":"Variable","name":{"kind":"Name","value":"offset"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"sort"},"value":{"kind":"StringValue","value":"createdAt:desc","block":false}},{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"type"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"type"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"meta"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"pagination"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"pageCount"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"video"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetReviewsQuery, GetReviewsQueryVariables>;
 export const GetTvSeriesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetTvSeries"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"serieId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"tvs"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"sort"},"value":{"kind":"StringValue","value":"name:desc","block":false}},{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"general"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"brand"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"serie"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"serieId"}}}]}}]}}]}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"minPrice"}},{"kind":"Field","name":{"kind":"Name","value":"general"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"screenSize"}}]}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"resolution"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"alternativeName"}}]}}]}}]}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetTvSeriesQuery, GetTvSeriesQueryVariables>;
 export const GetTvDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetTv"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"tvs"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"CoreTv"}}]}}]}}]}}]}},...CoreTvFragmentDoc.definitions]} as unknown as DocumentNode<GetTvQuery, GetTvQueryVariables>;
 export const SearchSalesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SearchSales"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"page"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"offset"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"brand"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"imageTechnology"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sizeGreatherThan"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Float"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sizeLessThan"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Float"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"minPrice"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Float"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"maxPrice"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Float"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"minScore"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Float"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"maxScore"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Float"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"marketplaceTvs"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"page"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"pageSize"},"value":{"kind":"Variable","name":{"kind":"Name","value":"offset"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"sort"},"value":{"kind":"StringValue","value":"absoluteDiscount:desc","block":false}},{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"and"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"price"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"gt"},"value":{"kind":"IntValue","value":"0"}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"absoluteDiscount"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"gt"},"value":{"kind":"IntValue","value":"0"}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"tv"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"general"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"and"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"screenSize"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"gt"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sizeGreatherThan"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"lt"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sizeLessThan"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"brand"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"serie"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"brand"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"brand"}}}]}}]}}]}}]}}]}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"minPrice"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"gte"},"value":{"kind":"Variable","name":{"kind":"Name","value":"minPrice"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"lte"},"value":{"kind":"Variable","name":{"kind":"Name","value":"maxPrice"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"score"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"gte"},"value":{"kind":"Variable","name":{"kind":"Name","value":"minScore"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"lte"},"value":{"kind":"Variable","name":{"kind":"Name","value":"maxScore"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"image"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"technology"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"image"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"imageTechnology"}}}]}}]}}]}}]}}]}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"meta"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"pagination"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"pageCount"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"price"}},{"kind":"Field","name":{"kind":"Name","value":"basePrice"}},{"kind":"Field","name":{"kind":"Name","value":"absoluteDiscount"}},{"kind":"Field","name":{"kind":"Name","value":"relativeDiscount"}},{"kind":"Field","name":{"kind":"Name","value":"affiliateUrl"}},{"kind":"Field","name":{"kind":"Name","value":"marketplace"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"logo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"tv"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"SearchTv"}}]}}]}}]}}]}}]}}]}}]}},...SearchTvFragmentDoc.definitions]} as unknown as DocumentNode<SearchSalesQuery, SearchSalesQueryVariables>;

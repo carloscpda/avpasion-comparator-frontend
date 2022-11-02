@@ -1,12 +1,4 @@
-import {
-  Box,
-  Grid,
-  GridItem,
-  Heading,
-  Tag,
-  TagLabel,
-  Text,
-} from "@chakra-ui/react";
+import { Button, Grid, Heading, HStack, Icon } from "@chakra-ui/react";
 import Main from "../components/layout/main";
 import Layout from "../components/layout/layout";
 import Paginator from "../components/search/paginator";
@@ -15,8 +7,9 @@ import { useCallback } from "react";
 import { GetServerSideProps } from "next";
 import getReviews from "../graphql/get-reviews";
 import { Review } from "../models/review";
-import Image from "next/image";
-import Link from "next/link";
+import { MdCompare, MdOutlineReviews } from "react-icons/md";
+import { Enum_Externalsite_Type } from "../gql/graphql";
+import ReviewCard from "../components/reviews/review";
 
 const REVIEWS_PER_PAGE = 12;
 
@@ -25,10 +18,12 @@ export const getServerSideProps: GetServerSideProps = async ({
   res,
 }) => {
   const currentPage = parseInt(query?.page as string) || 1;
+  const type = query?.type ? query.type.toString() : undefined;
 
   const reviews = await getReviews({
     page: currentPage,
     offset: REVIEWS_PER_PAGE,
+    type,
   });
 
   // 6 hours
@@ -56,6 +51,7 @@ const ReviewsPage = ({
   numberOfPages: number;
 }) => {
   const router = useRouter();
+  const currentType = router.query.type?.toString();
 
   const handleNavigate = useCallback(
     (page: number) => {
@@ -65,10 +61,44 @@ const ReviewsPage = ({
     [router]
   );
 
+  const handleChangeType = (type?: string) => {
+    router.query.type = type;
+    router.query.page = "1";
+    router.replace(router);
+  };
+
   return (
     <Layout>
       <Main>
         <Heading>Todas las reviews.</Heading>
+        <HStack gap="1" mt="8" justifyContent="flex-end">
+          <Button
+            colorScheme="gray"
+            disabled={!currentType}
+            size="sm"
+            onClick={() => handleChangeType()}
+          >
+            Todas
+          </Button>
+          <Button
+            colorScheme="gray"
+            disabled={currentType === Enum_Externalsite_Type.Review}
+            size="sm"
+            onClick={() => handleChangeType(Enum_Externalsite_Type.Review)}
+          >
+            <Icon as={MdOutlineReviews} mr="1" />
+            Reviews
+          </Button>
+          <Button
+            colorScheme="gray"
+            disabled={currentType === Enum_Externalsite_Type.Comparative}
+            size="sm"
+            onClick={() => handleChangeType(Enum_Externalsite_Type.Comparative)}
+          >
+            <Icon as={MdCompare} mr="1" />
+            Comparativas
+          </Button>
+        </HStack>
         <Grid
           flex="1"
           gridTemplateColumns={{
@@ -81,60 +111,7 @@ const ReviewsPage = ({
           mt="16"
         >
           {reviews.map((review) => (
-            <Link key={review.url} href={review.url} passHref>
-              <GridItem
-                as="a"
-                target="_blank"
-                borderRadius={4}
-                overflow="hidden"
-                transition="all 0.1s"
-                position="relative"
-                _hover={{
-                  transform: "scale(1.02)",
-                }}
-              >
-                <Image
-                  src={review.image || ""}
-                  alt={review.title || ""}
-                  unoptimized
-                  width={400}
-                  height={300}
-                  objectFit="cover"
-                />
-                <Box
-                  width="100%"
-                  height="100%"
-                  position="absolute"
-                  top="0"
-                  bgGradient="linear(to-t,  blackAlpha.900, blackAlpha.700, transparent, transparent)"
-                />
-                <Box
-                  px="4"
-                  py="2"
-                  position="absolute"
-                  top="0"
-                  height="100%"
-                  display="flex"
-                  flexDirection="column"
-                  justifyContent="space-between"
-                  p={4}
-                >
-                  <Tag
-                    bg="red.700"
-                    color="white"
-                    width="min-content"
-                    size="sm"
-                    fontWeight="bold"
-                    textTransform="uppercase"
-                  >
-                    <TagLabel>{review.siteName}</TagLabel>
-                  </Tag>
-                  <Text fontWeight="bold" color="white">
-                    {review.title}
-                  </Text>
-                </Box>
-              </GridItem>
-            </Link>
+            <ReviewCard key={review.url} review={review} />
           ))}
         </Grid>
         <Paginator

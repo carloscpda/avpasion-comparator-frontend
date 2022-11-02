@@ -99,7 +99,7 @@ const SearchSaleItem = ({
       }
       buttons={
         <>
-          <NextLink href={`/tv/${slug}`} passHref>
+          <NextLink href={`/vs?${slug}`} passHref>
             <Button
               as="a"
               colorScheme="white"
@@ -107,7 +107,7 @@ const SearchSaleItem = ({
               size="sm"
               variant="outline"
             >
-              Ver detalles
+              Comparar
             </Button>
           </NextLink>
           <NextLink href={affiliateUrl} passHref>
