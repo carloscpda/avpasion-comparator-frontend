@@ -20,13 +20,19 @@ import Link from "next/link";
 
 const REVIEWS_PER_PAGE = 12;
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  query,
+  res,
+}) => {
   const currentPage = parseInt(query?.page as string) || 1;
 
   const reviews = await getReviews({
     page: currentPage,
     offset: REVIEWS_PER_PAGE,
   });
+
+  // 6 hours
+  res.setHeader("Cache-Control", "public, s-maxage=21600");
 
   return {
     props: {

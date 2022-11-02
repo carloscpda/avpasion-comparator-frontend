@@ -18,7 +18,10 @@ import {
   getSerie,
 } from "../models/search-tv";
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  query,
+  res,
+}) => {
   const {
     brands,
     imageTechnologies,
@@ -47,6 +50,9 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
     minScore,
     maxScore,
   });
+
+  // 1 hour
+  res.setHeader("Cache-Control", "public, s-maxage=3600");
 
   return {
     props: {
