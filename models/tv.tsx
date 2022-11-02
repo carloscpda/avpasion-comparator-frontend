@@ -1,5 +1,6 @@
 import { CoreTvFragment } from "../gql/graphql";
 import Picture from "./picture";
+import { Review } from "./review";
 
 export type TV = CoreTvFragment;
 
@@ -64,4 +65,18 @@ export const getPictureDefinition = (tv: TV) => {
 export const getSecundaryPictures = (tv: TV) => {
   const pictures = getPictures(tv);
   return Picture.getSecondaryPictures((pictures as Picture[]) || []);
+};
+
+export const getReviews = (tv: TV) => {
+  return (
+    tv.reviews?.reviews?.data.map((review) => review.attributes as Review) || []
+  );
+};
+
+export const getComparatives = (tv: TV) => {
+  return (
+    tv.reviews?.comparatives?.data.map(
+      (review) => review.attributes as Review
+    ) || []
+  );
 };

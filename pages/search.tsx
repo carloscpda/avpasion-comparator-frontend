@@ -42,7 +42,7 @@ const SearchPage = ({ tvs }: { tvs: FuzzySearch[] }) => {
   return (
     <Layout>
       <Main>
-        <Heading>Busqueda.</Heading>
+        <Heading>Búsqueda</Heading>
         <InputGroup mt="4" mb="8">
           <InputLeftElement
             pointerEvents="none"

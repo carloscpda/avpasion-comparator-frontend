@@ -78,7 +78,7 @@ const Filters = ({
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader color={"red.700"}>Filtros.</DrawerHeader>
+          <DrawerHeader color={"red.700"}>Filtros</DrawerHeader>
           <DrawerBody>
             <VStack gap="4">
               {!isDesktop && <ScreenSizeFilter.Select />}

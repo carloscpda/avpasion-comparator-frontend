@@ -41,7 +41,7 @@ const BrandsPage = ({
   return (
     <Layout>
       <Main>
-        <Heading>Todas las marcas.</Heading>
+        <Heading>Todas las marcas</Heading>
         <VStack alignItems="flex-start" mt="16" spacing={8}>
           {brands.map((brand) => (
             <HStack key={brand.name} spacing="4" alignItems="flex-start">

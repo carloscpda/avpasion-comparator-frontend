@@ -297,10 +297,8 @@ export const CORE_TV = gql`
             title
             url
             video
-            description
             image
-            siteName
-            slug
+            type
           }
         }
       }
@@ -310,10 +308,8 @@ export const CORE_TV = gql`
             title
             url
             video
-            description
             image
-            siteName
-            slug
+            type
           }
         }
       }

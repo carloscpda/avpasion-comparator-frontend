@@ -6,7 +6,7 @@ const IndexPage = () => {
   return (
     <Layout>
       <Main>
-        <Heading>Todos los televisores.</Heading>
+        <Heading>Todos los televisores</Heading>
         Work in progres..
       </Main>
     </Layout>

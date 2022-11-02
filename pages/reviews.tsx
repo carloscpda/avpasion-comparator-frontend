@@ -70,7 +70,7 @@ const ReviewsPage = ({
   return (
     <Layout>
       <Main>
-        <Heading>Todas las reviews.</Heading>
+        <Heading>Todas las reviews</Heading>
         <HStack gap="1" mt="8" justifyContent="flex-end">
           <Button
             colorScheme="gray"

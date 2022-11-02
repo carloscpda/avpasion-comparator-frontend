@@ -124,7 +124,7 @@ const Navbar = () => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader color={"red.700"}>Menu.</DrawerHeader>
+          <DrawerHeader color={"red.700"}>Menu</DrawerHeader>
           <DrawerBody>
             <VStack
               gap="2"

@@ -8,12 +8,13 @@ import Main from "../../components/layout/main";
 import Summary from "../../components/tv/summary/summary";
 import { GetStaticProps } from "next";
 import getTv from "../../graphql/get-tv";
-import { TV } from "../../models/tv";
+import { getComparatives, getReviews, TV } from "../../models/tv";
 import getTvSeries from "../../graphql/get-tv-series";
 import { TVSeries } from "../../models/tv-serie";
 import TVHead from "../../components/tv/head";
 import PricesSection from "../../components/tv/prices/prices";
 import getMarketplaceTvs from "../../graphql/get-marketplaces-tv";
+import ReviewsSection from "../../components/tv/reviews/reviews";
 
 export const getStaticPaths = async () => {
   return {
@@ -66,6 +67,9 @@ const TVPage = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const reviews = getReviews(tv);
+  const comparatives = getComparatives(tv);
+
   return (
     <Layout>
       <TvProvider value={[tv]}>
@@ -76,6 +80,12 @@ const TVPage = ({
           <PricesSection tvId={tvId} />
           <SerieSection tvs={tvSeries} />
           <Comparator />
+          {!!reviews.length && (
+            <ReviewsSection title="Reviews" reviews={reviews} />
+          )}
+          {!!comparatives.length && (
+            <ReviewsSection title="Comparativas" reviews={comparatives} />
+          )}
         </Main>
       </TvProvider>
     </Layout>
