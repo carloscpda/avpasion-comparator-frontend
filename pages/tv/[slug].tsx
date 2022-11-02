@@ -3,7 +3,6 @@ import TvProvider from "../../components/tv/tvs-provider";
 import Comparator from "../../components/comparator/comparator";
 import Navbar from "../../components/comparator/navbar";
 import SerieSection from "../../components/tv/serie/serie";
-import Layout from "../../components/layout/layout";
 import Main from "../../components/layout/main";
 import Summary from "../../components/tv/summary/summary";
 import { GetStaticProps } from "next";
@@ -71,24 +70,22 @@ const TVPage = ({
   const comparatives = getComparatives(tv);
 
   return (
-    <Layout>
-      <TvProvider value={[tv]}>
-        <TVHead offerCount={offerCount} />
-        <Navbar />
-        <Main>
-          <Summary />
-          <PricesSection tvId={tvId} />
-          <SerieSection tvs={tvSeries} />
-          <Comparator />
-          {!!reviews.length && (
-            <ReviewsSection title="Reviews" reviews={reviews} />
-          )}
-          {!!comparatives.length && (
-            <ReviewsSection title="Comparativas" reviews={comparatives} />
-          )}
-        </Main>
-      </TvProvider>
-    </Layout>
+    <TvProvider value={[tv]}>
+      <TVHead offerCount={offerCount} />
+      <Navbar />
+      <Main>
+        <Summary />
+        <PricesSection tvId={tvId} />
+        <SerieSection tvs={tvSeries} />
+        <Comparator />
+        {!!reviews.length && (
+          <ReviewsSection title="Reviews" reviews={reviews} />
+        )}
+        {!!comparatives.length && (
+          <ReviewsSection title="Comparativas" reviews={comparatives} />
+        )}
+      </Main>
+    </TvProvider>
   );
 };
 

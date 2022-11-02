@@ -12,7 +12,6 @@ import { useRouter } from "next/router";
 import { ReactNode, useCallback } from "react";
 import { BrandFilter } from "../../models/brand-filter";
 import { ImageTechnology } from "../../models/image-technology";
-import Layout from "../layout/layout";
 import Main from "../layout/main";
 import Link from "next/link";
 import Filters from "./filters/filters";
@@ -58,72 +57,70 @@ const SearchTemplate = ({
   );
 
   return (
-    <Layout>
-      <Main>
-        <Flex
-          direction={{ base: "column-reverse", md: "row" }}
-          alignItems="flex-start"
-          justifyContent="space-between"
-          gap="3"
-        >
-          <Heading>{title}</Heading>
-          <Link href="/search" passHref>
+    <Main>
+      <Flex
+        direction={{ base: "column-reverse", md: "row" }}
+        alignItems="flex-start"
+        justifyContent="space-between"
+        gap="3"
+      >
+        <Heading>{title}</Heading>
+        <Link href="/search" passHref>
+          <Button
+            as="a"
+            variant="outline"
+            colorScheme="gray"
+            color="gray.700"
+            fontStyle="italic"
+            fontWeight="light"
+            width={{ base: "100%", md: "unset" }}
+            justifyContent="space-between"
+          >
+            {searchText}
+            <Icon as={SlMagnifier} ml="2" />
+          </Button>
+        </Link>
+      </Flex>
+      <Filters
+        brands={brands}
+        currentBrand={brand}
+        imageTechnologies={imageTechnologies}
+        currentImageTechnologies={imageTechnology}
+        prices={prices}
+      />
+      <Grid
+        flex="1"
+        gridTemplateColumns={{
+          base: "repeat(1, minmax(0, 1fr))",
+          sm: "repeat(2, minmax(0, 1fr))",
+          lg: "repeat(3, minmax(0, 1fr))",
+        }}
+        rowGap={16}
+        columnGap={4}
+        mb="4"
+      >
+        {children}
+      </Grid>
+      {noResults && (
+        <Flex justifyContent="center" alignItems="center" h="400px">
+          <VStack>
+            <Text>No se encuentran televisiones con estos filtros</Text>
             <Button
-              as="a"
-              variant="outline"
               colorScheme="gray"
-              color="gray.700"
-              fontStyle="italic"
-              fontWeight="light"
-              width={{ base: "100%", md: "unset" }}
-              justifyContent="space-between"
+              onClick={() => router.replace("/", undefined)}
+              leftIcon={<AiOutlineClear />}
             >
-              {searchText}
-              <Icon as={SlMagnifier} ml="2" />
+              Limpiar filtros
             </Button>
-          </Link>
+          </VStack>
         </Flex>
-        <Filters
-          brands={brands}
-          currentBrand={brand}
-          imageTechnologies={imageTechnologies}
-          currentImageTechnologies={imageTechnology}
-          prices={prices}
-        />
-        <Grid
-          flex="1"
-          gridTemplateColumns={{
-            base: "repeat(1, minmax(0, 1fr))",
-            sm: "repeat(2, minmax(0, 1fr))",
-            lg: "repeat(3, minmax(0, 1fr))",
-          }}
-          rowGap={16}
-          columnGap={4}
-          mb="4"
-        >
-          {children}
-        </Grid>
-        {noResults && (
-          <Flex justifyContent="center" alignItems="center" h="400px">
-            <VStack>
-              <Text>No se encuentran televisiones con estos filtros</Text>
-              <Button
-                colorScheme="gray"
-                onClick={() => router.replace("/", undefined)}
-                leftIcon={<AiOutlineClear />}
-              >
-                Limpiar filtros
-              </Button>
-            </VStack>
-          </Flex>
-        )}
-        <Paginator
-          currentPage={currentPage}
-          totalPages={numberOfPages}
-          onNavigate={handleNavigate}
-        />
-      </Main>
-    </Layout>
+      )}
+      <Paginator
+        currentPage={currentPage}
+        totalPages={numberOfPages}
+        onNavigate={handleNavigate}
+      />
+    </Main>
   );
 };
 

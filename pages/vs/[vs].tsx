@@ -1,7 +1,6 @@
 import TvProvider from "../../components/tv/tvs-provider";
 import Comparator from "../../components/comparator/comparator";
 import Navbar from "../../components/comparator/navbar";
-import Layout from "../../components/layout/layout";
 import Main from "../../components/layout/main";
 import { GetStaticProps } from "next";
 import getTv from "../../graphql/get-tv";
@@ -36,13 +35,11 @@ const ComparatorPage = ({ tvs }: { tvs: [TV, TV] }) => {
   return (
     <TvProvider value={tvs}>
       <ComparatorHead />
-      <Layout>
-        <Navbar />
-        <Main>
-          <ComparatorHero />
-          <Comparator />
-        </Main>
-      </Layout>
+      <Navbar />
+      <Main>
+        <ComparatorHero />
+        <Comparator />
+      </Main>
     </TvProvider>
   );
 };

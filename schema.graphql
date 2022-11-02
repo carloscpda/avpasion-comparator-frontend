@@ -353,6 +353,30 @@ input ComponentGeneralBrandInput {
   serie: ID
 }
 
+type ComponentHelpArticleSubsection {
+  articles(
+    filters: ExternalSiteFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): ExternalSiteRelationResponseCollection
+  id: ID!
+  title: String!
+}
+
+input ComponentHelpArticleSubsectionFiltersInput {
+  and: [ComponentHelpArticleSubsectionFiltersInput]
+  articles: ExternalSiteFiltersInput
+  not: ComponentHelpArticleSubsectionFiltersInput
+  or: [ComponentHelpArticleSubsectionFiltersInput]
+  title: StringFilterInput
+}
+
+input ComponentHelpArticleSubsectionInput {
+  articles: [ID]
+  id: ID
+  title: String
+}
+
 type ComponentImageBacklightAndContrast {
   backlightType: BacklightTypeEntityResponse
   brightness: Int
@@ -1304,6 +1328,7 @@ union GenericMorph =
   | ComponentConnectionConnection
   | ComponentDesignDimensions
   | ComponentGeneralBrand
+  | ComponentHelpArticleSubsection
   | ComponentImageBacklightAndContrast
   | ComponentImageColorimetry
   | ComponentImageCrystal
@@ -1329,6 +1354,7 @@ union GenericMorph =
   | ExtraFeature
   | GamingTechnology
   | HdrTechnology
+  | HelpArticlesSection
   | I18NLocale
   | ImageProcessor
   | ImageTechnology
@@ -1396,6 +1422,49 @@ input HdrTechnologyInput {
 
 type HdrTechnologyRelationResponseCollection {
   data: [HdrTechnologyEntity!]!
+}
+
+type HelpArticlesSection {
+  createdAt: DateTime
+  section1: ComponentHelpArticleSubsection!
+  section2: ComponentHelpArticleSubsection!
+  section3: ComponentHelpArticleSubsection!
+  updatedAt: DateTime
+}
+
+type HelpArticlesSectionEntity {
+  attributes: HelpArticlesSection
+  id: ID
+}
+
+type HelpArticlesSectionEntityResponse {
+  data: HelpArticlesSectionEntity
+}
+
+type HelpArticlesSectionEntityResponseCollection {
+  data: [HelpArticlesSectionEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+input HelpArticlesSectionFiltersInput {
+  and: [HelpArticlesSectionFiltersInput]
+  createdAt: DateTimeFilterInput
+  not: HelpArticlesSectionFiltersInput
+  or: [HelpArticlesSectionFiltersInput]
+  section1: ComponentHelpArticleSubsectionFiltersInput
+  section2: ComponentHelpArticleSubsectionFiltersInput
+  section3: ComponentHelpArticleSubsectionFiltersInput
+  updatedAt: DateTimeFilterInput
+}
+
+input HelpArticlesSectionInput {
+  section1: ComponentHelpArticleSubsectionInput
+  section2: ComponentHelpArticleSubsectionInput
+  section3: ComponentHelpArticleSubsectionInput
+}
+
+type HelpArticlesSectionRelationResponseCollection {
+  data: [HelpArticlesSectionEntity!]!
 }
 
 type I18NLocale {
@@ -1894,6 +1963,7 @@ type Mutation {
   deleteExtraFeature(id: ID!): ExtraFeatureEntityResponse
   deleteGamingTechnology(id: ID!): GamingTechnologyEntityResponse
   deleteHdrTechnology(id: ID!): HdrTechnologyEntityResponse
+  deleteHelpArticlesSection: HelpArticlesSectionEntityResponse
   deleteImageProcessor(id: ID!): ImageProcessorEntityResponse
   deleteImageTechnology(id: ID!): ImageTechnologyEntityResponse
   deleteLightingType(id: ID!): LightingTypeEntityResponse
@@ -2003,6 +2073,9 @@ type Mutation {
     data: HdrTechnologyInput!
     id: ID!
   ): HdrTechnologyEntityResponse
+  updateHelpArticlesSection(
+    data: HelpArticlesSectionInput!
+  ): HelpArticlesSectionEntityResponse
   updateImageProcessor(
     data: ImageProcessorInput!
     id: ID!
@@ -2401,6 +2474,7 @@ type Query {
     sort: [String] = []
   ): HdrTechnologyEntityResponseCollection
   hdrTechnology(id: ID): HdrTechnologyEntityResponse
+  helpArticlesSection: HelpArticlesSectionEntityResponse
   i18NLocale(id: ID): I18NLocaleEntityResponse
   i18NLocales(
     filters: I18NLocaleFiltersInput

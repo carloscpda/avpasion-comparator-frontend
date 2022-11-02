@@ -1,4 +1,4 @@
-import { Box, Grid, Heading, Spinner } from "@chakra-ui/react";
+import { Box, Grid, Heading } from "@chakra-ui/react";
 import { Review } from "../../../models/review";
 import ReviewCard from "../../reviews/review";
 
