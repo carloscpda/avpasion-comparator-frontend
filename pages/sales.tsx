@@ -29,33 +29,19 @@ export const getServerSideProps: GetServerSideProps = async ({
   const helpArticles = await getHelpArticlesProps();
 
   const {
+    page,
     brands,
     imageTechnologies,
-    prices,
-    page,
-    offset,
-    brand,
-    imageTechnology,
-    sizeGreatherThan,
-    sizeLessThan,
-    minPrice,
-    maxPrice,
-    minScore,
     cableConnections,
+    prices,
     currentCableConnections,
+    ...filters
   } = await getSearchFilters({ query });
 
   const { data: sales, meta } = await searchSales({
+    ...filters,
     page,
-    offset,
-    sizeGreatherThan,
-    sizeLessThan,
-    minPrice,
-    maxPrice,
-    minScore,
-    brand,
     cableConnections: currentCableConnections,
-    imageTechnology,
   });
 
   // 1 hour
@@ -71,10 +57,8 @@ export const getServerSideProps: GetServerSideProps = async ({
       numberOfPages: meta?.pagination.pageCount,
       currentPage: page,
       brands,
-      cableConnections,
-      brand: brand || null,
       imageTechnologies,
-      imageTechnology: imageTechnology || null,
+      cableConnections,
       prices,
     },
   };

@@ -7,7 +7,7 @@ const getBrands = async () => {
     fetchPolicy: "network-only",
     query: gql`
       query GetBrands {
-        brands(sort: "name:asc") {
+        brands(sort: "name:asc", pagination: { limit: -1 }) {
           data {
             id
             attributes {

@@ -14,6 +14,7 @@ const searchSales = async ({
   minPrice,
   maxPrice,
   minScore,
+  imageScore,
 }: {
   page: number;
   offset: number;
@@ -25,6 +26,7 @@ const searchSales = async ({
   minPrice?: number;
   maxPrice?: number;
   minScore?: number;
+  imageScore?: number;
 }) => {
   const { data } = await apollo.query<SearchSalesQuery>({
     fetchPolicy: "network-only",
@@ -39,6 +41,7 @@ const searchSales = async ({
       minPrice,
       maxPrice,
       minScore,
+      imageScore,
     },
     query: gql`
       ${SEARCH_TV}
@@ -53,6 +56,7 @@ const searchSales = async ({
         $minPrice: Float
         $maxPrice: Float
         $minScore: Float
+        $imageScore: Float
       ) {
         marketplaceTvs(
           pagination: { page: $page, pageSize: $offset }
@@ -71,7 +75,10 @@ const searchSales = async ({
                 minPrice: { gte: $minPrice, lte: $maxPrice }
                 score: { gte: $minScore }
                 image: {
-                  technology: { image: { id: { in: $imageTechnology } } }
+                  and: {
+                    score: { gte: $imageScore }
+                    technology: { image: { id: { in: $imageTechnology } } }
+                  }
                 }
                 connections: {
                   cable: { type: { id: { in: $cableConnections } } }

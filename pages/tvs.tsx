@@ -32,28 +32,14 @@ export const getServerSideProps: GetServerSideProps = async ({
     imageTechnologies,
     prices,
     page,
-    offset,
-    brand,
-    imageTechnology,
-    sizeGreatherThan,
-    sizeLessThan,
-    minPrice,
-    maxPrice,
-    minScore,
     cableConnections,
     currentCableConnections,
+    ...filters
   } = await getSearchFilters({ query });
 
   const { data: tvs, meta } = await searchTvs({
+    ...filters,
     page,
-    offset,
-    brand,
-    imageTechnology,
-    sizeGreatherThan,
-    sizeLessThan,
-    minPrice,
-    maxPrice,
-    minScore,
     cableConnections: currentCableConnections,
   });
 

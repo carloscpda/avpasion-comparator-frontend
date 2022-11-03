@@ -41,6 +41,10 @@ export const getSearchFilters = async ({
   const score = (query?.score as string) || undefined;
   const minScore = score ? parseFloat(score) : undefined;
 
+  const imageScore = query?.["image-score"]
+    ? parseFloat(query["image-score"] as string)
+    : undefined;
+
   let sizeGreatherThan;
   let sizeLessThan;
   if (query?.["screen-size"]) {
@@ -65,6 +69,7 @@ export const getSearchFilters = async ({
     minPrice,
     maxPrice,
     minScore,
+    imageScore,
   };
 };
 

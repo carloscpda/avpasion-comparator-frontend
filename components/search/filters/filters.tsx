@@ -101,6 +101,13 @@ const Filters = ({
                 queryParamName="score"
                 step={0.1}
               />
+              <SliderFilter
+                name="Calidad de imagen"
+                minValue={0}
+                maxValue={10}
+                queryParamName="image-score"
+                step={0.1}
+              />
               <SelectFilter
                 data={cableConnections}
                 name="Conexiones"
