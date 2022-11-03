@@ -2,9 +2,7 @@ import {
   Button,
   FormControl,
   FormHelperText,
-  FormLabel,
   Grid,
-  Heading,
   Radio,
   RadioGroup,
   Slider,
@@ -14,7 +12,8 @@ import {
   SliderTrack,
   VStack,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { FormEventHandler, useState } from "react";
 import parseCurrency from "../../helpers/parse-currency";
 import WizardStep from "./step";
 
@@ -60,10 +59,43 @@ const distances = [
   },
 ];
 
+const distanceScreenSizeMap = {
+  "1.3": "1",
+  "1.4": "1",
+  "1.5": "1",
+  "1.6": "1",
+  "1.7": "1",
+  "1.8": "1",
+  "1.9": "1",
+  "2": "2",
+  "2.1": "2",
+  "2.2": "2",
+  "2.3": "2",
+  "2.4": "3",
+  "2.5": "3",
+  "2.6": "3",
+  "2.7": "3",
+  "2.8": "3",
+  "2.9": "4",
+  "3": "4",
+  "3.1": "4",
+  "3.2": "4",
+  "3.3": "5",
+  "3.4": "5",
+  "3.5": "5",
+  "3.6": "5",
+  "3.7": "5",
+  "3.8": "5",
+  "3.9": "5",
+  "4": "5",
+  "4.1": "5",
+  "4.2": "5",
+};
+
 const imageTechnologies = [
   {
     name: "Indiferente",
-    value: "-",
+    value: "0",
   },
   {
     name: "OLED",
@@ -75,15 +107,41 @@ const imageTechnologies = [
   },
 ];
 
+const defaultTopic = "cine";
 const defaultBudget = 1200;
 const defaultDistance = 2.5;
+const defaultImageTechnology = "1";
 
 const Wizard = () => {
+  const router = useRouter();
+  const [topic, setTopic] = useState(defaultTopic);
   const [budget, setBudget] = useState(defaultBudget);
   const [distance, setDistance] = useState(defaultDistance);
+  const [imageTechnology, setImageTechnology] = useState(
+    defaultImageTechnology
+  );
+
+  const handleFindTv: FormEventHandler = () => {
+    if (parseInt(imageTechnology, 10)) {
+      router.query["image-technology"] = imageTechnology;
+    }
+
+    if (budget !== 4000) {
+      router.query.price = ["0", budget.toString()];
+    }
+
+    router.query["screen-size"] =
+      distanceScreenSizeMap[
+        distance.toString() as keyof typeof distanceScreenSizeMap
+      ];
+
+    router.pathname = "/tvs";
+
+    router.push(router);
+  };
 
   return (
-    <FormControl as="fieldset">
+    <form onSubmit={handleFindTv}>
       <Grid
         mt="8"
         gap="4"
@@ -96,122 +154,133 @@ const Wizard = () => {
         }}
       >
         <WizardStep step={1} title="¿Para que usarás el TV principalmente?">
-          <RadioGroup defaultValue="cine" mt="4">
-            <VStack alignItems="flex-start">
-              {topics.map((topic) => (
-                <Radio
-                  key={topic.value}
-                  value={topic.value}
-                  _checked={{
-                    borderWidth: "5px",
-                    color: "white",
-                    borderColor: "red.700",
-                  }}
-                >
-                  {topic.name}
-                </Radio>
-              ))}
-            </VStack>
-          </RadioGroup>
+          <FormControl>
+            <RadioGroup defaultValue={defaultTopic} onChange={setTopic}>
+              <VStack alignItems="flex-start">
+                {topics.map((topic) => (
+                  <Radio
+                    key={topic.value}
+                    value={topic.value}
+                    _checked={{
+                      borderWidth: "5px",
+                      color: "white",
+                      borderColor: "red.700",
+                    }}
+                  >
+                    {topic.name}
+                  </Radio>
+                ))}
+              </VStack>
+            </RadioGroup>
+          </FormControl>
         </WizardStep>
         <WizardStep step={2} title=" ¿Cuál es tu presupuesto?">
-          <Slider
-            aria-label="slider-budget"
-            min={600}
-            max={4000}
-            defaultValue={defaultBudget}
-            onChange={setBudget}
-          >
-            <SliderMark
-              value={budget}
-              fontSize="xs"
-              bg="gray.100"
-              mt={budget === 4000 ? "-12" : "-8"}
-              ml={budget === 4000 ? "-5" : "-8"}
-              px="1"
-              borderRadius={4}
+          <FormControl>
+            <Slider
+              aria-label="slider-budget"
+              min={600}
+              max={4000}
+              defaultValue={defaultBudget}
+              onChange={setBudget}
             >
-              {budget === 4000 ? "Sin límite" : parseCurrency(budget)}
-            </SliderMark>
-            <SliderTrack>
-              <SliderFilledTrack />
-            </SliderTrack>
-            <SliderThumb bg="red.700" />
-          </Slider>
+              <SliderMark
+                value={budget}
+                fontSize="xs"
+                bg="gray.100"
+                mt={budget === 4000 ? "-12" : "-8"}
+                ml={budget === 4000 ? "-5" : "-8"}
+                px="1"
+                borderRadius={4}
+              >
+                {budget === 4000 ? "Sin límite" : parseCurrency(budget)}
+              </SliderMark>
+              <SliderTrack>
+                <SliderFilledTrack />
+              </SliderTrack>
+              <SliderThumb bg="red.700" />
+            </Slider>
+          </FormControl>
         </WizardStep>
         <WizardStep step={3} title="¿Desde que distancia verás la TV?">
-          <Slider
-            aria-label="distance"
-            defaultValue={defaultDistance}
-            min={1.3}
-            max={4.2}
-            step={0.1}
-            onChange={setDistance}
-          >
-            <SliderMark
-              value={distance}
-              fontSize="xs"
-              bg="gray.100"
-              mt="-8"
-              ml="-3"
-              px="1"
-              borderRadius={4}
+          <FormControl>
+            <Slider
+              aria-label="distance"
+              defaultValue={defaultDistance}
+              min={1.3}
+              max={4.2}
+              step={0.1}
+              onChange={setDistance}
             >
-              {`${distance}m`}
-            </SliderMark>
-            {distances.map((distance) => (
               <SliderMark
-                key={distance.value}
-                value={distance.value}
+                value={distance}
                 fontSize="xs"
-                mt="4"
+                bg="gray.100"
+                mt="-8"
                 ml="-3"
                 px="1"
+                borderRadius={4}
               >
-                {distance.name}
+                {`${distance}m`}
               </SliderMark>
-            ))}
-            {distances.map((distance) => (
-              <SliderMark
-                key={distance.value}
-                value={distance.value}
-                fontSize="xs"
-                bg="gray.600"
-                mt="-1.5"
-                ml="-1.5"
-                width={3}
-                height={3}
-                borderRadius="full"
-                zIndex={2}
-              />
-            ))}
-            <SliderTrack>
-              <SliderFilledTrack />
-            </SliderTrack>
-            <SliderThumb bg="red.700" zIndex={3} />
-          </Slider>
-          <FormHelperText mt="16">
-            Distancia en metros entre el sofá y el televisor
-          </FormHelperText>
+              {distances.map((distance) => (
+                <SliderMark
+                  key={distance.value}
+                  value={distance.value}
+                  fontSize="xs"
+                  mt="4"
+                  ml="-3"
+                  px="1"
+                >
+                  {distance.name}
+                </SliderMark>
+              ))}
+              {distances.map((distance) => (
+                <SliderMark
+                  key={distance.value}
+                  value={distance.value}
+                  fontSize="xs"
+                  bg="gray.600"
+                  mt="-1.5"
+                  ml="-1.5"
+                  width={3}
+                  height={3}
+                  borderRadius="full"
+                  zIndex={2}
+                />
+              ))}
+              <SliderTrack>
+                <SliderFilledTrack />
+              </SliderTrack>
+              <SliderThumb bg="red.700" zIndex={3} />
+            </Slider>
+            <FormHelperText mt="16">
+              Distancia en metros entre el sofá y el televisor
+            </FormHelperText>
+          </FormControl>
         </WizardStep>
         <WizardStep step={4} title="¿Qué tecnología buscas en tu TV?">
-          <RadioGroup defaultValue="1" mt="4">
-            <VStack alignItems="flex-start">
-              {imageTechnologies.map((tech) => (
-                <Radio
-                  key={tech.value}
-                  value={tech.value}
-                  _checked={{
-                    borderWidth: "5px",
-                    color: "white",
-                    borderColor: "red.700",
-                  }}
-                >
-                  {tech.name}
-                </Radio>
-              ))}
-            </VStack>
-          </RadioGroup>
+          <FormControl>
+            <RadioGroup
+              defaultValue={defaultImageTechnology}
+              onChange={setImageTechnology}
+            >
+              <VStack alignItems="flex-start">
+                {imageTechnologies.map((tech) => (
+                  <Radio
+                    key={tech.value}
+                    value={tech.value}
+                    _checked={{
+                      borderWidth: "5px",
+                      color: "white",
+                      borderColor: "red.700",
+                    }}
+                  >
+                    {tech.name}
+                  </Radio>
+                ))}
+              </VStack>
+            </RadioGroup>
+          </FormControl>
         </WizardStep>
         <Button
           width="min-content"
@@ -221,11 +290,12 @@ const Wizard = () => {
           _hover={{
             bg: "red.800",
           }}
+          onClick={handleFindTv}
         >
           Encontrar
         </Button>
       </Grid>
-    </FormControl>
+    </form>
   );
 };
 

@@ -17,7 +17,7 @@ const WizardStep = ({ step, title, children }: WizardStepProps) => {
       borderRadius="8"
       minHeight="244"
     >
-      <FormLabel display="flex">
+      <FormLabel display="flex" alignItems="baseline">
         <Heading as="span" fontSize="4xl" color="red.700" mr="2">
           {`${step}.`}
         </Heading>
