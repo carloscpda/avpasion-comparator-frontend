@@ -8,24 +8,24 @@ const searchTvs = async ({
   offset,
   sortBy = "score:desc,minPrice:desc",
   brand,
+  cableConnections,
   imageTechnology,
   sizeGreatherThan,
   sizeLessThan,
   minPrice,
   maxPrice,
   minScore,
-  maxScore,
 }: {
   page: number;
   offset: number;
-  brand?: string;
-  imageTechnology?: string;
+  brand?: string[];
+  cableConnections?: string[];
+  imageTechnology?: string[];
   sizeGreatherThan?: number;
   sizeLessThan?: number;
   minPrice?: number;
   maxPrice?: number;
   minScore?: number;
-  maxScore?: number;
   sortBy?: "score:desc,minPrice:desc" | "hits:desc";
 }) => {
   const { data } = await apollo.query<SearchTvsQuery>({
@@ -35,27 +35,27 @@ const searchTvs = async ({
       offset,
       sortBy,
       brand,
+      cableConnections,
       imageTechnology,
       sizeGreatherThan,
       sizeLessThan,
       minPrice,
       maxPrice,
       minScore,
-      maxScore,
     },
     query: gql`
       query SearchTvs(
         $page: Int!
         $offset: Int!
         $sortBy: [String]!
-        $brand: ID
-        $imageTechnology: ID
+        $brand: [ID]
+        $cableConnections: [ID]
+        $imageTechnology: [ID]
         $sizeGreatherThan: Float
         $sizeLessThan: Float
         $minPrice: Float
         $maxPrice: Float
         $minScore: Float
-        $maxScore: Float
       ) {
         tvs(
           pagination: { page: $page, pageSize: $offset }
@@ -65,13 +65,15 @@ const searchTvs = async ({
               general: {
                 and: {
                   screenSize: { gt: $sizeGreatherThan, lt: $sizeLessThan }
-                  brand: { serie: { brand: { id: { eq: $brand } } } }
+                  brand: { serie: { brand: { id: { in: $brand } } } }
                 }
               }
               minPrice: { gte: $minPrice, lte: $maxPrice }
-              score: { gte: $minScore, lte: $maxScore }
-              image: { technology: { image: { id: { eq: $imageTechnology } } } }
-              # connections: { cable: { type: { name: { eq: "HDMI 2.1" } } } }
+              score: { gte: $minScore }
+              image: { technology: { image: { id: { in: $imageTechnology } } } }
+              connections: {
+                cable: { type: { id: { in: $cableConnections } } }
+              }
             }
           }
         ) {

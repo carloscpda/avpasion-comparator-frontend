@@ -66,7 +66,6 @@ const ScreenSizeSelectFilter = () => {
   return (
     <SelectFilter
       data={selectData}
-      currentValue={currentSelection.toString()}
       name="Diagonal"
       queryParamName="screen-size"
     />

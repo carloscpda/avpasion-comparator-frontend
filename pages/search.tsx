@@ -39,7 +39,7 @@ const SearchPage = ({ tvs }: { tvs: FuzzySearch[] }) => {
   }, [tvs]);
 
   const handleSearch: ChangeEventHandler<HTMLInputElement> = (event) => {
-    search(fuse.search(event.target.value, { limit: 10 }));
+    search(fuse.search(event.target.value, { limit: 12 }));
   };
 
   return (

@@ -7,24 +7,24 @@ const searchSales = async ({
   page,
   offset,
   brand,
+  cableConnections,
   imageTechnology,
   sizeGreatherThan,
   sizeLessThan,
   minPrice,
   maxPrice,
   minScore,
-  maxScore,
 }: {
   page: number;
   offset: number;
-  brand?: string;
-  imageTechnology?: string;
+  brand?: string[];
+  cableConnections?: string[];
+  imageTechnology?: string[];
   sizeGreatherThan?: number;
   sizeLessThan?: number;
   minPrice?: number;
   maxPrice?: number;
   minScore?: number;
-  maxScore?: number;
 }) => {
   const { data } = await apollo.query<SearchSalesQuery>({
     fetchPolicy: "network-only",
@@ -32,27 +32,27 @@ const searchSales = async ({
       page,
       offset,
       brand,
+      cableConnections,
       imageTechnology,
       sizeGreatherThan,
       sizeLessThan,
       minPrice,
       maxPrice,
       minScore,
-      maxScore,
     },
     query: gql`
       ${SEARCH_TV}
       query SearchSales(
         $page: Int!
         $offset: Int!
-        $brand: ID
-        $imageTechnology: ID
+        $brand: [ID]
+        $imageTechnology: [ID]
+        $cableConnections: [ID]
         $sizeGreatherThan: Float
         $sizeLessThan: Float
         $minPrice: Float
         $maxPrice: Float
         $minScore: Float
-        $maxScore: Float
       ) {
         marketplaceTvs(
           pagination: { page: $page, pageSize: $offset }
@@ -65,13 +65,16 @@ const searchSales = async ({
                 general: {
                   and: {
                     screenSize: { gt: $sizeGreatherThan, lt: $sizeLessThan }
-                    brand: { serie: { brand: { id: { eq: $brand } } } }
+                    brand: { serie: { brand: { id: { in: $brand } } } }
                   }
                 }
                 minPrice: { gte: $minPrice, lte: $maxPrice }
-                score: { gte: $minScore, lte: $maxScore }
+                score: { gte: $minScore }
                 image: {
-                  technology: { image: { id: { eq: $imageTechnology } } }
+                  technology: { image: { id: { in: $imageTechnology } } }
+                }
+                connections: {
+                  cable: { type: { id: { in: $cableConnections } } }
                 }
               }
             }

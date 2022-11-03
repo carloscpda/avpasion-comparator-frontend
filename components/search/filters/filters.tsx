@@ -18,24 +18,24 @@ import { useRef } from "react";
 import { AiOutlineClear } from "react-icons/ai";
 import { IoFilter } from "react-icons/io5";
 import { BrandFilter } from "../../../models/brand-filter";
+import { CableConnectionFilter } from "../../../models/cable-connections-filter";
 import { ImageTechnology } from "../../../models/image-technology";
 import RangeSliderFilter from "./range-slider-filter";
 import ScreenSizeFilter from "./screen-size-filter";
 import SelectFilter from "./select-filter";
+import SliderFilter from "./slider-filter";
 
 type FiltersProps = {
   brands: BrandFilter[];
-  currentBrand?: BrandFilter["id"];
+  cableConnections: CableConnectionFilter[];
   imageTechnologies: ImageTechnology[];
-  currentImageTechnologies?: ImageTechnology["id"];
   prices: { minPrice: number; maxPrice: number };
 };
 
 const Filters = ({
   brands,
-  currentBrand,
+  cableConnections,
   imageTechnologies,
-  currentImageTechnologies,
   prices,
 }: FiltersProps) => {
   const router = useRouter();
@@ -45,7 +45,7 @@ const Filters = ({
   const filtersButtonRef = useRef<any>();
 
   const cleanFilters = () => {
-    router.replace("/", undefined);
+    router.replace(router.pathname, undefined);
     onClose();
   };
 
@@ -73,6 +73,7 @@ const Filters = ({
         isOpen={isOpen}
         onClose={onClose}
         finalFocusRef={filtersButtonRef}
+        size="lg"
       >
         <DrawerOverlay />
         <DrawerContent>
@@ -81,32 +82,29 @@ const Filters = ({
           <DrawerBody>
             <VStack gap="4">
               {!isDesktop && <ScreenSizeFilter.Select />}
-              <SelectFilter
-                data={brands}
-                currentValue={currentBrand}
-                name="Marca"
-                queryParamName="brand"
-              />
+              <SelectFilter data={brands} name="Marca" queryParamName="brand" />
               <SelectFilter
                 data={imageTechnologies}
-                currentValue={currentImageTechnologies}
                 name="Tecnología de imagen"
                 queryParamName="image-technology"
               />
-
               <RangeSliderFilter
                 name="Precios"
                 minValue={prices.minPrice}
                 maxValue={prices.maxPrice}
                 queryParamName="price"
               />
-
-              <RangeSliderFilter
+              <SliderFilter
                 name="Puntuación"
                 minValue={0}
                 maxValue={10}
                 queryParamName="score"
                 step={0.1}
+              />
+              <SelectFilter
+                data={cableConnections}
+                name="Conexiones"
+                queryParamName="cable"
               />
             </VStack>
           </DrawerBody>

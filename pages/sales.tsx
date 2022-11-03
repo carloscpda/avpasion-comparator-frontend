@@ -4,6 +4,7 @@ import SearchSaleItem from "../components/search/item/search-sale-item";
 import SearchTemplate from "../components/search/search-template";
 import searchSales from "../graphql/search-sales";
 import { BrandFilter } from "../models/brand-filter";
+import { CableConnectionFilter } from "../models/cable-connections-filter";
 import { ImageTechnology } from "../models/image-technology";
 import { buildPicture } from "../models/picture";
 import { SearchSale } from "../models/search-sale";
@@ -40,20 +41,21 @@ export const getServerSideProps: GetServerSideProps = async ({
     minPrice,
     maxPrice,
     minScore,
-    maxScore,
+    cableConnections,
+    currentCableConnections,
   } = await getSearchFilters({ query });
 
   const { data: sales, meta } = await searchSales({
     page,
     offset,
-    brand,
-    imageTechnology,
     sizeGreatherThan,
     sizeLessThan,
     minPrice,
     maxPrice,
     minScore,
-    maxScore,
+    brand,
+    cableConnections: currentCableConnections,
+    imageTechnology,
   });
 
   // 1 hour
@@ -69,6 +71,7 @@ export const getServerSideProps: GetServerSideProps = async ({
       numberOfPages: meta?.pagination.pageCount,
       currentPage: page,
       brands,
+      cableConnections,
       brand: brand || null,
       imageTechnologies,
       imageTechnology: imageTechnology || null,
@@ -82,18 +85,16 @@ const SearchSalesPage = ({
   currentPage,
   numberOfPages,
   brands,
-  brand,
   imageTechnologies,
-  imageTechnology,
+  cableConnections,
   prices,
 }: {
   sales: SearchSale[];
   currentPage: number;
   numberOfPages: number;
   brands: BrandFilter[];
-  brand: BrandFilter["id"];
   imageTechnologies: ImageTechnology[];
-  imageTechnology: ImageTechnology["id"];
+  cableConnections: CableConnectionFilter[];
   prices: { minPrice: number; maxPrice: number };
 }) => {
   return (
@@ -104,9 +105,8 @@ const SearchSalesPage = ({
         currentPage={currentPage}
         numberOfPages={numberOfPages}
         brands={brands}
-        brand={brand}
         imageTechnologies={imageTechnologies}
-        imageTechnology={imageTechnology}
+        cableConnections={cableConnections}
         prices={prices}
         noResults={sales.length === 0}
       >

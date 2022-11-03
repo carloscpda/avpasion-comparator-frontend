@@ -14,6 +14,7 @@ import { ReactNode, useCallback } from "react";
 import { AiOutlineClear } from "react-icons/ai";
 import { SlMagnifier } from "react-icons/sl";
 import { BrandFilter } from "../../models/brand-filter";
+import { CableConnectionFilter } from "../../models/cable-connections-filter";
 import { ImageTechnology } from "../../models/image-technology";
 import Main from "../layout/main";
 import Filters from "./filters/filters";
@@ -24,9 +25,8 @@ const SearchTemplate = ({
   currentPage,
   numberOfPages,
   brands,
-  brand,
   imageTechnologies,
-  imageTechnology,
+  cableConnections,
   prices,
   noResults,
   children,
@@ -35,9 +35,8 @@ const SearchTemplate = ({
   currentPage: number;
   numberOfPages: number;
   brands: BrandFilter[];
-  brand: BrandFilter["id"];
+  cableConnections: CableConnectionFilter[];
   imageTechnologies: ImageTechnology[];
-  imageTechnology: ImageTechnology["id"];
   prices: { minPrice: number; maxPrice: number };
   noResults: boolean;
   children: ReactNode;
@@ -83,10 +82,9 @@ const SearchTemplate = ({
       </Flex>
       <Filters
         brands={brands}
-        currentBrand={brand}
         imageTechnologies={imageTechnologies}
-        currentImageTechnologies={imageTechnology}
         prices={prices}
+        cableConnections={cableConnections}
       />
       <Grid
         flex="1"
@@ -107,7 +105,7 @@ const SearchTemplate = ({
             <Text>No se encuentran televisiones con estos filtros</Text>
             <Button
               colorScheme="gray"
-              onClick={() => router.replace("/", undefined)}
+              onClick={() => router.replace(router.pathname, undefined)}
               leftIcon={<AiOutlineClear />}
             >
               Limpiar filtros

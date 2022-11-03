@@ -1,27 +1,30 @@
-import { FormControl, FormLabel, Select } from "@chakra-ui/react";
+import { FormControl, FormLabel } from "@chakra-ui/react";
+import { MultiValue, Select } from "chakra-react-select";
 import { useRouter } from "next/router";
-import { ChangeEventHandler } from "react";
 
-type SelectFilterProps<T extends { id: string; name: string }> = {
+type Option = { id: string; name: string };
+
+type SelectFilterProps<T extends Option> = {
   data: T[];
-  currentValue?: T["id"];
   queryParamName: string;
   name: string;
 };
 
-function SelectFilter<T extends { id: string; name: string }>({
+function SelectFilter<T extends Option>({
   data,
-  currentValue,
   queryParamName,
   name,
 }: SelectFilterProps<T>) {
   const router = useRouter();
 
-  const handleChangeValue: ChangeEventHandler<HTMLSelectElement> = (event) => {
-    router.query[queryParamName] = event.target.value;
+  const handleChangeValue = (value: MultiValue<Option> | null) => {
+    router.query[queryParamName] = value?.map((v) => v.id) ?? undefined;
     router.query.page = "1";
     router.replace(router);
   };
+
+  const currentValue = router.query?.[queryParamName];
+  const value = data.filter((o) => currentValue?.includes(o.id));
 
   return (
     <FormControl>
@@ -30,17 +33,13 @@ function SelectFilter<T extends { id: string; name: string }>({
       </FormLabel>
       <Select
         placeholder="--"
-        variant="filled"
+        isMulti
         onChange={handleChangeValue}
-        value={currentValue || ""}
-        cursor="pointer"
-      >
-        {data.map((option) => (
-          <option key={option.id} value={option.id}>
-            {option.name}
-          </option>
-        ))}
-      </Select>
+        value={value}
+        getOptionLabel={(option) => option.name}
+        getOptionValue={(option) => option.id}
+        options={data}
+      />
     </FormControl>
   );
 }
