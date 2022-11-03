@@ -1,5 +1,4 @@
 import { TypographyProps } from "@chakra-ui/react";
-import React from "react";
 import { TbBoxMultiple } from "react-icons/tb";
 import Value from "../../value";
 

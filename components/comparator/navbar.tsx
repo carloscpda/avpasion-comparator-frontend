@@ -1,4 +1,4 @@
-import { HStack, Button, Heading, Link, Box } from "@chakra-ui/react";
+import { Box, Button, Heading, HStack, Link } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import { getFullName } from "../../models/tv";

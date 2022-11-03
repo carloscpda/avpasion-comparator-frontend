@@ -7,8 +7,8 @@ import {
   RangeSliderThumb,
   RangeSliderTrack,
 } from "@chakra-ui/react";
-import { useState } from "react";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 type RangeSliderFilterProps = {
   minValue: number;

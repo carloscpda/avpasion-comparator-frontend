@@ -1,5 +1,4 @@
 import { CircularProgress, CircularProgressLabel } from "@chakra-ui/react";
-import React from "react";
 import getColor from "../helpers/get-color";
 
 type ScoreProps = {

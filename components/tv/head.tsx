@@ -1,14 +1,14 @@
 /* eslint-disable @next/next/no-before-interactive-script-outside-document */
+import Head from "next/head";
+import Script from "next/script";
 import { useTvs } from "../../components/tv/tvs-provider";
+import { buildPicture } from "../../models/picture";
 import {
   getBrand,
   getModel,
   getPicture,
   getPictureDefinition,
 } from "../../models/tv";
-import Head from "next/head";
-import { buildPicture } from "../../models/picture";
-import Script from "next/script";
 
 const TVHead = ({ offerCount }: { offerCount: number }) => {
   const tv = useTvs().tvs[0];

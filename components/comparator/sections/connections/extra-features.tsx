@@ -1,4 +1,3 @@
-import React from "react";
 import { useTvs } from "../../../tv/tvs-provider";
 import Specs, { SpecsProps } from "../specs/specs";
 

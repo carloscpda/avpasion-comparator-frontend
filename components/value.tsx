@@ -1,5 +1,5 @@
-import { ReactNode } from "react";
 import { As, Box, Icon, Text, Tooltip } from "@chakra-ui/react";
+import { ReactNode } from "react";
 
 type ValueProps = {
   children: ReactNode;

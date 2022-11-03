@@ -1,19 +1,19 @@
+import { GetStaticProps } from "next";
 import { useEffect } from "react";
-import TvProvider from "../../components/tv/tvs-provider";
 import Comparator from "../../components/comparator/comparator";
 import Navbar from "../../components/comparator/navbar";
-import SerieSection from "../../components/tv/serie/serie";
 import Main from "../../components/layout/main";
-import Summary from "../../components/tv/summary/summary";
-import { GetStaticProps } from "next";
-import getTv from "../../graphql/get-tv";
-import { getComparatives, getReviews, TV } from "../../models/tv";
-import getTvSeries from "../../graphql/get-tv-series";
-import { TVSeries } from "../../models/tv-serie";
 import TVHead from "../../components/tv/head";
 import PricesSection from "../../components/tv/prices/prices";
-import getMarketplaceTvs from "../../graphql/get-marketplaces-tv";
 import ReviewsSection from "../../components/tv/reviews/reviews";
+import SerieSection from "../../components/tv/serie/serie";
+import Summary from "../../components/tv/summary/summary";
+import TvProvider from "../../components/tv/tvs-provider";
+import getMarketplaceTvs from "../../graphql/get-marketplaces-tv";
+import getTv from "../../graphql/get-tv";
+import getTvSeries from "../../graphql/get-tv-series";
+import { getComparatives, getReviews, TV } from "../../models/tv";
+import { TVSeries } from "../../models/tv-serie";
 import getHelpArticlesProps from "../../server/help-articles/get-help-articles-props";
 
 export const getStaticPaths = async () => {

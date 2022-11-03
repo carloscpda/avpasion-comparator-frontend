@@ -1,17 +1,16 @@
-import React from "react";
 import {
-  TableContainer,
   Table,
-  Thead,
-  Tr,
-  Th,
+  TableContainer,
   Tbody,
   Td,
   Text,
+  Th,
+  Thead,
+  Tr,
 } from "@chakra-ui/react";
-import SpecValue, { SpecValueProps } from "./value/value";
-import ListSpec from "./list";
 import { useTvs } from "../../../tv/tvs-provider";
+import ListSpec from "./list";
+import SpecValue, { SpecValueProps } from "./value/value";
 
 export type RowSpec = {
   type: "row";

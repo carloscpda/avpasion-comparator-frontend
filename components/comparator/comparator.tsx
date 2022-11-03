@@ -1,4 +1,3 @@
-import React from "react";
 import {
   IoColorPaletteOutline,
   IoImageOutline,
@@ -7,31 +6,31 @@ import {
   IoWifiOutline,
 } from "react-icons/io5";
 
-import Section from "./sections/section";
 import ConnectionsSection from "./sections/connections/connections";
 import DVBSection from "./sections/connections/dvb";
-import WirelessConnectionsSection from "./sections/connections/wireless-connections";
 import ExtraFeaturesSection from "./sections/connections/extra-features";
-import SpeakersSection from "./sections/sound/speakers";
-import SoundTechnologiesSection from "./sections/sound/technologies";
-import ImageTechnologySection from "./sections/image/technology";
-import ResolutionSection from "./sections/image/resolution";
-import BacklightAndContrastSection from "./sections/image/backlight-and-contrast";
-import ColorimetrySection from "./sections/image/colorimetry";
-import HDRSection from "./sections/image/hdr";
-import CrystalSection from "./sections/image/crystal";
-import ProcessingSection from "./sections/image/processing";
-import ResponseTimesSection from "./sections/image/response-times";
+import HybridTvSection from "./sections/connections/hybrid-tv";
+import WirelessConnectionsSection from "./sections/connections/wireless-connections";
+import OthersDesignSection from "./sections/design/others";
 import {
   StructureWithoutStandSection,
   StructureWithStandSection,
 } from "./sections/design/structure";
-import OthersDesignSection from "./sections/design/others";
-import OperatingSystemSection from "./sections/system/operating-system";
-import HardwareSection from "./sections/system/hardware";
+import BacklightAndContrastSection from "./sections/image/backlight-and-contrast";
+import ColorimetrySection from "./sections/image/colorimetry";
+import CrystalSection from "./sections/image/crystal";
+import HDRSection from "./sections/image/hdr";
+import ProcessingSection from "./sections/image/processing";
+import ResolutionSection from "./sections/image/resolution";
+import ResponseTimesSection from "./sections/image/response-times";
+import ImageTechnologySection from "./sections/image/technology";
+import Section from "./sections/section";
+import SpeakersSection from "./sections/sound/speakers";
+import SoundTechnologiesSection from "./sections/sound/technologies";
 import ConsumptionSection from "./sections/system/consumption";
+import HardwareSection from "./sections/system/hardware";
+import OperatingSystemSection from "./sections/system/operating-system";
 import PowerSupplySection from "./sections/system/power-supply";
-import HybridTvSection from "./sections/connections/hybrid-tv";
 
 const Comparator = () => (
   <>

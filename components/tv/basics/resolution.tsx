@@ -1,5 +1,4 @@
 import { TypographyProps } from "@chakra-ui/react";
-import React from "react";
 import { IoTvOutline } from "react-icons/io5";
 import Value from "../../value";
 

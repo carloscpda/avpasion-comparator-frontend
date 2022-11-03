@@ -1,4 +1,4 @@
-import { Box, Divider, GridItem, HStack, Text, VStack } from "@chakra-ui/react";
+import { Box, GridItem, HStack, Text, VStack } from "@chakra-ui/react";
 import Image from "next/image";
 import NextLink from "next/link";
 import { HelpArticlesSection } from "../../models/help-articles-section";

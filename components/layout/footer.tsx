@@ -1,4 +1,4 @@
-import { Box, Divider, Flex, Grid, Link, Text, Wrap } from "@chakra-ui/react";
+import { Box, Divider, Grid, Link, Text, Wrap } from "@chakra-ui/react";
 import NextLink from "next/link";
 import SocialLinks from "../social-links";
 import Center from "./center";

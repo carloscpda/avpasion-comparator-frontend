@@ -7,16 +7,16 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import Main from "../components/layout/main";
 import { GetStaticProps } from "next";
-import getBrands from "../graphql/get-brands";
-import { Brand } from "../models/brand";
 import Image from "next/image";
-import { buildPicture } from "../models/picture";
 import NextLink from "next/link";
-import getImageTechnologies from "../graphql/get-image-technologies";
-import { ImageTechnology } from "../models/image-technology";
 import GeneralHead from "../components/head";
+import Main from "../components/layout/main";
+import getBrands from "../graphql/get-brands";
+import getImageTechnologies from "../graphql/get-image-technologies";
+import { Brand } from "../models/brand";
+import { ImageTechnology } from "../models/image-technology";
+import { buildPicture } from "../models/picture";
 import getHelpArticlesProps from "../server/help-articles/get-help-articles-props";
 
 export const getStaticProps: GetStaticProps = async () => {

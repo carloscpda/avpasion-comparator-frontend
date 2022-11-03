@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Divider,
   Drawer,
@@ -14,15 +13,15 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import { useRef } from "react";
-import { IoFilter } from "react-icons/io5";
 import { AiOutlineClear } from "react-icons/ai";
+import { IoFilter } from "react-icons/io5";
 import { BrandFilter } from "../../../models/brand-filter";
 import { ImageTechnology } from "../../../models/image-technology";
-import SelectFilter from "./select-filter";
-import ScreenSizeFilter from "./screen-size-filter";
-import { useRouter } from "next/router";
 import RangeSliderFilter from "./range-slider-filter";
+import ScreenSizeFilter from "./screen-size-filter";
+import SelectFilter from "./select-filter";
 
 type FiltersProps = {
   brands: BrandFilter[];

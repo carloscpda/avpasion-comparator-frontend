@@ -1,15 +1,15 @@
 import { Box, Flex, Grid, HStack, VStack } from "@chakra-ui/react";
 import NextLink from "next/link";
-import TvPicture from "../../tv/basics/picture";
-import TvTitle from "../../tv/basics/title";
+import { ReactNode } from "react";
 import Score from "../../score";
-import TvReleaseDate from "../../tv/basics/release-date";
-import TvImageTechnology from "../../tv/basics/image-technology";
-import TvSerie from "../../tv/basics/serie";
 import TvEan from "../../tv/basics/ean";
+import TvImageTechnology from "../../tv/basics/image-technology";
+import TvPicture from "../../tv/basics/picture";
+import TvReleaseDate from "../../tv/basics/release-date";
 import TvResolution from "../../tv/basics/resolution";
 import TvScreenSize from "../../tv/basics/screen-size";
-import { ReactNode } from "react";
+import TvSerie from "../../tv/basics/serie";
+import TvTitle from "../../tv/basics/title";
 
 type SearchItemProps = {
   picture: string;

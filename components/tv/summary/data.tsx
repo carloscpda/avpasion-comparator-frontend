@@ -11,7 +11,6 @@ import {
   IoResize,
   IoTvOutline,
 } from "react-icons/io5";
-import React from "react";
 import { TV } from "../../../models/tv";
 
 type SummaryDataProps = {

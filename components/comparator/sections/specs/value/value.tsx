@@ -1,11 +1,10 @@
-import React from "react";
-import TextValue, { TextValueProps } from "./text";
 import BoolValue, { BoolValueProps } from "./bool";
 import ColorValue, { ColorValueProps } from "./color";
-import QuantityValue, { QuantityValueProps } from "./quantity";
 import EnergyEfficiencyValue, {
   EnergyEfficiencyValueProps,
 } from "./energy-efficiency";
+import QuantityValue, { QuantityValueProps } from "./quantity";
+import TextValue, { TextValueProps } from "./text";
 
 export type SpecValueProps =
   | ({ type: "text" } & TextValueProps)

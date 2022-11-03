@@ -1,5 +1,4 @@
 import React from "react";
-import { Flex } from "@chakra-ui/react";
 import Center from "./center";
 
 type MainProps = {

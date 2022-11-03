@@ -1,5 +1,4 @@
-import React from "react";
-import { ListItem, List } from "@chakra-ui/react";
+import { List, ListItem } from "@chakra-ui/react";
 import Value, { SpecValueProps } from "./value/value";
 
 type ListSpecProps = {

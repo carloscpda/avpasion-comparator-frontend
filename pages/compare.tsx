@@ -8,18 +8,17 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-
-import Main from "../components/layout/main";
-import { GetStaticProps } from "next";
-import { FuzzySearch, getPicture } from "../models/fuzzy-search-tv";
-import getFuzzySearch from "../graphql/get-fuzzy-search-tvs";
-import Fuse from "fuse.js";
-import { useMemo, useState } from "react";
 import { AsyncSelect, components, OptionProps } from "chakra-react-select";
+import Fuse from "fuse.js";
+import { GetStaticProps } from "next";
 import Link from "next/link";
-import SearchItem from "../components/search/item/search-item";
 import { useRouter } from "next/router";
+import { useMemo, useState } from "react";
 import GeneralHead from "../components/head";
+import Main from "../components/layout/main";
+import SearchItem from "../components/search/item/search-item";
+import getFuzzySearch from "../graphql/get-fuzzy-search-tvs";
+import { FuzzySearch, getPicture } from "../models/fuzzy-search-tv";
 import getHelpArticlesProps from "../server/help-articles/get-help-articles-props";
 
 export const getStaticProps: GetStaticProps = async () => {

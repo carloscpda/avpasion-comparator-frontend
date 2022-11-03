@@ -1,5 +1,4 @@
 import { Grid, GridItem } from "@chakra-ui/react";
-import React from "react";
 import { useTvs } from "../tvs-provider";
 import SummaryData from "./data";
 import SummaryPicture from "./picture";

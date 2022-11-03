@@ -5,15 +5,15 @@ import {
   InputGroup,
   InputLeftElement,
 } from "@chakra-ui/react";
-import { IoTvOutline } from "react-icons/io5";
-import Main from "../components/layout/main";
-import { GetStaticProps } from "next";
-import { FuzzySearch, getPicture } from "../models/fuzzy-search-tv";
-import getFuzzySearch from "../graphql/get-fuzzy-search-tvs";
 import Fuse from "fuse.js";
+import { GetStaticProps } from "next";
 import { ChangeEventHandler, useMemo, useState } from "react";
-import SearchTvItem from "../components/search/item/search-tv-item";
+import { IoTvOutline } from "react-icons/io5";
 import GeneralHead from "../components/head";
+import Main from "../components/layout/main";
+import SearchTvItem from "../components/search/item/search-tv-item";
+import getFuzzySearch from "../graphql/get-fuzzy-search-tvs";
+import { FuzzySearch, getPicture } from "../models/fuzzy-search-tv";
 import getHelpArticlesProps from "../server/help-articles/get-help-articles-props";
 
 export const getStaticProps: GetStaticProps = async () => {

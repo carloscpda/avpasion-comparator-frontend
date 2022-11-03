@@ -8,16 +8,16 @@ import {
   useBreakpointValue,
   VStack,
 } from "@chakra-ui/react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { ReactNode, useCallback } from "react";
+import { AiOutlineClear } from "react-icons/ai";
+import { SlMagnifier } from "react-icons/sl";
 import { BrandFilter } from "../../models/brand-filter";
 import { ImageTechnology } from "../../models/image-technology";
 import Main from "../layout/main";
-import Link from "next/link";
 import Filters from "./filters/filters";
 import Paginator from "./paginator";
-import { AiOutlineClear } from "react-icons/ai";
-import { SlMagnifier } from "react-icons/sl";
 
 const SearchTemplate = ({
   title,

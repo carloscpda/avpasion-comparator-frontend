@@ -1,4 +1,3 @@
-import React from "react";
 import { useTvs } from "../../../tv/tvs-provider";
 import { buildBoolValues } from "../specs/helpers";
 import Specs, { SpecsProps } from "../specs/specs";

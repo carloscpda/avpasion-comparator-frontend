@@ -11,7 +11,6 @@ import {
 } from "@chakra-ui/react";
 import Image from "next/image";
 import NextLink from "next/link";
-import React from "react";
 import { FaBox } from "react-icons/fa";
 import { RiTrophyLine } from "react-icons/ri";
 import { TbTool } from "react-icons/tb";

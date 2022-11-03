@@ -1,12 +1,12 @@
-import TvProvider from "../../components/tv/tvs-provider";
+import { GetStaticProps } from "next";
 import Comparator from "../../components/comparator/comparator";
+import ComparatorHead from "../../components/comparator/head";
+import ComparatorHero from "../../components/comparator/hero";
 import Navbar from "../../components/comparator/navbar";
 import Main from "../../components/layout/main";
-import { GetStaticProps } from "next";
+import TvProvider from "../../components/tv/tvs-provider";
 import getTv from "../../graphql/get-tv";
 import { TV } from "../../models/tv";
-import ComparatorHero from "../../components/comparator/hero";
-import ComparatorHead from "../../components/comparator/head";
 
 export const getStaticPaths = async () => {
   return {

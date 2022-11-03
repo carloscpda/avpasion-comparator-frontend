@@ -1,5 +1,4 @@
 import { As, Heading, Text, TypographyProps } from "@chakra-ui/react";
-import React from "react";
 
 type TvTitleProps = {
   brand?: string;

@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-before-interactive-script-outside-document */
+import Head from "next/head";
 import { useTvs } from "../../components/tv/tvs-provider";
 import {
   getBrand,
@@ -6,7 +7,6 @@ import {
   getPicture,
   getPictureDefinition,
 } from "../../models/tv";
-import Head from "next/head";
 
 const ComparatorHead = () => {
   const tv1 = useTvs().tvs[0];

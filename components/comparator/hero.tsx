@@ -1,6 +1,6 @@
 import { Grid, GridItem } from "@chakra-ui/react";
 import Image from "next/image";
-import React, { Fragment } from "react";
+import { Fragment } from "react";
 import { getFullName, getPicture } from "../../models/tv";
 import Score from "../score";
 import SummaryData from "../tv/summary/data";

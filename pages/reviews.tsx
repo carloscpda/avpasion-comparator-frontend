@@ -1,15 +1,15 @@
 import { Button, Grid, Heading, HStack, Icon } from "@chakra-ui/react";
-import Main from "../components/layout/main";
-import Paginator from "../components/search/paginator";
+import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { useCallback } from "react";
-import { GetServerSideProps } from "next";
+import { MdCompare, MdOutlineReviews } from "react-icons/md";
+import GeneralHead from "../components/head";
+import Main from "../components/layout/main";
+import ReviewCard from "../components/reviews/review";
+import Paginator from "../components/search/paginator";
+import { Enum_Externalsite_Type } from "../gql/graphql";
 import getReviews from "../graphql/get-reviews";
 import { Review } from "../models/review";
-import { MdCompare, MdOutlineReviews } from "react-icons/md";
-import { Enum_Externalsite_Type } from "../gql/graphql";
-import ReviewCard from "../components/reviews/review";
-import GeneralHead from "../components/head";
 import getHelpArticlesProps from "../server/help-articles/get-help-articles-props";
 
 const REVIEWS_PER_PAGE = 12;

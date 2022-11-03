@@ -1,5 +1,4 @@
 import { As, TypographyProps } from "@chakra-ui/react";
-import React from "react";
 import { SearchTV } from "../../../models/search-tv";
 import { TV } from "../../../models/tv";
 import TvTitle from "../basics/title";

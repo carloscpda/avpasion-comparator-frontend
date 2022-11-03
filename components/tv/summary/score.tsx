@@ -1,5 +1,4 @@
 import { useBreakpoint } from "@chakra-ui/react";
-import React from "react";
 import { TV } from "../../../models/tv";
 import Score from "../../score";
 

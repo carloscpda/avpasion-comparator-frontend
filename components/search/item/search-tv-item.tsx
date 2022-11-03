@@ -1,4 +1,4 @@
-import { Button, Tag, TagLabel, Text, VStack } from "@chakra-ui/react";
+import { Button, Text, VStack } from "@chakra-ui/react";
 import NextLink from "next/link";
 import parseCurrency from "../../../helpers/parse-currency";
 import SearchItem from "./search-item";

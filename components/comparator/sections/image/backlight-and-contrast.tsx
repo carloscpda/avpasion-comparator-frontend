@@ -1,7 +1,6 @@
-import React from "react";
 import { useTvs } from "../../../tv/tvs-provider";
-import Specs, { SpecsProps } from "../specs/specs";
 import { buildTextValues } from "../specs/helpers";
+import Specs, { SpecsProps } from "../specs/specs";
 
 const BacklightAndContrastSection = () => {
   const { tvs } = useTvs();

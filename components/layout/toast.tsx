@@ -1,6 +1,6 @@
 import { Flex } from "@chakra-ui/react";
-import Center from "./center";
 import SocialLinks from "../social-links";
+import Center from "./center";
 
 const Toast = () => {
   return (

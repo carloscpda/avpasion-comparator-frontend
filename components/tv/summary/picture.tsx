@@ -1,5 +1,5 @@
 import { Box, HStack, Icon, VStack } from "@chakra-ui/react";
-import React, { useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { SlMagnifierAdd } from "react-icons/sl";
 import ImageViewer from "react-simple-image-viewer";
 import {

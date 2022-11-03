@@ -1,14 +1,5 @@
-import {
-  Box,
-  Grid,
-  GridItem,
-  Heading,
-  Icon,
-  useBreakpoint,
-} from "@chakra-ui/react";
-import React from "react";
+import { Box, Grid, GridItem, Heading, Icon } from "@chakra-ui/react";
 import { IconType } from "react-icons";
-import getColor from "../../../helpers/get-color";
 import { TV } from "../../../models/tv";
 import Score from "../../score";
 import { useTvs } from "../../tv/tvs-provider";

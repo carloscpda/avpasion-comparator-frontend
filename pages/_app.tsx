@@ -1,13 +1,13 @@
-import type { AppProps } from "next/app";
 import { ChakraProvider } from "@chakra-ui/react";
+import type { AppProps } from "next/app";
 import GlobalHead from "../components/global-head";
+import HelpArticles from "../components/help-articles/help-articles";
+import Footer from "../components/layout/footer";
 import Layout from "../components/layout/layout";
 import useProgress from "../components/use-progress";
-import HelpArticles from "../components/help-articles/help-articles";
 import { HelpArticlesSection } from "../models/help-articles-section";
 
 import "../styles/nprogress.css";
-import Footer from "../components/layout/footer";
 
 function MyApp({
   Component,

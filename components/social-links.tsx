@@ -1,12 +1,12 @@
 import { Flex, Icon } from "@chakra-ui/react";
 import NextLink from "next/link";
+import { FaFacebookF, FaTelegramPlane } from "react-icons/fa";
 import {
   IoLogoInstagram,
   IoLogoPinterest,
   IoLogoTwitter,
   IoLogoYoutube,
 } from "react-icons/io5";
-import { FaFacebookF, FaTelegramPlane } from "react-icons/fa";
 
 const socialLinks = [
   {
