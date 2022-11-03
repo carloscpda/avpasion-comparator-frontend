@@ -55,6 +55,20 @@ export const CORE_TV = gql`
             }
           }
         }
+        lightingType {
+          data {
+            attributes {
+              name
+            }
+          }
+        }
+        creationColor {
+          data {
+            attributes {
+              name
+            }
+          }
+        }
         panelManufacturer {
           data {
             attributes {
@@ -66,6 +80,14 @@ export const CORE_TV = gql`
       backlightAndContrast {
         brightness
         contrast
+        zoneNumber
+        backlightType {
+          data {
+            attributes {
+              name
+            }
+          }
+        }
       }
       colorimetry {
         dciP3
@@ -73,13 +95,6 @@ export const CORE_TV = gql`
         rec2020
         sRGB
         colorDepth {
-          data {
-            attributes {
-              name
-            }
-          }
-        }
-        technologies {
           data {
             attributes {
               name

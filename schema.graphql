@@ -236,47 +236,6 @@ type ColorRelationResponseCollection {
   data: [ColorEntity!]!
 }
 
-type ColorimetryTechnology {
-  createdAt: DateTime
-  description: String
-  name: String!
-  updatedAt: DateTime
-}
-
-type ColorimetryTechnologyEntity {
-  attributes: ColorimetryTechnology
-  id: ID
-}
-
-type ColorimetryTechnologyEntityResponse {
-  data: ColorimetryTechnologyEntity
-}
-
-type ColorimetryTechnologyEntityResponseCollection {
-  data: [ColorimetryTechnologyEntity!]!
-  meta: ResponseCollectionMeta!
-}
-
-input ColorimetryTechnologyFiltersInput {
-  and: [ColorimetryTechnologyFiltersInput]
-  createdAt: DateTimeFilterInput
-  description: StringFilterInput
-  id: IDFilterInput
-  name: StringFilterInput
-  not: ColorimetryTechnologyFiltersInput
-  or: [ColorimetryTechnologyFiltersInput]
-  updatedAt: DateTimeFilterInput
-}
-
-input ColorimetryTechnologyInput {
-  description: String
-  name: String
-}
-
-type ColorimetryTechnologyRelationResponseCollection {
-  data: [ColorimetryTechnologyEntity!]!
-}
-
 type ComponentConnectionConnection {
   connectionTechnologies(
     filters: ConnectionTechnologyFiltersInput
@@ -410,11 +369,6 @@ type ComponentImageColorimetry {
   rec709: Float
   rec2020: Float
   sRGB: Float
-  technologies(
-    filters: ColorimetryTechnologyFiltersInput
-    pagination: PaginationArg = {}
-    sort: [String] = []
-  ): ColorimetryTechnologyRelationResponseCollection
 }
 
 input ComponentImageColorimetryFiltersInput {
@@ -426,7 +380,6 @@ input ComponentImageColorimetryFiltersInput {
   rec709: FloatFilterInput
   rec2020: FloatFilterInput
   sRGB: FloatFilterInput
-  technologies: ColorimetryTechnologyFiltersInput
 }
 
 input ComponentImageColorimetryInput {
@@ -436,7 +389,6 @@ input ComponentImageColorimetryInput {
   rec709: Float
   rec2020: Float
   sRGB: Float
-  technologies: [ID]
 }
 
 type ComponentImageCrystal {
@@ -1324,7 +1276,6 @@ union GenericMorph =
   | Color
   | ColorCreation
   | ColorDepth
-  | ColorimetryTechnology
   | ComponentConnectionConnection
   | ComponentDesignDimensions
   | ComponentGeneralBrand
@@ -1880,9 +1831,6 @@ type Mutation {
   createColor(data: ColorInput!): ColorEntityResponse
   createColorCreation(data: ColorCreationInput!): ColorCreationEntityResponse
   createColorDepth(data: ColorDepthInput!): ColorDepthEntityResponse
-  createColorimetryTechnology(
-    data: ColorimetryTechnologyInput!
-  ): ColorimetryTechnologyEntityResponse
   createConnection(data: ConnectionInput!): ConnectionEntityResponse
   createConnectionTechnology(
     data: ConnectionTechnologyInput!
@@ -1954,7 +1902,6 @@ type Mutation {
   deleteColor(id: ID!): ColorEntityResponse
   deleteColorCreation(id: ID!): ColorCreationEntityResponse
   deleteColorDepth(id: ID!): ColorDepthEntityResponse
-  deleteColorimetryTechnology(id: ID!): ColorimetryTechnologyEntityResponse
   deleteConnection(id: ID!): ConnectionEntityResponse
   deleteConnectionTechnology(id: ID!): ConnectionTechnologyEntityResponse
   deleteConnectionType(id: ID!): ConnectionTypeEntityResponse
@@ -2042,10 +1989,6 @@ type Mutation {
     id: ID!
   ): ColorCreationEntityResponse
   updateColorDepth(data: ColorDepthInput!, id: ID!): ColorDepthEntityResponse
-  updateColorimetryTechnology(
-    data: ColorimetryTechnologyInput!
-    id: ID!
-  ): ColorimetryTechnologyEntityResponse
   updateConnection(data: ConnectionInput!, id: ID!): ConnectionEntityResponse
   updateConnectionTechnology(
     data: ConnectionTechnologyInput!
@@ -2415,12 +2358,6 @@ type Query {
     pagination: PaginationArg = {}
     sort: [String] = []
   ): ColorDepthEntityResponseCollection
-  colorimetryTechnologies(
-    filters: ColorimetryTechnologyFiltersInput
-    pagination: PaginationArg = {}
-    sort: [String] = []
-  ): ColorimetryTechnologyEntityResponseCollection
-  colorimetryTechnology(id: ID): ColorimetryTechnologyEntityResponse
   colors(
     filters: ColorFiltersInput
     pagination: PaginationArg = {}

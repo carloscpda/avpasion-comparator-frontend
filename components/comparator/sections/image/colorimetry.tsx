@@ -43,20 +43,6 @@ const ColorimetrySection = () => {
     }),
   });
 
-  specs.push({
-    type: "list",
-    label: "Tecnologías",
-    value: tvs.reduce(
-      (acc, tv) => ({
-        ...acc,
-        [tv.slug as string]: tv.image?.colorimetry?.technologies?.data.map(
-          (tech) => ({ type: "text", value: tech?.attributes?.name })
-        ),
-      }),
-      {}
-    ),
-  });
-
   return <Specs title="Colorimetría" data={specs} />;
 };
 

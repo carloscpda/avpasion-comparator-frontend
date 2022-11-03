@@ -27,6 +27,24 @@ const ImageTechnologySection = () => {
 
   specs.push({
     type: "row",
+    label: "Tipo de iluminación",
+    value: buildTextValues(
+      tvs,
+      ({ image }) => image?.technology?.lightingType?.data?.attributes?.name
+    ),
+  });
+
+  specs.push({
+    type: "row",
+    label: "Forma de creación de color",
+    value: buildTextValues(
+      tvs,
+      ({ image }) => image?.technology?.creationColor?.data?.attributes?.name
+    ),
+  });
+
+  specs.push({
+    type: "row",
     label: "Fabricante",
     value: buildTextValues(
       tvs,

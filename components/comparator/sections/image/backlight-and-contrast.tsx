@@ -9,6 +9,24 @@ const BacklightAndContrastSection = () => {
 
   specs.push({
     type: "row",
+    label: "Iluminación de fondo",
+    value: buildTextValues(
+      tvs,
+      ({ image }) =>
+        image?.backlightAndContrast?.backlightType?.data?.attributes?.name
+    ),
+  });
+
+  specs.push({
+    type: "row",
+    label: "Número de zonas",
+    value: buildTextValues(tvs, ({ image }) =>
+      image?.backlightAndContrast?.zoneNumber?.toString()
+    ),
+  });
+
+  specs.push({
+    type: "row",
     label: "Contraste",
     value: buildTextValues(tvs, ({ image }) => {
       const contrast = image?.backlightAndContrast?.contrast;
