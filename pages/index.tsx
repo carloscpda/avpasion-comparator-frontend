@@ -60,6 +60,7 @@ const IndexPage = ({
       <GeneralHead slug="" title="Inicio" />
       <Heading>Encuentra tu televisor</Heading>
       <Wizard />
+      <div id="ssm_ctv_leaderboard_grids" />
       <SectionTitle
         mt="16"
         title="Televisiones con más interés"
@@ -96,6 +97,7 @@ const IndexPage = ({
           />
         ))}
       </Grid>
+      <div id="ssm_ctv_roba1_pdp" />
       <SectionTitle
         mt="16"
         title="Mejores ofertas"

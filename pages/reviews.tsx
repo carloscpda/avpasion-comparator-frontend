@@ -103,6 +103,7 @@ const ReviewsPage = ({
           Comparativas
         </Button>
       </HStack>
+      <div id="ssm_ctv_leaderboard_grids" />
       <Grid
         flex="1"
         gridTemplateColumns={{

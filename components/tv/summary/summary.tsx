@@ -46,11 +46,10 @@ const Summary = () => {
         <SummaryData tv={tv} />
       </GridItem>
       <GridItem
-        justifySelf="flex-end"
-        alignSelf="flex-start"
-        gridColumn={{ md: "3" }}
-        gridRow={{ md: "1" }}
-      ></GridItem>
+        id="ssm_ctv_leaderboard_pdp"
+        gridColumn={{ lg: "3" }}
+        gridRow={{ lg: "1 / span 2" }}
+      />
     </Grid>
   );
 };

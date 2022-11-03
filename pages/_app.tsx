@@ -21,6 +21,7 @@ function MyApp({
       <ChakraProvider>
         <Layout>
           <Component {...pageProps} />
+          <div id="ssm_ctv_footer_grids" />
           {!!pageProps.helpArticles && (
             <HelpArticles {...pageProps.helpArticles} />
           )}

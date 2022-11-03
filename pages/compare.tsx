@@ -81,6 +81,7 @@ const ComparePage = ({ tvs }: { tvs: FuzzySearch[] }) => {
     <Main>
       <GeneralHead slug="compare" title="Comparar" />
       <Heading>Comparar</Heading>
+      <div id="ssm_ctv_leaderboard_grids" />
       <VStack
         flexDirection={{ base: "column", md: "row" }}
         height={{ md: "600px" }}

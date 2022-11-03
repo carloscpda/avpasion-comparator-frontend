@@ -20,6 +20,7 @@ const ComparatorHero = () => {
         md: `repeat(${tvs.length + 1}, minmax(0, 1fr))`,
       }}
     >
+      <GridItem id="ssm_ctv_leaderboard_pdp" gridRow={{ md: "1 / span 3" }} />
       {tvs.map((tv, index) => {
         const image = getPicture(tv);
         const gridColumn = {

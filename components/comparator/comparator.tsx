@@ -49,6 +49,7 @@ const Comparator = () => (
       <ProcessingSection />
       <ResponseTimesSection />
     </Section>
+    <div id="ssm_ctv_roba1_pdp" />
     <Section
       id="sound"
       title="Sonido"
@@ -58,6 +59,7 @@ const Comparator = () => (
       <SpeakersSection />
       <SoundTechnologiesSection />
     </Section>
+    <div id="ssm_ctv_roba2_pdp" />
     <Section
       id="connectivity"
       title="Conexión"
@@ -70,6 +72,7 @@ const Comparator = () => (
       <WirelessConnectionsSection />
       <ExtraFeaturesSection />
     </Section>
+    <div id="ssm_ctv_roba3_pdp" />
     <Section
       id="design"
       title="Diseño"
@@ -80,6 +83,7 @@ const Comparator = () => (
       <StructureWithoutStandSection />
       <OthersDesignSection />
     </Section>
+    <div id="ssm_ctv_roba4_pdp" />
     <Section
       id="system"
       title="Sistema"

@@ -86,6 +86,7 @@ const SearchTemplate = ({
         prices={prices}
         cableConnections={cableConnections}
       />
+      <div id="ssm_ctv_leaderboard_grids" />
       <Grid
         flex="1"
         gridTemplateColumns={{

@@ -1,19 +1,8 @@
-import {
-  Badge,
-  Flex,
-  HStack,
-  Icon,
-  Stat,
-  StatHelpText,
-  StatLabel,
-  StatNumber,
-  VStack,
-} from "@chakra-ui/react";
+import { Badge, Flex, HStack, Icon, Text, VStack } from "@chakra-ui/react";
 import Image from "next/image";
 import NextLink from "next/link";
-import { FaBox } from "react-icons/fa";
+import { IoCheckmarkSharp, IoCloseSharp } from "react-icons/io5";
 import { RiTrophyLine } from "react-icons/ri";
-import { TbTool } from "react-icons/tb";
 import parseCurrency from "../../../helpers/parse-currency";
 import { MarketplaceTv } from "../../../models/marketplace-tv.tsx";
 import { buildPicture } from "../../../models/picture";
@@ -26,15 +15,10 @@ const MarketplacePrice = ({
   position,
   affiliateUrl,
   available,
-  reconditioned,
 }: MarketplaceTv & { position: number }) => {
-  let delivery = [];
-  if (deliveryCost || deliveryCost === 0) {
-    delivery.push(deliveryCost ? parseCurrency(deliveryCost) : "Gratis");
-  }
-  if (deliveryTime) {
-    delivery.push(deliveryTime);
-  }
+  const deliveryCostText = deliveryCost
+    ? parseCurrency(deliveryCost)
+    : "Gratis";
 
   return (
     <NextLink href={affiliateUrl || ""} passHref>
@@ -71,57 +55,44 @@ const MarketplacePrice = ({
             objectFit="contain"
             unoptimized
           />
-          <Stat display="flex" flexDir="column" justifyContent="center">
-            <StatLabel hidden>Precio</StatLabel>
-            <StatNumber display="flex" alignItems="center" gap={2}>
+          <Flex flexDirection="column">
+            <Text fontSize="2xl" fontWeight="semibold">
               {parseCurrency(price || 0)}
-            </StatNumber>
-            {!!delivery.length && (
-              <StatHelpText>{`Envío: ${delivery.join(" | ")}`}</StatHelpText>
-            )}
-          </Stat>
-        </HStack>
-        <Flex gap="1">
-          <Badge
-            colorScheme={available ? "green" : "red"}
-            size="sm"
-            gap={1}
-            borderRadius={4}
-            display="flex"
-            width="min-content"
-            alignItems="center"
-          >
-            <Icon as={FaBox} />
-            {available ? "Con stock" : "Sin stock"}
-          </Badge>
-          {reconditioned && (
-            <Badge
-              colorScheme="gray"
-              size="sm"
-              gap={1}
-              borderRadius={4}
-              display="flex"
-              width="min-content"
-              alignItems="center"
-            >
-              <Icon as={TbTool} />
-              Reacondicionado
-            </Badge>
-          )}
-          {marketplace?.data?.attributes?.paymentMethods?.data.map((method) => (
-            <Image
-              key={method.attributes?.name}
-              src={buildPicture(
-                method.attributes?.logo.data?.attributes?.url || ""
+            </Text>
+            <Flex color="gray.700" fontSize="sm">
+              <Text>
+                {`Envío: ${deliveryCostText} · `}
+                <Icon
+                  fontSize="lg"
+                  color={available ? "green" : "red"}
+                  as={available ? IoCheckmarkSharp : IoCloseSharp}
+                  transform="translateY(4px)"
+                />
+                {available ? "Con stock" : "Sin stock"}
+              </Text>
+            </Flex>
+            <Text color="gray.700" fontSize="sm">
+              {deliveryTime}
+            </Text>
+            <Flex gap="1" mt="1">
+              {marketplace?.data?.attributes?.paymentMethods?.data.map(
+                (method) => (
+                  <Image
+                    key={method.attributes?.name}
+                    src={buildPicture(
+                      `${method.attributes?.logo.data?.attributes?.url}?width=40`
+                    )}
+                    alt={method.attributes?.name || ""}
+                    height={20}
+                    width={28}
+                    objectFit="contain"
+                    unoptimized
+                  />
+                )
               )}
-              alt={method.attributes?.name || ""}
-              height={20}
-              width={28}
-              objectFit="contain"
-              unoptimized
-            />
-          ))}
-        </Flex>
+            </Flex>
+          </Flex>
+        </HStack>
         <HStack position="absolute" mr={4} top="-3" right="3">
           {position === 1 && (
             <Badge
