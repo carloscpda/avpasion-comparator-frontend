@@ -1,6 +1,7 @@
-import { Box, Grid, Heading } from "@chakra-ui/react";
+import { Box, Grid } from "@chakra-ui/react";
 import { Review } from "../../../models/review";
 import ReviewCard from "../../reviews/review";
+import SectionTitle from "../../section-title";
 
 const ReviewsSection = ({
   title,
@@ -11,15 +12,7 @@ const ReviewsSection = ({
 }) => {
   return (
     <Box mb="10">
-      <Heading
-        as="h2"
-        size="md"
-        fontWeight="extrabold"
-        textTransform="uppercase"
-        mb="4"
-      >
-        {title}
-      </Heading>
+      <SectionTitle title={title} />
       <Grid
         gap={4}
         gridTemplateColumns={{

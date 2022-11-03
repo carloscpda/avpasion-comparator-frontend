@@ -1,9 +1,12 @@
 import { GetServerSideProps } from "next";
+import GeneralHead from "../components/head";
+import SearchSaleItem from "../components/search/item/search-sale-item";
+import SearchTemplate from "../components/search/search-template";
+import searchSales from "../graphql/search-sales";
 import { BrandFilter } from "../models/brand-filter";
 import { ImageTechnology } from "../models/image-technology";
-import searchSales from "../graphql/search-sales";
-import SearchTemplate from "../components/search/search-template";
-import SearchSaleItem from "../components/search/item/search-sale-item";
+import { buildPicture } from "../models/picture";
+import { SearchSale } from "../models/search-sale";
 import {
   getBrand,
   getFullName,
@@ -15,11 +18,8 @@ import {
   getScreenSize,
   getSerie,
 } from "../models/search-tv";
-import { SearchSale } from "../models/search-sale";
-import { buildPicture } from "../models/picture";
-import GeneralHead from "../components/head";
-import getSearchFilters from "../server/search/get-search-filters";
 import getHelpArticlesProps from "../server/help-articles/get-help-articles-props";
+import getSearchFilters from "../server/search/get-search-filters";
 
 export const getServerSideProps: GetServerSideProps = async ({
   query,

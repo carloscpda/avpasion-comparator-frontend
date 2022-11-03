@@ -1,6 +1,7 @@
-import { Flex, Grid, Heading } from "@chakra-ui/react";
+import { Grid } from "@chakra-ui/react";
 import { HelpArticlesSection } from "../../models/help-articles-section";
 import Center from "../layout/center";
+import SectionTitle from "../section-title";
 import HelpArticlesSubsection from "./subsection";
 
 const HelpArticles = ({
@@ -9,17 +10,10 @@ const HelpArticles = ({
   section3,
 }: HelpArticlesSection) => {
   return (
-    <Center mt="32" direction="column">
-      <Heading
-        as="h2"
-        size="md"
-        fontWeight="extrabold"
-        textTransform="uppercase"
-        mb="4"
-      >
+    <Center mt="16" direction="column">
+      <SectionTitle title="Articulos de interés">
         Articulos de interés
-      </Heading>
-
+      </SectionTitle>
       <Grid
         gap={12}
         gridTemplateColumns={{

@@ -6,6 +6,7 @@ import { SEARCH_TV } from "./search-tv.fragment";
 const searchTvs = async ({
   page,
   offset,
+  sortBy = "score:desc,minPrice:desc",
   brand,
   imageTechnology,
   sizeGreatherThan,
@@ -25,12 +26,14 @@ const searchTvs = async ({
   maxPrice?: number;
   minScore?: number;
   maxScore?: number;
+  sortBy?: "score:desc,minPrice:desc" | "hits:desc";
 }) => {
   const { data } = await apollo.query<SearchTvsQuery>({
     fetchPolicy: "network-only",
     variables: {
       page,
       offset,
+      sortBy,
       brand,
       imageTechnology,
       sizeGreatherThan,
@@ -44,6 +47,7 @@ const searchTvs = async ({
       query SearchTvs(
         $page: Int!
         $offset: Int!
+        $sortBy: [String]!
         $brand: ID
         $imageTechnology: ID
         $sizeGreatherThan: Float
@@ -55,7 +59,7 @@ const searchTvs = async ({
       ) {
         tvs(
           pagination: { page: $page, pageSize: $offset }
-          sort: "score:desc,minPrice:desc"
+          sort: $sortBy
           filters: {
             and: {
               general: {

@@ -1,6 +1,6 @@
-import { Box, Heading, Wrap } from "@chakra-ui/react";
-import React from "react";
+import { Box, Wrap } from "@chakra-ui/react";
 import { TVSeries } from "../../../models/tv-serie";
+import SectionTitle from "../../section-title";
 import { useTvs } from "../tvs-provider";
 import SerieTv from "./serie-tv";
 
@@ -13,15 +13,9 @@ const SerieSection = ({ tvs }: SerieSectionProps) => {
 
   return (
     <Box mb="10">
-      <Heading
-        as="h2"
-        size="md"
-        fontWeight="extrabold"
-        textTransform="uppercase"
-        mb="4"
-      >
-        {`Serie ${general?.brand?.serie?.data?.attributes?.brand?.data?.attributes?.name} ${general?.brand?.serie?.data?.attributes?.name}`}
-      </Heading>
+      <SectionTitle
+        title={`Serie ${general?.brand?.serie?.data?.attributes?.brand?.data?.attributes?.name} ${general?.brand?.serie?.data?.attributes?.name}`}
+      />
       <Wrap>
         {tvs.map((tv) => (
           <SerieTv
