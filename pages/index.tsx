@@ -3,6 +3,7 @@ import Main from "../components/layout/main";
 import GeneralHead from "../components/head";
 import { GetServerSideProps } from "next";
 import getHelpArticlesProps from "../server/help-articles/get-help-articles-props";
+import Wizard from "../components/wizard/wizard";
 
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   const helpArticles = await getHelpArticlesProps();
@@ -24,8 +25,8 @@ const IndexPage = () => {
   return (
     <Main>
       <GeneralHead slug="" title="Inicio" />
-      <Heading>Todos los televisores</Heading>
-      Work in progres..
+      <Heading>Encuentra tu televisor</Heading>
+      <Wizard />
     </Main>
   );
 };

@@ -67,6 +67,7 @@ const searchTvs = async ({
               minPrice: { gte: $minPrice, lte: $maxPrice }
               score: { gte: $minScore, lte: $maxScore }
               image: { technology: { image: { id: { eq: $imageTechnology } } } }
+              # connections: { cable: { type: { name: { eq: "HDMI 2.1" } } } }
             }
           }
         ) {
