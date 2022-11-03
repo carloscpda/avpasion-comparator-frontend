@@ -16,9 +16,9 @@ import {
 } from "@chakra-ui/react";
 import Image from "next/image";
 import NextLink from "next/link";
-import { SlMagnifier } from "react-icons/sl";
+import { useRef } from "react";
 import { IoMdMenu } from "react-icons/io";
-import React, { useRef } from "react";
+import { SlMagnifier } from "react-icons/sl";
 import Center from "./center";
 
 const navbarLinks = [
@@ -69,7 +69,7 @@ const Navbar = () => {
       align="center"
       padding="1"
       position="sticky"
-      zIndex={3}
+      zIndex="sticky"
       top="0"
       bg="white"
     >
