@@ -23,7 +23,7 @@ import Center from "./center";
 
 const navbarLinks = [
   {
-    name: "Todos los Televisores",
+    name: "Inicio",
     link: "/",
   },
   {

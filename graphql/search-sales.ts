@@ -67,18 +67,14 @@ const searchSales = async ({
               absoluteDiscount: { gt: 0 }
               tv: {
                 general: {
-                  and: {
-                    screenSize: { gt: $sizeGreatherThan, lt: $sizeLessThan }
-                    brand: { serie: { brand: { id: { in: $brand } } } }
-                  }
+                  screenSize: { gt: $sizeGreatherThan, lt: $sizeLessThan }
+                  brand: { serie: { brand: { id: { in: $brand } } } }
                 }
                 minPrice: { gte: $minPrice, lte: $maxPrice }
                 score: { gte: $minScore }
                 image: {
-                  and: {
-                    score: { gte: $imageScore }
-                    technology: { image: { id: { in: $imageTechnology } } }
-                  }
+                  score: { gte: $imageScore }
+                  technology: { image: { id: { in: $imageTechnology } } }
                 }
                 connections: {
                   cable: { type: { id: { in: $cableConnections } } }

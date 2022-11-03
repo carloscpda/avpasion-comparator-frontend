@@ -30,6 +30,7 @@ const searchTvs = async ({
   imageScore?: number;
   sortBy?: "score:desc,minPrice:desc" | "hits:desc";
 }) => {
+  console.log({ brand, imageTechnology });
   const { data } = await apollo.query<SearchTvsQuery>({
     fetchPolicy: "network-only",
     variables: {
@@ -67,18 +68,14 @@ const searchTvs = async ({
           filters: {
             and: {
               general: {
-                and: {
-                  screenSize: { gt: $sizeGreatherThan, lt: $sizeLessThan }
-                  brand: { serie: { brand: { id: { in: $brand } } } }
-                }
+                screenSize: { gt: $sizeGreatherThan, lt: $sizeLessThan }
+                brand: { serie: { brand: { id: { in: $brand } } } }
               }
               minPrice: { gte: $minPrice, lte: $maxPrice }
               score: { gte: $minScore }
               image: {
-                and: {
-                  score: { gte: $imageScore }
-                  technology: { image: { id: { in: $imageTechnology } } }
-                }
+                score: { gte: $imageScore }
+                technology: { image: { id: { in: $imageTechnology } } }
               }
               connections: {
                 cable: { type: { id: { in: $cableConnections } } }
