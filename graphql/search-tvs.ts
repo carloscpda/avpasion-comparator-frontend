@@ -31,7 +31,6 @@ const searchTvs = async ({
   sortBy?: "score:desc,minPrice:desc" | "hits:desc";
 }) => {
   const { data } = await apollo.query<SearchTvsQuery>({
-    fetchPolicy: "network-only",
     variables: {
       page,
       offset,

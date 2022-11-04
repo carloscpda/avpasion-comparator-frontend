@@ -5,7 +5,6 @@ import { Review } from "../models/review";
 
 const getHelpArticles = async () => {
   const { data } = await apollo.query<GetHelpArticlesQuery>({
-    fetchPolicy: "network-only",
     query: gql`
       query GetHelpArticles {
         helpArticlesSection {

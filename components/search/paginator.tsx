@@ -22,17 +22,15 @@ const Paginator = ({ currentPage, totalPages, onNavigate }: PaginatorProps) => {
     <Flex justifyContent="flex-end">
       <Flex
         justifyContent="flex-end"
-        border="2px"
+        shadow="md"
         p={1}
         gap={1}
-        borderColor="gray.100"
         borderRadius={8}
       >
         {pages.map((page) => (
           <Button
             key={page}
             onClick={() => onNavigate(page)}
-            colorScheme="red"
             variant="ghost"
             disabled={page === currentPage}
           >

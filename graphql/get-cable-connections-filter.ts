@@ -4,7 +4,6 @@ import { GetCableConnectionsFilterQuery } from "../gql/graphql";
 
 const getCableConnectionsFilter = async () => {
   const { data } = await apollo.query<GetCableConnectionsFilterQuery>({
-    fetchPolicy: "network-only",
     query: gql`
       query GetCableConnectionsFilter {
         connectionTypes(pagination: { limit: -1 }) {

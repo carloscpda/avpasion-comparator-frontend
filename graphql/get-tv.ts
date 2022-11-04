@@ -5,7 +5,6 @@ import { CORE_TV } from "./tv.fragment";
 
 const getTv = async ({ slug }: { slug: string }) => {
   const { data } = await apollo.query<GetTvQuery>({
-    fetchPolicy: "network-only",
     variables: { slug },
     query: gql`
       ${CORE_TV}

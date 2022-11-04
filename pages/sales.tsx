@@ -17,7 +17,6 @@ import {
   getReleaseDate,
   getResolution,
   getScreenSize,
-  getSerie,
 } from "../models/search-tv";
 import getHelpArticlesProps from "../server/help-articles/get-help-articles-props";
 import getSearchFilters from "../server/search/get-search-filters";
@@ -102,13 +101,11 @@ const SearchSalesPage = ({
             picture={getPicture(sale.tv.data.attributes)}
             score={sale.tv.data.attributes.score || 0}
             brand={getBrand(sale.tv.data.attributes)}
-            ean={sale.tv.data.attributes.ean}
             imageTechnology={getImageTechnology(sale.tv.data.attributes)}
             model={getModel(sale.tv.data.attributes)}
             releaseDate={getReleaseDate(sale.tv.data.attributes)}
-            resolution={getResolution(sale.tv.data.attributes)}
+            resolutionIcon={getResolution(sale.tv.data.attributes)?.icon}
             screenSize={getScreenSize(sale.tv.data.attributes)}
-            serie={getSerie(sale.tv.data.attributes)}
             price={sale.price || 0}
             basePrice={sale.basePrice || 0}
             relativeDiscount={sale.relativeDiscount || 0}

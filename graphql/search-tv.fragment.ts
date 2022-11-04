@@ -7,7 +7,6 @@ export const SEARCH_TV = gql`
     score
     ean
     minPrice
-    maxPrice
     general {
       screenSize
       releaseDate
@@ -30,12 +29,16 @@ export const SEARCH_TV = gql`
       }
     }
     image {
-      score
       resolution {
         data {
           attributes {
-            resolution
-            alternativeName
+            icon {
+              data {
+                attributes {
+                  url
+                }
+              }
+            }
           }
         }
       }
@@ -49,12 +52,6 @@ export const SEARCH_TV = gql`
         }
       }
     }
-    sound {
-      score
-    }
-    connections {
-      score
-    }
     design {
       score
       pictures {
@@ -65,9 +62,6 @@ export const SEARCH_TV = gql`
           }
         }
       }
-    }
-    system {
-      score
     }
   }
 `;

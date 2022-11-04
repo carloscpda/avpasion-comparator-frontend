@@ -4,7 +4,6 @@ import { GetTvSeriesQuery } from "../gql/graphql";
 
 const getTvSeries = async ({ serieId }: { serieId: string }) => {
   const { data } = await apollo.query<GetTvSeriesQuery>({
-    fetchPolicy: "network-only",
     variables: { serieId },
     query: gql`
       query GetTvSeries($serieId: ID!) {

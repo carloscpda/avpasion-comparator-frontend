@@ -4,7 +4,6 @@ import { GetImageTechnologiesQuery } from "../gql/graphql";
 
 const getImageTechnologies = async () => {
   const { data } = await apollo.query<GetImageTechnologiesQuery>({
-    fetchPolicy: "network-only",
     query: gql`
       query GetImageTechnologies {
         imageTechnologies {

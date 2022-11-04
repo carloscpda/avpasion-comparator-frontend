@@ -13,7 +13,17 @@ import GeneralHead from "../components/head";
 import Main from "../components/layout/main";
 import SearchTvItem from "../components/search/item/search-tv-item";
 import getFuzzySearch from "../graphql/get-fuzzy-search-tvs";
-import { FuzzySearch, getPicture } from "../models/fuzzy-search-tv";
+import {
+  getBrand,
+  getFullName,
+  getImageTechnology,
+  getModel,
+  getPicture,
+  getReleaseDate,
+  getResolution,
+  getScreenSize,
+  SearchTV,
+} from "../models/search-tv";
 import getHelpArticlesProps from "../server/help-articles/get-help-articles-props";
 
 export const getStaticProps: GetStaticProps = async () => {
@@ -29,12 +39,18 @@ export const getStaticProps: GetStaticProps = async () => {
   };
 };
 
-const SearchPage = ({ tvs }: { tvs: FuzzySearch[] }) => {
-  const [searched, search] = useState<Fuse.FuseResult<FuzzySearch>[]>([]);
+const SearchPage = ({ tvs }: { tvs: SearchTV[] }) => {
+  const [searched, search] = useState<Fuse.FuseResult<SearchTV>[]>([]);
+  console.log(tvs[0].general?.brand?.model);
 
   const fuse = useMemo(() => {
-    return new Fuse<FuzzySearch>(tvs, {
-      keys: ["ean", "brand", "serie", "model"],
+    return new Fuse<SearchTV>(tvs, {
+      keys: [
+        "ean",
+        "general.brand.serie.data.attributes.brand.data.attributes.name",
+        "general.brand.serie.data.attributes.name",
+        "general.brand.model",
+      ],
     });
   }, [tvs]);
 
@@ -76,15 +92,19 @@ const SearchPage = ({ tvs }: { tvs: FuzzySearch[] }) => {
         >
           {searched.map(({ item: tv }) => (
             <SearchTvItem
+              isComparable
               key={tv.slug}
               slug={tv.slug || ""}
-              score={tv.score || 0}
-              brand={tv.brand}
-              model={tv.model}
-              ean={tv.ean}
-              serie={tv.serie}
-              fullName={`${tv.brand} ${tv.model}`}
+              fullName={getFullName(tv)}
               picture={getPicture(tv)}
+              score={tv.score || 0}
+              brand={getBrand(tv)}
+              imageTechnology={getImageTechnology(tv)}
+              model={getModel(tv)}
+              releaseDate={getReleaseDate(tv)}
+              resolutionIcon={getResolution(tv)?.icon}
+              screenSize={getScreenSize(tv)}
+              price={tv.minPrice || 0}
             />
           ))}
         </Grid>

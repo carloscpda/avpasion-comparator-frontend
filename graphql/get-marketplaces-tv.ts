@@ -4,7 +4,6 @@ import { GetMarketplaceTvsQuery } from "../gql/graphql";
 
 const getMarketplaceTvs = async ({ tvId }: { tvId: string }) => {
   const { data } = await apollo.query<GetMarketplaceTvsQuery>({
-    fetchPolicy: "network-only",
     variables: { tvId },
     query: gql`
       query GetMarketplaceTvs($tvId: ID!) {

@@ -29,7 +29,6 @@ const searchSales = async ({
   imageScore?: number;
 }) => {
   const { data } = await apollo.query<SearchSalesQuery>({
-    fetchPolicy: "network-only",
     variables: {
       page,
       offset,

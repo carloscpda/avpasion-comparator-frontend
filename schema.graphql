@@ -2623,8 +2623,9 @@ type ScoreWeightingRelationResponseCollection {
 }
 
 type ScreenResolution {
-  alternativeName: String
+  alternativeName: String!
   createdAt: DateTime
+  icon: UploadFileEntityResponse!
   resolution: String!
   updatedAt: DateTime
 }
@@ -2656,6 +2657,7 @@ input ScreenResolutionFiltersInput {
 
 input ScreenResolutionInput {
   alternativeName: String
+  icon: ID
   resolution: String
 }
 

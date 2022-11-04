@@ -61,10 +61,9 @@ const BrandsPage = ({
               templateColumns={"1fr 2fr"}
             >
               <Box
-                border="1px"
                 px="4"
                 py="2"
-                borderColor="gray.100"
+                shadow="md"
                 borderRadius={8}
                 gridRow={{ base: "1", sm: "1 / span 2" }}
               >

@@ -12,7 +12,6 @@ const getReviews = async ({
   type?: string;
 }) => {
   const { data } = await apollo.query<GetReviewsQuery>({
-    fetchPolicy: "network-only",
     variables: {
       page,
       offset,

@@ -13,12 +13,7 @@ type SearchSaleItemProps = {
   score: number;
   releaseDate?: string;
   imageTechnology?: string;
-  serie?: string;
-  ean?: string;
-  resolution?: {
-    resolution: string;
-    alternativeName?: string;
-  };
+  resolutionIcon?: string;
   screenSize?: number;
   price: number;
   affiliateUrl: string;
@@ -37,9 +32,7 @@ const SearchSaleItem = ({
   score,
   releaseDate,
   imageTechnology,
-  serie,
-  ean,
-  resolution,
+  resolutionIcon,
   screenSize,
   affiliateUrl,
   price,
@@ -50,6 +43,7 @@ const SearchSaleItem = ({
 }: SearchSaleItemProps) => {
   return (
     <SearchItem
+      isComparable
       slug={slug}
       picture={picture}
       fullName={fullName}
@@ -58,19 +52,15 @@ const SearchSaleItem = ({
       score={score}
       releaseDate={releaseDate}
       imageTechnology={imageTechnology}
-      serie={serie}
-      ean={ean}
-      resolution={resolution}
+      resolutionIcon={resolutionIcon}
       screenSize={screenSize}
       price={
         <VStack
           alignItems="flex-end"
-          borderRadius="8"
+          borderRadius="md"
           bg="whiteAlpha.800"
           backdropFilter="auto"
           backdropBlur="4px"
-          border="gray.100"
-          borderWidth="1px"
           spacing="0"
           p="2"
           pl="8"

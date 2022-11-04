@@ -1,5 +1,5 @@
 import { SearchTvFragment } from "../gql/graphql";
-import Picture from "./picture";
+import Picture, { buildPicture } from "./picture";
 
 export type SearchTV = SearchTvFragment & { id: string };
 
@@ -33,15 +33,18 @@ export const getPictures = (tv: SearchTV) => {
 };
 
 export const getResolution = (tv: SearchTV) => {
-  let resolution: { resolution: string; alternativeName?: string } | undefined;
+  let resolution:
+    | { resolution: string; alternativeName: string; icon: string }
+    | undefined;
   if (tv.image?.resolution?.data?.attributes?.resolution) {
     resolution = {
       resolution: tv.image.resolution.data.attributes.resolution,
+      alternativeName: tv.image?.resolution?.data?.attributes?.alternativeName,
+      icon: buildPicture(
+        tv.image?.resolution?.data?.attributes?.icon?.data?.attributes?.url ||
+          ""
+      ),
     };
-    if (tv.image?.resolution?.data?.attributes?.alternativeName) {
-      resolution.alternativeName =
-        tv.image?.resolution?.data?.attributes?.alternativeName;
-    }
   }
 
   return resolution;

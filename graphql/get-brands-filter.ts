@@ -4,7 +4,6 @@ import { GetBrandsFilterQuery } from "../gql/graphql";
 
 const getBrandsFilter = async () => {
   const { data } = await apollo.query<GetBrandsFilterQuery>({
-    fetchPolicy: "network-only",
     query: gql`
       query GetBrandsFilter {
         brands {

@@ -15,7 +15,6 @@ import {
   getReleaseDate,
   getResolution,
   getScreenSize,
-  getSerie,
   SearchTV,
 } from "../models/search-tv";
 import getHelpArticlesProps from "../server/help-articles/get-help-articles-props";
@@ -98,19 +97,18 @@ const SearchSalesPage = ({
       >
         {tvs.map((tv) => (
           <SearchTvItem
+            isComparable
             key={tv.id}
             slug={tv.slug || ""}
             fullName={getFullName(tv)}
             picture={getPicture(tv)}
             score={tv.score || 0}
             brand={getBrand(tv)}
-            ean={tv.ean}
             imageTechnology={getImageTechnology(tv)}
             model={getModel(tv)}
             releaseDate={getReleaseDate(tv)}
-            resolution={getResolution(tv)}
+            resolutionIcon={getResolution(tv)?.icon}
             screenSize={getScreenSize(tv)}
-            serie={getSerie(tv)}
             price={tv.minPrice || 0}
           />
         ))}

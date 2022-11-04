@@ -4,7 +4,6 @@ import { GetPricesQuery } from "../gql/graphql";
 
 const getPrices = async () => {
   const { data } = await apollo.query<GetPricesQuery>({
-    fetchPolicy: "network-only",
     query: gql`
       query GetPrices {
         maxPrice: tvs(sort: "minPrice:desc", pagination: { limit: 1 }) {
