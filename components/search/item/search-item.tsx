@@ -1,4 +1,4 @@
-import { Box, Flex, Grid, HStack, VStack } from "@chakra-ui/react";
+import { Box, Button, Flex, Grid, HStack, VStack } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { ReactNode } from "react";
 import Score from "../../score";
@@ -48,20 +48,25 @@ const SearchItem = ({
   buttons,
 }: SearchItemProps) => {
   return (
-    <VStack width="100%" position="relative">
+    <VStack
+      width="100%"
+      position="relative"
+      boxShadow="lg"
+      borderRadius="md"
+      p="1"
+    >
       <NextLink href={`/tv/${slug}`} passHref>
-        <Box width="100%" cursor="pointer" as="a">
+        <Box
+          width="100%"
+          cursor="pointer"
+          as="a"
+          transition="all 0.3s"
+          _hover={{ transform: "scale(1.01)" }}
+        >
           <TvPicture src={picture} alt={fullName} height={240} />
         </Box>
       </NextLink>
-      <Box
-        borderWidth="1px"
-        borderColor="gray.100"
-        borderRadius={16}
-        py="2"
-        px="4"
-        width="100%"
-      >
+      <Box py="2" px="4" width="100%">
         <Flex justifyContent="space-between" alignItems="flex-start">
           <TvTitle brand={brand} model={model} size="md" captionSize="sm" />
           <Score value={score} size={50} />
@@ -78,7 +83,20 @@ const SearchItem = ({
           {resolution && <TvResolution value={resolution} />}
           {screenSize && <TvScreenSize value={screenSize} />}
         </Grid>
-        <HStack justifyContent="flex-end">{buttons}</HStack>
+        <HStack justifyContent="flex-end">
+          <NextLink href={`/compare?tv=${slug}`} passHref>
+            <Button
+              as="a"
+              colorScheme="gray"
+              color="sale.700"
+              size="sm"
+              variant="ghost"
+            >
+              Comparar
+            </Button>
+          </NextLink>
+          {buttons}
+        </HStack>
       </Box>
       <HStack
         mt="4"

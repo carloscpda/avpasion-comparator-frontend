@@ -98,31 +98,18 @@ const SearchSaleItem = ({
         </VStack>
       }
       buttons={
-        <>
-          <NextLink href={`/vs?${slug}`} passHref>
-            <Button
-              as="a"
-              colorScheme="white"
-              color="sale.700"
-              size="sm"
-              variant="outline"
-            >
-              Comparar
-            </Button>
-          </NextLink>
-          <NextLink href={affiliateUrl} passHref>
-            <Button
-              as="a"
-              colorScheme="white"
-              bg="sale.700"
-              size="sm"
-              target="_blank"
-              rel="sponsored"
-            >
-              Ver oferta
-            </Button>
-          </NextLink>
-        </>
+        <NextLink href={affiliateUrl} passHref>
+          <Button
+            as="a"
+            colorScheme="red"
+            bg="sale.700"
+            size="sm"
+            target="_blank"
+            rel="sponsored"
+          >
+            Ver oferta
+          </Button>
+        </NextLink>
       }
     />
   );

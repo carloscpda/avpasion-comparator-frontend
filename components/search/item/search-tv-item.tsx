@@ -73,24 +73,11 @@ const SearchTvItem = ({
         )
       }
       buttons={
-        <>
-          <NextLink href={`/compare?tv=${slug}`} passHref>
-            <Button
-              as="a"
-              colorScheme="white"
-              color="sale.700"
-              size="sm"
-              variant="outline"
-            >
-              Comparar
-            </Button>
-          </NextLink>
-          <NextLink href={`/tv/${slug}`} passHref>
-            <Button as="a" colorScheme="white" bg="sale.700" size="sm">
-              Ver detalles
-            </Button>
-          </NextLink>
-        </>
+        <NextLink href={`/tv/${slug}`} passHref>
+          <Button as="a" colorScheme="red" bg="sale.700" size="sm">
+            Ver detalles
+          </Button>
+        </NextLink>
       }
     />
   );
