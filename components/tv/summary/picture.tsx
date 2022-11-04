@@ -12,8 +12,8 @@ import TvPicture from "../basics/picture";
 
 type SummaryPicturesProps = {
   tv: TV;
-  height?: number | string;
-  width?: number | string;
+  height?: number;
+  width?: number;
 };
 
 const SummaryPictures = ({ tv, height, width }: SummaryPicturesProps) => {
