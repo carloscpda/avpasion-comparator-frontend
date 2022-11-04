@@ -33,21 +33,9 @@ export const getPictures = (tv: SearchTV) => {
 };
 
 export const getResolution = (tv: SearchTV) => {
-  let resolution:
-    | { resolution: string; alternativeName: string; icon: string }
-    | undefined;
-  if (tv.image?.resolution?.data?.attributes?.resolution) {
-    resolution = {
-      resolution: tv.image.resolution.data.attributes.resolution,
-      alternativeName: tv.image?.resolution?.data?.attributes?.alternativeName,
-      icon: buildPicture(
-        tv.image?.resolution?.data?.attributes?.icon?.data?.attributes?.url ||
-          ""
-      ),
-    };
-  }
-
-  return resolution;
+  return buildPicture(
+    tv.image?.resolution?.data?.attributes?.icon?.data?.attributes?.url || ""
+  );
 };
 
 export const getScreenSize = (tv: SearchTV) => {

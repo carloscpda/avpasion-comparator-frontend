@@ -89,7 +89,7 @@ const IndexPage = ({
             imageTechnology={getImageTechnology(tv)}
             model={getModel(tv)}
             releaseDate={getReleaseDate(tv)}
-            resolutionIcon={getResolution(tv)?.icon}
+            resolutionIcon={getResolution(tv)}
             screenSize={getScreenSize(tv)}
             price={tv.minPrice || 0}
           />
@@ -124,7 +124,7 @@ const IndexPage = ({
             imageTechnology={getImageTechnology(sale.tv.data.attributes)}
             model={getModel(sale.tv.data.attributes)}
             releaseDate={getReleaseDate(sale.tv.data.attributes)}
-            resolutionIcon={getResolution(sale.tv.data.attributes)?.icon}
+            resolutionIcon={getResolution(sale.tv.data.attributes)}
             screenSize={getScreenSize(sale.tv.data.attributes)}
             price={sale.price || 0}
             basePrice={sale.basePrice || 0}

@@ -140,7 +140,7 @@ const ComparePage = ({ tvs }: { tvs: SearchTV[] }) => {
             imageTechnology={getImageTechnology(tv1)}
             model={getModel(tv1)}
             releaseDate={getReleaseDate(tv1)}
-            resolutionIcon={getResolution(tv1)?.icon}
+            resolutionIcon={getResolution(tv1)}
             screenSize={getScreenSize(tv1)}
             price={tv1.minPrice || 0}
           />
@@ -175,7 +175,7 @@ const ComparePage = ({ tvs }: { tvs: SearchTV[] }) => {
             imageTechnology={getImageTechnology(tv2)}
             model={getModel(tv2)}
             releaseDate={getReleaseDate(tv2)}
-            resolutionIcon={getResolution(tv2)?.icon}
+            resolutionIcon={getResolution(tv2)}
             screenSize={getScreenSize(tv2)}
             price={tv2.minPrice || 0}
           />

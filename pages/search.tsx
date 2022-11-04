@@ -102,7 +102,7 @@ const SearchPage = ({ tvs }: { tvs: SearchTV[] }) => {
               imageTechnology={getImageTechnology(tv)}
               model={getModel(tv)}
               releaseDate={getReleaseDate(tv)}
-              resolutionIcon={getResolution(tv)?.icon}
+              resolutionIcon={getResolution(tv)}
               screenSize={getScreenSize(tv)}
               price={tv.minPrice || 0}
             />
