@@ -30,7 +30,6 @@ const searchTvs = async ({
   imageScore?: number;
   sortBy?: "score:desc,minPrice:desc" | "hits:desc";
 }) => {
-  console.log({ brand, imageTechnology });
   const { data } = await apollo.query<SearchTvsQuery>({
     fetchPolicy: "network-only",
     variables: {

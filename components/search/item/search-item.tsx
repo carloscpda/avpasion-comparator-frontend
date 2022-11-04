@@ -51,7 +51,7 @@ const SearchItem = ({
     <VStack width="100%" position="relative">
       <NextLink href={`/tv/${slug}`} passHref>
         <Box width="100%" cursor="pointer" as="a">
-          <TvPicture src={picture} alt={fullName} />
+          <TvPicture src={picture} alt={fullName} height={240} />
         </Box>
       </NextLink>
       <Box

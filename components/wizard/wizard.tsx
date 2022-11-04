@@ -10,25 +10,42 @@ import {
   SliderMark,
   SliderThumb,
   SliderTrack,
+  useRadioGroup,
   VStack,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { FormEventHandler, useState } from "react";
+import { IoMdFootball } from "react-icons/io";
+import {
+  IoColorWandOutline,
+  IoGameControllerOutline,
+  IoPeopleOutline,
+  IoTicketOutline,
+} from "react-icons/io5";
 import parseCurrency from "../../helpers/parse-currency";
+import RadioIcon from "./radio-icon";
 import WizardStep from "./step";
 
 const topics = [
   {
     name: "General",
     value: "general",
+    icon: IoPeopleOutline,
   },
   {
     name: "Cine y series",
     value: "cine",
+    icon: IoTicketOutline,
   },
   {
     name: "Deportes",
     value: "sports",
+    icon: IoMdFootball,
+  },
+  {
+    name: "Videojuegos",
+    value: "games",
+    icon: IoGameControllerOutline,
   },
 ];
 
@@ -121,6 +138,13 @@ const Wizard = () => {
     defaultImageTechnology
   );
 
+  const { getRootProps: getTopicRootProps, getRadioProps: getTopicRadioProps } =
+    useRadioGroup({
+      name: "topic",
+      defaultValue: defaultTopic,
+      onChange: setTopic,
+    });
+
   const handleFindTv: FormEventHandler = () => {
     if (parseInt(imageTechnology, 10)) {
       router.query["image-technology"] = imageTechnology;
@@ -143,36 +167,35 @@ const Wizard = () => {
   return (
     <form onSubmit={handleFindTv}>
       <Grid
-        mt="8"
-        gap="4"
+        mt={{ base: "2", md: "8" }}
+        gap="8"
         bg="gray.50"
-        p="4"
+        p={{ base: "2", md: "4" }}
         borderRadius="8"
         gridTemplateColumns={{
           base: "repeat(1, minmax(0, 1fr))",
-          md: "repeat(2, minmax(0, 1fr))",
+          lg: "repeat(2, minmax(0, 1fr))",
         }}
       >
         <WizardStep step={1} title="¿Para que usarás el TV principalmente?">
-          <FormControl>
-            <RadioGroup defaultValue={defaultTopic} onChange={setTopic}>
-              <VStack alignItems="flex-start">
-                {topics.map((topic) => (
-                  <Radio
-                    key={topic.value}
-                    value={topic.value}
-                    _checked={{
-                      borderWidth: "5px",
-                      color: "white",
-                      borderColor: "red.700",
-                    }}
-                  >
-                    {topic.name}
-                  </Radio>
-                ))}
-              </VStack>
-            </RadioGroup>
-          </FormControl>
+          <Grid
+            gridTemplateColumns="repeat(2, minmax(0, 1fr))"
+            gap="2"
+            alignItems="flex-start"
+            {...getTopicRootProps()}
+          >
+            {topics.map((topic) => {
+              const radio = getTopicRadioProps({ value: topic.value });
+              return (
+                <RadioIcon
+                  key={topic.name}
+                  title={topic.name}
+                  icon={topic.icon}
+                  {...radio}
+                />
+              );
+            })}
+          </Grid>
         </WizardStep>
         <WizardStep step={2} title=" ¿Cuál es tu presupuesto?">
           <FormControl>
@@ -182,6 +205,7 @@ const Wizard = () => {
               max={4000}
               defaultValue={defaultBudget}
               onChange={setBudget}
+              mt="6"
             >
               <SliderMark
                 value={budget}
@@ -210,6 +234,7 @@ const Wizard = () => {
               max={4.2}
               step={0.1}
               onChange={setDistance}
+              mt="6"
             >
               <SliderMark
                 value={distance}
@@ -284,13 +309,14 @@ const Wizard = () => {
         </WizardStep>
         <Button
           width="min-content"
-          gridColumn={{ md: "2" }}
+          gridColumn={{ lg: "2" }}
           justifySelf="flex-end"
           bg="red.700"
           _hover={{
             bg: "red.800",
           }}
           onClick={handleFindTv}
+          rightIcon={<IoColorWandOutline />}
         >
           Encontrar
         </Button>

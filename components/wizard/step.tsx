@@ -12,10 +12,10 @@ const WizardStep = ({ step, title, children }: WizardStepProps) => {
     <GridItem
       display="flex"
       flexDirection="column"
-      py="4"
-      px="8"
+      py={{ base: "1", md: "4" }}
+      px={{ base: "2", md: "8" }}
       borderRadius="8"
-      minHeight="244"
+      minHeight={{ md: "244" }}
     >
       <FormLabel display="flex" alignItems="baseline">
         <Heading as="span" fontSize="4xl" color="red.700" mr="2">

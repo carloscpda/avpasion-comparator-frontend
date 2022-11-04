@@ -28,7 +28,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const tv2 = await getTv({ slug: tv2Slug });
 
   return {
-    props: { tvs: [tv1, tv2] },
+    props: {
+      helpArticles,
+      tvs: [tv1, tv2],
+    },
     revalidate: 7 * 24 * 60 * 60, // 1 week
   };
 };

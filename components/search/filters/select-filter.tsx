@@ -32,6 +32,7 @@ function SelectFilter<T extends Option>({
         {name}
       </FormLabel>
       <Select
+        instanceId={name}
         placeholder="--"
         isMulti
         onChange={handleChangeValue}

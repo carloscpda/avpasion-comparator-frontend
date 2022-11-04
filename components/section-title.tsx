@@ -15,7 +15,13 @@ const SectionTitle = ({
   ...flexProps
 }: SectionTitle) => {
   return (
-    <Flex justifyContent="space-between" mb="4" {...flexProps}>
+    <Flex
+      direction={{ base: "column", md: "row" }}
+      gap="2"
+      justifyContent="space-between"
+      mb="4"
+      {...flexProps}
+    >
       <Heading
         as="h2"
         size="md"
