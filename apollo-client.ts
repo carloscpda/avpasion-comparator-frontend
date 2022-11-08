@@ -33,7 +33,7 @@ class ApolloClient {
     ApolloClient.apollo = new ApolloClientBuild({
       link: authLink.concat(httpLink),
       cache: ApolloClient.cache,
-      name: "avpasion-nextjs-client",
+      name: `avpasion-nextjs-client-${process.env.NODE_ENV}`,
       version: "0.1.0",
       assumeImmutableResults: true,
     });
