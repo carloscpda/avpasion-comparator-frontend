@@ -1,10 +1,10 @@
 import { gql } from "@apollo/client";
-import apollo from "../apollo-client";
+import ApolloClient from "../apollo-client";
 import { CoreTvFragment, GetTvQuery } from "../gql/graphql";
 import { CORE_TV } from "./tv.fragment";
 
 const getTv = async ({ slug }: { slug: string }) => {
-  const { data } = await apollo.query<GetTvQuery>({
+  const { data } = await ApolloClient.getClient().query<GetTvQuery>({
     variables: { slug },
     query: gql`
       ${CORE_TV}

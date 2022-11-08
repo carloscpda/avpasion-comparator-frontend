@@ -1,44 +1,51 @@
 import { gql } from "@apollo/client";
-import apollo from "../apollo-client";
+import ApolloClient from "../apollo-client";
 import { GetMarketplaceTvsQuery } from "../gql/graphql";
 
 const getMarketplaceTvs = async ({ tvId }: { tvId: string }) => {
-  const { data } = await apollo.query<GetMarketplaceTvsQuery>({
-    variables: { tvId },
-    query: gql`
-      query GetMarketplaceTvs($tvId: ID!) {
-        marketplaceTvs(filters: { tv: { id: { eq: $tvId } } }) {
-          data {
-            attributes {
-              affiliateUrl
-              available
-              deliveryCost
-              deliveryTime
-              reconditioned
-              price
-              basePrice
-              absoluteDiscount
-              relativeDiscount
-              marketplace {
-                data {
-                  attributes {
-                    name
-                    color
-                    logo {
-                      data {
-                        attributes {
-                          url
+  const { data } = await ApolloClient.getClient().query<GetMarketplaceTvsQuery>(
+    {
+      variables: { tvId },
+      query: gql`
+        query GetMarketplaceTvs($tvId: ID!) {
+          marketplaceTvs(filters: { tv: { id: { eq: $tvId } } }) {
+            data {
+              id
+              attributes {
+                affiliateUrl
+                available
+                deliveryCost
+                deliveryTime
+                reconditioned
+                price
+                basePrice
+                absoluteDiscount
+                relativeDiscount
+                marketplace {
+                  data {
+                    id
+                    attributes {
+                      name
+                      color
+                      logo {
+                        data {
+                          id
+                          attributes {
+                            url
+                          }
                         }
                       }
-                    }
-                    paymentMethods {
-                      data {
-                        attributes {
-                          name
-                          logo {
-                            data {
-                              attributes {
-                                url
+                      paymentMethods {
+                        data {
+                          id
+                          attributes {
+                            name
+                            logo {
+                              data {
+                                id
+                                attributes {
+                                  url
+                                }
                               }
                             }
                           }
@@ -51,9 +58,9 @@ const getMarketplaceTvs = async ({ tvId }: { tvId: string }) => {
             }
           }
         }
-      }
-    `,
-  });
+      `,
+    }
+  );
 
   return data.marketplaceTvs?.data.map((mt) => mt.attributes);
 };

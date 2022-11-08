@@ -41,7 +41,6 @@ export const getStaticProps: GetStaticProps = async () => {
 
 const SearchPage = ({ tvs }: { tvs: SearchTV[] }) => {
   const [searched, search] = useState<Fuse.FuseResult<SearchTV>[]>([]);
-  console.log(tvs[0].general?.brand?.model);
 
   const fuse = useMemo(() => {
     return new Fuse<SearchTV>(tvs, {

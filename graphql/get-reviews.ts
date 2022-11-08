@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import apollo from "../apollo-client";
+import ApolloClient from "../apollo-client";
 import { GetReviewsQuery } from "../gql/graphql";
 
 const getReviews = async ({
@@ -11,7 +11,7 @@ const getReviews = async ({
   offset: number;
   type?: string;
 }) => {
-  const { data } = await apollo.query<GetReviewsQuery>({
+  const { data } = await ApolloClient.getClient().query<GetReviewsQuery>({
     variables: {
       page,
       offset,
@@ -30,6 +30,7 @@ const getReviews = async ({
             }
           }
           data {
+            id
             attributes {
               title
               image

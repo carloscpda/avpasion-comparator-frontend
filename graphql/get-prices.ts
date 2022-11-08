@@ -1,13 +1,14 @@
 import { gql } from "@apollo/client";
-import apollo from "../apollo-client";
+import ApolloClient from "../apollo-client";
 import { GetPricesQuery } from "../gql/graphql";
 
 const getPrices = async () => {
-  const { data } = await apollo.query<GetPricesQuery>({
+  const { data } = await ApolloClient.getClient().query<GetPricesQuery>({
     query: gql`
       query GetPrices {
         maxPrice: tvs(sort: "minPrice:desc", pagination: { limit: 1 }) {
           data {
+            id
             attributes {
               minPrice
             }
@@ -19,6 +20,7 @@ const getPrices = async () => {
           filters: { minPrice: { gt: 0 } }
         ) {
           data {
+            id
             attributes {
               minPrice
             }

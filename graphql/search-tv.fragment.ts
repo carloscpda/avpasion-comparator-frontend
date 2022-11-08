@@ -8,16 +8,20 @@ export const SEARCH_TV = gql`
     ean
     minPrice
     general {
+      id
       screenSize
       releaseDate
       brand {
+        id
         model
         serie {
           data {
+            id
             attributes {
               name
               brand {
                 data {
+                  id
                   attributes {
                     name
                   }
@@ -29,11 +33,14 @@ export const SEARCH_TV = gql`
       }
     }
     image {
+      id
       resolution {
         data {
+          id
           attributes {
             icon {
               data {
+                id
                 attributes {
                   url
                 }
@@ -43,8 +50,10 @@ export const SEARCH_TV = gql`
         }
       }
       technology {
+        id
         image {
           data {
+            id
             attributes {
               name
             }
@@ -53,9 +62,11 @@ export const SEARCH_TV = gql`
       }
     }
     design {
+      id
       score
       pictures {
         data {
+          id
           attributes {
             url
             alternativeText

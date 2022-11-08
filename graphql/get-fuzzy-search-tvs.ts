@@ -1,15 +1,16 @@
 import { gql } from "@apollo/client";
-import apollo from "../apollo-client";
+import ApolloClient from "../apollo-client";
 import { GetFuzzySearchQuery } from "../gql/graphql";
 import { SEARCH_TV } from "./search-tv.fragment";
 
 const getFuzzySearch = async () => {
-  const { data } = await apollo.query<GetFuzzySearchQuery>({
+  const { data } = await ApolloClient.getClient().query<GetFuzzySearchQuery>({
     query: gql`
       ${SEARCH_TV}
       query GetFuzzySearch {
         tvs(pagination: { limit: -1 }) {
           data {
+            id
             attributes {
               ...SearchTv
             }

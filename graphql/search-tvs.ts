@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import apollo from "../apollo-client";
+import ApolloClient from "../apollo-client";
 import { SearchTvFragment, SearchTvsQuery } from "../gql/graphql";
 import { SEARCH_TV } from "./search-tv.fragment";
 
@@ -30,7 +30,7 @@ const searchTvs = async ({
   imageScore?: number;
   sortBy?: "score:desc,minPrice:desc" | "hits:desc";
 }) => {
-  const { data } = await apollo.query<SearchTvsQuery>({
+  const { data } = await ApolloClient.getClient().query<SearchTvsQuery>({
     variables: {
       page,
       offset,

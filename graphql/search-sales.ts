@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import apollo from "../apollo-client";
+import ApolloClient from "../apollo-client";
 import { SearchSalesQuery } from "../gql/graphql";
 import { SEARCH_TV } from "./search-tv.fragment";
 
@@ -28,7 +28,7 @@ const searchSales = async ({
   minScore?: number;
   imageScore?: number;
 }) => {
-  const { data } = await apollo.query<SearchSalesQuery>({
+  const { data } = await ApolloClient.getClient().query<SearchSalesQuery>({
     variables: {
       page,
       offset,
@@ -97,9 +97,11 @@ const searchSales = async ({
               affiliateUrl
               marketplace {
                 data {
+                  id
                   attributes {
                     logo {
                       data {
+                        id
                         attributes {
                           url
                         }
@@ -110,6 +112,7 @@ const searchSales = async ({
               }
               tv {
                 data {
+                  id
                   attributes {
                     ...SearchTv
                   }

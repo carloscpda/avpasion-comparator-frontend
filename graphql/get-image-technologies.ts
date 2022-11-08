@@ -1,22 +1,23 @@
 import { gql } from "@apollo/client";
-import apollo from "../apollo-client";
+import ApolloClient from "../apollo-client";
 import { GetImageTechnologiesQuery } from "../gql/graphql";
 
 const getImageTechnologies = async () => {
-  const { data } = await apollo.query<GetImageTechnologiesQuery>({
-    query: gql`
-      query GetImageTechnologies {
-        imageTechnologies {
-          data {
-            id
-            attributes {
-              name
+  const { data } =
+    await ApolloClient.getClient().query<GetImageTechnologiesQuery>({
+      query: gql`
+        query GetImageTechnologies {
+          imageTechnologies {
+            data {
+              id
+              attributes {
+                name
+              }
             }
           }
         }
-      }
-    `,
-  });
+      `,
+    });
 
   return (
     data.imageTechnologies?.data.map((tech) => ({

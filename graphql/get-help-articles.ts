@@ -1,19 +1,22 @@
 import { gql } from "@apollo/client";
-import apollo from "../apollo-client";
+import ApolloClient from "../apollo-client";
 import { GetHelpArticlesQuery } from "../gql/graphql";
 import { Review } from "../models/review";
 
 const getHelpArticles = async () => {
-  const { data } = await apollo.query<GetHelpArticlesQuery>({
+  const { data } = await ApolloClient.getClient().query<GetHelpArticlesQuery>({
     query: gql`
       query GetHelpArticles {
         helpArticlesSection {
           data {
+            id
             attributes {
               section1 {
+                id
                 title
                 articles {
                   data {
+                    id
                     attributes {
                       title
                       image
@@ -25,9 +28,11 @@ const getHelpArticles = async () => {
                 }
               }
               section2 {
+                id
                 title
                 articles {
                   data {
+                    id
                     attributes {
                       title
                       image
@@ -39,9 +44,11 @@ const getHelpArticles = async () => {
                 }
               }
               section3 {
+                id
                 title
                 articles {
                   data {
+                    id
                     attributes {
                       title
                       image

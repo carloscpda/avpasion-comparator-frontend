@@ -1,6 +1,6 @@
 import Cors from "cors";
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
-import apollo from "../../../apollo-client";
+import ApolloClient from "../../../apollo-client";
 
 // Initializing the cors middleware
 // You can read more about the available options here: https://github.com/expressjs/cors#configuration-options
@@ -32,7 +32,7 @@ const handler: NextApiHandler = async (req, res) => {
   await runMiddleware(req, res, cors);
 
   if (req.method === "POST") {
-    await apollo.clearStore();
+    await ApolloClient.getClient().clearStore();
     res.status(200).json("Cache cleared");
   } else {
     res.status(404).json("Not found");

@@ -1,9 +1,10 @@
 import { gql } from "@apollo/client";
-import apollo from "../apollo-client";
+import ApolloClient from "../apollo-client";
+
 import { GetBrandsFilterQuery } from "../gql/graphql";
 
 const getBrandsFilter = async () => {
-  const { data } = await apollo.query<GetBrandsFilterQuery>({
+  const { data } = await ApolloClient.getClient().query<GetBrandsFilterQuery>({
     query: gql`
       query GetBrandsFilter {
         brands {
