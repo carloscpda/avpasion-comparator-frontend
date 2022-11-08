@@ -18,11 +18,13 @@ const EnergyEfficiencyValue = ({ letter }: EnergyEfficiencyValueProps) => (
   <Box
     py={0.5}
     px={2}
-    borderRadius={2}
+    pe={4}
     background={EnergyEfficiencyMap[letter]}
     width="min-content"
     color={letter && "white"}
     display="inline"
+    clipPath="polygon(70% 0, 100% 50%, 70% 100%, 0 100%, 0 0)"
+    fontWeight="semibold"
   >
     {letter || "-"}
   </Box>
