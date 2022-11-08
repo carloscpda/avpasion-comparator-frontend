@@ -61,7 +61,7 @@ const MarketplacePrice = ({
             </Text>
             <Flex color="gray.700" fontSize="sm">
               <Text>
-                {`Envío: ${deliveryCostText} · `}
+                {deliveryCost !== null && `Envío: ${deliveryCostText} · `}
                 <Icon
                   fontSize="lg"
                   color={available ? "green" : "red"}
