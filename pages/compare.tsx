@@ -97,6 +97,7 @@ const ComparePage = ({ tvs }: { tvs: SearchTV[] }) => {
   const router = useRouter();
   const fuse = useMemo(() => {
     return new Fuse<SearchTV>(tvs, {
+      threshold: 0,
       keys: [
         "ean",
         "general.brand.serie.data.attributes.brand.data.attributes.name",
