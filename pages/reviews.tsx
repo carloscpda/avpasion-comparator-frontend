@@ -1,10 +1,11 @@
-import { Button, Grid, Heading, HStack, Icon } from "@chakra-ui/react";
+import { Button, Grid, HStack, Icon } from "@chakra-ui/react";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { useCallback } from "react";
 import { MdCompare, MdOutlineReviews } from "react-icons/md";
 import GeneralHead from "../components/head";
 import Main from "../components/layout/main";
+import PageTitle from "../components/layout/page-title";
 import ReviewCard from "../components/reviews/review";
 import Paginator from "../components/search/paginator";
 import { Enum_Externalsite_Type } from "../gql/graphql";
@@ -74,7 +75,7 @@ const ReviewsPage = ({
   return (
     <Main>
       <GeneralHead slug="reviews" title="Reviews y comparativas" />
-      <Heading>Todas las reviews</Heading>
+      <PageTitle title="Todas las reviews" />
       <HStack gap="1" mt="8" justifyContent="flex-end">
         <Button
           colorScheme="gray"

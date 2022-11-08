@@ -1,22 +1,12 @@
-import {
-  Button,
-  Flex,
-  Grid,
-  Heading,
-  Icon,
-  Text,
-  useBreakpointValue,
-  VStack,
-} from "@chakra-ui/react";
-import Link from "next/link";
+import { Button, Flex, Grid, Text, VStack } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { ReactNode, useCallback } from "react";
 import { AiOutlineClear } from "react-icons/ai";
-import { SlMagnifier } from "react-icons/sl";
 import { BrandFilter } from "../../models/brand-filter";
 import { CableConnectionFilter } from "../../models/cable-connections-filter";
 import { ImageTechnology } from "../../models/image-technology";
 import Main from "../layout/main";
+import PageTitle from "../layout/page-title";
 import Filters from "./filters/filters";
 import Paginator from "./paginator";
 
@@ -41,10 +31,6 @@ const SearchTemplate = ({
   noResults: boolean;
   children: ReactNode;
 }) => {
-  const searchText = useBreakpointValue({
-    base: "Busca una TV...",
-    md: "Busca por modelo, serie, marca o EAN...",
-  });
   const router = useRouter();
 
   const handleNavigate = useCallback(
@@ -57,29 +43,7 @@ const SearchTemplate = ({
 
   return (
     <Main>
-      <Flex
-        direction={{ base: "column-reverse", md: "row" }}
-        alignItems="flex-start"
-        justifyContent="space-between"
-        gap="3"
-      >
-        <Heading>{title}</Heading>
-        <Link href="/search" passHref>
-          <Button
-            as="a"
-            variant="outline"
-            colorScheme="gray"
-            color="gray.700"
-            fontStyle="italic"
-            fontWeight="light"
-            width={{ base: "100%", md: "unset" }}
-            justifyContent="space-between"
-          >
-            {searchText}
-            <Icon as={SlMagnifier} ml="2" />
-          </Button>
-        </Link>
-      </Flex>
+      <PageTitle title={title} />
       <Filters
         brands={brands}
         imageTechnologies={imageTechnologies}

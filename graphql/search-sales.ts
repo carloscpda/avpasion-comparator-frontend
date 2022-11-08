@@ -99,6 +99,7 @@ const searchSales = async ({
                 data {
                   id
                   attributes {
+                    name
                     logo {
                       data {
                         id

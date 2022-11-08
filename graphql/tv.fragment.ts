@@ -19,6 +19,7 @@ export const CORE_TV = gql`
           data {
             id
             attributes {
+              uid
               name
               brand {
                 data {

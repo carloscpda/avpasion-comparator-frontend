@@ -74,7 +74,7 @@ const SearchItem = ({
         <Flex gap="2" my="2">
           {resolutionIcon && (
             <Image
-              src={resolutionIcon}
+              src={`${resolutionIcon}?saturation=-75&width=96`}
               alt="resolution"
               height="32"
               width="48"
@@ -117,10 +117,11 @@ const SearchItem = ({
             <NextLink href={`/compare?tv=${slug}`} passHref>
               <Button
                 as="a"
-                colorScheme="gray"
+                colorScheme="red"
                 color="sale.700"
+                borderColor="sale.700"
                 size="sm"
-                variant="ghost"
+                variant="outline"
               >
                 Comparar
               </Button>

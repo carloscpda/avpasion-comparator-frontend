@@ -27,6 +27,7 @@ const getTvSeries = async ({ serieId }: { serieId: string }) => {
                   data {
                     id
                     attributes {
+                      resolution
                       alternativeName
                     }
                   }

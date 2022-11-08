@@ -18,6 +18,7 @@ export const SEARCH_TV = gql`
           data {
             id
             attributes {
+              uid
               name
               brand {
                 data {
@@ -38,6 +39,7 @@ export const SEARCH_TV = gql`
         data {
           id
           attributes {
+            resolution
             icon {
               data {
                 id

@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  Heading,
   HStack,
   Tag,
   TagLabel,
@@ -17,6 +16,7 @@ import { useRouter } from "next/router";
 import { useMemo, useState } from "react";
 import GeneralHead from "../components/head";
 import Main from "../components/layout/main";
+import PageTitle from "../components/layout/page-title";
 import SearchTvItem from "../components/search/item/search-tv-item";
 import getFuzzySearch from "../graphql/get-fuzzy-search-tvs";
 import { buildPicture } from "../models/picture";
@@ -119,7 +119,7 @@ const ComparePage = ({ tvs }: { tvs: SearchTV[] }) => {
   return (
     <Main>
       <GeneralHead slug="compare" title="Comparar" />
-      <Heading>Comparar</Heading>
+      <PageTitle title="Comparar" />
       <div id="ssm_ctv_leaderboard_grids" />
       <VStack
         flexDirection={{ base: "column", md: "row" }}

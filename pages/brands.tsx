@@ -2,7 +2,6 @@ import {
   Box,
   Flex,
   Grid,
-  Heading,
   Link,
   StackItem,
   Text,
@@ -13,6 +12,7 @@ import Image from "next/image";
 import NextLink from "next/link";
 import GeneralHead from "../components/head";
 import Main from "../components/layout/main";
+import PageTitle from "../components/layout/page-title";
 import getBrands from "../graphql/get-brands";
 import getImageTechnologies from "../graphql/get-image-technologies";
 import { Brand } from "../models/brand";
@@ -45,7 +45,7 @@ const BrandsPage = ({
   return (
     <Main>
       <GeneralHead slug="brands" title="Marcas" />
-      <Heading>Todas las marcas</Heading>
+      <PageTitle title="Todas las marcas" />
       <Flex
         justifyContent="space-between"
         direction={{ base: "column", md: "row-reverse" }}

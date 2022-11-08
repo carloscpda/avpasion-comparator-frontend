@@ -1,7 +1,8 @@
-import { Grid, Heading } from "@chakra-ui/react";
+import { Grid } from "@chakra-ui/react";
 import { GetServerSideProps } from "next";
 import GeneralHead from "../components/head";
 import Main from "../components/layout/main";
+import PageTitle from "../components/layout/page-title";
 import SearchSaleItem from "../components/search/item/search-sale-item";
 import SearchTvItem from "../components/search/item/search-tv-item";
 import SectionTitle from "../components/section-title";
@@ -57,7 +58,7 @@ const IndexPage = ({
   return (
     <Main>
       <GeneralHead slug="" title="Inicio" />
-      <Heading>Encuentra tu televisor</Heading>
+      <PageTitle title="Encuentra tu televisor" />
       <Wizard />
       <div id="ssm_ctv_leaderboard_grids" />
       <SectionTitle

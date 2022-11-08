@@ -28,7 +28,31 @@ class ApolloClient {
       };
     });
 
-    ApolloClient.cache = new InMemoryCache();
+    ApolloClient.cache = new InMemoryCache({
+      typePolicies: {
+        ScreenResolution: {
+          keyFields: ["resolution"],
+        },
+        Tv: {
+          keyFields: ["slug"],
+        },
+        TvSerie: {
+          keyFields: ["uid"],
+        },
+        Brand: {
+          keyFields: ["name"],
+        },
+        ImageTechnology: {
+          keyFields: ["name"],
+        },
+        ConnectionType: {
+          keyFields: ["name"],
+        },
+        Marketplace: {
+          keyFields: ["name"],
+        },
+      },
+    });
 
     ApolloClient.apollo = new ApolloClientBuild({
       link: authLink.concat(httpLink),
