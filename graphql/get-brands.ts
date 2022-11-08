@@ -6,7 +6,11 @@ const getBrands = async () => {
   const { data } = await ApolloClient.getClient().query<GetBrandsQuery>({
     query: gql`
       query GetBrands {
-        brands(sort: "name:asc", pagination: { limit: -1 }) {
+        brands(
+          sort: "name:asc"
+          pagination: { limit: -1 }
+          filters: { series: { id: { notNull: true } } }
+        ) {
           data {
             id
             attributes {
