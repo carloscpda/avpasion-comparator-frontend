@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Fragment } from "react";
 import { getFullName, getPicture } from "../../models/tv";
 import Score from "../score";
+import PricesReduced from "../tv/prices/prices-reduced";
 import SummaryData from "../tv/summary/data";
 import SummaryTitle from "../tv/summary/title";
 import { useTvs } from "../tv/tvs-provider";
@@ -57,6 +58,9 @@ const ComparatorHero = () => {
             )}
             <GridItem gridRow={3} gridColumn={gridColumn}>
               <SummaryData tv={tv} size="lg" />
+            </GridItem>
+            <GridItem gridRow={4} gridColumn={gridColumn}>
+              <PricesReduced tvId={tv.id} />
             </GridItem>
           </Fragment>
         );

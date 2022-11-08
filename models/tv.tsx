@@ -2,7 +2,7 @@ import { CoreTvFragment } from "../gql/graphql";
 import Picture from "./picture";
 import { Review } from "./review";
 
-export type TV = CoreTvFragment;
+export type TV = CoreTvFragment & { id: string };
 
 export const getBrand = (tv: TV) => {
   return tv.general?.brand?.serie?.data?.attributes?.brand?.data?.attributes

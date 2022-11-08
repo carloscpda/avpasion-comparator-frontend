@@ -49,7 +49,7 @@ const MarketplacePrice = ({
             alt={marketplace?.data?.attributes?.name}
             src={`${buildPicture(
               marketplace?.data?.attributes?.logo.data?.attributes?.url || ""
-            )}?width=80`}
+            )}?width=160`}
             width={80}
             height={54}
             objectFit="contain"
