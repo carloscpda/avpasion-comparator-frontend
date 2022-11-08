@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-before-interactive-script-outside-document */
 import Head from "next/head";
 import { useTvs } from "../../components/tv/tvs-provider";
 import {

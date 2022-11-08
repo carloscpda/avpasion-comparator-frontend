@@ -151,6 +151,7 @@ const ComparePage = ({ tvs }: { tvs: SearchTV[] }) => {
               name="tv1"
               colorScheme="gray"
               placeholder="Selecciona una TV"
+              defaultOptions={handleSearch("oled")}
               loadOptions={(inputValue, callback) => {
                 callback(handleSearch(inputValue));
               }}

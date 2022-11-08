@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-before-interactive-script-outside-document */
 import Head from "next/head";
 import Script from "next/script";
 
@@ -31,7 +30,6 @@ const GlobalHead = () => {
           sizes="16x16"
           href="https://cdn.avpasion.com/favicon-16x16.png"
         />
-        <link rel="manifest" href="https://cdn.avpasion.com/site.webmanifest" />
         <link
           rel="mask-icon"
           href="https://cdn.avpasion.com/safari-pinned-tab.svg"
