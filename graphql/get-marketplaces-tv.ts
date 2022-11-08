@@ -23,13 +23,11 @@ const getMarketplaceTvs = async ({ tvId }: { tvId: string }) => {
                 relativeDiscount
                 marketplace {
                   data {
-                    id
                     attributes {
                       name
                       color
                       logo {
                         data {
-                          id
                           attributes {
                             url
                           }
@@ -37,12 +35,10 @@ const getMarketplaceTvs = async ({ tvId }: { tvId: string }) => {
                       }
                       paymentMethods {
                         data {
-                          id
                           attributes {
                             name
                             logo {
                               data {
-                                id
                                 attributes {
                                   url
                                 }

@@ -12,20 +12,16 @@ const getTvSeries = async ({ serieId }: { serieId: string }) => {
           filters: { general: { brand: { serie: { id: { eq: $serieId } } } } }
         ) {
           data {
-            id
             attributes {
               name
               slug
               minPrice
               general {
-                id
                 screenSize
               }
               image {
-                id
                 resolution {
                   data {
-                    id
                     attributes {
                       resolution
                       alternativeName

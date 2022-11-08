@@ -97,12 +97,10 @@ const searchSales = async ({
               affiliateUrl
               marketplace {
                 data {
-                  id
                   attributes {
                     name
                     logo {
                       data {
-                        id
                         attributes {
                           url
                         }
@@ -113,7 +111,6 @@ const searchSales = async ({
               }
               tv {
                 data {
-                  id
                   attributes {
                     ...SearchTv
                   }

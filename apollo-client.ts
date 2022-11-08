@@ -28,31 +28,7 @@ class ApolloClient {
       };
     });
 
-    ApolloClient.cache = new InMemoryCache({
-      typePolicies: {
-        ScreenResolution: {
-          keyFields: ["resolution"],
-        },
-        Tv: {
-          keyFields: ["slug"],
-        },
-        TvSerie: {
-          keyFields: ["uid"],
-        },
-        Brand: {
-          keyFields: ["name"],
-        },
-        ImageTechnology: {
-          keyFields: ["name"],
-        },
-        ConnectionType: {
-          keyFields: ["name"],
-        },
-        Marketplace: {
-          keyFields: ["name"],
-        },
-      },
-    });
+    ApolloClient.cache = new InMemoryCache();
 
     ApolloClient.apollo = new ApolloClientBuild({
       link: authLink.concat(httpLink),
@@ -60,6 +36,11 @@ class ApolloClient {
       name: `avpasion-nextjs-client-${process.env.NODE_ENV}`,
       version: "0.1.0",
       assumeImmutableResults: true,
+      defaultOptions: {
+        query: {
+          fetchPolicy: "no-cache",
+        },
+      },
     });
   }
 

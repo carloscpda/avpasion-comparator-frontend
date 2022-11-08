@@ -8,7 +8,6 @@ const getPrices = async () => {
       query GetPrices {
         maxPrice: tvs(sort: "minPrice:desc", pagination: { limit: 1 }) {
           data {
-            id
             attributes {
               minPrice
             }
@@ -20,7 +19,6 @@ const getPrices = async () => {
           filters: { minPrice: { gt: 0 } }
         ) {
           data {
-            id
             attributes {
               minPrice
             }

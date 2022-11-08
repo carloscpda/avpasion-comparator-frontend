@@ -9,14 +9,11 @@ const getHelpArticles = async () => {
       query GetHelpArticles {
         helpArticlesSection {
           data {
-            id
             attributes {
               section1 {
-                id
                 title
                 articles {
                   data {
-                    id
                     attributes {
                       title
                       image
@@ -28,11 +25,9 @@ const getHelpArticles = async () => {
                 }
               }
               section2 {
-                id
                 title
                 articles {
                   data {
-                    id
                     attributes {
                       title
                       image
@@ -44,11 +39,9 @@ const getHelpArticles = async () => {
                 }
               }
               section3 {
-                id
                 title
                 articles {
                   data {
-                    id
                     attributes {
                       title
                       image

@@ -30,7 +30,6 @@ const getReviews = async ({
             }
           }
           data {
-            id
             attributes {
               title
               image

@@ -9,7 +9,6 @@ const getImageTechnologies = async () => {
         query GetImageTechnologies {
           imageTechnologies {
             data {
-              id
               attributes {
                 name
               }

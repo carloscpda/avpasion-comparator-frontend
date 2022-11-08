@@ -10,7 +10,6 @@ const getFuzzySearch = async () => {
       query GetFuzzySearch {
         tvs(pagination: { limit: -1 }) {
           data {
-            id
             attributes {
               ...SearchTv
             }

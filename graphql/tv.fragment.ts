@@ -9,21 +9,17 @@ export const CORE_TV = gql`
     minPrice
     maxPrice
     general {
-      id
       screenSize
       releaseDate
       brand {
-        id
         model
         serie {
           data {
-            id
             attributes {
               uid
               name
               brand {
                 data {
-                  id
                   attributes {
                     name
                   }
@@ -39,7 +35,6 @@ export const CORE_TV = gql`
       score
       resolution {
         data {
-          id
           attributes {
             resolution
             alternativeName
@@ -47,10 +42,8 @@ export const CORE_TV = gql`
         }
       }
       technology {
-        id
         image {
           data {
-            id
             attributes {
               name
             }
@@ -58,7 +51,6 @@ export const CORE_TV = gql`
         }
         panel {
           data {
-            id
             attributes {
               type
             }
@@ -66,7 +58,6 @@ export const CORE_TV = gql`
         }
         lightingType {
           data {
-            id
             attributes {
               name
             }
@@ -74,7 +65,6 @@ export const CORE_TV = gql`
         }
         creationColor {
           data {
-            id
             attributes {
               name
             }
@@ -82,7 +72,6 @@ export const CORE_TV = gql`
         }
         panelManufacturer {
           data {
-            id
             attributes {
               name
             }
@@ -90,13 +79,11 @@ export const CORE_TV = gql`
         }
       }
       backlightAndContrast {
-        id
         brightness
         contrast
         zoneNumber
         backlightType {
           data {
-            id
             attributes {
               name
             }
@@ -104,14 +91,12 @@ export const CORE_TV = gql`
         }
       }
       colorimetry {
-        id
         dciP3
         rec709
         rec2020
         sRGB
         colorDepth {
           data {
-            id
             attributes {
               name
             }
@@ -119,10 +104,8 @@ export const CORE_TV = gql`
         }
       }
       hdr {
-        id
         technologies {
           data {
-            id
             attributes {
               name
             }
@@ -130,16 +113,13 @@ export const CORE_TV = gql`
         }
       }
       crystal {
-        id
         horizontalVisionAngle
         verticalVisionAngle
         antiReflectiveFilter
       }
       processing {
-        id
         processor {
           data {
-            id
             attributes {
               name
             }
@@ -147,10 +127,8 @@ export const CORE_TV = gql`
         }
       }
       responseTimes {
-        id
         gaming {
           data {
-            id
             attributes {
               name
             }
@@ -164,12 +142,10 @@ export const CORE_TV = gql`
       id
       score
       speakers {
-        id
         power
         quantity
       }
       subwoofers {
-        id
         power
         quantity
       }
@@ -177,7 +153,6 @@ export const CORE_TV = gql`
       outputChannels
       technologies {
         data {
-          id
           attributes {
             name
           }
@@ -189,7 +164,6 @@ export const CORE_TV = gql`
       score
       dvb {
         data {
-          id
           attributes {
             name
             type
@@ -198,16 +172,13 @@ export const CORE_TV = gql`
       }
       hbbTV
       cable {
-        id
         quantity
         type {
           data {
-            id
             attributes {
               name
               connection {
                 data {
-                  id
                   attributes {
                     name
                   }
@@ -218,7 +189,6 @@ export const CORE_TV = gql`
         }
         connectionTechnologies {
           data {
-            id
             attributes {
               name
             }
@@ -227,12 +197,10 @@ export const CORE_TV = gql`
       }
       wireless {
         data {
-          id
           attributes {
             name
             type {
               data {
-                id
                 attributes {
                   name
                 }
@@ -243,7 +211,6 @@ export const CORE_TV = gql`
       }
       extraFeatures {
         data {
-          id
           attributes {
             name
             description
@@ -255,14 +222,12 @@ export const CORE_TV = gql`
       id
       score
       dimensionsWithStand {
-        id
         width
         height
         depth
         weight
       }
       dimensionsWithoutStand {
-        id
         width
         height
         depth
@@ -270,7 +235,6 @@ export const CORE_TV = gql`
       }
       screenShape {
         data {
-          id
           attributes {
             name
           }
@@ -278,7 +242,6 @@ export const CORE_TV = gql`
       }
       colors {
         data {
-          id
           attributes {
             name
             hex
@@ -287,7 +250,6 @@ export const CORE_TV = gql`
       }
       vesa {
         data {
-          id
           attributes {
             size
           }
@@ -295,7 +257,6 @@ export const CORE_TV = gql`
       }
       pictures {
         data {
-          id
           attributes {
             url
             alternativeText
@@ -310,12 +271,10 @@ export const CORE_TV = gql`
       score
       operatingSystem {
         data {
-          id
           attributes {
             version
             operatingSystem {
               data {
-                id
                 attributes {
                   name
                 }
@@ -326,19 +285,16 @@ export const CORE_TV = gql`
       }
       voiceAssistants {
         data {
-          id
           attributes {
             name
           }
         }
       }
       hardware {
-        id
         ram
         rom
         soc {
           data {
-            id
             attributes {
               name
             }
@@ -346,7 +302,6 @@ export const CORE_TV = gql`
         }
       }
       consumption {
-        id
         energyEfficiency
         averageConsumption
         consumption
@@ -359,7 +314,6 @@ export const CORE_TV = gql`
       id
       reviews {
         data {
-          id
           attributes {
             title
             url
@@ -371,7 +325,6 @@ export const CORE_TV = gql`
       }
       comparatives {
         data {
-          id
           attributes {
             title
             url
