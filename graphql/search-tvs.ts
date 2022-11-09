@@ -10,7 +10,7 @@ import { SEARCH_TV } from "./search-tv.fragment";
 const searchTvs = async ({
   page,
   offset,
-  sortBy = "score:desc,minPrice:desc",
+  sortBy = "general.releaseDate:desc,score:desc,minPrice:desc",
   brand,
   cableConnections = [],
   imageTechnology,
@@ -34,7 +34,7 @@ const searchTvs = async ({
   minScore?: number;
   imageScore?: number;
   topic?: string;
-  sortBy?: "score:desc,minPrice:desc" | "hits:desc";
+  sortBy?: "general.releaseDate:desc,score:desc,minPrice:desc" | "hits:desc";
 }) => {
   const sanitazedCableConnections =
     typeof cableConnections === "string"
@@ -82,9 +82,14 @@ const searchTvs = async ({
       ...(topic === "games"
         ? [
             {
-              or: [
+              and: [
                 { connections: { cable: { type: { id: { eq: "15" } } } } }, // HDMI 2.1
-                { image: { responseTimes: { gaming: { id: { eq: "5" } } } } }, // Game Mode
+                {
+                  image: {
+                    responseTimes: { gaming: { id: { in: ["5", "8"] } } }, // Game Mode or VRR
+                  },
+                },
+                { image: { responseTimes: { inputLag60: { lt: 12 } } } }, // InputLag60 < 12
               ],
             },
           ]

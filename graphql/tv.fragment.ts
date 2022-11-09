@@ -15,6 +15,7 @@ export const CORE_TV = gql`
         model
         serie {
           data {
+            id
             attributes {
               uid
               name

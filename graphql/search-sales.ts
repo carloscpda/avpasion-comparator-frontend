@@ -59,7 +59,7 @@ const searchSales = async ({
       ) {
         marketplaceTvs(
           pagination: { page: $page, pageSize: $offset }
-          sort: "absoluteDiscount:desc"
+          sort: "tv.general.releaseDate:desc,absoluteDiscount:desc"
           filters: {
             and: {
               price: { gt: 0 }
