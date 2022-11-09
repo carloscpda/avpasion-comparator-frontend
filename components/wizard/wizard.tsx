@@ -131,6 +131,7 @@ const defaultImageTechnology = "1";
 
 const Wizard = () => {
   const router = useRouter();
+  const [isSearching, setIsSearching] = useState(false);
   const [topic, setTopic] =
     useState<typeof topics[number]["value"]>(defaultTopic);
   const [budget, setBudget] = useState(defaultBudget);
@@ -147,6 +148,7 @@ const Wizard = () => {
     });
 
   const handleFindTv: FormEventHandler = () => {
+    setIsSearching(true);
     if (parseInt(imageTechnology, 10)) {
       router.query["image-technology"] = imageTechnology;
     }
@@ -322,6 +324,7 @@ const Wizard = () => {
           }}
           onClick={handleFindTv}
           rightIcon={<IoColorWandOutline />}
+          isLoading={isSearching}
         >
           Encontrar
         </Button>
