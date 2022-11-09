@@ -36,8 +36,11 @@ export const getServerSideProps: GetServerSideProps = async ({
     ...filters
   } = await getSearchFilters({ query });
 
+  const topic = (query?.topic as string) || undefined;
+
   const { data: tvs, meta } = await searchTvs({
     ...filters,
+    topic,
     page,
     cableConnections: currentCableConnections,
   });

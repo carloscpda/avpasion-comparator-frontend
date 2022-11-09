@@ -131,7 +131,8 @@ const defaultImageTechnology = "1";
 
 const Wizard = () => {
   const router = useRouter();
-  const [topic, setTopic] = useState(defaultTopic);
+  const [topic, setTopic] =
+    useState<typeof topics[number]["value"]>(defaultTopic);
   const [budget, setBudget] = useState(defaultBudget);
   const [distance, setDistance] = useState(defaultDistance);
   const [imageTechnology, setImageTechnology] = useState(
@@ -158,6 +159,10 @@ const Wizard = () => {
       distanceScreenSizeMap[
         distance.toString() as keyof typeof distanceScreenSizeMap
       ];
+
+    router.query.topic = topic;
+
+    console.log(router.query);
 
     router.pathname = "/tvs";
 

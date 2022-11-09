@@ -1,6 +1,10 @@
 import { gql } from "@apollo/client";
 import ApolloClient from "../apollo-client";
-import { SearchTvFragment, SearchTvsQuery } from "../gql/graphql";
+import {
+  SearchTvFragment,
+  SearchTvsQuery,
+  TvFiltersInput,
+} from "../gql/graphql";
 import { SEARCH_TV } from "./search-tv.fragment";
 
 const searchTvs = async ({
@@ -8,7 +12,7 @@ const searchTvs = async ({
   offset,
   sortBy = "score:desc,minPrice:desc",
   brand,
-  cableConnections,
+  cableConnections = [],
   imageTechnology,
   sizeGreatherThan,
   sizeLessThan,
@@ -16,11 +20,12 @@ const searchTvs = async ({
   maxPrice,
   minScore,
   imageScore,
+  topic,
 }: {
   page: number;
   offset: number;
   brand?: string[];
-  cableConnections?: string[];
+  cableConnections?: string | string[];
   imageTechnology?: string[];
   sizeGreatherThan?: number;
   sizeLessThan?: number;
@@ -28,58 +33,83 @@ const searchTvs = async ({
   maxPrice?: number;
   minScore?: number;
   imageScore?: number;
+  topic?: string;
   sortBy?: "score:desc,minPrice:desc" | "hits:desc";
 }) => {
+  const sanitazedCableConnections =
+    typeof cableConnections === "string"
+      ? [cableConnections]
+      : cableConnections;
+
+  const filters: TvFiltersInput = {
+    and: [
+      {
+        general: {
+          screenSize: { gt: sizeGreatherThan, lt: sizeLessThan },
+          brand: { serie: { brand: { id: { in: brand } } } },
+        },
+      },
+      { minPrice: { gte: minPrice, lte: maxPrice } },
+      { score: { gte: minScore } },
+      {
+        image: {
+          score: { gte: imageScore },
+          technology: { image: { id: { in: imageTechnology } } },
+        },
+      },
+
+      ...(sanitazedCableConnections.map((c) => ({
+        connections: {
+          cable: {
+            type: {
+              id: { eq: c },
+            },
+          },
+        },
+      })) || []),
+
+      ...(topic === "cine"
+        ? [
+            {
+              or: [
+                { image: { technology: { image: { id: { eq: "1" } } } } }, // OLED
+                { image: { technology: { panel: { id: { eq: "3" } } } } }, // VA
+              ],
+            },
+          ]
+        : []),
+
+      ...(topic === "games"
+        ? [
+            {
+              or: [
+                { connections: { cable: { type: { id: { eq: "15" } } } } }, // HDMI 2.1
+                { image: { responseTimes: { gaming: { id: { eq: "5" } } } } }, // Game Mode
+              ],
+            },
+          ]
+        : []),
+    ],
+  };
+
   const { data } = await ApolloClient.getClient().query<SearchTvsQuery>({
     variables: {
       page,
       offset,
       sortBy,
-      brand,
-      cableConnections,
-      imageTechnology,
-      sizeGreatherThan,
-      sizeLessThan,
-      minPrice,
-      maxPrice,
-      minScore,
-      imageScore,
+      filters,
     },
     query: gql`
       query SearchTvs(
         $page: Int!
         $offset: Int!
         $sortBy: [String]!
-        $brand: [ID]
-        $cableConnections: [ID]
-        $imageTechnology: [ID]
-        $sizeGreatherThan: Float
-        $sizeLessThan: Float
-        $minPrice: Float
-        $maxPrice: Float
-        $minScore: Float
-        $imageScore: Float
+        $filters: TvFiltersInput
       ) {
         tvs(
           pagination: { page: $page, pageSize: $offset }
           sort: $sortBy
-          filters: {
-            and: {
-              general: {
-                screenSize: { gt: $sizeGreatherThan, lt: $sizeLessThan }
-                brand: { serie: { brand: { id: { in: $brand } } } }
-              }
-              minPrice: { gte: $minPrice, lte: $maxPrice }
-              score: { gte: $minScore }
-              image: {
-                score: { gte: $imageScore }
-                technology: { image: { id: { in: $imageTechnology } } }
-              }
-              connections: {
-                cable: { type: { id: { in: $cableConnections } } }
-              }
-            }
-          }
+          filters: $filters
         ) {
           meta {
             pagination {
