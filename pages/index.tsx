@@ -9,7 +9,6 @@ import SectionTitle from "../components/section-title";
 import Wizard from "../components/wizard/wizard";
 import searchSales from "../graphql/search-sales";
 import searchTvs from "../graphql/search-tvs";
-import { buildPicture } from "../models/picture";
 import { SearchSale } from "../models/search-sale";
 import {
   getBrand,
@@ -132,10 +131,10 @@ const IndexPage = ({
             relativeDiscount={sale.relativeDiscount || 0}
             absoluteDiscount={sale.absoluteDiscount || 0}
             affiliateUrl={sale.affiliateUrl || ""}
-            marketLogo={buildPicture(
+            marketLogo={
               sale.marketplace?.data?.attributes?.logo.data?.attributes?.url ||
-                ""
-            )}
+              ""
+            }
           />
         ))}
       </Grid>

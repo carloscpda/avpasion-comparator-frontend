@@ -90,7 +90,6 @@ const Navbar = () => {
                 alt="logo"
                 height={40}
                 width={90}
-                unoptimized
               />
             </a>
           </NextLink>

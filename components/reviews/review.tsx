@@ -81,7 +81,6 @@ const ReviewCardContent = ({ review }: { review: Review }) => {
       <Image
         src={review.image || ""}
         alt={review.title || ""}
-        unoptimized
         width={400}
         height={300}
         objectFit="cover"

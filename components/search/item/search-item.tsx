@@ -79,7 +79,6 @@ const SearchItem = ({
               height="32"
               width="48"
               objectFit="contain"
-              unoptimized
             />
           )}
           <Tag

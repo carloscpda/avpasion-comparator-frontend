@@ -37,7 +37,6 @@ const HelpArticlesSubsection = ({
                   width="120"
                   height="72"
                   objectFit="cover"
-                  unoptimized
                 />
               </Box>
               <Text color="gray.800" fontSize="sm">

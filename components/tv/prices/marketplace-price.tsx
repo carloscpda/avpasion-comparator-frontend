@@ -47,13 +47,13 @@ const MarketplacePrice = ({
         <HStack gap={4}>
           <Image
             alt={marketplace?.data?.attributes?.name}
-            src={`${buildPicture(
-              marketplace?.data?.attributes?.logo.data?.attributes?.url || ""
-            )}?width=160`}
+            src={buildPicture(
+              marketplace?.data?.attributes?.logo.data?.attributes?.url || "",
+              { width: 80 }
+            )}
             width={80}
             height={54}
             objectFit="contain"
-            unoptimized
           />
           <Flex flexDirection="column">
             <Text fontSize="2xl" fontWeight="semibold">
@@ -80,13 +80,13 @@ const MarketplacePrice = ({
                   <Image
                     key={method.attributes?.name}
                     src={buildPicture(
-                      `${method.attributes?.logo.data?.attributes?.url}?width=40`
+                      method.attributes?.logo.data?.attributes?.url || "",
+                      { width: 28 }
                     )}
                     alt={method.attributes?.name || ""}
                     height={20}
                     width={28}
                     objectFit="contain"
-                    unoptimized
                   />
                 )
               )}

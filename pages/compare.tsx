@@ -65,13 +65,13 @@ const Option = (props: OptionProps<SearchTV>) => {
           <Image
             src={buildPicture(
               props.data.image?.resolution?.data?.attributes?.icon.data
-                ?.attributes?.url
+                ?.attributes?.url,
+              { width: 48 }
             )}
             alt="resolution"
             height="32"
             width="48"
             objectFit="contain"
-            unoptimized
           />
         )}
 

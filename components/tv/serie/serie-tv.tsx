@@ -56,7 +56,6 @@ const SerieTv = ({
           objectFit="contain"
           width="40"
           height="30"
-          unoptimized
         />
         <Text>{name}</Text>
       </HStack>

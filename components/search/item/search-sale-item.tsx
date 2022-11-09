@@ -2,6 +2,7 @@ import { Button, Text, VStack } from "@chakra-ui/react";
 import Image from "next/image";
 import NextLink from "next/link";
 import parseCurrency from "../../../helpers/parse-currency";
+import { buildPicture } from "../../../models/picture";
 import SearchItem from "./search-item";
 
 type SearchSaleItemProps = {
@@ -80,12 +81,11 @@ const SearchSaleItem = ({
             {`Descuento: ${(relativeDiscount * 100).toFixed(0)}%`}
           </Text>
           <Image
-            src={`${marketLogo}?width=160`}
+            src={buildPicture(marketLogo, { width: 80 })}
             width={80}
             height={40}
             objectFit="contain"
             alt="market-logo"
-            unoptimized
           />
         </VStack>
       }

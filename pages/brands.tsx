@@ -68,12 +68,11 @@ const BrandsPage = ({
                 gridRow={{ base: "1", sm: "1 / span 2" }}
               >
                 <Image
-                  src={`${buildPicture(brand.logo)}?width=200`}
+                  src={buildPicture(brand.logo, { width: 160 })}
                   alt={brand.name}
                   width="160"
                   height="100"
                   objectFit="contain"
-                  unoptimized
                 />
               </Box>
               <StackItem>

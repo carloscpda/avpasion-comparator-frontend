@@ -6,7 +6,6 @@ import searchSales from "../graphql/search-sales";
 import { BrandFilter } from "../models/brand-filter";
 import { CableConnectionFilter } from "../models/cable-connections-filter";
 import { ImageTechnology } from "../models/image-technology";
-import { buildPicture } from "../models/picture";
 import { SearchSale } from "../models/search-sale";
 import {
   getBrand,
@@ -111,10 +110,10 @@ const SearchSalesPage = ({
             relativeDiscount={sale.relativeDiscount || 0}
             absoluteDiscount={sale.absoluteDiscount || 0}
             affiliateUrl={sale.affiliateUrl || ""}
-            marketLogo={buildPicture(
+            marketLogo={
               sale.marketplace?.data?.attributes?.logo.data?.attributes?.url ||
-                ""
-            )}
+              ""
+            }
           />
         ))}
       </SearchTemplate>

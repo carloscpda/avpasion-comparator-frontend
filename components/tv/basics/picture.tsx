@@ -15,7 +15,6 @@ const TvPicture = ({ src, alt, height = 300, width = 400 }: TvPictureProps) => {
       width={width}
       height={height}
       objectFit="contain"
-      unoptimized
     />
   );
 };

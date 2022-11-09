@@ -7,8 +7,28 @@ type Picture = {
   width?: string;
 };
 
-export const buildPicture = (path: string) =>
-  `https://cdn.avpasion.com/ctv-statics/${path.substring(9)}`;
+export const buildPicture = (path: string, options?: { width?: number }) => {
+  let params = "";
+  let pixelRatio = 1;
+
+  if (typeof window !== "undefined") {
+    pixelRatio = window.devicePixelRatio || 1;
+  }
+
+  if (options) {
+    const width = options.width
+      ? (options.width * pixelRatio).toString()
+      : null;
+
+    const searchParams = Object.fromEntries(
+      Object.entries({ width }).filter(([_, v]) => v != null)
+    ) as { [key: string]: string };
+
+    params = `?${new URLSearchParams(searchParams).toString()}`;
+  }
+
+  return `https://cdn.avpasion.com/ctv-statics/${path.substring(9)}${params}`;
+};
 
 const getFrontalPicture = (pictures: Picture[]) => {
   return pictures.find((pic) => pic.alternativeText.includes("frontal"));
