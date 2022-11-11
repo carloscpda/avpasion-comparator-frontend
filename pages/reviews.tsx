@@ -3,6 +3,7 @@ import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { useCallback } from "react";
 import { MdCompare, MdOutlineReviews } from "react-icons/md";
+import Ad from "../components/ad";
 import GeneralHead from "../components/head";
 import Main from "../components/layout/main";
 import PageTitle from "../components/layout/page-title";
@@ -104,7 +105,7 @@ const ReviewsPage = ({
           Comparativas
         </Button>
       </HStack>
-      <div id="ssm_ctv_leaderboard_grids" />
+      <Ad id="ssm_ctv_leaderboard_grids" />
       <Grid
         flex="1"
         gridTemplateColumns={{

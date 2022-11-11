@@ -1,5 +1,6 @@
 import { Grid } from "@chakra-ui/react";
 import { GetServerSideProps } from "next";
+import Ad from "../components/ad";
 import GeneralHead from "../components/head";
 import Main from "../components/layout/main";
 import PageTitle from "../components/layout/page-title";
@@ -59,7 +60,7 @@ const IndexPage = ({
       <GeneralHead slug="" title="Inicio" />
       <PageTitle title="Encuentra tu televisor" />
       <Wizard />
-      <div id="ssm_ctv_leaderboard_grids" />
+      <Ad id="ssm_ctv_leaderboard_grids" />
       <SectionTitle
         mt="16"
         title="Televisiones con más interés"
@@ -95,7 +96,7 @@ const IndexPage = ({
           />
         ))}
       </Grid>
-      <div id="ssm_ctv_roba1_pdp" />
+      <Ad id="ssm_ctv_roba1_pdp" />
       <SectionTitle
         mt="16"
         title="Mejores ofertas"

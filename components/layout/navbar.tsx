@@ -40,11 +40,11 @@ const navbarLinks = [
   },
   {
     name: "Mejores ofertas",
-    link: "/sales",
+    link: "/sales?screen-size=3",
   },
   {
     name: "Mejores televisores",
-    link: "/tvs?screen-size=3&page=1",
+    link: "/tvs?screen-size=3",
   },
   {
     name: "Noticias",

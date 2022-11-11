@@ -1,5 +1,6 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import type { AppProps } from "next/app";
+import Ad from "../components/ad";
 import GlobalHead from "../components/global-head";
 import HelpArticles from "../components/help-articles/help-articles";
 import Footer from "../components/layout/footer";
@@ -21,7 +22,7 @@ function MyApp({
       <ChakraProvider>
         <Layout>
           <Component {...pageProps} />
-          <div id="ssm_ctv_footer_grids" />
+          <Ad id="ssm_ctv_footer_grids" />
           {!!pageProps.helpArticles && (
             <HelpArticles {...pageProps.helpArticles} />
           )}

@@ -12,6 +12,7 @@ const getMarketplaceTvs = async ({ tvId }: { tvId: string }) => {
             data {
               id
               attributes {
+                createdAt
                 affiliateUrl
                 available
                 deliveryCost

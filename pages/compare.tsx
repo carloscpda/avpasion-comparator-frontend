@@ -14,6 +14,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useMemo, useState } from "react";
+import Ad from "../components/ad";
 import GeneralHead from "../components/head";
 import Main from "../components/layout/main";
 import PageTitle from "../components/layout/page-title";
@@ -121,7 +122,7 @@ const ComparePage = ({ tvs }: { tvs: SearchTV[] }) => {
     <Main>
       <GeneralHead slug="compare" title="Comparar" />
       <PageTitle title="Comparar" />
-      <div id="ssm_ctv_leaderboard_grids" />
+      <Ad id="ssm_ctv_leaderboard_grids" />
       <VStack
         flexDirection={{ base: "column", md: "row" }}
         height={{ md: "600px" }}

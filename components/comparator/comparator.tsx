@@ -5,7 +5,7 @@ import {
   IoSettingsOutline,
   IoWifiOutline,
 } from "react-icons/io5";
-
+import Ad from "../ad";
 import ConnectionsSection from "./sections/connections/connections";
 import DVBSection from "./sections/connections/dvb";
 import ExtraFeaturesSection from "./sections/connections/extra-features";
@@ -49,7 +49,7 @@ const Comparator = () => (
       <ProcessingSection />
       <ResponseTimesSection />
     </Section>
-    <div id="ssm_ctv_roba1_pdp" />
+    <Ad id="ssm_ctv_roba1_pdp" />
     <Section
       id="sound"
       title="Sonido"
@@ -59,7 +59,7 @@ const Comparator = () => (
       <SpeakersSection />
       <SoundTechnologiesSection />
     </Section>
-    <div id="ssm_ctv_roba2_pdp" />
+    <Ad id="ssm_ctv_roba2_pdp" />
     <Section
       id="connectivity"
       title="Conexión"
@@ -72,7 +72,7 @@ const Comparator = () => (
       <WirelessConnectionsSection />
       <ExtraFeaturesSection />
     </Section>
-    <div id="ssm_ctv_roba3_pdp" />
+    <Ad id="ssm_ctv_roba3_pdp" />
     <Section
       id="design"
       title="Diseño"
@@ -83,7 +83,7 @@ const Comparator = () => (
       <StructureWithoutStandSection />
       <OthersDesignSection />
     </Section>
-    <div id="ssm_ctv_roba4_pdp" />
+    <Ad id="ssm_ctv_roba4_pdp" />
     <Section
       id="system"
       title="Sistema"

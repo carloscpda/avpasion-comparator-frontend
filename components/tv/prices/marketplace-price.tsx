@@ -68,7 +68,7 @@ const MarketplacePrice = ({
                   as={available ? IoCheckmarkSharp : IoCloseSharp}
                   transform="translateY(4px)"
                 />
-                {available ? "Con stock" : "Sin stock"}
+                {available ? "En stock" : "Sin stock"}
               </Text>
             </Flex>
             <Text color="gray.700" fontSize="sm">

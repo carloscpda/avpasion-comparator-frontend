@@ -5,6 +5,7 @@ import { AiOutlineClear } from "react-icons/ai";
 import { BrandFilter } from "../../models/brand-filter";
 import { CableConnectionFilter } from "../../models/cable-connections-filter";
 import { ImageTechnology } from "../../models/image-technology";
+import Ad from "../ad";
 import Main from "../layout/main";
 import PageTitle from "../layout/page-title";
 import Filters from "./filters/filters";
@@ -50,7 +51,7 @@ const SearchTemplate = ({
         prices={prices}
         cableConnections={cableConnections}
       />
-      <div id="ssm_ctv_leaderboard_grids" />
+      <Ad id="ssm_ctv_leaderboard_grids" />
       <Grid
         flex="1"
         gridTemplateColumns={{
