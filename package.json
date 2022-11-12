@@ -18,14 +18,14 @@
     "framer-motion": "^6.5.1",
     "fuse.js": "^6.6.2",
     "graphql": "^16.6.0",
-    "ioredis": "^5.2.4",
     "next": "12.3.1",
     "nprogress": "^0.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.6.0",
     "react-player": "^2.11.0",
-    "react-simple-image-viewer": "^1.2.2"
+    "react-simple-image-viewer": "^1.2.2",
+    "redis": "^4.5.0"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^2.13.7",

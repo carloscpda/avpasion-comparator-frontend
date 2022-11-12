@@ -1,16 +1,18 @@
-import Redis from "ioredis";
 import { NextApiHandler } from "next";
+import { createClient } from "redis";
 import getMarketplaceTvs from "../../../graphql/get-marketplaces-tv";
 
 const handler: NextApiHandler = async (req, res) => {
   if (req.method === "GET") {
+    const redis = createClient();
+
     const { tvid } = req.query;
 
     if (typeof tvid !== "string") {
       return res.status(400).json({ data: "tvid should be a string" });
     }
 
-    const redis = new Redis();
+    await redis.connect();
 
     let pricesCached = await redis.get(`price:${tvid}`);
 
@@ -28,12 +30,9 @@ const handler: NextApiHandler = async (req, res) => {
         return priceA - priceB;
       });
 
-      redis.set(
-        `price:${tvid}`,
-        JSON.stringify(sortedMarketplaceTvs),
-        "EX",
-        8640
-      );
+      redis.set(`price:${tvid}`, JSON.stringify(sortedMarketplaceTvs), {
+        EX: 86400,
+      });
     } else {
       prices = JSON.parse(pricesCached);
     }
