@@ -19,6 +19,7 @@ import NextLink from "next/link";
 import { useRef } from "react";
 import { IoMdMenu } from "react-icons/io";
 import { SlMagnifier } from "react-icons/sl";
+import logo from "../../public/logo.svg";
 import Center from "./center";
 
 const navbarLinks = [
@@ -85,7 +86,7 @@ const Navbar = () => {
           </Box>
           <NextLink href="/" passHref>
             <Link pt="1">
-              <Image src="logo.svg" alt="logo" height={40} width={90} />
+              <Image src={logo} alt="logo" height={40} width={90} />
             </Link>
           </NextLink>
         </Flex>
