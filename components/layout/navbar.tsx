@@ -85,12 +85,7 @@ const Navbar = () => {
           </Box>
           <NextLink href="/" passHref>
             <a>
-              <Image
-                src="https://cdn.avpasion.com/wp-content/uploads/2021/06/logo_avp.png"
-                alt="logo"
-                height={40}
-                width={90}
-              />
+              <Image src="logo.svg" alt="logo" height={40} width={90} />
             </a>
           </NextLink>
         </Flex>

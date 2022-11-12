@@ -87,6 +87,7 @@ const SearchSalesPage = ({
 }) => {
   return (
     <>
+      {/* <Head></Head> */}
       <GeneralHead slug="mejores-televisores" title="Mejores televisores" />
       <SearchTemplate
         title="Mejores televisores"

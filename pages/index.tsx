@@ -62,7 +62,7 @@ const IndexPage = ({
       {/* <Ad id="ssm_ctv_leaderboard_grids" /> */}
       <SectionTitle
         mt="16"
-        title="Televisores con más interés"
+        title="Smart TV con más interés"
         linkHref="/mejores-televisores"
         linkText="Ver todas los televisores"
       />
