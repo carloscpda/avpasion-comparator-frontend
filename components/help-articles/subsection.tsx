@@ -14,7 +14,12 @@ const HelpArticlesSubsection = ({
           {title}
         </Text>
         {articles.map((article) => (
-          <NextLink key={article.url} href={article.url} passHref>
+          <NextLink
+            key={article.url}
+            href={article.url}
+            passHref
+            prefetch={false}
+          >
             <HStack
               as="a"
               alignItems="flex-start"

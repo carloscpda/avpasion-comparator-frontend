@@ -77,7 +77,11 @@ const Navbar = () => {
             Sistema
           </Link>
           {tvs.length === 1 && (
-            <NextLink href={`/comparar?tv=${tvs[0].slug}`} passHref>
+            <NextLink
+              href={`/comparar?tv=${tvs[0].slug}`}
+              passHref
+              prefetch={false}
+            >
               <Button
                 backgroundColor="red.700"
                 size="sm"

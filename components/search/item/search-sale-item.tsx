@@ -90,7 +90,7 @@ const SearchSaleItem = ({
         </VStack>
       }
       buttons={
-        <NextLink href={affiliateUrl} passHref>
+        <NextLink href={affiliateUrl} passHref prefetch={false}>
           <Button
             as="a"
             colorScheme="red"

@@ -45,7 +45,7 @@ const SocialLinks = () => {
   return (
     <Flex gap="4">
       {socialLinks.map((link) => (
-        <NextLink key={link.alt} href={link.link}>
+        <NextLink key={link.alt} href={link.link} prefetch={false}>
           <a target="_blank">
             <Icon as={link.icon} fontSize="sm" />
           </a>

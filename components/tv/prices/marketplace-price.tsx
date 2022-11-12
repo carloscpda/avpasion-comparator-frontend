@@ -21,7 +21,7 @@ const MarketplacePrice = ({
     : "Gratis";
 
   return (
-    <NextLink href={affiliateUrl || ""} passHref>
+    <NextLink href={affiliateUrl || ""} passHref prefetch={false}>
       <VStack
         as="a"
         py={1}

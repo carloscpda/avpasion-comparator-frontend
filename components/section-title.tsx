@@ -31,7 +31,7 @@ const SectionTitle = ({
         {title}
       </Heading>
       {linkHref && (
-        <NextLink href={linkHref} passHref>
+        <NextLink href={linkHref} passHref prefetch={false}>
           <Link textTransform="uppercase" display="flex" alignItems="center">
             <Text as="span" fontSize="sm" fontWeight="bold">
               {linkText}

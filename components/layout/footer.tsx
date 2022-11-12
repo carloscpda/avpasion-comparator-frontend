@@ -68,7 +68,12 @@ const Footer = () => {
             justifySelf={{ md: "flex-end" }}
           >
             {links.map((link) => (
-              <NextLink key={link.label} href={link.href} passHref>
+              <NextLink
+                key={link.label}
+                href={link.href}
+                passHref
+                prefetch={false}
+              >
                 <Link>{link.label}</Link>
               </NextLink>
             ))}

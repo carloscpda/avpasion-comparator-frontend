@@ -8,6 +8,7 @@ const handler: NextApiHandler = async (req, res) => {
     await redis.connect();
 
     let helpArticlesCached = await redis.get("help-articles");
+    console.log(helpArticlesCached);
 
     let helpArticles = null;
 

@@ -54,7 +54,7 @@ const SearchItem = ({
       borderRadius="md"
       p="1"
     >
-      <NextLink href={`/televisores/${slug}`} passHref>
+      <NextLink href={`/televisores/${slug}`} passHref prefetch={false}>
         <Box
           width="100%"
           cursor="pointer"
@@ -113,7 +113,7 @@ const SearchItem = ({
         <Divider />
         <HStack justifyContent="flex-end" mt="2">
           {isComparable && (
-            <NextLink href={`/comparar?tv=${slug}`} passHref>
+            <NextLink href={`/comparar?tv=${slug}`} passHref prefetch={false}>
               <Button
                 as="a"
                 colorScheme="red"

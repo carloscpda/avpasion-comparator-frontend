@@ -84,7 +84,7 @@ const Navbar = () => {
               color="red.700"
             />
           </Box>
-          <NextLink href="/" passHref>
+          <NextLink href="/" passHref prefetch={false}>
             <Link pt="1">
               <Image src={logo} alt="logo" height={40} width={90} />
             </Link>
@@ -104,7 +104,7 @@ const Navbar = () => {
           ))}
         </HStack>
         <Flex alignItems="center">
-          <NextLink href="/busqueda" passHref>
+          <NextLink href="/busqueda" passHref prefetch={false}>
             <IconButton
               as="a"
               icon={<SlMagnifier />}

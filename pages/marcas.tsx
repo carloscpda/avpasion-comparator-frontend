@@ -68,7 +68,10 @@ const BrandsPage = ({
                 borderRadius={8}
                 gridRow={{ base: "1", sm: "1 / span 2" }}
               >
-                <NextLink href={`/mejores-televisores?brand=${brand.id}`}>
+                <NextLink
+                  href={`/mejores-televisores?brand=${brand.id}`}
+                  prefetch={false}
+                >
                   <a>
                     <Image
                       src={buildPicture(brand.logo, { width: 160 })}
@@ -84,6 +87,7 @@ const BrandsPage = ({
                 <NextLink
                   href={`/mejores-televisores?brand=${brand.id}`}
                   passHref
+                  prefetch={false}
                 >
                   <Link fontSize="2xl" fontWeight="bold">
                     {brand.name}
@@ -103,30 +107,35 @@ const BrandsPage = ({
                 <NextLink
                   href={`/mejores-televisores?screen-size=1&brand=${brand.id}`}
                   passHref
+                  prefetch={false}
                 >
                   <Link color="gray.500">{`${brand.name} de menos de 50 pulgadas`}</Link>
                 </NextLink>
                 <NextLink
                   href={`/mejores-televisores?screen-size=2&brand=${brand.id}`}
                   passHref
+                  prefetch={false}
                 >
                   <Link color="gray.500">{`${brand.name} de 50 a 59 pulgadas`}</Link>
                 </NextLink>
                 <NextLink
                   href={`/mejores-televisores?screen-size=3&brand=${brand.id}`}
                   passHref
+                  prefetch={false}
                 >
                   <Link color="gray.500">{`${brand.name} de 60 a 69 pulgadas`}</Link>
                 </NextLink>
                 <NextLink
                   href={`/mejores-televisores?screen-size=4&brand=${brand.id}`}
                   passHref
+                  prefetch={false}
                 >
                   <Link color="gray.500">{`${brand.name} de 70 a 79 pulgadas`}</Link>
                 </NextLink>
                 <NextLink
                   href={`/mejores-televisores?screen-size=5&brand=${brand.id}`}
                   passHref
+                  prefetch={false}
                 >
                   <Link color="gray.500">{`${brand.name} de 80 o más pulgadas`}</Link>
                 </NextLink>
@@ -141,6 +150,7 @@ const BrandsPage = ({
                     key={tech.id}
                     href={`/mejores-televisores?image-technology=${tech.id}&brand=${brand.id}`}
                     passHref
+                    prefetch={false}
                   >
                     <Link color="gray.500">{`${brand.name} con panel ${tech.name}`}</Link>
                   </NextLink>
