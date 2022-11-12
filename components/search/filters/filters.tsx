@@ -20,7 +20,6 @@ import { IoFilter } from "react-icons/io5";
 import { BrandFilter } from "../../../models/brand-filter";
 import { CableConnectionFilter } from "../../../models/cable-connections-filter";
 import { ImageTechnology } from "../../../models/image-technology";
-import RangeSliderFilter from "./range-slider-filter";
 import ScreenSizeFilter from "./screen-size-filter";
 import SelectFilter from "./select-filter";
 import SliderFilter from "./slider-filter";
@@ -88,13 +87,13 @@ const Filters = ({
                 name="Tecnología de imagen"
                 queryParamName="image-technology"
               />
-              <RangeSliderFilter
+              {/* <RangeSliderFilter
                 name="Precios"
                 minValue={0}
                 maxValue={prices.maxPrice}
                 step={250}
                 queryParamName="price"
-              />
+              /> */}
               <SliderFilter
                 name="Puntuación"
                 minValue={0}
@@ -102,13 +101,13 @@ const Filters = ({
                 queryParamName="score"
                 step={0.1}
               />
-              <SliderFilter
+              {/* <SliderFilter
                 name="Calidad de imagen"
                 minValue={0}
                 maxValue={10}
                 queryParamName="image-score"
                 step={0.1}
-              />
+              /> */}
               {/* <SelectFilter
                 data={cableConnections}
                 name="Conexiones"
