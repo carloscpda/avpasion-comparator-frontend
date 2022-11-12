@@ -1,3 +1,4 @@
+import Redis from "ioredis";
 import { NextApiHandler } from "next";
 import getMarketplaceTvs from "../../../graphql/get-marketplaces-tv";
 
@@ -9,18 +10,35 @@ const handler: NextApiHandler = async (req, res) => {
       return res.status(400).json({ data: "tvid should be a string" });
     }
 
-    const marketplaceTvs = await getMarketplaceTvs({ tvId: tvid });
+    const redis = new Redis();
 
-    const sortedMarketplaceTvs = marketplaceTvs?.sort((a, b) => {
-      if (a?.available !== b?.available) {
-        return a?.available ? -1 : 1;
-      }
-      const priceA = (a?.price || 0) + (a?.deliveryCost || 0);
-      const priceB = (b?.price || 0) + (b?.deliveryCost || 0);
-      return priceA - priceB;
-    });
+    let pricesCached = await redis.get(`price:${tvid}`);
 
-    res.status(200).json(sortedMarketplaceTvs);
+    let prices = null;
+
+    if (!pricesCached) {
+      const marketplaceTvs = await getMarketplaceTvs({ tvId: tvid });
+
+      const sortedMarketplaceTvs = marketplaceTvs?.sort((a, b) => {
+        if (a?.available !== b?.available) {
+          return a?.available ? -1 : 1;
+        }
+        const priceA = (a?.price || 0) + (a?.deliveryCost || 0);
+        const priceB = (b?.price || 0) + (b?.deliveryCost || 0);
+        return priceA - priceB;
+      });
+
+      redis.set(
+        `price:${tvid}`,
+        JSON.stringify(sortedMarketplaceTvs),
+        "EX",
+        8640
+      );
+    } else {
+      prices = JSON.parse(pricesCached);
+    }
+
+    res.status(200).json(prices);
   } else {
     res.status(404).json("Not found");
   }
