@@ -1,4 +1,5 @@
 import { GetServerSideProps } from "next";
+import { createClient } from "redis";
 import GeneralHead from "../components/head";
 import SearchTvItem from "../components/search/item/search-tv-item";
 import SearchTemplate from "../components/search/search-template";
@@ -23,36 +24,38 @@ import getSearchFilters from "../server/search/get-search-filters";
 export const getServerSideProps: GetServerSideProps = async ({
   query,
   res,
+  resolvedUrl,
 }) => {
-  const helpArticles = await getHelpArticlesProps();
+  const redis = createClient();
+  await redis.connect();
+  const cacheData = await redis.get(resolvedUrl);
+  let data = null;
 
-  const {
-    brands,
-    imageTechnologies,
-    prices,
-    page,
-    cableConnections,
-    currentCableConnections,
-    ...filters
-  } = await getSearchFilters({ query });
+  if (cacheData) {
+    data = JSON.parse(cacheData);
+  } else {
+    const helpArticles = await getHelpArticlesProps();
 
-  const topic = (query?.topic as string) || undefined;
+    const {
+      brands,
+      imageTechnologies,
+      prices,
+      page,
+      cableConnections,
+      currentCableConnections,
+      ...filters
+    } = await getSearchFilters({ query });
 
-  const { data: tvs, meta } = await searchTvs({
-    ...filters,
-    topic,
-    page,
-    cableConnections: currentCableConnections,
-  });
+    const topic = (query?.topic as string) || undefined;
 
-  // 1 hour
-  res.setHeader(
-    "Cache-Control",
-    "public, s-maxage=3600, stale-while-revalidate=86400"
-  );
+    const { data: tvs, meta } = await searchTvs({
+      ...filters,
+      topic,
+      page,
+      cableConnections: currentCableConnections,
+    });
 
-  return {
-    props: {
+    data = {
       helpArticles,
       tvs,
       numberOfPages: meta?.pagination.pageCount,
@@ -61,8 +64,20 @@ export const getServerSideProps: GetServerSideProps = async ({
       imageTechnologies,
       prices,
       cableConnections,
-    },
-  };
+    };
+
+    redis.set(resolvedUrl, JSON.stringify(data), {
+      EX: 3600,
+    });
+  }
+
+  // 1 hour
+  res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=3600, stale-while-revalidate=86400"
+  );
+
+  return { props: { ...data } };
 };
 
 const SearchSalesPage = ({
