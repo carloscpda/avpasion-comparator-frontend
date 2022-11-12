@@ -64,7 +64,7 @@ const IndexPage = ({
         mt="16"
         title="Televisores con más interés"
         linkHref="/mejores-televisores"
-        linkText="Ver todas las televisores"
+        linkText="Ver todas los televisores"
       />
       <Grid
         flex="1"
