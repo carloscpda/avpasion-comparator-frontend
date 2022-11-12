@@ -68,7 +68,7 @@ const SearchTemplate = ({
       {noResults && (
         <Flex justifyContent="center" alignItems="center" h="400px">
           <VStack>
-            <Text>No se encuentran televisiones con estos filtros</Text>
+            <Text>No se encuentran televisores con estos filtros</Text>
             <Button
               colorScheme="gray"
               onClick={() => router.replace(router.pathname, undefined)}
