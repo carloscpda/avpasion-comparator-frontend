@@ -8,13 +8,13 @@ const handler: NextApiHandler = async (req, res) => {
 
     await redis.connect();
 
-    let cableConnectionsCached = await redis.get("cable-connections");
+    let cableConnectionsCached = await redis.get("filters:cable-connections");
     let cableConnections = null;
 
     if (!cableConnectionsCached) {
       cableConnections = await getCableConnectionsFilter();
 
-      redis.set("cable-connections", JSON.stringify(cableConnections), {
+      redis.set("filters:cable-connections", JSON.stringify(cableConnections), {
         EX: 86400,
       });
     } else {
