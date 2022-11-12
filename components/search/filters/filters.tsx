@@ -90,8 +90,9 @@ const Filters = ({
               />
               <RangeSliderFilter
                 name="Precios"
-                minValue={prices.minPrice}
+                minValue={0}
                 maxValue={prices.maxPrice}
+                step={250}
                 queryParamName="price"
               />
               <SliderFilter
@@ -108,11 +109,11 @@ const Filters = ({
                 queryParamName="image-score"
                 step={0.1}
               />
-              <SelectFilter
+              {/* <SelectFilter
                 data={cableConnections}
                 name="Conexiones"
                 queryParamName="cable"
-              />
+              /> */}
             </VStack>
           </DrawerBody>
           <DrawerFooter>

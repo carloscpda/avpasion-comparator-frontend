@@ -58,15 +58,15 @@ const searchTvs = async ({
         },
       },
 
-      ...(sanitazedCableConnections.map((c) => ({
-        connections: {
-          cable: {
-            type: {
-              id: { eq: c },
-            },
-          },
-        },
-      })) || []),
+      // ...(sanitazedCableConnections.map((c) => ({
+      //   connections: {
+      //     cable: {
+      //       type: {
+      //         id: { eq: c },
+      //       },
+      //     },
+      //   },
+      // })) || []),
 
       ...(topic === "cine"
         ? [
