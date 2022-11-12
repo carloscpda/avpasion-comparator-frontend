@@ -1,4 +1,4 @@
-import { Grid, GridItem } from "@chakra-ui/react";
+import { Grid, GridItem, useBreakpointValue } from "@chakra-ui/react";
 import { useTvs } from "../tvs-provider";
 import SummaryData from "./data";
 import SummaryPicture from "./picture";
@@ -8,6 +8,7 @@ import SummaryTitle from "./title";
 const Summary = () => {
   const { tvs } = useTvs();
   const tv = tvs[0];
+  const isDesktop = useBreakpointValue({ base: false, lg: true });
 
   return (
     <Grid
@@ -45,11 +46,13 @@ const Summary = () => {
       <GridItem gridColumn={{ base: "span 2", md: "2" }}>
         <SummaryData tv={tv} />
       </GridItem>
-      <GridItem
-        id="ssm_ctv_leaderboard_pdp"
-        gridColumn={{ lg: "3" }}
-        gridRow={{ lg: "1 / span 2" }}
-      />
+      {isDesktop && (
+        <GridItem
+          id="ssm_ctv_leaderboard_pdp"
+          gridColumn={{ lg: "3" }}
+          gridRow={{ lg: "1 / span 2" }}
+        />
+      )}
     </Grid>
   );
 };
