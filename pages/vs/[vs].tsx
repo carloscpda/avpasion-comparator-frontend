@@ -5,9 +5,9 @@ import ComparatorHero from "../../components/comparator/hero";
 import Navbar from "../../components/comparator/navbar";
 import Main from "../../components/layout/main";
 import TvProvider from "../../components/tv/tvs-provider";
+import getHelpArticles from "../../graphql/get-help-articles";
 import getTv from "../../graphql/get-tv";
 import { TV } from "../../models/tv";
-import getHelpArticlesProps from "../../server/help-articles/get-help-articles-props";
 
 export const getStaticPaths = async () => {
   return {
@@ -17,7 +17,7 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const helpArticles = await getHelpArticlesProps();
+  const helpArticles = await getHelpArticles();
   const [tv1Slug, tv2Slug] = (params?.vs as string).split("-vs-");
 
   if (tv1Slug === tv2Slug) {

@@ -19,6 +19,7 @@ import Main from "../components/layout/main";
 import PageTitle from "../components/layout/page-title";
 import SearchTvItem from "../components/search/item/search-tv-item";
 import getFuzzySearch from "../graphql/get-fuzzy-search-tvs";
+import getHelpArticles from "../graphql/get-help-articles";
 import { buildPicture } from "../models/picture";
 
 import {
@@ -32,10 +33,9 @@ import {
   getScreenSize,
   SearchTV,
 } from "../models/search-tv";
-import getHelpArticlesProps from "../server/help-articles/get-help-articles-props";
 
 export const getStaticProps: GetStaticProps = async () => {
-  const helpArticles = await getHelpArticlesProps();
+  const helpArticles = await getHelpArticles();
   const tvs = await getFuzzySearch();
 
   return {
