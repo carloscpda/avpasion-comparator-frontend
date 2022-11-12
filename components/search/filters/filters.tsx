@@ -124,6 +124,14 @@ const Filters = ({
             >
               Limpiar filtros
             </Button>
+            <Button
+              mr={3}
+              onClick={onClose}
+              color="white"
+              backgroundColor="red.700"
+            >
+              Aplicar
+            </Button>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
