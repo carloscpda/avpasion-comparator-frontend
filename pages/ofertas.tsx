@@ -1,4 +1,5 @@
 import { GetServerSideProps } from "next";
+import { createClient } from "redis";
 import GeneralHead from "../components/head";
 import SearchSaleItem from "../components/search/item/search-sale-item";
 import SearchTemplate from "../components/search/search-template";
@@ -23,33 +24,35 @@ import getSearchFilters from "../server/search/get-search-filters";
 export const getServerSideProps: GetServerSideProps = async ({
   query,
   res,
+  resolvedUrl,
 }) => {
-  const helpArticles = await getHelpArticlesProps();
+  const redis = createClient();
+  await redis.connect();
+  const cacheData = await redis.get(resolvedUrl);
+  let data = null;
 
-  const {
-    page,
-    brands,
-    imageTechnologies,
-    cableConnections,
-    prices,
-    currentCableConnections,
-    ...filters
-  } = await getSearchFilters({ query });
+  if (cacheData) {
+    data = JSON.parse(cacheData);
+  } else {
+    const helpArticles = await getHelpArticlesProps();
 
-  const { data: sales, meta } = await searchSales({
-    ...filters,
-    page,
-    cableConnections: currentCableConnections,
-  });
+    const {
+      page,
+      brands,
+      imageTechnologies,
+      cableConnections,
+      prices,
+      currentCableConnections,
+      ...filters
+    } = await getSearchFilters({ query });
 
-  // 1 hour
-  res.setHeader(
-    "Cache-Control",
-    "public, s-maxage=3600, stale-while-revalidate=86400"
-  );
+    const { data: sales, meta } = await searchSales({
+      ...filters,
+      page,
+      cableConnections: currentCableConnections,
+    });
 
-  return {
-    props: {
+    data = {
       helpArticles,
       sales,
       numberOfPages: meta?.pagination.pageCount,
@@ -58,8 +61,20 @@ export const getServerSideProps: GetServerSideProps = async ({
       imageTechnologies,
       cableConnections,
       prices,
-    },
-  };
+    };
+
+    redis.set(resolvedUrl, JSON.stringify(data), {
+      EX: 3600,
+    });
+  }
+
+  // 1 hour
+  res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=3600, stale-while-revalidate=86400"
+  );
+
+  return { props: { ...data } };
 };
 
 const SearchSalesPage = ({
