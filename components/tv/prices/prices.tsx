@@ -20,7 +20,7 @@ const PricesSection = ({ tvId }: { tvId: string }) => {
   }, [tvId]);
 
   const updateDatetime = useMemo(() => {
-    if (data.length) {
+    if (data?.length) {
       const datetime = new Date(data[0].createdAt);
       return datetime.toLocaleString("es-ES", {
         dateStyle: "medium",
