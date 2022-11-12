@@ -52,10 +52,7 @@ const BrandsPage = ({
         direction={{ base: "column-reverse", md: "row-reverse" }}
         pt="8"
       >
-        <Box as="aside" position={{ md: "sticky" }} top="40">
-          <Ad id="ssm_sidebar_ad1" />
-          <Ad id="ssm_sidebar_ad2" />
-        </Box>
+        <Ad id="ssm_sidebar_ad2" position={{ md: "sticky" }} top="40" />
         <VStack alignItems="flex-start" mt="8" gap={12}>
           {brands.map((brand) => (
             <Grid
@@ -71,18 +68,27 @@ const BrandsPage = ({
                 borderRadius={8}
                 gridRow={{ base: "1", sm: "1 / span 2" }}
               >
-                <Image
-                  src={buildPicture(brand.logo, { width: 160 })}
-                  alt={brand.name}
-                  width="160"
-                  height="100"
-                  objectFit="contain"
-                />
+                <NextLink href={`/mejores-televisores?brand=${brand.id}`}>
+                  <a>
+                    <Image
+                      src={buildPicture(brand.logo, { width: 160 })}
+                      alt={brand.name}
+                      width="160"
+                      height="100"
+                      objectFit="contain"
+                    />
+                  </a>
+                </NextLink>
               </Box>
               <StackItem>
-                <Text as="h2" fontSize="2xl" fontWeight="bold">
-                  {brand.name}
-                </Text>
+                <NextLink
+                  href={`/mejores-televisores?brand=${brand.id}`}
+                  passHref
+                >
+                  <Link fontSize="2xl" fontWeight="bold">
+                    {brand.name}
+                  </Link>
+                </NextLink>
                 <Text>{`${brand.series} series`}</Text>
               </StackItem>
               <VStack
@@ -94,19 +100,34 @@ const BrandsPage = ({
                   as="h3"
                   fontWeight="medium"
                 >{`Televisores ${brand.name} por pulgadas`}</Text>
-                <NextLink href={`tvs?screen-size=1&brand=${brand.id}`} passHref>
+                <NextLink
+                  href={`/mejores-televisores?screen-size=1&brand=${brand.id}`}
+                  passHref
+                >
                   <Link color="gray.500">{`${brand.name} de menos de 50 pulgadas`}</Link>
                 </NextLink>
-                <NextLink href={`tvs?screen-size=2&brand=${brand.id}`} passHref>
+                <NextLink
+                  href={`/mejores-televisores?screen-size=2&brand=${brand.id}`}
+                  passHref
+                >
                   <Link color="gray.500">{`${brand.name} de 50 a 59 pulgadas`}</Link>
                 </NextLink>
-                <NextLink href={`tvs?screen-size=3&brand=${brand.id}`} passHref>
+                <NextLink
+                  href={`/mejores-televisores?screen-size=3&brand=${brand.id}`}
+                  passHref
+                >
                   <Link color="gray.500">{`${brand.name} de 60 a 69 pulgadas`}</Link>
                 </NextLink>
-                <NextLink href={`tvs?screen-size=4&brand=${brand.id}`} passHref>
+                <NextLink
+                  href={`/mejores-televisores?screen-size=4&brand=${brand.id}`}
+                  passHref
+                >
                   <Link color="gray.500">{`${brand.name} de 70 a 79 pulgadas`}</Link>
                 </NextLink>
-                <NextLink href={`tvs?screen-size=5&brand=${brand.id}`} passHref>
+                <NextLink
+                  href={`/mejores-televisores?screen-size=5&brand=${brand.id}`}
+                  passHref
+                >
                   <Link color="gray.500">{`${brand.name} de 80 o más pulgadas`}</Link>
                 </NextLink>
                 <Text
@@ -118,7 +139,7 @@ const BrandsPage = ({
                 {imageTechnologies.map((tech) => (
                   <NextLink
                     key={tech.id}
-                    href={`tvs?image-technology=${tech.id}&brand=${brand.id}`}
+                    href={`/mejores-televisores?image-technology=${tech.id}&brand=${brand.id}`}
                     passHref
                   >
                     <Link color="gray.500">{`${brand.name} con panel ${tech.name}`}</Link>

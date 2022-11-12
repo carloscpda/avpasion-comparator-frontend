@@ -59,7 +59,6 @@ const Comparator = () => (
       <SpeakersSection />
       <SoundTechnologiesSection />
     </Section>
-    <Ad id="ssm_ctv_roba2_pdp" />
     <Section
       id="connectivity"
       title="Conexión"
@@ -72,7 +71,7 @@ const Comparator = () => (
       <WirelessConnectionsSection />
       <ExtraFeaturesSection />
     </Section>
-    <Ad id="ssm_ctv_roba3_pdp" />
+    <Ad id="ssm_ctv_roba2_pdp" />
     <Section
       id="design"
       title="Diseño"
@@ -83,7 +82,6 @@ const Comparator = () => (
       <StructureWithoutStandSection />
       <OthersDesignSection />
     </Section>
-    <Ad id="ssm_ctv_roba4_pdp" />
     <Section
       id="system"
       title="Sistema"
