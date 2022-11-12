@@ -1,5 +1,6 @@
 import { Grid } from "@chakra-ui/react";
 import { GetServerSideProps } from "next";
+import { createClient } from "redis";
 import GeneralHead from "../components/head";
 import Main from "../components/layout/main";
 import PageTitle from "../components/layout/page-title";
@@ -24,13 +25,32 @@ import {
 import getHelpArticlesProps from "../server/help-articles/get-help-articles-props";
 
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
-  const helpArticles = await getHelpArticlesProps();
-  const { data: tvs } = await searchTvs({
-    page: 1,
-    offset: 3,
-    sortBy: "hits:desc",
-  });
-  const { data: sales } = await searchSales({ page: 1, offset: 3 });
+  const redis = createClient();
+  await redis.connect();
+  const cacheData = await redis.get("home");
+  let data = null;
+
+  if (cacheData) {
+    data = JSON.parse(cacheData);
+  } else {
+    const helpArticles = await getHelpArticlesProps();
+    const { data: tvs } = await searchTvs({
+      page: 1,
+      offset: 3,
+      sortBy: "hits:desc",
+    });
+    const { data: sales } = await searchSales({ page: 1, offset: 3 });
+
+    data = {
+      tvs,
+      sales,
+      helpArticles,
+    };
+
+    redis.set("home", JSON.stringify(data), {
+      EX: 3600,
+    });
+  }
 
   // 1 hour
   res.setHeader(
@@ -38,13 +58,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     "public, s-maxage=3600, stale-while-revalidate=86400"
   );
 
-  return {
-    props: {
-      tvs,
-      sales,
-      helpArticles,
-    },
-  };
+  return { props: { ...data } };
 };
 
 const IndexPage = ({
