@@ -206,8 +206,9 @@ const Wizard = () => {
           <FormControl>
             <Slider
               aria-label="slider-budget"
-              min={600}
+              min={500}
               max={4000}
+              step={250}
               defaultValue={defaultBudget}
               onChange={setBudget}
               mt="6"
