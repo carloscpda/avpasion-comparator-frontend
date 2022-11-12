@@ -75,7 +75,7 @@ const Navbar = () => {
     >
       <Center width="100%" justifyContent="space-between">
         <Flex alignItems="center" gap="2">
-          <Box ref={menuButtonRef} display={{ lg: "none" }}>
+          <Box ref={menuButtonRef} display={{ lg: "none" }} pt="2">
             <Icon
               as={IoMdMenu}
               onClick={onOpen}
@@ -84,9 +84,9 @@ const Navbar = () => {
             />
           </Box>
           <NextLink href="/" passHref>
-            <a>
+            <Link pt="1">
               <Image src="logo.svg" alt="logo" height={40} width={90} />
-            </a>
+            </Link>
           </NextLink>
         </Flex>
         <HStack
