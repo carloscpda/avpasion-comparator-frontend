@@ -1,11 +1,12 @@
 import { GetServerSideProps } from "next";
 import GeneralHead from "../components/head";
-import SearchTvItem from "../components/search/item/search-tv-item";
+import SearchSaleItem from "../components/search/item/search-sale-item";
 import SearchTemplate from "../components/search/search-template";
-import searchTvs from "../graphql/search-tvs";
+import searchSales from "../graphql/search-sales";
 import { BrandFilter } from "../models/brand-filter";
 import { CableConnectionFilter } from "../models/cable-connections-filter";
 import { ImageTechnology } from "../models/image-technology";
+import { SearchSale } from "../models/search-sale";
 import {
   getBrand,
   getFullName,
@@ -15,7 +16,6 @@ import {
   getReleaseDate,
   getResolution,
   getScreenSize,
-  SearchTV,
 } from "../models/search-tv";
 import getHelpArticlesProps from "../server/help-articles/get-help-articles-props";
 import getSearchFilters from "../server/search/get-search-filters";
@@ -27,20 +27,17 @@ export const getServerSideProps: GetServerSideProps = async ({
   const helpArticles = await getHelpArticlesProps();
 
   const {
+    page,
     brands,
     imageTechnologies,
-    prices,
-    page,
     cableConnections,
+    prices,
     currentCableConnections,
     ...filters
   } = await getSearchFilters({ query });
 
-  const topic = (query?.topic as string) || undefined;
-
-  const { data: tvs, meta } = await searchTvs({
+  const { data: sales, meta } = await searchSales({
     ...filters,
-    topic,
     page,
     cableConnections: currentCableConnections,
   });
@@ -54,65 +51,69 @@ export const getServerSideProps: GetServerSideProps = async ({
   return {
     props: {
       helpArticles,
-      tvs,
+      sales,
       numberOfPages: meta?.pagination.pageCount,
       currentPage: page,
       brands,
       imageTechnologies,
-      prices,
       cableConnections,
+      prices,
     },
   };
 };
 
 const SearchSalesPage = ({
-  tvs,
+  sales,
   currentPage,
   numberOfPages,
   brands,
   imageTechnologies,
-  prices,
   cableConnections,
+  prices,
 }: {
-  tvs: SearchTV[];
+  sales: SearchSale[];
   currentPage: number;
   numberOfPages: number;
   brands: BrandFilter[];
-  brand: BrandFilter["id"];
   imageTechnologies: ImageTechnology[];
-  imageTechnology: ImageTechnology["id"];
-  prices: { minPrice: number; maxPrice: number };
   cableConnections: CableConnectionFilter[];
-  currentCableConnections: string | string[];
+  prices: { minPrice: number; maxPrice: number };
 }) => {
   return (
     <>
-      <GeneralHead slug="tvs" title="Los mejores televisores" />
+      <GeneralHead slug="ofertas" title="Las mejores ofertas" />
       <SearchTemplate
-        title="Los mejores televisores"
+        title="Mejores ofertas en televisores"
         currentPage={currentPage}
         numberOfPages={numberOfPages}
         brands={brands}
         imageTechnologies={imageTechnologies}
         cableConnections={cableConnections}
         prices={prices}
-        noResults={tvs.length === 0}
+        noResults={sales.length === 0}
       >
-        {tvs.map((tv) => (
-          <SearchTvItem
-            isComparable
-            key={tv.id}
-            slug={tv.slug || ""}
-            fullName={getFullName(tv)}
-            picture={getPicture(tv)}
-            score={tv.score || 0}
-            brand={getBrand(tv)}
-            imageTechnology={getImageTechnology(tv)}
-            model={getModel(tv)}
-            releaseDate={getReleaseDate(tv)}
-            resolutionIcon={getResolution(tv)}
-            screenSize={getScreenSize(tv)}
-            price={tv.minPrice || 0}
+        {sales.map((sale) => (
+          <SearchSaleItem
+            key={sale.id}
+            slug={sale.tv.data.attributes.slug || ""}
+            fullName={getFullName(sale.tv.data.attributes)}
+            picture={getPicture(sale.tv.data.attributes)}
+            score={sale.tv.data.attributes.score || 0}
+            brand={getBrand(sale.tv.data.attributes)}
+            imageTechnology={getImageTechnology(sale.tv.data.attributes)}
+            model={getModel(sale.tv.data.attributes)}
+            releaseDate={getReleaseDate(sale.tv.data.attributes)}
+            resolutionIcon={getResolution(sale.tv.data.attributes)}
+            screenSize={getScreenSize(sale.tv.data.attributes)}
+            price={sale.price || 0}
+            basePrice={sale.basePrice || 0}
+            relativeDiscount={sale.relativeDiscount || 0}
+            absoluteDiscount={sale.absoluteDiscount || 0}
+            affiliateUrl={sale.affiliateUrl || ""}
+            marketLogo={
+              sale.marketplace?.data?.attributes?.logo.data?.attributes?.url ||
+              ""
+            }
           />
         ))}
       </SearchTemplate>

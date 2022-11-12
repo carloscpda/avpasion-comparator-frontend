@@ -3,13 +3,14 @@ import {
   List,
   ListIcon,
   ListItem,
-  TypographyProps,
+  TypographyProps
 } from "@chakra-ui/react";
 import {
+  IoBarcodeOutline,
   IoCalendarClearOutline,
   IoCubeOutline,
   IoResize,
-  IoTvOutline,
+  IoTvOutline
 } from "react-icons/io5";
 import { TV } from "../../../models/tv";
 
@@ -19,7 +20,7 @@ type SummaryDataProps = {
 };
 
 const SummaryData = ({ tv, size = "xl" }: SummaryDataProps) => {
-  const { general, image } = tv;
+  const { general, image, ean } = tv;
 
   return (
     <Box>
@@ -51,6 +52,10 @@ const SummaryData = ({ tv, size = "xl" }: SummaryDataProps) => {
             {image.technology.image.data.attributes.name}
           </ListItem>
         )}
+        <ListItem fontSize={size}>
+          <ListIcon as={IoBarcodeOutline} />
+          {ean}
+        </ListItem>
       </List>
     </Box>
   );

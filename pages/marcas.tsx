@@ -10,6 +10,7 @@ import {
 import { GetStaticProps } from "next";
 import Image from "next/image";
 import NextLink from "next/link";
+import Ad from "../components/ad";
 import GeneralHead from "../components/head";
 import Main from "../components/layout/main";
 import PageTitle from "../components/layout/page-title";
@@ -44,14 +45,17 @@ const BrandsPage = ({
 }) => {
   return (
     <Main>
-      <GeneralHead slug="brands" title="Marcas" />
+      <GeneralHead slug="marcas" title="Marcas" />
       <PageTitle title="Todas las marcas" />
       <Flex
         justifyContent="space-between"
-        direction={{ base: "column", md: "row-reverse" }}
+        direction={{ base: "column-reverse", md: "row-reverse" }}
         pt="8"
       >
-        <Box id="ssm_ctv_sidebar_1" position={{ md: "sticky" }} top="40" />
+        <Box as="aside" position={{ md: "sticky" }} top="40">
+          <Ad id="ssm_sidebar_ad1" />
+          <Ad id="ssm_sidebar_ad2" />
+        </Box>
         <VStack alignItems="flex-start" mt="8" gap={12}>
           {brands.map((brand) => (
             <Grid

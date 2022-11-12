@@ -13,7 +13,7 @@ import {
 const TVHead = ({ offerCount }: { offerCount: number }) => {
   const tv = useTvs().tvs[0];
   const seoName = `${getBrand(tv)} ${getModel(tv)} ${tv.general?.screenSize}`;
-  const pageUrl = `https://comparador.avpasion.com/tv/${tv.slug}`;
+  const pageUrl = `https://comparador.avpasion.com/televisores/${tv.slug}`;
   const mainPicture = getPicture(tv) + "?width=400";
   const originalPic = getPictureDefinition(tv);
   const title = `Televisor ${seoName} especificaciones, características y precios | Comparador TV AVPasión`;

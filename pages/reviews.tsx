@@ -76,7 +76,7 @@ const ReviewsPage = ({
   return (
     <Main>
       <GeneralHead slug="reviews" title="Reviews y comparativas" />
-      <PageTitle title="Todas las reviews" />
+      <PageTitle title="Reviews y comparativas" />
       <HStack gap="1" mt="8" justifyContent="flex-end">
         <Button
           colorScheme="gray"

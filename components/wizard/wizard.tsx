@@ -166,7 +166,7 @@ const Wizard = () => {
 
     console.log(router.query);
 
-    router.pathname = "/tvs";
+    router.pathname = "/mejores-televisores";
 
     router.push(router);
   };

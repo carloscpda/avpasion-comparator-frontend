@@ -28,11 +28,11 @@ const navbarLinks = [
   },
   {
     name: "Comparar",
-    link: "/compare",
+    link: "/comparar",
   },
   {
     name: "Marcas",
-    link: "/brands",
+    link: "/marcas",
   },
   {
     name: "Reviews",
@@ -40,11 +40,11 @@ const navbarLinks = [
   },
   {
     name: "Mejores ofertas",
-    link: "/sales?screen-size=3",
+    link: "/ofertas?screen-size=3",
   },
   {
     name: "Mejores televisores",
-    link: "/tvs?screen-size=3",
+    link: "/mejores-televisores?screen-size=3",
   },
   {
     name: "Noticias",
@@ -108,7 +108,7 @@ const Navbar = () => {
           ))}
         </HStack>
         <Flex alignItems="center">
-          <NextLink href="/search" passHref>
+          <NextLink href="/busqueda" passHref>
             <IconButton
               as="a"
               icon={<SlMagnifier />}

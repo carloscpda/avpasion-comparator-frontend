@@ -47,7 +47,7 @@ const SerieTv = ({
       _hover={{
         transform: "scale(1.02)",
       }}
-      onClick={() => router.push(`/tv/${slug}`)}
+      onClick={() => router.push(`/televisores/${slug}`)}
     >
       <HStack>
         <Image
@@ -63,11 +63,11 @@ const SerieTv = ({
         <Tag color="black" variant="outline">
           <TagLabel>{`${screenSize}"`}</TagLabel>
         </Tag>
-        <Tag color="black" variant="outline">
+        <Tag color="gray" variant="outline">
           <TagLabel>{resolution}</TagLabel>
         </Tag>
         {!!price && (
-          <Tag color="black" variant="outline">
+          <Tag color="gray" variant="outline">
             <TagLabel>{parseCurrency(price)}</TagLabel>
           </Tag>
         )}

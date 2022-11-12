@@ -100,7 +100,7 @@ const IndexPage = ({
       <SectionTitle
         mt="16"
         title="Mejores ofertas"
-        linkHref="sales"
+        linkHref="ofertas"
         linkText="Ver todas las ofertas"
       />
       <Grid

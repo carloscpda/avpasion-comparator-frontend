@@ -67,7 +67,7 @@ const SearchTvItem = ({
         )
       }
       buttons={
-        <NextLink href={`/tv/${slug}`} passHref>
+        <NextLink href={`/televisores/${slug}`} passHref>
           <Button as="a" colorScheme="red" bg="sale.700" size="sm">
             Ver detalles
           </Button>

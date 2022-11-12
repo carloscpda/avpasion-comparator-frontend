@@ -120,8 +120,8 @@ const ComparePage = ({ tvs }: { tvs: SearchTV[] }) => {
 
   return (
     <Main>
-      <GeneralHead slug="compare" title="Comparar" />
-      <PageTitle title="Comparar" />
+      <GeneralHead slug="comparar" title="Comparar televisores" />
+      <PageTitle title="Comparar televisores" />
       <Ad id="ssm_ctv_leaderboard_grids" />
       <VStack
         flexDirection={{ base: "column", md: "row" }}

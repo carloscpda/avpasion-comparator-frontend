@@ -6,7 +6,7 @@ const PageTitle = ({ title }: { title: string }) => {
   return (
     <Flex alignItems="flex-start" justifyContent="space-between" gap="3">
       <Heading>{title}</Heading>
-      <Link href="/search" passHref>
+      <Link href="/busqueda" passHref>
         <Button
           display={{ base: "none", md: "inline-flex" }}
           as="a"

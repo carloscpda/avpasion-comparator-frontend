@@ -39,7 +39,7 @@ const Filters = ({
   prices,
 }: FiltersProps) => {
   const router = useRouter();
-  const isDesktop = useBreakpointValue({ base: false, md: true });
+  const isDesktop = useBreakpointValue({ base: false, lg: true });
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const filtersButtonRef = useRef<any>();

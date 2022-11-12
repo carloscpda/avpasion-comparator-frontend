@@ -60,8 +60,8 @@ const SearchPage = ({ tvs }: { tvs: SearchTV[] }) => {
 
   return (
     <Main>
-      <GeneralHead slug="search" title="Búsqueda" />
-      <Heading>Búsqueda</Heading>
+      <GeneralHead slug="busqueda" title="Encuentra tu televisor" />
+      <Heading>Encuentra tu televisor</Heading>
       <InputGroup mt="4" mb="8">
         <InputLeftElement
           pointerEvents="none"

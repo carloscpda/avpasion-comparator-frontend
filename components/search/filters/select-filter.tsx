@@ -40,6 +40,11 @@ function SelectFilter<T extends Option>({
         getOptionLabel={(option) => option.name}
         getOptionValue={(option) => option.id}
         options={data}
+        menuPortalTarget={document.body}
+        styles={{
+          menuPortal: (provided) => ({ ...provided, zIndex: 9999 }),
+          menu: (provided) => ({ ...provided, zIndex: 9999 }),
+        }}
       />
     </FormControl>
   );
