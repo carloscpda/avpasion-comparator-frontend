@@ -124,10 +124,10 @@ const imageTechnologies = [
   },
 ];
 
-const defaultTopic = "cine";
+const defaultTopic = "general";
 const defaultBudget = 1200;
 const defaultDistance = 2.5;
-const defaultImageTechnology = "1";
+const defaultImageTechnology = "0";
 
 const Wizard = () => {
   const router = useRouter();

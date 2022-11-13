@@ -8,14 +8,10 @@ const searchTvs = async (params: SearchTvsParams) => {
 
   const { ids, meta } = await apolloSearchTvs(params);
 
-  console.log({ ids, meta });
-
   const tvs = await Promise.all(
     ids.map(async (id) => {
       const cacheData = await redis.get(`next::tv::${id}`);
       let tv = null;
-
-      console.log({ cacheData });
 
       if (cacheData) {
         tv = JSON.parse(cacheData);

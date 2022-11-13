@@ -3,6 +3,20 @@ import ApolloClient from "../apollo-client";
 import { SearchSalesQuery } from "../gql/graphql";
 import { SEARCH_TV } from "./search-tv.fragment";
 
+type SearchSalesParamss = {
+  page: number;
+  offset: number;
+  brand?: string[];
+  cableConnections?: string[];
+  imageTechnology?: string[];
+  sizeGreatherThan?: number;
+  sizeLessThan?: number;
+  minPrice?: number;
+  maxPrice?: number;
+  minScore?: number;
+  imageScore?: number;
+};
+
 const searchSales = async ({
   page,
   offset,
@@ -15,19 +29,7 @@ const searchSales = async ({
   maxPrice,
   minScore,
   imageScore,
-}: {
-  page: number;
-  offset: number;
-  brand?: string[];
-  cableConnections?: string[];
-  imageTechnology?: string[];
-  sizeGreatherThan?: number;
-  sizeLessThan?: number;
-  minPrice?: number;
-  maxPrice?: number;
-  minScore?: number;
-  imageScore?: number;
-}) => {
+}: SearchSalesParamss) => {
   const { data } = await ApolloClient.getClient().query<SearchSalesQuery>({
     variables: {
       page,

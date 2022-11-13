@@ -46,7 +46,7 @@ const searchTvs = async ({
           brand: { serie: { brand: { id: { in: brand } } } },
         },
       },
-      { minPrice: { gte: minPrice, lte: maxPrice } },
+      { minPrice: { gt: minPrice, lte: maxPrice } },
       { score: { gte: minScore } },
       {
         image: {
