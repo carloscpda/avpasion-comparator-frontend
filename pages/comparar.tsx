@@ -16,7 +16,6 @@ import {
 import Fuse from "fuse.js";
 import { GetStaticProps } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { Fragment, useMemo, useState } from "react";
 import GeneralHead from "../components/head";
@@ -222,22 +221,20 @@ const ComparePage = ({ tvs }: { tvs: SearchTV[] }) => {
           </Box>
         </VStack>
       </VStack>
-      <Link href={`vs/${tv1?.slug}-vs-${tv2?.slug}`} passHref>
-        <Button
-          as="a"
-          alignSelf="center"
-          colorScheme="gray"
-          backgroundColor="red.700"
-          color="white"
-          width="300px"
-          disabled={!tv1 || !tv2}
-          _hover={{
-            backgroundColor: "red.900",
-          }}
-        >
-          Comparar
-        </Button>
-      </Link>
+      <Button
+        onClick={() => router.push(`vs/${tv1?.slug}-vs-${tv2?.slug}`)}
+        alignSelf="center"
+        colorScheme="gray"
+        backgroundColor="red.700"
+        color="white"
+        width="300px"
+        disabled={!tv1 || !tv2}
+        _hover={{
+          backgroundColor: "red.900",
+        }}
+      >
+        Comparar
+      </Button>
     </Main>
   );
 };
