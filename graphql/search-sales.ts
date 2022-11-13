@@ -1,9 +1,8 @@
 import { gql } from "@apollo/client";
 import ApolloClient from "../apollo-client";
 import { SearchSalesQuery } from "../gql/graphql";
-import { SEARCH_TV } from "./search-tv.fragment";
 
-type SearchSalesParamss = {
+export type SearchSalesParams = {
   page: number;
   offset: number;
   brand?: string[];
@@ -29,7 +28,7 @@ const searchSales = async ({
   maxPrice,
   minScore,
   imageScore,
-}: SearchSalesParamss) => {
+}: SearchSalesParams) => {
   const { data } = await ApolloClient.getClient().query<SearchSalesQuery>({
     variables: {
       page,
@@ -45,7 +44,6 @@ const searchSales = async ({
       imageScore,
     },
     query: gql`
-      ${SEARCH_TV}
       query SearchSales(
         $page: Int!
         $offset: Int!
@@ -91,34 +89,6 @@ const searchSales = async ({
           }
           data {
             id
-            attributes {
-              price
-              basePrice
-              absoluteDiscount
-              relativeDiscount
-              affiliateUrl
-              marketplace {
-                data {
-                  attributes {
-                    name
-                    logo {
-                      data {
-                        attributes {
-                          url
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-              tv {
-                data {
-                  attributes {
-                    ...SearchTv
-                  }
-                }
-              }
-            }
           }
         }
       }
@@ -127,10 +97,7 @@ const searchSales = async ({
 
   return {
     meta: data.marketplaceTvs?.meta,
-    data: data.marketplaceTvs?.data.map((mktv) => ({
-      ...mktv.attributes,
-      id: mktv.id,
-    })),
+    ids: data.marketplaceTvs?.data.map((mktv) => mktv.id as string) || [],
   };
 };
 export default searchSales;

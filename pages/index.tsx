@@ -8,7 +8,6 @@ import SearchSaleItem from "../components/search/item/search-sale-item";
 import SearchTvItem from "../components/search/item/search-tv-item";
 import SectionTitle from "../components/section-title";
 import Wizard from "../components/wizard/wizard";
-import searchSales from "../graphql/search-sales";
 import { SearchSale } from "../models/search-sale";
 import {
   getBrand,
@@ -22,6 +21,7 @@ import {
   SearchTV,
 } from "../models/search-tv";
 import getHelpArticlesProps from "../server/help-articles/get-help-articles-props";
+import searchSales from "../server/search/search-sales";
 import searchTvs from "../server/search/search-tvs";
 
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
@@ -39,7 +39,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
       offset: 3,
       sortBy: "hits:desc",
     });
-    const { data: sales } = await searchSales({ page: 1, offset: 3 });
+    const { sales } = await searchSales({ page: 1, offset: 3 });
 
     data = {
       tvs,
@@ -51,12 +51,6 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
       EX: 3600,
     });
   }
-
-  // 1 hour
-  res.setHeader(
-    "Cache-Control",
-    "public, s-maxage=3600, stale-while-revalidate=86400"
-  );
 
   return { props: { ...data } };
 };
@@ -130,16 +124,16 @@ const IndexPage = ({
         {sales.map((sale) => (
           <SearchSaleItem
             key={sale.id}
-            slug={sale.tv.data.attributes.slug || ""}
-            fullName={getFullName(sale.tv.data.attributes)}
-            picture={getPicture(sale.tv.data.attributes)}
-            score={sale.tv.data.attributes.score || 0}
-            brand={getBrand(sale.tv.data.attributes)}
-            imageTechnology={getImageTechnology(sale.tv.data.attributes)}
-            model={getModel(sale.tv.data.attributes)}
-            releaseDate={getReleaseDate(sale.tv.data.attributes)}
-            resolutionIcon={getResolution(sale.tv.data.attributes)}
-            screenSize={getScreenSize(sale.tv.data.attributes)}
+            slug={sale.tv.slug || ""}
+            fullName={getFullName(sale.tv)}
+            picture={getPicture(sale.tv)}
+            score={sale.tv.score || 0}
+            brand={getBrand(sale.tv)}
+            imageTechnology={getImageTechnology(sale.tv)}
+            model={getModel(sale.tv)}
+            releaseDate={getReleaseDate(sale.tv)}
+            resolutionIcon={getResolution(sale.tv)}
+            screenSize={getScreenSize(sale.tv)}
             price={sale.price || 0}
             basePrice={sale.basePrice || 0}
             relativeDiscount={sale.relativeDiscount || 0}

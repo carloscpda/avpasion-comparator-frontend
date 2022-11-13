@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import {
   Box,
   Drawer,
@@ -14,12 +15,10 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
-import Image from "next/image";
 import NextLink from "next/link";
 import { useRef } from "react";
 import { IoMdMenu } from "react-icons/io";
 import { SlMagnifier } from "react-icons/sl";
-import logo from "../../public/logo.svg";
 import Center from "./center";
 
 const navbarLinks = [
@@ -86,7 +85,12 @@ const Navbar = () => {
           </Box>
           <NextLink href="/" passHref prefetch={false}>
             <Link pt="1">
-              <Image src={logo} alt="logo" height={40} width={90} />
+              <img
+                src="https://cdn.avpasion.com/images/logos/avpasion-logo.svg"
+                alt="AVPasion"
+                height={40}
+                width={90}
+              />
             </Link>
           </NextLink>
         </Flex>

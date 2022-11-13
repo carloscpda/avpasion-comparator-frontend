@@ -1,12 +1,5 @@
-import searchSales from "../graphql/search-sales";
-import { SearchTV } from "./search-tv";
+import getSearchSaleRepository from "../server/search/search-sale.repository";
 
 export type SearchSale = NonNullable<
-  Awaited<ReturnType<typeof searchSales>>["data"]
->[number] & {
-  tv: {
-    data: {
-      attributes: SearchTV;
-    };
-  };
-};
+  Awaited<ReturnType<typeof getSearchSaleRepository>>
+>;

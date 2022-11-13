@@ -3,7 +3,6 @@ import { createClient } from "redis";
 import GeneralHead from "../components/head";
 import SearchSaleItem from "../components/search/item/search-sale-item";
 import SearchTemplate from "../components/search/search-template";
-import searchSales from "../graphql/search-sales";
 import { BrandFilter } from "../models/brand-filter";
 import { CableConnectionFilter } from "../models/cable-connections-filter";
 import { ImageTechnology } from "../models/image-technology";
@@ -20,6 +19,7 @@ import {
 } from "../models/search-tv";
 import getHelpArticlesProps from "../server/help-articles/get-help-articles-props";
 import getSearchFilters from "../server/search/get-search-filters";
+import searchSales from "../server/search/search-sales";
 
 export const getServerSideProps: GetServerSideProps = async ({
   query,
@@ -46,7 +46,7 @@ export const getServerSideProps: GetServerSideProps = async ({
       ...filters
     } = await getSearchFilters({ query });
 
-    const { data: sales, meta } = await searchSales({
+    const { sales, meta } = await searchSales({
       ...filters,
       page,
       cableConnections: currentCableConnections,
@@ -67,12 +67,6 @@ export const getServerSideProps: GetServerSideProps = async ({
       EX: 3600,
     });
   }
-
-  // 1 hour
-  res.setHeader(
-    "Cache-Control",
-    "public, s-maxage=3600, stale-while-revalidate=86400"
-  );
 
   return { props: { ...data } };
 };
@@ -110,16 +104,16 @@ const SearchSalesPage = ({
         {sales.map((sale) => (
           <SearchSaleItem
             key={sale.id}
-            slug={sale.tv.data.attributes.slug || ""}
-            fullName={getFullName(sale.tv.data.attributes)}
-            picture={getPicture(sale.tv.data.attributes)}
-            score={sale.tv.data.attributes.score || 0}
-            brand={getBrand(sale.tv.data.attributes)}
-            imageTechnology={getImageTechnology(sale.tv.data.attributes)}
-            model={getModel(sale.tv.data.attributes)}
-            releaseDate={getReleaseDate(sale.tv.data.attributes)}
-            resolutionIcon={getResolution(sale.tv.data.attributes)}
-            screenSize={getScreenSize(sale.tv.data.attributes)}
+            slug={sale.tv.slug || ""}
+            fullName={getFullName(sale.tv)}
+            picture={getPicture(sale.tv)}
+            score={sale.tv.score || 0}
+            brand={getBrand(sale.tv)}
+            imageTechnology={getImageTechnology(sale.tv)}
+            model={getModel(sale.tv)}
+            releaseDate={getReleaseDate(sale.tv)}
+            resolutionIcon={getResolution(sale.tv)}
+            screenSize={getScreenSize(sale.tv)}
             price={sale.price || 0}
             basePrice={sale.basePrice || 0}
             relativeDiscount={sale.relativeDiscount || 0}

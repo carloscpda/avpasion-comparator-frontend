@@ -1,6 +1,6 @@
 import { createClient } from "redis";
-import getSearchTv from "../../graphql/get-search-tv";
 import apolloSearchTvs, { SearchTvsParams } from "../../graphql/search-tvs";
+import getSearchTvRepository from "./search-tv.repository";
 
 const searchTvs = async (params: SearchTvsParams) => {
   const redis = createClient();
@@ -8,23 +8,7 @@ const searchTvs = async (params: SearchTvsParams) => {
 
   const { ids, meta } = await apolloSearchTvs(params);
 
-  const tvs = await Promise.all(
-    ids.map(async (id) => {
-      const cacheData = await redis.get(`next::tv::${id}`);
-      let tv = null;
-
-      if (cacheData) {
-        tv = JSON.parse(cacheData);
-      } else {
-        tv = await getSearchTv({ id });
-        redis.set(`next::tv::${id}`, JSON.stringify(tv), {
-          EX: 3600,
-        });
-      }
-
-      return tv;
-    })
-  );
+  const tvs = await Promise.all(ids.map(getSearchTvRepository));
 
   return { tvs, meta };
 };
