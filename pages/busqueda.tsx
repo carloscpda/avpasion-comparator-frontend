@@ -5,10 +5,10 @@ import {
   InputGroup,
   InputLeftElement,
 } from "@chakra-ui/react";
-import Fuse from "fuse.js";
 import { GetStaticProps } from "next";
-import { ChangeEventHandler, useMemo, useState } from "react";
+import { ChangeEventHandler, useState } from "react";
 import { IoTvOutline } from "react-icons/io5";
+import useFuzzySearch from "../components/fuzzy-search/use-fuzzy-search";
 import GeneralHead from "../components/head";
 import Main from "../components/layout/main";
 import SearchTvItem from "../components/search/item/search-tv-item";
@@ -40,22 +40,12 @@ export const getStaticProps: GetStaticProps = async () => {
 };
 
 const SearchPage = ({ tvs }: { tvs: SearchTV[] }) => {
-  const [searched, search] = useState<Fuse.FuseResult<SearchTV>[]>([]);
+  const [searched, search] = useState<SearchTV[]>([]);
 
-  const fuse = useMemo(() => {
-    return new Fuse<SearchTV>(tvs, {
-      threshold: 0,
-      keys: [
-        "ean",
-        "general.brand.serie.data.attributes.brand.data.attributes.name",
-        "general.brand.serie.data.attributes.name",
-        "general.brand.model",
-      ],
-    });
-  }, [tvs]);
+  const fuzzySearch = useFuzzySearch(tvs);
 
   const handleSearch: ChangeEventHandler<HTMLInputElement> = (event) => {
-    search(fuse.search(event.target.value, { limit: 12 }));
+    search(fuzzySearch(event.target.value));
   };
 
   return (
@@ -90,7 +80,7 @@ const SearchPage = ({ tvs }: { tvs: SearchTV[] }) => {
           rowGap={16}
           columnGap={4}
         >
-          {searched.map(({ item: tv }) => (
+          {searched.map((tv) => (
             <SearchTvItem
               isComparable
               key={tv.slug}

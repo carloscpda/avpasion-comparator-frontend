@@ -13,11 +13,11 @@ import {
   OptionProps,
   SingleValueProps,
 } from "chakra-react-select";
-import Fuse from "fuse.js";
 import { GetStaticProps } from "next";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { Fragment, useMemo, useState } from "react";
+import { Fragment, useState } from "react";
+import useFuzzySearch from "../components/fuzzy-search/use-fuzzy-search";
 import GeneralHead from "../components/head";
 import Main from "../components/layout/main";
 import PageTitle from "../components/layout/page-title";
@@ -52,6 +52,7 @@ export const getStaticProps: GetStaticProps = async () => {
 };
 
 const Option = (props: OptionProps<SearchTV>) => {
+  console.log({ props });
   return (
     <components.Option {...props}>
       <HStack alignItems="center">
@@ -85,6 +86,7 @@ const Option = (props: OptionProps<SearchTV>) => {
             colorScheme="black"
             bg="white"
             borderColor="black"
+            color="black"
             borderWidth="2px"
             fontWeight="extrabold"
             borderRadius="sm"
@@ -106,27 +108,12 @@ function SingleValue(props: SingleValueProps<SearchTV>) {
 
 const ComparePage = ({ tvs }: { tvs: SearchTV[] }) => {
   const router = useRouter();
-  const fuse = useMemo(() => {
-    return new Fuse<SearchTV>(tvs, {
-      threshold: 0,
-      keys: [
-        "ean",
-        "general.brand.serie.data.attributes.brand.data.attributes.name",
-        "general.brand.serie.data.attributes.name",
-        "general.brand.model",
-      ],
-    });
-  }, [tvs]);
+  const search = useFuzzySearch(tvs);
 
   const [tv1, setTv1] = useState<SearchTV | undefined>(
     tvs.find((tv) => tv.slug === router.query.tv)
   );
   const [tv2, setTv2] = useState<SearchTV>();
-
-  const handleSearch = (value: string) => {
-    const searched = fuse.search(value, { limit: 10 });
-    return searched.map((s) => s.item);
-  };
 
   return (
     <Main>
@@ -164,10 +151,10 @@ const ComparePage = ({ tvs }: { tvs: SearchTV[] }) => {
               colorScheme="gray"
               placeholder="Busca por modelo o EAN"
               noOptionsMessage={() => "Sin resultados"}
-              loadOptions={(inputValue, callback) => {
-                callback(handleSearch(inputValue));
+              loadOptions={(input, callback) => {
+                callback(search(input));
               }}
-              defaultOptions={handleSearch(
+              defaultOptions={search(
                 tv1?.general?.brand?.serie?.data?.attributes?.name || ""
               )}
               openMenuOnFocus={false}
@@ -210,7 +197,7 @@ const ComparePage = ({ tvs }: { tvs: SearchTV[] }) => {
               openMenuOnFocus={false}
               openMenuOnClick={false}
               loadOptions={(inputValue, callback) => {
-                callback(handleSearch(inputValue));
+                callback(search(inputValue));
               }}
               getOptionValue={(opt) => opt?.ean || ""}
               getOptionLabel={(opt) => opt?.general?.brand?.model || ""}
