@@ -65,32 +65,32 @@ const searchTvs = async ({
       //   },
       // })) || []),
 
-      // ...(topic === "cine"
-      //   ? [
-      //       {
-      //         or: [
-      //           { image: { technology: { image: { id: { eq: "1" } } } } }, // OLED
-      //           { image: { technology: { panel: { id: { eq: "3" } } } } }, // VA
-      //         ],
-      //       },
-      //     ]
-      //   : []),
+      ...(topic === "cine"
+        ? [
+            {
+              or: [
+                { image: { technology: { image: { id: { eq: "1" } } } } }, // OLED
+                { image: { technology: { panel: { id: { eq: "3" } } } } }, // VA
+              ],
+            },
+          ]
+        : []),
 
-      // ...(topic === "games"
-      //   ? [
-      //       {
-      //         and: [
-      //           { connections: { cable: { type: { id: { eq: "15" } } } } }, // HDMI 2.1
-      //           {
-      //             image: {
-      //               responseTimes: { gaming: { id: { in: ["5", "8"] } } }, // Game Mode or VRR
-      //             },
-      //           },
-      //           { image: { responseTimes: { inputLag60: { lt: 12 } } } }, // InputLag60 < 12
-      //         ],
-      //       },
-      //     ]
-      //   : []),
+      ...(topic === "games"
+        ? [
+            {
+              and: [
+                { connections: { cable: { type: { id: { eq: "15" } } } } }, // HDMI 2.1
+                {
+                  image: {
+                    responseTimes: { gaming: { id: { in: ["5", "8"] } } }, // Game Mode or VRR
+                  },
+                },
+                { image: { responseTimes: { inputLag60: { lt: 12 } } } }, // InputLag60 < 12
+              ],
+            },
+          ]
+        : []),
     ],
   };
 
