@@ -33,7 +33,7 @@ const handler: NextApiHandler = async (req, res) => {
       prices = sortedMarketplaceTvs;
 
       redis.set(`price:${tvid}`, JSON.stringify(sortedMarketplaceTvs), {
-        EX: 60 * 60 * 2, // 2 horas
+        EX: 60 * 30, // 30 mins
       });
     } else {
       prices = JSON.parse(pricesCached);
