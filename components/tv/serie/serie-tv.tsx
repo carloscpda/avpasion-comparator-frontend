@@ -1,5 +1,4 @@
-import { HStack, Tag, TagLabel, Text, WrapItem } from "@chakra-ui/react";
-import Image from "next/image";
+import { HStack, Image, Tag, TagLabel, Text, WrapItem } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import parseCurrency from "../../../helpers/parse-currency";
 import { getPicture } from "../../../models/tv";
@@ -54,8 +53,8 @@ const SerieTv = ({
           src={getPicture(tv)}
           alt={name || ""}
           objectFit="contain"
-          width="40"
-          height="30"
+          width="40px"
+          height="30px"
         />
         <Text>{name}</Text>
       </HStack>

@@ -1,5 +1,4 @@
-import { Grid, GridItem } from "@chakra-ui/react";
-import Image from "next/image";
+import { Grid, GridItem, Image } from "@chakra-ui/react";
 import { Fragment } from "react";
 import { getFullName, getPicture } from "../../models/tv";
 import Score from "../score";
@@ -50,7 +49,6 @@ const ComparatorHero = () => {
                 <Image
                   src={`${image}?width=400`}
                   alt={getFullName(tv)}
-                  layout="fill"
                   objectFit="contain"
                 />
               </GridItem>

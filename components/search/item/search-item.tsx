@@ -4,11 +4,11 @@ import {
   Divider,
   Flex,
   HStack,
+  Image,
   Tag,
   TagLabel,
   VStack,
 } from "@chakra-ui/react";
-import Image from "next/image";
 import NextLink from "next/link";
 import { ReactNode } from "react";
 import Score from "../../score";
@@ -76,8 +76,8 @@ const SearchItem = ({
             <Image
               src={`${resolutionIcon}?saturation=-75&width=96`}
               alt="resolution"
-              height="32"
-              width="48"
+              height="32px"
+              width="48px"
               objectFit="contain"
             />
           )}

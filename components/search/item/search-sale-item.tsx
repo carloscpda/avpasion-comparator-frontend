@@ -1,5 +1,4 @@
-import { Button, Text, VStack } from "@chakra-ui/react";
-import Image from "next/image";
+import { Button, Image, Text, VStack } from "@chakra-ui/react";
 import NextLink from "next/link";
 import parseCurrency from "../../../helpers/parse-currency";
 import { buildPicture } from "../../../models/picture";
@@ -82,8 +81,8 @@ const SearchSaleItem = ({
           </Text>
           <Image
             src={buildPicture(marketLogo, { width: 80 })}
-            width={80}
-            height={40}
+            width="80px"
+            height="40px"
             objectFit="contain"
             alt="market-logo"
           />

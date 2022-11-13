@@ -1,5 +1,4 @@
-import { Box, GridItem, HStack, Text, VStack } from "@chakra-ui/react";
-import Image from "next/image";
+import { Box, GridItem, HStack, Image, Text, VStack } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { HelpArticlesSection } from "../../models/help-articles-section";
 
@@ -39,8 +38,8 @@ const HelpArticlesSubsection = ({
                 <Image
                   src={article.image || ""}
                   alt={article.title || ""}
-                  width="120"
-                  height="72"
+                  width="120px"
+                  height="72px"
                   objectFit="cover"
                 />
               </Box>

@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   HStack,
+  Image,
   Tag,
   TagLabel,
   Text,
@@ -14,7 +15,6 @@ import {
   SingleValueProps,
 } from "chakra-react-select";
 import { GetStaticProps } from "next";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import { Fragment, useState } from "react";
 import useFuzzySearch from "../components/fuzzy-search/use-fuzzy-search";
@@ -74,8 +74,8 @@ const Option = (props: OptionProps<SearchTV>) => {
               { width: 48 }
             )}
             alt="resolution"
-            height="32"
-            width="48"
+            height="32px"
+            width="48px"
             objectFit="contain"
           />
         )}

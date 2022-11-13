@@ -1,4 +1,3 @@
-import { ChakraProvider } from "@chakra-ui/react";
 import type { AppProps } from "next/app";
 import GlobalHead from "../components/global-head";
 import HelpArticles from "../components/help-articles/help-articles";
@@ -18,16 +17,14 @@ function MyApp({
   return (
     <>
       <GlobalHead />
-      <ChakraProvider>
-        <Layout>
-          <Component {...pageProps} />
-          {/* <Ad id="ssm_ctv_footer_grids" /> */}
-          {!!pageProps.helpArticles && (
-            <HelpArticles {...pageProps.helpArticles} />
-          )}
-          <Footer />
-        </Layout>
-      </ChakraProvider>
+      <Layout>
+        <Component {...pageProps} />
+        {/* <Ad id="ssm_ctv_footer_grids" /> */}
+        {!!pageProps.helpArticles && (
+          <HelpArticles {...pageProps.helpArticles} />
+        )}
+        <Footer />
+      </Layout>
     </>
   );
 }

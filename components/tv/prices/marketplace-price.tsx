@@ -1,5 +1,12 @@
-import { Badge, Flex, HStack, Icon, Text, VStack } from "@chakra-ui/react";
-import Image from "next/image";
+import {
+  Badge,
+  Flex,
+  HStack,
+  Icon,
+  Image,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import NextLink from "next/link";
 import { IoCheckmarkSharp, IoCloseSharp } from "react-icons/io5";
 import { RiTrophyLine } from "react-icons/ri";
@@ -51,8 +58,8 @@ const MarketplacePrice = ({
               marketplace?.data?.attributes?.logo.data?.attributes?.url || "",
               { width: 80 }
             )}
-            width={80}
-            height={54}
+            width="80px"
+            height="54px"
             objectFit="contain"
           />
           <Flex flexDirection="column">
@@ -84,8 +91,8 @@ const MarketplacePrice = ({
                       { width: 28 }
                     )}
                     alt={method.attributes?.name || ""}
-                    height={20}
-                    width={28}
+                    height="20px"
+                    width="28px"
                     objectFit="contain"
                   />
                 )

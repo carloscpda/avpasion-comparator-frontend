@@ -2,13 +2,13 @@ import {
   Box,
   Flex,
   Grid,
+  Image,
   Link,
   StackItem,
   Text,
   VStack,
 } from "@chakra-ui/react";
 import { GetStaticProps } from "next";
-import Image from "next/image";
 import NextLink from "next/link";
 import Ad from "../components/ad";
 import GeneralHead from "../components/head";
@@ -76,8 +76,8 @@ const BrandsPage = ({
                     <Image
                       src={buildPicture(brand.logo, { width: 160 })}
                       alt={brand.name}
-                      width="160"
-                      height="100"
+                      width="160px"
+                      height="100px"
                       objectFit="contain"
                     />
                   </a>

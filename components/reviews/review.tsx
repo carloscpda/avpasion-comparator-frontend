@@ -3,6 +3,7 @@ import {
   GridItem,
   HStack,
   Icon,
+  Image,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -14,7 +15,6 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import Image from "next/image";
 import Link from "next/link";
 import { IoIosPlayCircle } from "react-icons/io";
 import ReactPlayer from "react-player";
@@ -81,8 +81,8 @@ const ReviewCardContent = ({ review }: { review: Review }) => {
       <Image
         src={review.image || ""}
         alt={review.title || ""}
-        width={400}
-        height={300}
+        width="400px"
+        height="300px"
         objectFit="cover"
       />
       <Box
