@@ -3,7 +3,6 @@ import { createClient } from "redis";
 import GeneralHead from "../components/head";
 import SearchTvItem from "../components/search/item/search-tv-item";
 import SearchTemplate from "../components/search/search-template";
-import searchTvs from "../graphql/search-tvs";
 import { BrandFilter } from "../models/brand-filter";
 import { CableConnectionFilter } from "../models/cable-connections-filter";
 import { ImageTechnology } from "../models/image-technology";
@@ -20,6 +19,7 @@ import {
 } from "../models/search-tv";
 import getHelpArticlesProps from "../server/help-articles/get-help-articles-props";
 import getSearchFilters from "../server/search/get-search-filters";
+import searchTvs from "../server/search/search-tvs";
 
 export const getServerSideProps: GetServerSideProps = async ({
   query,
@@ -48,7 +48,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 
     const topic = (query?.topic as string) || undefined;
 
-    const { data: tvs, meta } = await searchTvs({
+    const { tvs, meta } = await searchTvs({
       ...filters,
       topic,
       page,

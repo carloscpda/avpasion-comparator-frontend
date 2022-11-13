@@ -31,7 +31,7 @@ const PricesSection = ({ tvId }: { tvId: string }) => {
 
   return (
     <Box mb="10">
-      {!!data.length && (
+      {!!data?.length && (
         <>
           <SectionTitle title="Precios" />
           <Grid

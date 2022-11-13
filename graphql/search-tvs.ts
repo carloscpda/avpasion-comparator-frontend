@@ -1,11 +1,22 @@
 import { gql } from "@apollo/client";
 import ApolloClient from "../apollo-client";
-import {
-  SearchTvFragment,
-  SearchTvsQuery,
-  TvFiltersInput,
-} from "../gql/graphql";
-import { SEARCH_TV } from "./search-tv.fragment";
+import { SearchTvsQuery, TvFiltersInput } from "../gql/graphql";
+
+export type SearchTvsParams = {
+  page: number;
+  offset: number;
+  brand?: string[];
+  cableConnections?: string | string[];
+  imageTechnology?: string[];
+  sizeGreatherThan?: number;
+  sizeLessThan?: number;
+  minPrice?: number;
+  maxPrice?: number;
+  minScore?: number;
+  imageScore?: number;
+  topic?: string;
+  sortBy?: "general.releaseDate:desc,score:desc,minPrice:desc" | "hits:desc";
+};
 
 const searchTvs = async ({
   page,
@@ -21,21 +32,7 @@ const searchTvs = async ({
   minScore,
   imageScore,
   topic,
-}: {
-  page: number;
-  offset: number;
-  brand?: string[];
-  cableConnections?: string | string[];
-  imageTechnology?: string[];
-  sizeGreatherThan?: number;
-  sizeLessThan?: number;
-  minPrice?: number;
-  maxPrice?: number;
-  minScore?: number;
-  imageScore?: number;
-  topic?: string;
-  sortBy?: "general.releaseDate:desc,score:desc,minPrice:desc" | "hits:desc";
-}) => {
+}: SearchTvsParams) => {
   const sanitazedCableConnections =
     typeof cableConnections === "string"
       ? [cableConnections]
@@ -123,22 +120,15 @@ const searchTvs = async ({
           }
           data {
             id
-            attributes {
-              ...SearchTv
-            }
           }
         }
       }
-      ${SEARCH_TV}
     `,
   });
 
   return {
     meta: data.tvs?.meta,
-    data: data.tvs?.data.map((tv) => ({
-      ...(tv.attributes as unknown as SearchTvFragment),
-      id: tv.id,
-    })),
+    ids: data.tvs?.data.map((tv) => tv.id as string) || [],
   };
 };
 export default searchTvs;

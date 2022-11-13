@@ -9,7 +9,6 @@ import SearchTvItem from "../components/search/item/search-tv-item";
 import SectionTitle from "../components/section-title";
 import Wizard from "../components/wizard/wizard";
 import searchSales from "../graphql/search-sales";
-import searchTvs from "../graphql/search-tvs";
 import { SearchSale } from "../models/search-sale";
 import {
   getBrand,
@@ -23,6 +22,7 @@ import {
   SearchTV,
 } from "../models/search-tv";
 import getHelpArticlesProps from "../server/help-articles/get-help-articles-props";
+import searchTvs from "../server/search/search-tvs";
 
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   const redis = createClient();
@@ -34,7 +34,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     data = JSON.parse(cacheData);
   } else {
     const helpArticles = await getHelpArticlesProps();
-    const { data: tvs } = await searchTvs({
+    const { tvs } = await searchTvs({
       page: 1,
       offset: 3,
       sortBy: "hits:desc",
