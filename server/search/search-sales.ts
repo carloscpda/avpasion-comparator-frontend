@@ -1,12 +1,11 @@
-import { createClient } from "redis";
 import apolloSearchSales, {
   SearchSalesParams,
 } from "../../graphql/search-sales";
+import RedisClient from "../../infra/redis-client";
 import getSearchSaleRepository from "./search-sale.repository";
 
 const searchSales = async (params: SearchSalesParams) => {
-  const redis = createClient();
-  await redis.connect();
+  const redis = RedisClient.getInstance();
 
   const { ids, meta } = await apolloSearchSales(params);
 

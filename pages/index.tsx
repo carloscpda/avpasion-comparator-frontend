@@ -1,6 +1,5 @@
 import { Grid } from "@chakra-ui/react";
 import { GetServerSideProps } from "next";
-import { createClient } from "redis";
 import GeneralHead from "../components/head";
 import Main from "../components/layout/main";
 import PageTitle from "../components/layout/page-title";
@@ -8,6 +7,7 @@ import SearchSaleItem from "../components/search/item/search-sale-item";
 import SearchTvItem from "../components/search/item/search-tv-item";
 import SectionTitle from "../components/section-title";
 import Wizard from "../components/wizard/wizard";
+import RedisClient from "../infra/redis-client";
 import { SearchSale } from "../models/search-sale";
 import {
   getBrand,
@@ -25,8 +25,8 @@ import searchSales from "../server/search/search-sales";
 import searchTvs from "../server/search/search-tvs";
 
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
-  const redis = createClient();
-  await redis.connect();
+  const redis = RedisClient.getInstance();
+
   const cacheData = await redis.get("home");
   let data = null;
 

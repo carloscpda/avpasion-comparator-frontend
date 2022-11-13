@@ -1,12 +1,10 @@
 import { NextApiHandler } from "next";
-import { createClient } from "redis";
 import getImageTechnologies from "../../../graphql/get-image-technologies";
+import RedisClient from "../../../infra/redis-client";
 
 const handler: NextApiHandler = async (req, res) => {
   if (req.method === "GET") {
-    const redis = createClient();
-
-    await redis.connect();
+    const redis = RedisClient.getInstance();
 
     let imageTechnologiesCached = await redis.get("filters:image-technologies");
     let imageTechnologies = null;

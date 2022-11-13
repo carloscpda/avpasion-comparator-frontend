@@ -1,11 +1,10 @@
 import { NextApiHandler } from "next";
-import { createClient } from "redis";
 import getHelpArticles from "../../graphql/get-help-articles";
+import RedisClient from "../../infra/redis-client";
 
 const handler: NextApiHandler = async (req, res) => {
   if (req.method === "GET") {
-    const redis = createClient();
-    await redis.connect();
+    const redis = RedisClient.getInstance();
 
     let helpArticlesCached = await redis.get("help-articles");
 

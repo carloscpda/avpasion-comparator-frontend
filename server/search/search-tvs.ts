@@ -1,10 +1,9 @@
-import { createClient } from "redis";
 import apolloSearchTvs, { SearchTvsParams } from "../../graphql/search-tvs";
+import RedisClient from "../../infra/redis-client";
 import getSearchTvRepository from "./search-tv.repository";
 
 const searchTvs = async (params: SearchTvsParams) => {
-  const redis = createClient();
-  await redis.connect();
+  const redis = RedisClient.getInstance();
 
   const { ids, meta } = await apolloSearchTvs(params);
 

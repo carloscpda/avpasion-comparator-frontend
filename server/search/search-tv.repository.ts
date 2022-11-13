@@ -1,10 +1,9 @@
-import { createClient } from "redis";
 import getSearchTv from "../../graphql/get-search-tv";
+import RedisClient from "../../infra/redis-client";
 import { SearchTV } from "../../models/search-tv";
 
 const getSearchTvRepository = async (id: string) => {
-  const redis = createClient();
-  await redis.connect();
+  const redis = RedisClient.getInstance();
 
   const cacheData = await redis.get(`next::tv::${id}`);
   let tv: SearchTV;

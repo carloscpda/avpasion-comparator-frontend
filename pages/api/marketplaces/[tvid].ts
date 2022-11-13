@@ -1,18 +1,16 @@
 import { NextApiHandler } from "next";
-import { createClient } from "redis";
 import getMarketplaceTvs from "../../../graphql/get-marketplaces-tv";
+import RedisClient from "../../../infra/redis-client";
 
 const handler: NextApiHandler = async (req, res) => {
   if (req.method === "GET") {
-    const redis = createClient();
+    const redis = RedisClient.getInstance();
 
     const { tvid } = req.query;
 
     if (typeof tvid !== "string") {
       return res.status(400).json({ data: "tvid should be a string" });
     }
-
-    await redis.connect();
 
     let pricesCached = await redis.get(`price:${tvid}`);
 

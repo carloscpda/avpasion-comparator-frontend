@@ -1,8 +1,9 @@
 import { GetServerSideProps } from "next";
-import { createClient } from "redis";
+
 import GeneralHead from "../components/head";
 import SearchTvItem from "../components/search/item/search-tv-item";
 import SearchTemplate from "../components/search/search-template";
+import RedisClient from "../infra/redis-client";
 import { BrandFilter } from "../models/brand-filter";
 import { CableConnectionFilter } from "../models/cable-connections-filter";
 import { ImageTechnology } from "../models/image-technology";
@@ -26,8 +27,8 @@ export const getServerSideProps: GetServerSideProps = async ({
   res,
   resolvedUrl,
 }) => {
-  const redis = createClient();
-  await redis.connect();
+  const redis = RedisClient.getInstance();
+
   const cacheData = await redis.get(resolvedUrl);
   let data = null;
 
@@ -67,7 +68,7 @@ export const getServerSideProps: GetServerSideProps = async ({
     };
 
     redis.set(resolvedUrl, JSON.stringify(data), {
-      EX: 3600,
+      EX: 3600, // 1 hora
     });
   }
 

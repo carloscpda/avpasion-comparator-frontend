@@ -136,12 +136,12 @@ const ComparePage = ({ tvs }: { tvs: SearchTV[] }) => {
       {/* <Ad id="ssm_ctv_leaderboard_grids" /> */}
       <VStack
         flexDirection={{ base: "column", md: "row" }}
-        marginY="10"
-        gap="10"
+        marginY={{ base: "3", md: "10" }}
+        gap={{ md: "10" }}
         justifyContent="center"
         alignItems="center"
       >
-        <VStack flex="1" maxWidth="400px">
+        <VStack flex="1" maxWidth="400px" width="100%">
           {tv1 && (
             <SearchTvItem
               key={tv1.id}
@@ -184,7 +184,7 @@ const ComparePage = ({ tvs }: { tvs: SearchTV[] }) => {
         <Text fontSize="4xl" color="red.700" fontWeight="extrabold">
           vs
         </Text>
-        <VStack flex="1" maxWidth="400px">
+        <VStack flex="1" maxWidth="400px" width="100%">
           {tv2 && (
             <SearchTvItem
               key={tv2.id}

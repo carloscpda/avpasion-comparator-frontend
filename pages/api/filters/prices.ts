@@ -1,12 +1,10 @@
 import { NextApiHandler } from "next";
-import { createClient } from "redis";
 import getPrices from "../../../graphql/get-prices";
+import RedisClient from "../../../infra/redis-client";
 
 const handler: NextApiHandler = async (req, res) => {
   if (req.method === "GET") {
-    const redis = createClient();
-
-    await redis.connect();
+    const redis = RedisClient.getInstance();
 
     let pricesCached = await redis.get("filters:prices");
     let prices = null;
