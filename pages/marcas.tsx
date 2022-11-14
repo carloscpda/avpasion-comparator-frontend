@@ -15,14 +15,14 @@ import GeneralHead from "../components/head";
 import Main from "../components/layout/main";
 import PageTitle from "../components/layout/page-title";
 import getBrands from "../graphql/get-brands";
-import getHelpArticles from "../graphql/get-help-articles";
 import getImageTechnologies from "../graphql/get-image-technologies";
 import { Brand } from "../models/brand";
 import { ImageTechnology } from "../models/image-technology";
 import { buildPicture } from "../models/picture";
+import HelpArticlesRepository from "../server/help-articles/help-articles.repository";
 
 export const getStaticProps: GetStaticProps = async () => {
-  const helpArticles = await getHelpArticles();
+  const helpArticles = await HelpArticlesRepository.get();
   const brands = await getBrands();
   const imageTechnologies = await getImageTechnologies();
 

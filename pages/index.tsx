@@ -20,7 +20,7 @@ import {
   getScreenSize,
   SearchTV,
 } from "../models/search-tv";
-import getHelpArticlesProps from "../server/help-articles/get-help-articles-props";
+import HelpArticlesRepository from "../server/help-articles/help-articles.repository";
 import searchSales from "../server/search/search-sales";
 import searchTvs from "../server/search/search-tvs";
 
@@ -33,7 +33,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   if (cacheData) {
     data = JSON.parse(cacheData);
   } else {
-    const helpArticles = await getHelpArticlesProps();
+    const helpArticles = await HelpArticlesRepository.get();
     const { tvs } = await searchTvs({
       page: 1,
       offset: 3,

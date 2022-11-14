@@ -12,12 +12,6 @@ const nextConfig = {
         protocol: "https",
         hostname: "cdn.avpasion.com",
         port: "",
-        pathname: "/wp-content/uploads/**",
-      },
-      {
-        protocol: "https",
-        hostname: "cdn.avpasion.com",
-        port: "",
         pathname: "/ctv-statics/**",
       },
     ],
