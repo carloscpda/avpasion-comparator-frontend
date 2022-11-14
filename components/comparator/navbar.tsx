@@ -1,4 +1,11 @@
-import { Box, Button, Heading, HStack, Link } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Heading,
+  HStack,
+  Link,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import { getFullName } from "../../models/tv";
@@ -7,12 +14,13 @@ import { useTvs } from "../tv/tvs-provider";
 
 const Navbar = () => {
   const router = useRouter();
+  const showLinks = useBreakpointValue({ base: false, md: true });
   const { tvs } = useTvs();
   const title = tvs.map(getFullName).join(" vs ");
 
   return (
     <Box
-      display={{ base: "none", md: "flex" }}
+      display="flex"
       position="sticky"
       top="50px"
       bg="whiteAlpha.800"
@@ -36,46 +44,50 @@ const Navbar = () => {
           {title}
         </Heading>
         <HStack spacing="3">
-          <Link
-            fontSize="xs"
-            fontWeight="semibold"
-            textTransform="uppercase"
-            onClick={() => router.replace("#image")}
-          >
-            Imagen
-          </Link>
-          <Link
-            fontSize="xs"
-            fontWeight="semibold"
-            textTransform="uppercase"
-            onClick={() => router.replace("#sound")}
-          >
-            Sonido
-          </Link>
-          <Link
-            fontSize="xs"
-            fontWeight="semibold"
-            textTransform="uppercase"
-            onClick={() => router.replace("#connectivity")}
-          >
-            Conexión
-          </Link>
-          <Link
-            fontSize="xs"
-            fontWeight="semibold"
-            textTransform="uppercase"
-            onClick={() => router.replace("#design")}
-          >
-            Diseño
-          </Link>
-          <Link
-            fontSize="xs"
-            fontWeight="semibold"
-            textTransform="uppercase"
-            onClick={() => router.replace("#system")}
-          >
-            Sistema
-          </Link>
+          {showLinks && (
+            <>
+              <Link
+                fontSize="xs"
+                fontWeight="semibold"
+                textTransform="uppercase"
+                onClick={() => router.replace("#image")}
+              >
+                Imagen
+              </Link>
+              <Link
+                fontSize="xs"
+                fontWeight="semibold"
+                textTransform="uppercase"
+                onClick={() => router.replace("#sound")}
+              >
+                Sonido
+              </Link>
+              <Link
+                fontSize="xs"
+                fontWeight="semibold"
+                textTransform="uppercase"
+                onClick={() => router.replace("#connectivity")}
+              >
+                Conexión
+              </Link>
+              <Link
+                fontSize="xs"
+                fontWeight="semibold"
+                textTransform="uppercase"
+                onClick={() => router.replace("#design")}
+              >
+                Diseño
+              </Link>
+              <Link
+                fontSize="xs"
+                fontWeight="semibold"
+                textTransform="uppercase"
+                onClick={() => router.replace("#system")}
+              >
+                Sistema
+              </Link>
+            </>
+          )}
           {tvs.length === 1 && (
             <NextLink
               href={`/comparar?tv=${tvs[0].slug}`}
