@@ -25,6 +25,7 @@ const PricesReduced = ({ tvId }: { tvId: string }) => {
         {data.slice(0, 3).map((mt, index) => (
           <MarketplacePrice
             key={mt.marketplace?.data?.attributes?.name}
+            layout="simple"
             position={index + 1}
             {...mt}
           />

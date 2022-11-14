@@ -5,6 +5,7 @@ import {
   Icon,
   Image,
   Text,
+  useBreakpointValue,
   VStack,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
@@ -22,10 +23,17 @@ const MarketplacePrice = ({
   position,
   affiliateUrl,
   available,
-}: MarketplaceTv & { position: number }) => {
+  layout = "full",
+}: MarketplaceTv & {
+  position: number;
+  layout?: "full" | "simple";
+}) => {
   const deliveryCostText = deliveryCost
     ? parseCurrency(deliveryCost)
     : "Gratis";
+
+  const isDesktop = useBreakpointValue({ base: false, md: true });
+  const isRowLayout = layout === "full" || isDesktop;
 
   return (
     <NextLink href={affiliateUrl || ""} passHref prefetch={false}>
@@ -51,7 +59,7 @@ const MarketplacePrice = ({
           transform: "scale(1.02)",
         }}
       >
-        <HStack gap={4}>
+        <Flex gap={4} direction={isRowLayout ? "row" : "column"}>
           <Image
             alt={marketplace?.data?.attributes?.name}
             src={buildPicture(
@@ -78,45 +86,51 @@ const MarketplacePrice = ({
                 {available ? "En stock" : "Sin stock"}
               </Text>
             </Flex>
-            <Text color="gray.700" fontSize="sm">
-              {deliveryTime}
-            </Text>
-            <Flex gap="1" mt="1">
-              {marketplace?.data?.attributes?.paymentMethods?.data.map(
-                (method) => (
-                  <Image
-                    key={method.attributes?.name}
-                    src={buildPicture(
-                      method.attributes?.logo.data?.attributes?.url || "",
-                      { width: 28 }
-                    )}
-                    alt={method.attributes?.name || ""}
-                    height="20px"
-                    width="28px"
-                    objectFit="contain"
-                  />
-                )
-              )}
-            </Flex>
+            {isRowLayout && (
+              <Text color="gray.700" fontSize="sm">
+                {deliveryTime}
+              </Text>
+            )}
+            {isRowLayout && (
+              <Flex gap="1" mt="1">
+                {marketplace?.data?.attributes?.paymentMethods?.data.map(
+                  (method) => (
+                    <Image
+                      key={method.attributes?.name}
+                      src={buildPicture(
+                        method.attributes?.logo.data?.attributes?.url || "",
+                        { width: 28 }
+                      )}
+                      alt={method.attributes?.name || ""}
+                      height="20px"
+                      width="28px"
+                      objectFit="contain"
+                    />
+                  )
+                )}
+              </Flex>
+            )}
           </Flex>
-        </HStack>
-        <HStack position="absolute" mr={4} top="-3" right="3">
-          {position === 1 && (
-            <Badge
-              colorScheme="purple"
-              fontSize="md"
-              borderRadius={4}
-              display="flex"
-              width="min-content"
-              gap={1}
-              alignItems="center"
-              zIndex={2}
-            >
-              <Icon as={RiTrophyLine} />
-              Mejor oferta
-            </Badge>
-          )}
-        </HStack>
+        </Flex>
+        {isRowLayout && (
+          <HStack position="absolute" mr={4} top="-3" right="3">
+            {position === 1 && (
+              <Badge
+                colorScheme="purple"
+                fontSize="md"
+                borderRadius={4}
+                display="flex"
+                width="min-content"
+                gap={1}
+                alignItems="center"
+                zIndex={2}
+              >
+                <Icon as={RiTrophyLine} />
+                Mejor oferta
+              </Badge>
+            )}
+          </HStack>
+        )}
       </VStack>
     </NextLink>
   );
