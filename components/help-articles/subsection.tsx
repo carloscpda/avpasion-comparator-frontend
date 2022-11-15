@@ -1,11 +1,8 @@
 import { Box, GridItem, HStack, Image, Text, VStack } from "@chakra-ui/react";
 import NextLink from "next/link";
-import { HelpArticlesSection } from "../../models/help-articles-section";
+import { HelpArticleSectionDto } from "../../server/help-articles-sections/help-articles-section.dto";
 
-const HelpArticlesSubsection = ({
-  title,
-  articles,
-}: HelpArticlesSection["section1"]) => {
+const HelpArticlesSubsection = ({ title, articles }: HelpArticleSectionDto) => {
   return (
     <GridItem>
       <VStack alignItems="flex-start" spacing={4}>
@@ -36,7 +33,7 @@ const HelpArticlesSubsection = ({
                 overflow="hidden"
               >
                 <Image
-                  src={article.image || ""}
+                  src={article.picture || ""}
                   alt={article.title || ""}
                   width="120px"
                   height="72px"

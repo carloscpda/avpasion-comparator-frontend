@@ -24,10 +24,10 @@ import {
   getScreenSize,
   SearchTV,
 } from "../models/search-tv";
-import HelpArticlesRepository from "../server/help-articles/help-articles.repository";
+import { getAllHelpArticlesSections } from "../server/help-articles-sections/help-articles-sections.use-cases";
 
 export const getStaticProps: GetStaticProps = async () => {
-  const helpArticles = await HelpArticlesRepository.get();
+  const helpArticles = await getAllHelpArticlesSections();
   const tvs = await getFuzzySearch();
 
   return {

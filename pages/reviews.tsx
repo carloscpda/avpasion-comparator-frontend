@@ -12,15 +12,12 @@ import Paginator from "../components/search/paginator";
 import { Enum_Externalsite_Type } from "../gql/graphql";
 import getReviews from "../graphql/get-reviews";
 import { Review } from "../models/review";
-import HelpArticlesRepository from "../server/help-articles/help-articles.repository";
+import { getAllHelpArticlesSections } from "../server/help-articles-sections/help-articles-sections.use-cases";
 
 const REVIEWS_PER_PAGE = 12;
 
-export const getServerSideProps: GetServerSideProps = async ({
-  query,
-  res,
-}) => {
-  const helpArticles = await HelpArticlesRepository.get();
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  const helpArticles = await getAllHelpArticlesSections();
 
   const currentPage = parseInt(query?.page as string) || 1;
   const type = query?.type ? query.type.toString() : undefined;

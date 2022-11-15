@@ -4,14 +4,14 @@ import HelpArticles from "../components/help-articles/help-articles";
 import Footer from "../components/layout/footer";
 import Layout from "../components/layout/layout";
 import useProgress from "../components/use-progress";
-import { HelpArticlesSection } from "../models/help-articles-section";
+import { GetAllHelpArticlesSections } from "../server/help-articles-sections/help-articles-sections.use-cases";
 
 import "../styles/nprogress.css";
 
 function MyApp({
   Component,
   pageProps,
-}: AppProps<{ helpArticles?: HelpArticlesSection }>) {
+}: AppProps<{ helpArticles?: GetAllHelpArticlesSections }>) {
   useProgress();
 
   return (

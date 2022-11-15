@@ -7,7 +7,7 @@ import Main from "../../components/layout/main";
 import TvProvider from "../../components/tv/tvs-provider";
 import getTv from "../../graphql/get-tv";
 import { TV } from "../../models/tv";
-import HelpArticlesRepository from "../../server/help-articles/help-articles.repository";
+import { getAllHelpArticlesSections } from "../../server/help-articles-sections/help-articles-sections.use-cases";
 
 export const getStaticPaths = async () => {
   return {
@@ -17,7 +17,7 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const helpArticles = await HelpArticlesRepository.get();
+  const helpArticles = await getAllHelpArticlesSections();
   const [tv1Slug, tv2Slug] = (params?.vs as string).split("-vs-");
 
   if (tv1Slug === tv2Slug) {

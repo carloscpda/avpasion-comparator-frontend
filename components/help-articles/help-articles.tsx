@@ -1,5 +1,5 @@
 import { Grid } from "@chakra-ui/react";
-import { HelpArticlesSection } from "../../models/help-articles-section";
+import { GetAllHelpArticlesSections } from "../../server/help-articles-sections/help-articles-sections.use-cases";
 import Center from "../layout/center";
 import SectionTitle from "../section-title";
 import HelpArticlesSubsection from "./subsection";
@@ -8,7 +8,7 @@ const HelpArticles = ({
   section1,
   section2,
   section3,
-}: HelpArticlesSection) => {
+}: GetAllHelpArticlesSections) => {
   return (
     <Center mt="16" direction="column">
       <SectionTitle title="Articulos de interés">
@@ -22,9 +22,9 @@ const HelpArticles = ({
           lg: "repeat(3, minmax(0, 1fr))",
         }}
       >
-        <HelpArticlesSubsection {...section1} />
-        <HelpArticlesSubsection {...section2} />
-        <HelpArticlesSubsection {...section3} />
+        {section1 && <HelpArticlesSubsection {...section1} />}
+        {section2 && <HelpArticlesSubsection {...section2} />}
+        {section3 && <HelpArticlesSubsection {...section3} />}
       </Grid>
     </Center>
   );

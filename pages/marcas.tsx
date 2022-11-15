@@ -19,10 +19,10 @@ import getImageTechnologies from "../graphql/get-image-technologies";
 import { Brand } from "../models/brand";
 import { ImageTechnology } from "../models/image-technology";
 import { buildPicture } from "../models/picture";
-import HelpArticlesRepository from "../server/help-articles/help-articles.repository";
+import { getAllHelpArticlesSections } from "../server/help-articles-sections/help-articles-sections.use-cases";
 
 export const getStaticProps: GetStaticProps = async () => {
-  const helpArticles = await HelpArticlesRepository.get();
+  const helpArticles = await getAllHelpArticlesSections();
   const brands = await getBrands();
   const imageTechnologies = await getImageTechnologies();
 

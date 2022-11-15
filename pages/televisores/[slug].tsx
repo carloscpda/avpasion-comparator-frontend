@@ -16,7 +16,7 @@ import getTvSeries from "../../graphql/get-tv-series";
 import { getFullName, SearchTV } from "../../models/search-tv";
 import { getComparatives, getReviews, TV } from "../../models/tv";
 import { TVSeries } from "../../models/tv-serie";
-import HelpArticlesRepository from "../../server/help-articles/help-articles.repository";
+import { getAllHelpArticlesSections } from "../../server/help-articles-sections/help-articles-sections.use-cases";
 import SearchSimilarTvsService from "../../server/search/search-similar-tvs.service";
 
 export const getStaticPaths = async () => {
@@ -27,7 +27,7 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const helpArticles = await HelpArticlesRepository.get();
+  const helpArticles = await getAllHelpArticlesSections();
   const tv = await getTv({ slug: params?.slug as string });
   const tvSeries = await getTvSeries({
     serieId: tv?.general?.brand?.serie?.data?.id || "-1",

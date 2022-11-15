@@ -17,7 +17,7 @@ import {
   getResolution,
   getScreenSize,
 } from "../models/search-tv";
-import HelpArticlesRepository from "../server/help-articles/help-articles.repository";
+import { getAllHelpArticlesSections } from "../server/help-articles-sections/help-articles-sections.use-cases";
 import getSearchFilters from "../server/search/get-search-filters";
 import searchSales from "../server/search/search-sales";
 
@@ -34,7 +34,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   if (cacheData) {
     data = JSON.parse(cacheData);
   } else {
-    const helpArticles = await HelpArticlesRepository.get();
+    const helpArticles = await getAllHelpArticlesSections();
 
     const {
       page,
