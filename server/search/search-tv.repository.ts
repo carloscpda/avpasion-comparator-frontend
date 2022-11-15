@@ -2,22 +2,24 @@ import getSearchTv from "../../graphql/get-search-tv";
 import RedisClient from "../../infra/redis-client";
 import { SearchTV } from "../../models/search-tv";
 
-const getSearchTvRepository = async (id: string) => {
-  const redis = RedisClient.getInstance();
+class SearchTvRepository {
+  public static async get(id: string) {
+    const redis = RedisClient.getInstance();
 
-  const cacheData = await redis.get(`next::tv::${id}`);
-  let tv: SearchTV;
+    const cacheData = await redis.get(`next::search-tv::${id}`);
+    let tv: SearchTV;
 
-  if (cacheData) {
-    tv = JSON.parse(cacheData);
-  } else {
-    tv = (await getSearchTv({ id })) as SearchTV;
-    redis.set(`next::tv::${id}`, JSON.stringify(tv), {
-      EX: 3600,
-    });
+    if (cacheData) {
+      tv = JSON.parse(cacheData);
+    } else {
+      tv = (await getSearchTv({ id })) as SearchTV;
+      redis.set(`next::search-tv::${id}`, JSON.stringify(tv), {
+        EX: 3600,
+      });
+    }
+
+    return tv;
   }
+}
 
-  return tv;
-};
-
-export default getSearchTvRepository;
+export default SearchTvRepository;

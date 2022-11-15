@@ -1,10 +1,10 @@
 import apolloSearchTvs, { SearchTvsParams } from "../../graphql/search-tvs";
-import getSearchTvRepository from "./search-tv.repository";
+import SearchTvRepository from "./search-tv.repository";
 
 const searchTvs = async (params: SearchTvsParams) => {
   const { ids, meta } = await apolloSearchTvs(params);
 
-  const tvs = await Promise.all(ids.map(getSearchTvRepository));
+  const tvs = await Promise.all(ids.map(SearchTvRepository.get));
 
   return { tvs, meta };
 };

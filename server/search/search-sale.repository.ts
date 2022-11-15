@@ -1,6 +1,6 @@
 import getSearchSale from "../../graphql/get-search-sale";
 import RedisClient from "../../infra/redis-client";
-import getSearchTvRepository from "./search-tv.repository";
+import SearchTvRepository from "./search-tv.repository";
 
 const getSearchSaleRepository = async (id: string) => {
   const redis = RedisClient.getInstance();
@@ -15,7 +15,7 @@ const getSearchSaleRepository = async (id: string) => {
     redis.set(`next::sale::${id}`, JSON.stringify(sale), { EX: 3600 });
   }
 
-  const tv = await getSearchTvRepository(sale.tv?.data?.id || "");
+  const tv = await SearchTvRepository.get(sale.tv?.data?.id || "");
 
   return { ...sale, tv };
 };
