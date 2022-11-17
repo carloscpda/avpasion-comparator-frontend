@@ -3,6 +3,9 @@ import { TvDto } from "./tv.dto";
 
 class TvsMapper {
   public static toDto(raw: SearchTvFragment): TvDto | null {
+    const brandId =
+      raw.general?.brand?.serie?.data?.attributes?.brand?.data?.id;
+
     const brand =
       raw.general?.brand?.serie?.data?.attributes?.brand?.data?.attributes
         ?.name;
@@ -31,6 +34,7 @@ class TvsMapper {
     const slug = raw.slug;
 
     if (
+      !brandId ||
       !brand ||
       !imageTechnology ||
       !model ||
@@ -47,6 +51,7 @@ class TvsMapper {
 
     return {
       brand,
+      brandId,
       ean: raw.ean,
       imageTechnology,
       model,

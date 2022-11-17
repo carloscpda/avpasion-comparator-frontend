@@ -6,6 +6,7 @@ export type TvDto = {
   screenSize: number;
   releaseYear: string;
   brand: string;
+  brandId: string;
   model: string;
   serie: string;
   resolutionIconUrl: string;

@@ -19,6 +19,7 @@ export const SEARCH_TV = gql`
               name
               brand {
                 data {
+                  id
                   attributes {
                     name
                   }

@@ -1,18 +1,26 @@
-import { Grid, GridItem, List, ListItem, Text } from "@chakra-ui/react";
+import { Grid, GridItem, Link, List, ListItem, Text } from "@chakra-ui/react";
 import NextLink from "next/link";
-import { getBrand, getModel } from "../../../models/tv";
+import { getBrand, getFullName, getModel } from "../../../models/tv";
 import { TvDto } from "../../../server/tvs/tv.dto";
 import SectionTitle from "../../section-title";
 import { useTvs } from "../tvs-provider";
 
-const SimilarTvs = ({ tvs }: { tvs: TvDto[] }) => {
+type SimilarTvsProps = {
+  similarTvIdsByImageTechnology: TvDto[];
+  similarTvIdsByBrand: TvDto[];
+};
+
+const SimilarTvs = ({
+  similarTvIdsByBrand,
+  similarTvIdsByImageTechnology,
+}: SimilarTvsProps) => {
   const currentTv = useTvs().tvs[0];
 
   return (
     <section>
       <SectionTitle
         mt="16"
-        title={`Televisiones parecidas a la ${currentTv.name}`}
+        title={`Otros televisores como ${getFullName(currentTv)}`}
       />
       <Grid
         flex="1"
@@ -27,16 +35,19 @@ const SimilarTvs = ({ tvs }: { tvs: TvDto[] }) => {
       >
         <GridItem as="section">
           <Text as="h3" fontWeight="medium">
-            Comparala con televisores similares
+            Comparativas interesantes
           </Text>
           <List>
-            {tvs.map((tv) => (
+            {similarTvIdsByImageTechnology.map((tv) => (
               <ListItem key={tv.slug} color="gray.600" mt="1">
                 <NextLink
+                  passHref
                   prefetch={false}
                   href={`/vs/${currentTv.slug}-vs-${tv.slug}`}
                 >
-                  {`Comparación entre ${getModel(currentTv)} y ${tv.model}`}
+                  <Link>
+                    {`Comparativa ${getModel(currentTv)} vs ${tv.model}`}
+                  </Link>
                 </NextLink>
               </ListItem>
             ))}
@@ -47,10 +58,14 @@ const SimilarTvs = ({ tvs }: { tvs: TvDto[] }) => {
             Televisores similares
           </Text>
           <List>
-            {tvs.map((tv) => (
+            {similarTvIdsByImageTechnology.map((tv) => (
               <ListItem key={tv.slug} color="gray.600" mt="1">
-                <NextLink prefetch={false} href={`/televisores/${tv.slug}`}>
-                  {`Televisor ${tv.brand} ${tv.model} de ${tv.screenSize}"`}
+                <NextLink
+                  passHref
+                  prefetch={false}
+                  href={`/televisores/${tv.slug}`}
+                >
+                  <Link>{`Televisor ${tv.brand} ${tv.model}`}</Link>
                 </NextLink>
               </ListItem>
             ))}
@@ -61,10 +76,14 @@ const SimilarTvs = ({ tvs }: { tvs: TvDto[] }) => {
             {`Otros televisores de ${getBrand(currentTv)}`}
           </Text>
           <List>
-            {tvs.map((tv) => (
+            {similarTvIdsByBrand.map((tv) => (
               <ListItem key={tv.slug} color="gray.600" mt="1">
-                <NextLink prefetch={false} href={`/televisores/${tv.slug}`}>
-                  {`Televisor ${tv.brand} ${tv.model} de ${tv.screenSize}"`}
+                <NextLink
+                  passHref
+                  prefetch={false}
+                  href={`/televisores/${tv.slug}`}
+                >
+                  <Link>{`Televisor ${tv.brand} ${tv.model}`}</Link>
                 </NextLink>
               </ListItem>
             ))}

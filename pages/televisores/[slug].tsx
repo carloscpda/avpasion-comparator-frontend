@@ -60,7 +60,10 @@ const TVPage = ({
   tvSeries: TVSeries;
   tvId: string;
   offerCount: number;
-  similarTvs: TvDto[];
+  similarTvs: {
+    similarTvIdsByImageTechnology: TvDto[];
+    similarTvIdsByBrand: TvDto[];
+  };
 }) => {
   useEffect(() => {
     if (process.env.NODE_ENV === "production") {
@@ -96,7 +99,12 @@ const TVPage = ({
         {!!comparatives.length && (
           <ReviewsSection title="Comparativas" reviews={comparatives} />
         )}
-        <SimilarTvs tvs={similarTvs} />
+        <SimilarTvs
+          similarTvIdsByBrand={similarTvs.similarTvIdsByBrand}
+          similarTvIdsByImageTechnology={
+            similarTvs.similarTvIdsByImageTechnology
+          }
+        />
       </Main>
     </TvProvider>
   );

@@ -11,7 +11,12 @@ type GetSimilarTvs = (id: string) => Promise<{
 const getSimilarTvs: GetSimilarTvs = async (id) => {
   const tv = await getTv(id);
 
-  if (!tv) return [];
+  if (!tv) {
+    return {
+      similarTvIdsByBrand: [],
+      similarTvIdsByImageTechnology: [],
+    };
+  }
 
   return hitOrFetch(
     `next::similar-tvs::${id}`,
@@ -20,7 +25,7 @@ const getSimilarTvs: GetSimilarTvs = async (id) => {
         id,
         screenSize: tv.screenSize,
         imageTechnology: tv.imageTechnology,
-        brand: tv.brand,
+        brand: tv.brandId,
       });
 
       const similarTvIdsByImageTechnology = (

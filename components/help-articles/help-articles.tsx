@@ -5,9 +5,9 @@ import SectionTitle from "../section-title";
 import HelpArticlesSubsection from "./subsection";
 
 type HelpArticlesProps = {
-  section1: HelpArticleSectionDto;
-  section2: HelpArticleSectionDto;
-  section3: HelpArticleSectionDto;
+  section1: HelpArticleSectionDto | null;
+  section2: HelpArticleSectionDto | null;
+  section3: HelpArticleSectionDto | null;
 };
 
 const HelpArticles = ({ section1, section2, section3 }: HelpArticlesProps) => {
