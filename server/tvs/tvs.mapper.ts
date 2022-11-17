@@ -1,13 +1,11 @@
-import { SearchTvFragment } from "../../../gql/graphql";
-import { MinimalTvDto } from "./minimal-tv.dto";
+import { SearchTvFragment } from "../../gql/graphql";
+import { TvDto } from "./tv.dto";
 
-class MinimalTvsMapper {
-  public static toDto(raw: SearchTvFragment): MinimalTvDto | null {
+class TvsMapper {
+  public static toDto(raw: SearchTvFragment): TvDto | null {
     const brand =
       raw.general?.brand?.serie?.data?.attributes?.brand?.data?.attributes
         ?.name;
-
-    if (!brand) throw new Error("");
 
     const model = raw.general?.brand?.model;
 
@@ -53,7 +51,7 @@ class MinimalTvsMapper {
       imageTechnology,
       model,
       picture,
-      price: raw.minPrice || undefined,
+      price: raw.minPrice || null,
       releaseYear,
       resolutionIconUrl,
       score,
@@ -64,4 +62,4 @@ class MinimalTvsMapper {
   }
 }
 
-export default MinimalTvsMapper;
+export default TvsMapper;

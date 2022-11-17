@@ -1,14 +1,16 @@
 import { Grid } from "@chakra-ui/react";
-import { GetAllHelpArticlesSections } from "../../server/help-articles-sections/help-articles-sections.use-cases";
+import { HelpArticleSectionDto } from "../../server/help-articles-sections/help-articles-section.dto";
 import Center from "../layout/center";
 import SectionTitle from "../section-title";
 import HelpArticlesSubsection from "./subsection";
 
-const HelpArticles = ({
-  section1,
-  section2,
-  section3,
-}: GetAllHelpArticlesSections) => {
+type HelpArticlesProps = {
+  section1: HelpArticleSectionDto;
+  section2: HelpArticleSectionDto;
+  section3: HelpArticleSectionDto;
+};
+
+const HelpArticles = ({ section1, section2, section3 }: HelpArticlesProps) => {
   return (
     <Center mt="16" direction="column">
       <SectionTitle title="Articulos de interés">

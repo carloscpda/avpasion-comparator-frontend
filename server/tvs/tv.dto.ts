@@ -1,8 +1,8 @@
-export type MinimalTvDto = {
+export type TvDto = {
   slug: string;
   ean: string;
   score: number;
-  price?: number;
+  price: number | null;
   screenSize: number;
   releaseYear: string;
   brand: string;

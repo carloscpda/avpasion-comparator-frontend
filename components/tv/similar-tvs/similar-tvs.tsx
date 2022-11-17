@@ -1,22 +1,19 @@
-import { Grid } from "@chakra-ui/react";
-import {
-  getBrand,
-  getFullName,
-  getImageTechnology,
-  getModel,
-  getPicture,
-  getReleaseDate,
-  getResolution,
-  getScreenSize,
-  SearchTV,
-} from "../../../models/search-tv";
-import SearchTvItem from "../../search/item/search-tv-item";
+import { Grid, GridItem, List, ListItem, Text } from "@chakra-ui/react";
+import NextLink from "next/link";
+import { getBrand, getModel } from "../../../models/tv";
+import { TvDto } from "../../../server/tvs/tv.dto";
 import SectionTitle from "../../section-title";
+import { useTvs } from "../tvs-provider";
 
-const SimilarTvs = ({ name, tvs }: { name: string; tvs: SearchTV[] }) => {
+const SimilarTvs = ({ tvs }: { tvs: TvDto[] }) => {
+  const currentTv = useTvs().tvs[0];
+
   return (
-    <>
-      <SectionTitle mt="16" title={`Televisiones parecidas a la ${name}`} />
+    <section>
+      <SectionTitle
+        mt="16"
+        title={`Televisiones parecidas a la ${currentTv.name}`}
+      />
       <Grid
         flex="1"
         gridTemplateColumns={{
@@ -28,25 +25,53 @@ const SimilarTvs = ({ name, tvs }: { name: string; tvs: SearchTV[] }) => {
         columnGap={4}
         mb="4"
       >
-        {tvs.map((tv) => (
-          <SearchTvItem
-            isComparable
-            key={tv.id}
-            slug={tv.slug || ""}
-            fullName={getFullName(tv)}
-            picture={getPicture(tv)}
-            score={tv.score || 0}
-            brand={getBrand(tv)}
-            imageTechnology={getImageTechnology(tv)}
-            model={getModel(tv)}
-            releaseDate={getReleaseDate(tv)}
-            resolutionIcon={getResolution(tv)}
-            screenSize={getScreenSize(tv)}
-            price={tv.minPrice || 0}
-          />
-        ))}
+        <GridItem as="section">
+          <Text as="h3" fontWeight="medium">
+            Comparala con televisores similares
+          </Text>
+          <List>
+            {tvs.map((tv) => (
+              <ListItem key={tv.slug} color="gray.600" mt="1">
+                <NextLink
+                  prefetch={false}
+                  href={`/vs/${currentTv.slug}-vs-${tv.slug}`}
+                >
+                  {`Comparación entre ${getModel(currentTv)} y ${tv.model}`}
+                </NextLink>
+              </ListItem>
+            ))}
+          </List>
+        </GridItem>
+        <GridItem as="section">
+          <Text as="h3" fontWeight="medium">
+            Televisores similares
+          </Text>
+          <List>
+            {tvs.map((tv) => (
+              <ListItem key={tv.slug} color="gray.600" mt="1">
+                <NextLink prefetch={false} href={`/televisores/${tv.slug}`}>
+                  {`Televisor ${tv.brand} ${tv.model} de ${tv.screenSize}"`}
+                </NextLink>
+              </ListItem>
+            ))}
+          </List>
+        </GridItem>
+        <GridItem as="section">
+          <Text as="h3" fontWeight="medium">
+            {`Otros televisores de ${getBrand(currentTv)}`}
+          </Text>
+          <List>
+            {tvs.map((tv) => (
+              <ListItem key={tv.slug} color="gray.600" mt="1">
+                <NextLink prefetch={false} href={`/televisores/${tv.slug}`}>
+                  {`Televisor ${tv.brand} ${tv.model} de ${tv.screenSize}"`}
+                </NextLink>
+              </ListItem>
+            ))}
+          </List>
+        </GridItem>
       </Grid>
-    </>
+    </section>
   );
 };
 

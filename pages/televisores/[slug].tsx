@@ -13,11 +13,11 @@ import TvProvider from "../../components/tv/tvs-provider";
 import getMarketplaceTvs from "../../graphql/get-marketplaces-tv";
 import getTv from "../../graphql/get-tv";
 import getTvSeries from "../../graphql/get-tv-series";
-import { getFullName, SearchTV } from "../../models/search-tv";
 import { getComparatives, getReviews, TV } from "../../models/tv";
 import { TVSeries } from "../../models/tv-serie";
 import { getAllHelpArticlesSections } from "../../server/help-articles-sections/help-articles-sections.use-cases";
-import SearchSimilarTvsService from "../../server/search/search-similar-tvs.service";
+import { TvDto } from "../../server/tvs/tv.dto";
+import getSimilarTvs from "../../server/tvs/use-cases/get-similar-tvs";
 
 export const getStaticPaths = async () => {
   return {
@@ -34,10 +34,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   });
 
   const marketplaceTvs = await getMarketplaceTvs({ tvId: tv.id || "" });
-  const similarTvs = await SearchSimilarTvsService.search({
-    id: tv.id as string,
-    screenSize: tv.general?.screenSize || 0,
-  });
+  const similarTvs = await getSimilarTvs(tv.id as string);
 
   return {
     props: {
@@ -63,10 +60,8 @@ const TVPage = ({
   tvSeries: TVSeries;
   tvId: string;
   offerCount: number;
-  similarTvs: SearchTV[];
+  similarTvs: TvDto[];
 }) => {
-  console.log({ similarTvs });
-
   useEffect(() => {
     if (process.env.NODE_ENV === "production") {
       const hitReference = setTimeout(() => {
@@ -101,7 +96,7 @@ const TVPage = ({
         {!!comparatives.length && (
           <ReviewsSection title="Comparativas" reviews={comparatives} />
         )}
-        <SimilarTvs name={getFullName(tv)} tvs={similarTvs} />
+        <SimilarTvs tvs={similarTvs} />
       </Main>
     </TvProvider>
   );
