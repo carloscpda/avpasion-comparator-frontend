@@ -2,6 +2,7 @@ import { Button, Flex, Grid, Text, VStack } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { ReactNode, useCallback } from "react";
 import { AiOutlineClear } from "react-icons/ai";
+import { UrlObject } from "url";
 import { BrandFilter } from "../../models/brand-filter";
 import { CableConnectionFilter } from "../../models/cable-connections-filter";
 import { ImageTechnology } from "../../models/image-technology";
@@ -33,11 +34,13 @@ const SearchTemplate = ({
 }) => {
   const router = useRouter();
 
-  const handleNavigate = useCallback(
-    (page: number) => {
-      router.query.page = page.toString();
-      router.push(router);
-    },
+  const handleBuildHref = useCallback<(page: number) => UrlObject>(
+    (page) => ({
+      query: {
+        ...router.query,
+        page: page.toString(),
+      },
+    }),
     [router]
   );
 
@@ -81,7 +84,7 @@ const SearchTemplate = ({
       <Paginator
         currentPage={currentPage}
         totalPages={numberOfPages}
-        onNavigate={handleNavigate}
+        buildHref={handleBuildHref}
       />
     </Main>
   );

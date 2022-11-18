@@ -3,6 +3,7 @@ import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { useCallback } from "react";
 import { MdCompare, MdOutlineReviews } from "react-icons/md";
+import { UrlObject } from "url";
 import Ad from "../components/ad";
 import GeneralHead from "../components/head";
 import Main from "../components/layout/main";
@@ -50,11 +51,13 @@ const ReviewsPage = ({
   const router = useRouter();
   const currentType = router.query.type?.toString();
 
-  const handleNavigate = useCallback(
-    (page: number) => {
-      router.query.page = page.toString();
-      router.push(router);
-    },
+  const handleBuildHref = useCallback<(page: number) => UrlObject>(
+    (page) => ({
+      query: {
+        ...router.query,
+        page: page.toString(),
+      },
+    }),
     [router]
   );
 
@@ -115,7 +118,7 @@ const ReviewsPage = ({
       <Paginator
         currentPage={currentPage}
         totalPages={numberOfPages}
-        onNavigate={handleNavigate}
+        buildHref={handleBuildHref}
       />
     </Main>
   );

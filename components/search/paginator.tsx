@@ -1,13 +1,15 @@
 import { Button, Flex } from "@chakra-ui/react";
+import NextLink from "next/link";
 import { useMemo } from "react";
+import { UrlObject } from "url";
 
 type PaginatorProps = {
   currentPage: number;
   totalPages: number;
-  onNavigate: (page: number) => void;
+  buildHref: (page: number) => UrlObject;
 };
 
-const Paginator = ({ currentPage, totalPages, onNavigate }: PaginatorProps) => {
+const Paginator = ({ currentPage, totalPages, buildHref }: PaginatorProps) => {
   const pages = useMemo(() => {
     let ps = [];
     if (currentPage > 2) ps.push(currentPage - 2);
@@ -19,8 +21,9 @@ const Paginator = ({ currentPage, totalPages, onNavigate }: PaginatorProps) => {
   }, [currentPage, totalPages]);
 
   return (
-    <Flex justifyContent="flex-end">
+    <Flex as="nav" justifyContent="flex-end">
       <Flex
+        as="ul"
         justifyContent="flex-end"
         shadow="md"
         p={1}
@@ -30,11 +33,14 @@ const Paginator = ({ currentPage, totalPages, onNavigate }: PaginatorProps) => {
         {pages.map((page) => (
           <Button
             key={page}
-            onClick={() => onNavigate(page)}
+            as="li"
             variant="ghost"
             disabled={page === currentPage}
+            _hover={{
+              color: "red.700",
+            }}
           >
-            {page}
+            <NextLink href={buildHref(page)}>{page}</NextLink>
           </Button>
         ))}
       </Flex>
