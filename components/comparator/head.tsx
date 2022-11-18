@@ -5,7 +5,13 @@ import {
   getModel,
   getPicture,
   getPictureDefinition,
+  TV,
 } from "../../models/tv";
+
+const sortCanonicalTvs = (tv1: TV, tv2: TV) => {
+  if (parseInt(tv1.id, 10) < parseInt(tv2.id, 10)) return { tv1, tv2 };
+  return { tv1: tv2, tv2: tv1 };
+};
 
 const ComparatorHead = () => {
   const tv1 = useTvs().tvs[0];
@@ -17,7 +23,8 @@ const ComparatorHead = () => {
   const seoName2 = `${getBrand(tv2)} ${getModel(tv2)} ${
     tv2.general?.screenSize
   }`;
-  const pageUrl = `https://comparador.avpasion.com/vs/${tv1.slug}-vs-${tv2.slug}`;
+  const canonicalTvs = sortCanonicalTvs(tv1, tv2);
+  const pageUrl = `https://comparador.avpasion.com/vs/${canonicalTvs.tv1.slug}-vs-${canonicalTvs.tv2.slug}`;
   const mainPicture = getPicture(tv1) + "?width=400";
   const originalPic = getPictureDefinition(tv1);
   const title = `${seoName1} vs ${seoName2} | Comparador TV AVPasión`;

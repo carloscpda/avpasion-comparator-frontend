@@ -51,7 +51,6 @@ export const getStaticProps: GetStaticProps = async () => {
 };
 
 const Option = (props: OptionProps<SearchTV>) => {
-  console.log({ props });
   return (
     <components.Option {...props}>
       <HStack alignItems="center">
