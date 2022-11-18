@@ -44,7 +44,6 @@ const ComparatorHero = () => {
                 gridColumn={gridColumn}
                 alignSelf="center"
                 position="relative"
-                height="144"
               >
                 <Image
                   src={`${image}?width=400`}
