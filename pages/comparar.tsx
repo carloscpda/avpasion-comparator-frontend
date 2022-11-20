@@ -16,7 +16,7 @@ import {
 } from "chakra-react-select";
 import { GetStaticProps } from "next";
 import { useRouter } from "next/router";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import useFuzzySearch from "../components/fuzzy-search/use-fuzzy-search";
 import GeneralHead from "../components/head";
 import Main from "../components/layout/main";
@@ -108,10 +108,14 @@ const ComparePage = ({ tvs }: { tvs: SearchTV[] }) => {
   const router = useRouter();
   const search = useFuzzySearch(tvs);
 
-  const [tv1, setTv1] = useState<SearchTV | undefined>(
-    tvs.find((tv) => tv.slug === router.query.tv)
-  );
+  const [tv1, setTv1] = useState<SearchTV>();
   const [tv2, setTv2] = useState<SearchTV>();
+
+  useEffect(() => {
+    if (router.query.tv) {
+      setTv1(tvs.find((tv) => tv.slug === router.query.tv));
+    }
+  }, [router.query.tv, tvs]);
 
   return (
     <Main>
