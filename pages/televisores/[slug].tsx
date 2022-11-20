@@ -27,8 +27,18 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
+  let tv;
+
+  try {
+    tv = await getTv({ slug: params?.slug as string });
+  } catch (error) {
+    console.error(`slug: ${params?.slug} - ${error}`);
+    return {
+      notFound: true,
+    };
+  }
+
   const helpArticles = await getAllHelpArticlesSections();
-  const tv = await getTv({ slug: params?.slug as string });
   const tvSeries = await getTvSeries({
     serieId: tv?.general?.brand?.serie?.data?.id || "-1",
   });

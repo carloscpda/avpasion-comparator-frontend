@@ -7,7 +7,7 @@ type MainProps = {
 
 const Main = ({ children }: MainProps) => {
   return (
-    <Center as="main" direction="column" my={8}>
+    <Center as="main" direction="column" my={8} flex="1">
       {children}
     </Center>
   );

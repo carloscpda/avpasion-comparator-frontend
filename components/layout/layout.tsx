@@ -1,4 +1,5 @@
 import {
+  Box,
   ChakraProvider,
   extendTheme,
   theme as baseTheme,
@@ -25,9 +26,11 @@ const theme = extendTheme(
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <ChakraProvider theme={theme}>
-      <Toast />
-      <Navbar />
-      {children}
+      <Box display="flex" flexDirection="column" minH="100vh">
+        <Toast />
+        <Navbar />
+        {children}
+      </Box>
     </ChakraProvider>
   );
 };
