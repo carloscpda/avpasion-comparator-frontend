@@ -32,7 +32,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   try {
     tv = await getTv({ slug: params?.slug as string });
   } catch (error) {
-    console.error(`slug: ${params?.slug} - ${error}`);
+    console.error(`televisores/${params?.slug} - ${error}`);
     return {
       notFound: true,
     };

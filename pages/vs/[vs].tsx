@@ -24,8 +24,17 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     return { notFound: true };
   }
 
-  const tv1 = await getTv({ slug: tv1Slug });
-  const tv2 = await getTv({ slug: tv2Slug });
+  let tv1, tv2;
+
+  try {
+    tv1 = await getTv({ slug: tv1Slug });
+    tv2 = await getTv({ slug: tv2Slug });
+  } catch (error) {
+    console.error(`vs/${tv1Slug}-vs${tv2Slug} - ${error}`);
+    return {
+      notFound: true,
+    };
+  }
 
   return {
     props: {
