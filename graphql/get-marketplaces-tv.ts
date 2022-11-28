@@ -34,20 +34,6 @@ const getMarketplaceTvs = async ({ tvId }: { tvId: string }) => {
                           }
                         }
                       }
-                      paymentMethods {
-                        data {
-                          attributes {
-                            name
-                            logo {
-                              data {
-                                attributes {
-                                  url
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
                     }
                   }
                 }

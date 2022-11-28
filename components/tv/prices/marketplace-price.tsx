@@ -91,25 +91,6 @@ const MarketplacePrice = ({
                 {deliveryTime}
               </Text>
             )}
-            {isRowLayout && (
-              <Flex gap="1" mt="1">
-                {marketplace?.data?.attributes?.paymentMethods?.data.map(
-                  (method) => (
-                    <Image
-                      key={method.attributes?.name}
-                      src={buildPicture(
-                        method.attributes?.logo.data?.attributes?.url || "",
-                        { width: 28 }
-                      )}
-                      alt={method.attributes?.name || ""}
-                      height="20px"
-                      width="28px"
-                      objectFit="contain"
-                    />
-                  )
-                )}
-              </Flex>
-            )}
           </Flex>
         </Flex>
         {isRowLayout && (
