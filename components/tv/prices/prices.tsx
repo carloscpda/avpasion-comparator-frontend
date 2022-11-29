@@ -1,12 +1,21 @@
-import { Box, Grid, Spinner, Text } from "@chakra-ui/react";
+import { Box, Flex, IconButton, Spinner, Text } from "@chakra-ui/react";
 import { useEffect, useMemo, useState } from "react";
+import { AiOutlinePlusCircle } from "react-icons/ai";
 import { MarketplaceTv } from "../../../models/marketplace-tv.tsx";
 import SectionTitle from "../../section-title";
 import MarketplacePrice from "./marketplace-price";
 
+const PRICES_TO_SHOW = 4;
+
 const PricesSection = ({ tvId }: { tvId: string }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [data, setData] = useState<MarketplaceTv[]>([]);
+  const [expanded, setExpanded] = useState(false);
+  const showExpandButton = !expanded && data.length > PRICES_TO_SHOW;
+
+  const list = useMemo(() => {
+    return expanded ? data : data.slice(0, PRICES_TO_SHOW);
+  }, [data, expanded]);
 
   useEffect(() => {
     setLoading(true);
@@ -34,24 +43,28 @@ const PricesSection = ({ tvId }: { tvId: string }) => {
       {!!data?.length && (
         <>
           <SectionTitle title="Precios" />
-          <Grid
-            mb="2"
-            gap={4}
-            gridTemplateColumns={{
-              base: "repeat(1, minmax(0, 1fr))",
-              sm: "repeat(2, minmax(0, 1fr))",
-              lg: "repeat(3, minmax(0, 1fr))",
-            }}
-          >
-            {data.map((mt, index) => (
+          <Flex mb="2" gap={4} flexDirection="column">
+            {list.map((mt, index) => (
               <MarketplacePrice
                 key={mt.marketplace?.data?.attributes?.name}
                 position={index + 1}
                 {...mt}
               />
             ))}
-          </Grid>
-          <Box display="flex" justifyContent="flex-end">
+          </Flex>
+          {showExpandButton && (
+            <Flex justifyContent="center" onClick={() => setExpanded(true)}>
+              <IconButton
+                aria-label="Search database"
+                variant="ghost"
+                fontSize="2xl"
+                justifySelf="center"
+                alignSelf="center"
+                icon={<AiOutlinePlusCircle />}
+              />
+            </Flex>
+          )}
+          <Box display="flex" justifyContent="flex-end" mt="4">
             <Text
               as="i"
               color="gray.700"

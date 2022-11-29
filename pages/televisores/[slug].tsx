@@ -4,7 +4,6 @@ import Comparator from "../../components/comparator/comparator";
 import Navbar from "../../components/comparator/navbar";
 import Main from "../../components/layout/main";
 import TVHead from "../../components/tv/head";
-import PricesSection from "../../components/tv/prices/prices";
 import ReviewsSection from "../../components/tv/reviews/reviews";
 import SerieSection from "../../components/tv/serie/serie";
 import SimilarTvs from "../../components/tv/similar-tvs/similar-tvs";
@@ -100,7 +99,6 @@ const TVPage = ({
       <Navbar />
       <Main>
         <Summary />
-        <PricesSection tvId={tvId} />
         <SerieSection tvs={tvSeries} />
         <Comparator />
         {!!reviews.length && (

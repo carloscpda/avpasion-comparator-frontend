@@ -12,8 +12,8 @@ const TvPicture = ({ src, alt, height = 300, width = 400 }: TvPictureProps) => {
     <Image
       src={`${src}?width=${width * 2}`}
       alt={alt}
-      width={width}
-      height={height}
+      width={`${width}px`}
+      height={`${height}px`}
       objectFit="contain"
     />
   );
